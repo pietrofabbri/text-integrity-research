@@ -213,6 +213,14 @@ Human input is normally required when a change affects:
 - licensing assumptions;
 - irreversible destruction of scientific evidence.
 
+**Cross-reference:** three other human-approval/review-trigger lists
+exist elsewhere in the corpus, none cross-referenced with this one: § 20
+"Critical Changes" in this same document, and
+`docs/06-security/SECURITY-MAP.md` § 19 "Human Approval Gates" and § 77
+"Human Review Trigger". Reconciling them is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
+
 ---
 
 # 15. Routine Engineering Decisions
@@ -302,6 +310,14 @@ Examples:
 - destructive migration.
 
 These require explicit human approval.
+
+**Cross-reference:** three other human-approval/review-trigger lists
+exist elsewhere in the corpus, none cross-referenced with this one: § 14
+"Decision Boundaries" in this same document, and
+`docs/06-security/SECURITY-MAP.md` § 19 "Human Approval Gates" and § 77
+"Human Review Trigger". Reconciling them is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
 
 ---
 
@@ -1249,6 +1265,16 @@ Before a release:
 - documentation is synchronized;
 - dependencies are recorded;
 - certification status is known.
+
+**Cross-reference:** three other release-readiness checklists exist
+elsewhere in the corpus, none cross-referenced with this one:
+`docs/09-operations/OPERATIONS-MAP.md` § 183 "Operational Readiness",
+`docs/07-data/DATA-MAP.md` § 117 "Data Quality Gate for Release", and
+`docs/10-certification/CERTIFICATION-MAP.md` § 149 "Combined Release
+Eligibility". Whether these should be consolidated or remain separate,
+area-specific checklists is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
 
 ---
 

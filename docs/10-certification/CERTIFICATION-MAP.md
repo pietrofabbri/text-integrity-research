@@ -47,6 +47,18 @@ CERTIFIED
 DEPRECATED
 RETIRED
 
+**Cross-reference:** `docs/05-validation/VALIDATION-MAP.md` § 57
+"Release Status" defines a related but non-identical vocabulary
+(`NOT_EVALUATED, EXPERIMENTAL, CONDITIONALLY_VALIDATED, VALIDATED,
+DEGRADED, DEPRECATED, RETIRED`) for what appears to be the same
+underlying concept. Shared: `EXPERIMENTAL`, `VALIDATED`, `DEPRECATED`,
+`RETIRED`. Neither has been reconciled with the other; which one is
+authoritative is a HUMAN DECISION REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §5S/§13S.
+Per `CLAUDE-CONSOLIDATION-INSTRUCTIONS.md` Phase 9, this cross-reference
+does not imply either vocabulary's states equate to certification having
+occurred — no capability is claimed certified. Added 2026-08-29.
+
 ---
 
 # 4. UNTESTED
@@ -1411,6 +1423,16 @@ SECURITY
 SCIENTIFIC
 +
 DOCUMENTATION
+
+**Cross-reference:** this names gate *categories* but does not cite, by
+section number, the area-specific checklists that define what each
+category actually requires: `docs/09-operations/OPERATIONS-MAP.md` § 183
+"Operational Readiness", `docs/07-data/DATA-MAP.md` § 117 "Data Quality
+Gate for Release", and `docs/08-development/DEVELOPMENT-MAP.md` § 108
+"Release Candidate". Whether these should be consolidated or remain
+separate, area-specific checklists is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
 
 ---
 

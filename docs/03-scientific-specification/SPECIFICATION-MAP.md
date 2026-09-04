@@ -120,6 +120,19 @@ A requirement must not silently change status.
 
 Status changes should be traceable through the project decision system.
 
+**Cross-reference:** `S02-scientific-requirements.md` § 24 "Requirement
+Lifecycle" defines a related but non-identical sequence for the same
+underlying concept (`PROPOSED → REVIEWED → ACCEPTED → VERIFIED → ACTIVE →
+SUPERSEDED → RETIRED` vs. this section's `PROPOSED, UNDER_REVIEW, ACCEPTED,
+VALIDATED, CONDITIONAL, DEPRECATED, RETIRED, REJECTED`). Neither
+vocabulary has been reconciled with the other; which one is authoritative
+is a HUMAN DECISION REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §5S/§13S.
+Note also that § 33 "Capability Lifecycle" in this document is a distinct
+vocabulary for *capability*-level (not *requirement*-level) lifecycle and
+may be the more apt comparandum if what you intend to reconcile is
+capability state rather than requirement state. Added 2026-08-29.
+
 ---
 
 # 6. Functional Specification
@@ -208,6 +221,11 @@ Evaluation should consider:
 A generic similarity score is insufficient as the sole semantic acceptance
 criterion.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 4, FID-001 — Semantic Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 10. Factual Preservation
@@ -237,6 +255,11 @@ Special attention must be given to:
 Numerical and entity changes should be subject to deterministic or
 high-confidence validation whenever technically possible.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 6, FID-003 — Factual Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 11. Structural Preservation
@@ -260,6 +283,11 @@ Relevant structures include:
 
 Structural equivalence is separate from semantic equivalence.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 19, FID-016 — Structural Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 12. Minimality
@@ -279,6 +307,12 @@ The system should minimize unnecessary modifications across multiple levels:
 
 No single distance metric should be treated as a universal definition of
 minimality.
+
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 24, FID-021 — Minimality, and
+`S05-transformation-requirements.md` § 11, TRN-007 — Minimal Intervention.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 
@@ -345,6 +379,11 @@ watermark-free
 linguistically natural.
 
 These are distinct properties.
+
+**Cross-reference:** the requirement-ID-level definition of the linguistic
+dimension is `S04-fidelity-requirements.md` § 16, FID-013 — Linguistic
+Correctness. Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 

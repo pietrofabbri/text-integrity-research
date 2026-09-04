@@ -245,6 +245,11 @@ Possible measurements include:
 
 Multiple complementary metrics are preferable to one universal metric.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 4, FID-001 — Semantic Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 14. Semantic Acceptance
@@ -285,6 +290,11 @@ At minimum, where applicable:
 - URLs.
 
 Unexpected factual modifications must be flagged.
+
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 6, FID-003 — Factual Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 
@@ -340,6 +350,11 @@ Potential elements:
 
 Structural changes must be intentional and measurable.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 19, FID-016 — Structural Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 19. Linguistic Quality
@@ -374,6 +389,12 @@ Possible metrics:
 - semantic deviation.
 
 No single metric should define minimality universally.
+
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 24, FID-021 — Minimality, and
+`S05-transformation-requirements.md` § 11, TRN-007 — Minimal Intervention.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 
@@ -951,6 +972,19 @@ A capability may progress from EXPERIMENTAL to VALIDATED only when:
 7. its regression tests exist;
 8. its dependencies are documented;
 9. its reproducibility status is known.
+
+**Cross-reference:** `docs/10-certification/CERTIFICATION-MAP.md` § 3
+"Certification Levels" defines a related but non-identical vocabulary
+(`UNTESTED, EXPERIMENTAL, VALIDATED, CERTIFIED, DEPRECATED, RETIRED`) for
+what appears to be the same underlying concept as this section's
+`NOT_EVALUATED, EXPERIMENTAL, CONDITIONALLY_VALIDATED, VALIDATED,
+DEGRADED, DEPRECATED, RETIRED`. Shared: `EXPERIMENTAL`, `VALIDATED`,
+`DEPRECATED`, `RETIRED`. Divergent: `NOT_EVALUATED` vs. `UNTESTED`;
+`CONDITIONALLY_VALIDATED`/`DEGRADED` (validation-only); `CERTIFIED`
+(certification-only). Neither has been reconciled with the other; which
+one is authoritative is a HUMAN DECISION REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §5S/§13S.
+Added 2026-08-29.
 
 ---
 

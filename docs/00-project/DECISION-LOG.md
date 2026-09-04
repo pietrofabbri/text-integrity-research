@@ -279,3 +279,83 @@ None — this is a documentation-identity decision, not a research finding.
 ### Related Questions
 
 None.
+
+---
+
+## DEC-012 — Disposition of Q001 Audit's Human-Decision-Required Items
+
+### Date
+
+2026-08-29
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Four items the Q001 cross-area audit left as HUMAN DECISION REQUIRED
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §13S) are
+resolved as follows:
+
+1. **Vocabulary reconciliation timing** (lifecycle-state
+   `SPECIFICATION-MAP.md` §5 / `S02-scientific-requirements.md` §24;
+   network-mode `SECURITY-MAP.md` §14 / `OPERATIONS-MAP.md` §136;
+   release-status `VALIDATION-MAP.md` §57 / `CERTIFICATION-MAP.md` §3):
+   deferred until 04-architecture through 10-certification leave
+   structural-definition phase. The cross-references added 2026-08-29
+   stand as the interim state — divergence documented and traceable, not
+   unified.
+2. **Release-readiness checklists and human-approval-gate lists**
+   (`OPERATIONS-MAP.md` §183, `DATA-MAP.md` §117,
+   `DEVELOPMENT-MAP.md` §108, `CERTIFICATION-MAP.md` §149;
+   `SECURITY-MAP.md` §19/§77, `DEVELOPMENT-MAP.md` §14/§20): remain
+   separate, area-specific documents, cross-referenced rather than
+   consolidated into a single authoritative list.
+3. **DCQ-007 execution timing** (non-native-writer detection bias
+   R-0022; base-rate/prevalence argument for FPR R-0086): remains
+   `PENDING`, matching DCQ-006's treatment — deferred until the relevant
+   03-10 areas are past definition phase, including
+   03-scientific-specification despite that area already being out of
+   structural-definition phase generally.
+4. **`docs/03-scientific-specification/_to_delete/` housekeeping** (the
+   two superseded S02/S03 files parked there 2026-08-22): left in place
+   indefinitely as an informal historical record. No removal required by
+   any project rule.
+
+### Rationale
+
+All four choices match the audit report's own recommendations
+(§14S), given as the owner's explicit answer to a direct question rather
+than inferred from proceeding silently, per this log's own rule that "a
+decision must not be inferred solely from implementation."
+
+### Alternatives Considered
+
+For (1): reconciling now, or declaring the vocabularies permanently
+distinct. For (2): consolidating into single authoritative documents now.
+For (3): executing DCQ-007 immediately against
+03-scientific-specification, which — unlike 04-10 — is already past
+definition phase. For (4): scheduling manual deletion, or reminding the
+owner to do so later. All rejected in favor of deferral/status quo, to
+avoid document churn while 04-10 are still being drafted.
+
+### Consequences
+
+No further action needed on these four items until 04-10 leave
+definition phase. The cross-references added 2026-08-29 remain the
+authoritative record of the known divergence in the meantime.
+
+### Affected Areas
+
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md` (§13S/§14S);
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` (DCQ-007, stays PENDING).
+
+### Related Research
+
+R-0022, R-0086.
+
+### Related Questions
+
+None — this decision concerns audit-finding disposition, not a tracked
+open question.

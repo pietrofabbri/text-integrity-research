@@ -1275,6 +1275,16 @@ DIAGNOSTIC
 
 The exact names may change during implementation.
 
+**Cross-reference:** `docs/06-security/SECURITY-MAP.md` § 14 "Network
+Modes" defines a related but non-identical enumeration (`OFFLINE,
+LOCAL_ONLY, EXTERNAL_ANALYSIS_ALLOWED, RESEARCH_NETWORK_MODE`) for what
+appears to be the same underlying concept. Only `LOCAL_ONLY` is shared
+verbatim between the two lists. Neither has been reconciled with the
+other; which one is authoritative (or whether the security-boundary and
+operations-boundary concepts are genuinely distinct) is a HUMAN DECISION
+REQUIRED item — see `docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`,
+SECOND PASS, §5S/§13S. Added 2026-08-29.
+
 ---
 
 # 137. LOCAL_ONLY
@@ -1690,6 +1700,16 @@ A release is operationally ready when:
 - core execution works;
 - failure behavior is understood;
 - relevant validation passes.
+
+**Cross-reference:** three other release-readiness checklists exist
+elsewhere in the corpus, none cross-referenced with this one:
+`docs/07-data/DATA-MAP.md` § 117 "Data Quality Gate for Release",
+`docs/08-development/DEVELOPMENT-MAP.md` § 108 "Release Candidate", and
+`docs/10-certification/CERTIFICATION-MAP.md` § 149 "Combined Release
+Eligibility". Whether these should be consolidated or remain separate,
+area-specific checklists is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
 
 ---
 

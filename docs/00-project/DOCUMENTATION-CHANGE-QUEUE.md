@@ -339,3 +339,77 @@ not yet a concrete document to edit in most of them. This entry exists so
 the obligation is not lost once those areas are developed further, per
 `RESEARCH-MAP.md` §20's rule that a finding's home document is not
 necessarily where it was discovered.
+
+---
+
+## DCQ-007 — Propagate Two Scientific-Integrity Gaps Found by the Q001 Audit
+
+### Trigger
+
+The Q001 cross-area consistency audit (2026-08-29;
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §8S) found
+two confirmed research findings with no home anywhere in
+`docs/03-scientific-specification` through `docs/10-certification`,
+despite both bearing directly on concepts those areas already discuss:
+
+1. **Non-native-writer detection bias** (`RESEARCH-REGISTRY.md` R-0022) —
+   detection false-positive behavior is squarely within scope for
+   03-scientific-specification through 10-certification, but this
+   well-confirmed finding is not mentioned anywhere in them.
+2. **Base-rate/prevalence argument for interpreting FPR**
+   (`RESEARCH-REGISTRY.md` R-0086; see also
+   `docs/00-project/OPEN-QUESTIONS.md` Q-003) — FPR/FNR are the primary
+   metrics named throughout 03-10, but the argument that FPR alone is
+   insufficient without a prevalence estimate is absent from all of them.
+
+### Source
+
+Research (`docs/02-research/R04-ai-generated-text-detection-research.md`,
+`docs/02-research/R07-evaluation-statistical-methodology.md` §80.1);
+Q001 audit (`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS,
+§8S).
+
+### Required Updates
+
+Not yet performed — listed here as required, not as completed, following
+the same deliberate-deferral pattern as DCQ-006:
+
+- `docs/03-scientific-specification` — wherever detection false-positive
+  behavior is discussed, non-native-writer bias should be named as a
+  known confounder (R-0022);
+- `docs/03-scientific-specification` §25-26 and wherever FPR/FNR are used
+  as acceptance criteria — the base-rate/prevalence argument (R-0086)
+  should be reflected, consistent with `docs/00-project/OPEN-QUESTIONS.md`
+  Q-003's finding that "minimum evidence" cannot be defined as a
+  single-metric threshold without a prevalence estimate;
+- 06-security, 10-certification — once past definition phase, neither
+  gap should be silently absent from false-positive-rate or
+  certification-readiness discussions.
+
+### Potentially Affected Areas
+
+03-scientific-specification, 05-validation, 06-security, 10-certification
+— all still in structural-definition phase except 03-scientific-specification,
+which is out of definition phase but has not yet incorporated either
+finding.
+
+### Required Verification
+
+- each affected document, once updated, cites `R-0022` / `R-0086`
+  specifically rather than restating the finding unsourced;
+- no affected document asserts a false-positive-rate acceptance
+  criterion without at least acknowledging the prevalence dependency
+  (R-0086), even if a specific prevalence value is not yet chosen.
+
+### Status
+
+PENDING
+
+### Notes
+
+Deliberately left PENDING, matching DCQ-006's rationale: most affected
+areas are still in structural-definition phase. Registered so the
+obligation is not lost. See
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §13S for
+the human-decision framing (whether to act now or defer to match the
+areas' own definition-phase status — recommended: defer).

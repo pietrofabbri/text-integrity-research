@@ -326,6 +326,13 @@ Possible constraints include:
 
 Constraints must be machine-testable whenever practical.
 
+**Cross-reference:** the requirement-ID-level definitions underlying these
+constraints are the FID-xxx preservation family in
+`S04-fidelity-requirements.md` and TRN-007 (Minimal Intervention) in
+`S05-transformation-requirements.md`. Added 2026-08-29 per the Q001
+cross-area audit (`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND
+PASS, §4S).
+
 ---
 
 # 15. Transformation Candidate Model
@@ -380,6 +387,11 @@ Semantic validation may combine:
 
 No single semantic metric should automatically define correctness.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 4, FID-001 — Semantic Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 18. Factual Validation
@@ -402,6 +414,11 @@ Examples include:
 Unexpected factual changes should normally cause candidate rejection or
 explicit review.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 6, FID-003 — Factual Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 19. Structural Validation
@@ -421,6 +438,11 @@ Structural validation compares:
 
 The exact validation method depends on the input format.
 
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 19, FID-016 — Structural Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 # 20. Minimality Measurement
@@ -437,6 +459,12 @@ Potential measurements include:
 - semantic deviation.
 
 Minimality is an evaluation dimension, not merely an implementation detail.
+
+**Cross-reference:** the requirement-ID-level definition of this dimension
+is `S04-fidelity-requirements.md` § 24, FID-021 — Minimality, and
+`S05-transformation-requirements.md` § 11, TRN-007 — Minimal Intervention.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 

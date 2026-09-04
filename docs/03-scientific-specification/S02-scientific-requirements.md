@@ -397,6 +397,12 @@ transformation using multiple measurable dimensions.
 Experiments involving transformation shall include a measurable assessment
 of semantic preservation.
 
+**Cross-reference:** counterpart at requirement-ID level is
+`S04-fidelity-requirements.md` § 4, FID-001 — Semantic Preservation. The
+two requirements are not currently linked; added 2026-08-29 per the Q001
+cross-area audit (`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND
+PASS, §4S).
+
 ---
 
 ## REQ-PRES-002 — Factual Preservation
@@ -405,6 +411,11 @@ of semantic preservation.
 
 Where applicable, experiments should evaluate whether factual content has
 changed.
+
+**Cross-reference:** counterpart at requirement-ID level is
+`S04-fidelity-requirements.md` § 6, FID-003 — Factual Preservation. Added
+2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 
@@ -423,6 +434,11 @@ Relevant structures may include:
 - quotations;
 - formatting metadata.
 
+**Cross-reference:** counterpart at requirement-ID level is
+`S04-fidelity-requirements.md` § 19, FID-016 — Structural Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
+
 ---
 
 ## REQ-PRES-004 — Stylistic Preservation
@@ -431,6 +447,11 @@ Relevant structures may include:
 
 Stylistic changes should be evaluated independently from semantic
 similarity.
+
+**Cross-reference:** counterpart at requirement-ID level is
+`S04-fidelity-requirements.md` § 18, FID-015 — Stylistic Preservation.
+Added 2026-08-29 per the Q001 cross-area audit
+(`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S).
 
 ---
 
@@ -441,6 +462,12 @@ similarity.
 Relevant linguistic characteristics should be measured separately from
 semantic similarity.
 
+**Cross-reference:** closest counterparts at requirement-ID level are
+`S04-fidelity-requirements.md` § 16, FID-013 — Linguistic Correctness, and
+§ 17, FID-014 — Register Preservation. Added 2026-08-29 per the Q001
+cross-area audit (`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND
+PASS, §4S).
+
 ---
 
 ## REQ-PRES-006 — Multi-Metric Evaluation
@@ -449,6 +476,13 @@ semantic similarity.
 
 No single similarity metric shall be treated as sufficient evidence of
 overall preservation.
+
+**Cross-reference:** no single FID-xxx requirement corresponds to this
+principle; it echoes the anti-single-metric notes attached to individual
+S04 requirements (e.g. FID-001, FID-016) rather than restating a specific
+one. Noted, not linked to a specific ID, 2026-08-29 per the Q001
+cross-area audit (`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND
+PASS, §4S).
 
 ---
 
@@ -967,6 +1001,16 @@ PROPOSED
 → RETIRED
 
 A requirement shall never disappear silently.
+
+**Cross-reference:** `SPECIFICATION-MAP.md` § 5 "Requirement Status"
+defines a related but non-identical vocabulary for the same underlying
+concept (`PROPOSED, UNDER_REVIEW, ACCEPTED, VALIDATED, CONDITIONAL,
+DEPRECATED, RETIRED, REJECTED` vs. this section's sequential
+`PROPOSED → REVIEWED → ACCEPTED → VERIFIED → ACTIVE → SUPERSEDED →
+RETIRED`). Neither vocabulary has been reconciled with the other; which
+one is authoritative is a HUMAN DECISION REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §5S/§13S.
+Added 2026-08-29.
 
 ---
 

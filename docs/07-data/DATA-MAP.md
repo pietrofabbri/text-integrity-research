@@ -1621,6 +1621,16 @@ Before a release:
 - optional resources are correctly marked;
 - storage requirements are known.
 
+**Cross-reference:** three other release-readiness checklists exist
+elsewhere in the corpus, none cross-referenced with this one:
+`docs/09-operations/OPERATIONS-MAP.md` § 183 "Operational Readiness",
+`docs/08-development/DEVELOPMENT-MAP.md` § 108 "Release Candidate", and
+`docs/10-certification/CERTIFICATION-MAP.md` § 149 "Combined Release
+Eligibility". Whether these should be consolidated or remain separate,
+area-specific checklists is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
+
 ---
 
 # 118. Current Data State

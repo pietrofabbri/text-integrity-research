@@ -233,6 +233,19 @@ RESEARCH_NETWORK_MODE
 
 The default should be OFFLINE or LOCAL_ONLY.
 
+**Cross-reference:** `docs/09-operations/OPERATIONS-MAP.md` § 136
+"Operational Modes" defines a related but non-identical enumeration
+(`LOCAL_ONLY, LOCAL_WITH_EXTERNAL_VALIDATION, RESEARCH, DIAGNOSTIC`) for
+what appears to be the same underlying concept. Only `LOCAL_ONLY` is
+shared verbatim between the two lists. Neither has been reconciled with
+the other; which one is authoritative (or whether the security-boundary
+and operations-boundary concepts are genuinely distinct) is a HUMAN
+DECISION REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §5S/§13S.
+Per `CLAUDE-CONSOLIDATION-INSTRUCTIONS.md` Phase 8, changes involving
+network access require review, not automatic resolution. Added
+2026-08-29.
+
 ---
 
 # 15. Development Environment
@@ -313,6 +326,18 @@ Approval should normally be required for:
 
 Routine implementation and maintenance may proceed automatically when all
 preconditions are satisfied.
+
+**Cross-reference:** three other human-approval/review-trigger lists
+exist elsewhere in the corpus, none cross-referenced with this one and
+each using different wording and item counts: § 77 "Human Review
+Trigger" in this same document,
+`docs/08-development/DEVELOPMENT-MAP.md` § 14 "Decision Boundaries", and
+`docs/08-development/DEVELOPMENT-MAP.md` § 20 "Critical Changes". All
+four overlap substantially (project-objective changes, external-
+transmission/network changes) but none is declared authoritative.
+Reconciling them is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
 
 ---
 
@@ -1073,6 +1098,15 @@ Human review should be triggered when:
 - external transmission is introduced;
 - a trust boundary changes;
 - validation criteria are materially changed.
+
+**Cross-reference:** three other human-approval/review-trigger lists
+exist elsewhere in the corpus, none cross-referenced with this one: § 19
+"Human Approval Gates" in this same document,
+`docs/08-development/DEVELOPMENT-MAP.md` § 14 "Decision Boundaries", and
+`docs/08-development/DEVELOPMENT-MAP.md` § 20 "Critical Changes".
+Reconciling them is a REVIEW REQUIRED item — see
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §4S/§12S.
+Added 2026-08-29.
 
 ---
 
