@@ -413,3 +413,72 @@ obligation is not lost. See
 `docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §13S for
 the human-decision framing (whether to act now or defer to match the
 areas' own definition-phase status — recommended: defer).
+
+---
+
+## DCQ-008 — Propagate Q-008/R09 Local-Deployment Findings to Architecture and Specification
+
+### Trigger
+
+A dedicated research pass (2026-09-12) answering `OPEN-QUESTIONS.md`
+Q-008 found three findings with no home yet in 03-scientific-specification
+or 04-architecture (both concept-relevant): (1) storage is not the binding
+constraint for a lightweight semantic-similarity + factual-consistency
+stack, but is for the best open AI-detector (Binoculars, ~28.87GB); (2) no
+evidence-backed multilingual factual-consistency option currently exists
+(KB-013); (3) local AI-text detection is bounded by accuracy/cross-lingual
+robustness, not storage, and independently-evidenced failure modes
+(near-chance accuracy on several target languages) exist for currently
+available options (KB-014). See
+`docs/02-research/R09-local-deployment-feasibility-research.md` (domain
+confirmed 2026-09-12 per DECISION-LOG.md DEC-013) and
+`docs/00-project/RESEARCH-REGISTRY.md` R-0102-R-0121.
+
+### Source
+
+Research (`docs/02-research/R09-local-deployment-feasibility-
+research.md`); Knowledge Backlog (KB-007 update, KB-013, KB-014, KB-015);
+Open Questions (Q-008).
+
+### Required Updates
+
+Not yet performed — listed here as required, not as completed, following
+the same deliberate-deferral pattern as DCQ-006/DCQ-007:
+
+- `docs/04-architecture/ARCHITECTURE-MAP.md` — once past structural-
+  definition phase, any local validation/detection component should cite
+  the specific candidate models and their evidenced limitations (R09
+  §10.2-§10.5) rather than assuming an unresearched default;
+- `docs/03-scientific-specification` — wherever factual-preservation or
+  detection capability states are assigned per language, KB-013's and
+  KB-014's gaps should be reflected (no validated multilingual
+  factual-consistency option; no local detector simultaneously accurate,
+  multilingual-robust, and storage-affordable);
+- 10-certification, once past definition phase — no local-detection or
+  local-factual-consistency capability should be certified beyond what
+  R09's evidence supports for the specific language/capability pair.
+
+### Potentially Affected Areas
+
+04-architecture, 03-scientific-specification, 05-validation,
+10-certification.
+
+### Required Verification
+
+- each affected document, once updated, cites the specific `R-01xx`
+  identifier it relies on rather than restating the finding unsourced;
+- no affected document asserts a local validation/detection capability as
+  validated for a language/task pair beyond what R09's cited evidence
+  class supports.
+
+### Status
+
+PENDING
+
+### Notes
+
+Deliberately left PENDING, matching DCQ-006/DCQ-007's rationale:
+04-architecture and most of 03-10 are still in structural-definition
+phase. The `R09` domain identifier itself is now confirmed
+(`DECISION-LOG.md` DEC-013, `RESEARCH-MAP.md` §38) — this item no longer
+depends on that being resolved, only on 04-10 leaving definition phase.

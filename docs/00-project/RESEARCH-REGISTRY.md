@@ -5835,6 +5835,1259 @@ PARTIALLY_RELEVANT — candidate tool, not confirmed field practice
 
 ---
 
+## R-0102 — multilingual-e5-large (embedding model)
+
+### Citation
+
+Wang, Yang, Huang, Yang, Majumder, Wei, "Multilingual E5 Text Embeddings:
+A Technical Report," intfloat/multilingual-e5-large (HuggingFace model
+card and repository).
+
+### Source
+
+https://huggingface.co/intfloat/multilingual-e5-large ; file sizes:
+https://huggingface.co/api/models/intfloat/multilingual-e5-large/tree/main
+
+### Publication Date
+
+Verified 2026-09-12 (repository is continuously updated; no fixed
+publication date stated on the card).
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+XLM-RoBERTa-large-based multilingual embedding model (0.6B params, 1024-dim,
+512-token max sequence), nominally covering ~100 languages via its base
+model. On-disk footprint (EVIDENCE, primary repository metadata):
+`model.safetensors` 2,239,611,368 bytes (~2.24GB) + tokenizer files ≈
+2.26GB deployable. Mr. TyDi average MRR@10 of 70.5 (AUTHOR-REPORTED).
+
+### Methodology
+
+Self-reported model card plus independently verifiable repository file
+listing.
+
+### Limitations
+
+Model card itself hedges that low-resource languages may see performance
+degradation despite nominal 100-language coverage. 512-token truncation
+limits use on long documents.
+
+### Relevance
+
+Baseline candidate multilingual semantic-similarity encoder for Q-008
+(validation-model storage/quality question).
+
+### Potential Project Impact
+
+Research (Q-008 evidence base); Architecture (candidate validation
+component, once 04-architecture leaves definition phase).
+
+### Reproducibility
+
+Available (open weights, Apache-2.0-family license per model card).
+
+### Status
+
+RELEVANT
+
+---
+
+## R-0103 — multilingual-e5-large-instruct (embedding model)
+
+### Citation
+
+intfloat/multilingual-e5-large-instruct (HuggingFace model card and
+repository).
+
+### Source
+
+https://huggingface.co/api/models/intfloat/multilingual-e5-large-instruct/tree/main
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+Instruct-tuned E5 variant stored in fp16. On-disk footprint (EVIDENCE,
+primary repository metadata): `model.safetensors` 1,119,825,680 bytes
+(~1.12GB) ≈ 1.14GB deployable — half the disk of R-0102 for comparable
+parameter count, because fp16 vs fp32 storage, not fewer parameters.
+Independently ranked #1 among publicly available models on MMTEB
+(see R-0106) at time of that benchmark's snapshot.
+
+### Methodology
+
+Repository metadata (primary); ranking corroborated by independent
+third-party benchmark (R-0106), not self-reported.
+
+### Limitations
+
+Storage-format artifacts (fp16 vs fp32) can dominate size comparisons
+across model-card entries; must be normalized before comparing to other
+registry entries.
+
+### Relevance
+
+The strongest single candidate embedding model for Q-008: smallest
+verified footprint among top-ranked multilingual embedders.
+
+### Potential Project Impact
+
+Research (Q-008); Architecture (candidate default validation embedder).
+
+### Reproducibility
+
+Available (open weights).
+
+### Status
+
+RELEVANT — primary Q-008 candidate
+
+---
+
+## R-0104 — multilingual-e5-small (embedding model)
+
+### Citation
+
+intfloat/multilingual-e5-small (HuggingFace model card and repository).
+
+### Source
+
+https://huggingface.co/api/models/intfloat/multilingual-e5-small/tree/main
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+Smallest E5 multilingual variant. On-disk footprint (EVIDENCE, primary
+repository metadata): `model.safetensors` 470,641,600 bytes (~0.47GB) ≈
+0.49GB deployable.
+
+### Methodology
+
+Repository metadata (primary).
+
+### Limitations
+
+No independently verified quality figure found for this specific model
+size in this pass — UNVERIFIED for quality, EVIDENCE only for size.
+
+### Relevance
+
+Low-cost tier candidate for Q-008 if a smaller footprint is prioritized
+over the quality advantage of R-0103.
+
+### Potential Project Impact
+
+Research (Q-008, low-resource-tier candidate).
+
+### Reproducibility
+
+Available (open weights).
+
+### Status
+
+PARTIALLY_RELEVANT — size confirmed, quality unverified
+
+---
+
+## R-0105 — BGE-M3 (embedding model)
+
+### Citation
+
+BAAI/bge-m3 (HuggingFace model card and repository).
+
+### Source
+
+https://huggingface.co/BAAI/bge-m3 ; sizes:
+https://huggingface.co/api/models/BAAI/bge-m3?blobs=true
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+Multi-functional multilingual embedder (dense + sparse + multi-vector/
+ColBERT), 1024-dim, 8192-token max sequence (16x E5's context). On-disk
+footprint (EVIDENCE, primary repository metadata): `pytorch_model.bin`
+2,271,145,830 bytes (~2.27GB) + tokenizer ≈ 2.29GB deployable. Claims
+>100-language support and competitive MIRACL/MKQA/MLDR results
+(AUTHOR-REPORTED — numeric per-language scores not extracted from a
+primary table in this pass).
+
+### Methodology
+
+Repository metadata (primary); quality claims from the model's own card.
+
+### Limitations
+
+Multi-vector/ColBERT retrieval mode multiplies *index* storage
+separately from model storage — no evidence found on the magnitude of
+that separate cost.
+
+### Relevance
+
+The only candidate with 8192-token context — relevant if Q-008's
+validation task requires comparing full long documents rather than
+truncated fragments.
+
+### Potential Project Impact
+
+Research (Q-008); Architecture (candidate for long-document comparison).
+
+### Reproducibility
+
+Available (open weights).
+
+### Status
+
+RELEVANT
+
+---
+
+## R-0106 — MMTEB: Massive Multilingual Text Embedding Benchmark
+
+### Citation
+
+Enevoldsen et al., "MMTEB: Massive Multilingual Text Embedding
+Benchmark," arXiv:2502.13595.
+
+### Source
+
+https://arxiv.org/html/2502.13595v3
+
+### Publication Date
+
+2025; version v3 verified 2026-09-12.
+
+### Category
+
+BENCHMARK
+
+### Claims Relevant to Project
+
+Independent, multi-institution benchmark (500+ tasks, 250+ languages,
+10 task categories). Best publicly available model: multilingual-e5-
+large-instruct (R-0103, 560M params, Borda 1375, avg 63.2) — ranked
+*above* GritLM-7B (7B params, Borda 1258, avg 60.9) and e5-mistral-7b-
+instruct (7B, Borda 1233, avg 60.3). EVIDENCE — independent evaluation
+of third-party models, not self-reported.
+
+### Methodology
+
+Peer-reviewed community benchmark; independent evaluation across
+publicly available embedding models.
+
+### Limitations
+
+Measures retrieval/classification/STS-style embedding tasks, not the
+project's actual task ("did this transformation preserve meaning").
+Transfer from MMTEB rank to Q-008's task quality is an assumption, not
+a finding.
+
+### Relevance
+
+The single strongest evidence that, for semantic similarity, larger
+local models are not better per gigabyte — directly informs Q-008's
+storage-vs-quality trade-off.
+
+### Potential Project Impact
+
+Research (Q-008); Validation (candidate rationale for embedder choice,
+once 05-validation leaves definition phase).
+
+### Reproducibility
+
+Available (public benchmark, published leaderboard).
+
+### Status
+
+RELEVANT — key evidence
+
+---
+
+## R-0107 — Qwen3-Embedding series (0.6B / 8B)
+
+### Citation
+
+Qwen Team, "Qwen3 Embedding," technical blog post; Qwen/Qwen3-Embedding-0.6B
+and Qwen/Qwen3-Embedding-8B (HuggingFace repositories).
+
+### Source
+
+https://qwenlm.github.io/blog/qwen3-embedding/ ; sizes:
+https://huggingface.co/api/models/Qwen/Qwen3-Embedding-0.6B/tree/main ,
+https://huggingface.co/api/models/Qwen/Qwen3-Embedding-8B/tree/main
+
+### Publication Date
+
+June 2025 (blog); verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+Three sizes (0.6B/4B/8B), 32K context, Apache-2.0, ">100 languages."
+Verified on-disk footprints (EVIDENCE, primary repository metadata):
+0.6B `model.safetensors` 1,191,586,416 bytes (~1.19GB) ≈ 1.21GB
+deployable; 8B, four shards totalling 15,134,634,568 bytes (~15.13GB) ≈
+15.15GB deployable. 8B claimed to top MTEB Multilingual at 70.58 as of
+2025-06-05 (AUTHOR-REPORTED — Qwen's own blog post, not independently
+confirmed in this pass, and over a year stale relative to this
+research's date).
+
+### Methodology
+
+Repository metadata (primary) for sizes; vendor's own blog claim for
+the quality figure.
+
+### Limitations
+
+The 8B variant alone consumes roughly half of the project's entire
+~30GB storage budget for a single sub-task — a material budget fact
+regardless of the quality claim's verification status.
+
+### Relevance
+
+Demonstrates the cost of the "spend the budget on one large embedder"
+option for Q-008, in contrast with R-0103's much smaller footprint at
+higher independently-verified rank (R-0106).
+
+### Potential Project Impact
+
+Research (Q-008, cost/benefit comparator).
+
+### Reproducibility
+
+Available (open weights).
+
+### Status
+
+PARTIALLY_RELEVANT — size confirmed (EVIDENCE), quality claim unverified
+
+---
+
+## R-0108 — Sentence Transformers efficiency / backend documentation (ONNX/OpenVINO quantization)
+
+### Citation
+
+HuggingFace, "Sentence Transformers — Speeding up Inference"
+documentation.
+
+### Source
+
+https://github.com/huggingface/sentence-transformers/blob/main/docs/sentence_transformer/usage/efficiency.rst
+
+### Publication Date
+
+Verified 2026-09-12 (living documentation, no single publication date).
+
+### Category
+
+TOOLING
+
+### Claims Relevant to Project
+
+Documents int8 dynamic quantization (ONNX, no calibration needed) and
+int8 static quantization (OpenVINO, calibration required) for sentence-
+embedding models. Reported: OpenVINO int8 → 5.29x CPU speedup, <0.5%
+accuracy loss; ONNX int8 → 3.23x CPU speedup, <0.5% accuracy loss;
+quality retention >99.5% of original Spearman/NDCG@10 (all
+AUTHOR-REPORTED — library maintainers' own benchmarks, i7-13700K /
+RTX 3090).
+
+### Methodology
+
+Library maintainers' own benchmark suite; not independently replicated
+in this pass.
+
+### Limitations
+
+Reports speed and quality retention only — **no evidence found on
+resulting on-disk size** after int8 quantization for any specific
+multilingual embedding model. The commonly assumed ~4x disk reduction
+from fp32→int8 is an inference, not a sourced fact, and is explicitly
+not asserted as fact here.
+
+### Relevance
+
+Identifies a cheap, high-value experiment the project could run itself
+(measure actual quantized disk size for R-0102/R-0103/R-0105) rather
+than relying on inference.
+
+### Potential Project Impact
+
+Research (Q-008, flags an experiment rather than a finding); Development
+(candidate quantization pipeline).
+
+### Reproducibility
+
+Available (open-source library, documented procedure).
+
+### Status
+
+PARTIALLY_RELEVANT — identifies a gap, not a fact
+
+---
+
+## R-0109 — MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents
+
+### Citation
+
+Tang, Laban, Durrett, "MiniCheck: Efficient Fact-Checking of LLMs on
+Grounding Documents," EMNLP 2024 (also arXiv:2404.10774).
+
+### Source
+
+https://aclanthology.org/2024.emnlp-main.499.pdf ; code:
+https://github.com/Liyan06/MiniCheck
+
+### Publication Date
+
+EMNLP 2024; verified 2026-09-12.
+
+### Category
+
+BENCHMARK, MODEL
+
+### Claims Relevant to Project
+
+Builds sub-1B fact-checkers via synthetic training data, evaluated on
+LLM-AggreFact (10-dataset unified benchmark). Table 2 average balanced
+accuracy: MiniCheck-FT5 (770M) 74.7%; MiniCheck-RBTA (355M) 72.7%;
+MiniCheck-DBTA (355M) 72.6%; AlignScore (355M) 70.4%; GPT-4 75.3%.
+Inference cost on 13K test items: MiniCheck-FT5 $0.24 vs. GPT-4's $107
+(>400x cheaper). EVIDENCE — peer-reviewed, evaluates third-party
+systems including GPT-4 on a shared benchmark.
+
+### Methodology
+
+Peer-reviewed benchmark evaluation across multiple independently
+sourced systems.
+
+### Limitations
+
+States explicitly: "Our models are trained exclusively on English
+data," and names the absence of a human-annotated non-English
+factual-consistency dataset for LLM outputs as an open limitation.
+Reference throughput: 29K-item test set took 30–55 min on a single
+NVIDIA A6000 (48GB) — workstation-class GPU.
+
+### Relevance
+
+Directly answers whether Q-008's factual-consistency task needs a
+local general-purpose LLM: a 770M model lands within 0.6 points of
+GPT-4. The clearest evidence for a small specialized model over a
+locally-run large LLM for this sub-task — but English-only.
+
+### Potential Project Impact
+
+Research (Q-008, primary evidence); Validation (candidate
+factual-consistency component, English only).
+
+### Reproducibility
+
+Available (open source, published benchmark).
+
+### Status
+
+RELEVANT — key evidence, English-only limitation is material
+
+---
+
+## R-0110 — Vectara HHEM-2.1-Open (hallucination evaluation model)
+
+### Citation
+
+Vectara, "hallucination_evaluation_model" (HHEM-2.1-Open), HuggingFace
+model card.
+
+### Source
+
+https://huggingface.co/vectara/hallucination_evaluation_model
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+Flan-T5-base-derived factual-consistency scorer, Apache-2.0, no
+token-length cap (unlike HHEM-1.0's 512-token limit). On-disk footprint
+(EVIDENCE, primary repository metadata): `model.safetensors`
+438,535,352 bytes (~0.44GB). Claims 76.55% balanced accuracy on
+AggreFact-SOTA, 64.42%/74.28% on RAGTruth summarization/QA, and
+outperforming GPT-4/GPT-3.5-Turbo by small-to-moderate margins
+(VENDOR — Vectara is a commercial vendor benchmarking its own model;
+the open model is also the free tier of a commercial product line).
+
+### Methodology
+
+Vendor's own published evaluation; not independently replicated in
+this pass.
+
+### Limitations
+
+**HHEM-2.1-Open is English-only.** The multilingual variant (11
+languages) exists only as HHEM-2.3, a commercial product — adopting it
+would violate the project's no-mandatory-external-service constraint
+(DEC-001).
+
+### Relevance
+
+Smallest verified factual-consistency model found in this pass, but a
+direct dead end for the project's 13-language multilingual requirement
+under an open/local-only constraint.
+
+### Potential Project Impact
+
+Research (Q-008); flags a hard constraint against relying on this
+model family for multilingual coverage.
+
+### Reproducibility
+
+Available (open weights, English-only).
+
+### Status
+
+PARTIALLY_RELEVANT — strong for English, disqualified for multilingual use
+
+---
+
+## R-0111 — mDeBERTa-v3-base-xnli-multilingual-nli-2mil7
+
+### Citation
+
+Laurer, van Atteveldt, Casas, Welbers, "mDeBERTa-v3-base-xnli-
+multilingual-nli-2mil7," HuggingFace model card.
+
+### Source
+
+https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+The only genuinely multilingual, openly-licensed, small NLI model found
+in this pass — fine-tuned on 27 languages (mDeBERTa-v3-base pretraining
+nominally covers 100). On-disk footprint (EVIDENCE, primary repository
+metadata): `model.safetensors` 557,652,046 bytes (~0.56GB) ≈ 0.58GB
+deployable. Reported XNLI accuracy across 15 languages: 0.744–0.871
+(English 0.871, German 0.824, French 0.823, Arabic 0.794, Vietnamese
+0.793; untrained languages still transfer: Bulgarian 0.822, Greek
+0.809, Thai 0.786). AUTHOR-REPORTED — model card's own evaluation on
+the standard public XNLI benchmark, not independently corroborated in
+this pass.
+
+### Methodology
+
+Model card's own evaluation against the public XNLI benchmark.
+
+### Limitations
+
+Author's own caveat: machine translation (used to build XNLI's
+non-English portions) reduces data quality for a complex task like NLI.
+XNLI sentence-pair entailment is a substantially easier and different
+task than document-level factual-consistency checking — its 74–87%
+range is not directly comparable to R-0109's LLM-AggreFact numbers.
+
+### Relevance
+
+The only open multilingual candidate for Q-008's factual-consistency
+sub-task; adequacy for the project's actual task is unmeasured.
+
+### Potential Project Impact
+
+Research (Q-008, primary multilingual candidate); Validation (candidate
+component pending its own task-specific evaluation).
+
+### Reproducibility
+
+Available (open weights).
+
+### Status
+
+RELEVANT — primary multilingual candidate, task-fit unverified
+
+---
+
+## R-0112 — mFACT: Detecting and Mitigating Hallucinations in Multilingual Summarisation
+
+### Citation
+
+Qiu, Barnes, Vlachos et al. (verify author list against source),
+"Detecting and Mitigating Hallucinations in Multilingual Summarisation,"
+EMNLP 2023 (arXiv:2305.13632).
+
+### Source
+
+https://aclanthology.org/2023.emnlp-main.551/
+
+### Publication Date
+
+EMNLP 2023; verified 2026-09-12.
+
+### Category
+
+BENCHMARK, ARTICLE
+
+### Claims Relevant to Project
+
+Introduces mFACT, a faithfulness metric for non-English summaries built
+by translation-based transfer from English faithfulness metrics.
+Central finding: English faithfulness metrics do not transfer well to
+other languages, and multilingual LLMs tend to hallucinate more often
+outside English. EVIDENCE — peer-reviewed, both automatic and human
+evaluation.
+
+### Methodology
+
+Peer-reviewed empirical study with human evaluation component.
+
+### Limitations
+
+Studies abstractive summarisation, not the project's controlled-
+transformation task — adjacent, not identical. Exact language count not
+extracted from the abstract in this pass.
+
+### Relevance
+
+Directly undermines the assumption that an English-trained factual-
+consistency checker (R-0109, R-0110) can be used cross-lingually via
+machine translation or trusted zero-shot on non-English text.
+
+### Potential Project Impact
+
+Research (Q-008); Scientific Specification (cautions against assuming
+cross-lingual transfer of factual-consistency tooling).
+
+### Reproducibility
+
+Available (published benchmark/methodology).
+
+### Status
+
+RELEVANT — key negative-result evidence
+
+---
+
+## R-0113 — RAID: A Shared Benchmark for Robust Evaluation of Machine-Generated Text Detectors
+
+### Citation
+
+Dugan et al., "RAID: A Shared Benchmark for Robust Evaluation of
+Machine-Generated Text Detectors," ACL 2024 (arXiv:2405.07940).
+
+### Source
+
+https://aclanthology.org/2024.acl-long.674/ ; HTML:
+https://arxiv.org/html/2405.07940v1
+
+### Publication Date
+
+ACL 2024; verified 2026-09-12.
+
+### Category
+
+BENCHMARK
+
+### Claims Relevant to Project
+
+6M+ generations, 11 generative models, 8 domains, 11 adversarial
+attacks, 4 decoding strategies; evaluates 8 open- and 4 closed-source
+detectors. Accuracy at FPR=5%: Originality (closed) 85.0%, Binoculars
+79.6%, FastDetectGPT 73.6%, RADAR 70.9%. Generalization collapse:
+RoBERTa-Large scores 96.3% on GPT-2 greedy decoding but 33.8% on GPT-4.
+Adversarial fragility: homoglyph attacks cost Binoculars 41.9 points
+and Originality 75.7 points; synonym replacement costs Binoculars 36.1
+points. EVIDENCE — independent peer-reviewed evaluation of third-party
+systems.
+
+### Methodology
+
+Independent, large-scale, peer-reviewed benchmark evaluation.
+
+### Limitations
+
+Published 2024; generator lineup predates current frontier models, so
+the out-of-distribution failure mode demonstrated is very likely
+understated relative to today's generators, not overstated.
+
+### Relevance
+
+The binding constraint on Q-008's third sub-task (local AI-text
+detection) is accuracy, not storage — no storage allocation compensates
+for a detector scoring 33.8% on a modern generator, or losing 30-75
+points to trivial adversarial edits.
+
+### Potential Project Impact
+
+Research (Q-008; also directly relevant to R03/R04 detector-reliability
+findings already in the registry); Certification (bears on what
+detection claims, if any, could ever be certified — 10-certification,
+once past definition phase).
+
+### Reproducibility
+
+Available (public benchmark, published leaderboard/dataset).
+
+### Status
+
+RELEVANT — key evidence
+
+---
+
+## R-0114 — roberta-base-openai-detector
+
+### Citation
+
+OpenAI Community, "roberta-base-openai-detector," HuggingFace model
+card.
+
+### Source
+
+https://huggingface.co/openai-community/roberta-base-openai-detector
+
+### Publication Date
+
+Verified 2026-09-12 (original release predates this verification by
+several years; exact date not confirmed in this pass).
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+Original GPT-2 output detector, MIT-licensed, 125M parameters,
+English-only. On-disk footprint (EVIDENCE, primary repository
+metadata): `model.safetensors` 500,975,390 bytes (~0.50GB; repository
+also ships redundant flax/TF copies of similar size, not needed for a
+single-format deployment). Claims ~95% accuracy on 1.5B-parameter
+GPT-2 text, varying by sampling method (AUTHOR-REPORTED). The authors'
+own card states this is "not high enough accuracy for standalone
+detection" and "might give inaccurate results" on ChatGPT-generated
+input.
+
+### Methodology
+
+Original developers' own reported evaluation; card includes an unusual
+level of self-disclaimer.
+
+### Limitations
+
+English-only; targets an obsolete generator (GPT-2). R-0113
+independently confirms severe accuracy collapse on modern generators
+for architecturally similar RoBERTa-based detectors.
+
+### Relevance
+
+Canonical reference point for local detector baselines; explicitly not
+recommended by its own authors as a standalone production component.
+
+### Potential Project Impact
+
+Research (Q-008, baseline reference only).
+
+### Reproducibility
+
+Available (open weights).
+
+### Status
+
+PARTIALLY_RELEVANT — historical baseline, not a production candidate
+
+---
+
+## R-0115 — Desklib ai-text-detector-v1.01
+
+### Citation
+
+Desklib, "ai-text-detector-v1.01," HuggingFace model card.
+
+### Source
+
+https://huggingface.co/desklib/ai-text-detector-v1.01
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+DeBERTa-v3-large fine-tune (~435M params), MIT license, English-only.
+On-disk footprint (EVIDENCE, primary repository metadata):
+`model.safetensors` 1,736,100,972 bytes (~1.74GB). Model card claims a
+top position on the RAID leaderboard (https://raid-bench.xyz/leaderboard).
+
+### Methodology
+
+Self-reported leaderboard claim; the live leaderboard could not be
+fetched to confirm rank or score in this research pass.
+
+### Limitations
+
+**Confidence on the leaderboard claim is AUTHOR-REPORTED/UNVERIFIED**:
+the only corroboration found was a promotional post by the same party
+(Desklib itself), not an independent source. Must be verified against
+the live RAID leaderboard before any reliance. English-only.
+
+### Relevance
+
+The most credible open local detector candidate if the leaderboard
+claim holds, since it points at independent third-party evaluation
+methodology (RAID, R-0113) rather than purely self-reported numbers —
+but the claim itself is currently unverified.
+
+### Potential Project Impact
+
+Research (Q-008; requires a follow-up verification step before any
+further reliance).
+
+### Reproducibility
+
+Available (open weights, MIT license).
+
+### Status
+
+UNVERIFIED — requires leaderboard confirmation before further use
+
+---
+
+## R-0116 — SuperAnnotate ai-detector-low-fpr
+
+### Citation
+
+SuperAnnotate, "ai-detector-low-fpr," HuggingFace model card.
+
+### Source
+
+https://huggingface.co/SuperAnnotate/ai-detector-low-fpr
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL
+
+### Claims Relevant to Project
+
+RoBERTa-large-based (~0.4B) binary classifier explicitly optimized to
+minimize false positives, using chi-squared n-gram filtering (n=2..5)
+to reduce shortcut learning. English-only. Model page shows an October
+2024 RAID leaderboard snapshot as an image only, with no
+machine-readable numbers extractable.
+
+### Methodology
+
+No independently extractable quantitative evaluation found in this
+pass.
+
+### Limitations
+
+**No accuracy figure could be extracted — UNVERIFIED / no evidence
+found** for quantitative performance. License is SAIPL (SuperAnnotate
+Inference and Processing License), a non-standard license requiring
+review against the project's offline-redistribution requirements.
+Model file size not retrieved in this pass.
+
+### Relevance
+
+Notable design choice (explicit FPR minimization) relevant to Q-002's
+concern about detector calibration, but not currently usable as
+evidence due to missing quantitative data and licensing uncertainty.
+
+### Potential Project Impact
+
+Research (Q-008; flagged for follow-up, not currently actionable).
+
+### Reproducibility
+
+Not verified (non-standard license; quantitative claims not
+extractable).
+
+### Status
+
+UNVERIFIED — insufficient extractable evidence
+
+---
+
+## R-0117 — Binoculars: Zero-Shot Detection of Machine-Generated Text
+
+### Citation
+
+Hans et al., "Spotting LLMs With Binoculars: Zero-Shot Detection of
+Machine-Generated Text," ICML 2024 (arXiv:2401.12070).
+
+### Source
+
+https://arxiv.org/html/2401.12070v3 ; code:
+https://github.com/ahans30/Binoculars
+
+### Publication Date
+
+ICML 2024; verified 2026-09-12.
+
+### Category
+
+BENCHMARK, TOOLING
+
+### Claims Relevant to Project
+
+Training-free detection contrasting two related LLMs (observer
+Falcon-7B-Instruct, performer Falcon-7B). Claims >90% TPR on ChatGPT
+text at 0.01% FPR without training on ChatGPT data (AUTHOR-REPORTED);
+independently corroborated by RAID (R-0113) at 79.6% accuracy at
+FPR=5% — the best-performing open detector in that independent
+evaluation. Verified on-disk footprint (EVIDENCE, primary repository
+metadata): Falcon-7B 9,950,994,832 + 4,483,408,144 bytes = 14.43GB;
+Falcon-7B-Instruct, identical shard sizes, 14.43GB. **Running Binoculars
+as published costs ~28.87GB combined — effectively the project's
+entire ~30GB budget for one sub-task.** Multilingual findings: low
+false-positive but "poor recall" on Bulgarian and Urdu; memorized text
+(e.g. constitutional text) scores "well into the machine range."
+
+### Methodology
+
+Peer-reviewed method paper; storage figures independently verified
+against primary repository metadata; accuracy independently
+corroborated by RAID.
+
+### Limitations
+
+Authors state they did not test 30B+ models due to GPU memory limits,
+and explicitly exclude adversarial evasion from scope (RAID then shows
+a 41.9-point loss to homoglyph attacks). **No evidence found** on
+whether a quantized Falcon-7B pair preserves Binoculars' detection
+quality — the method depends on fine-grained inter-model perplexity
+differences that quantization noise could plausibly disrupt.
+
+### Relevance
+
+The strongest-performing open detection method found, but at a storage
+cost that consumes nearly the entire Q-008 budget for one sub-task, and
+with an unstudied quantization-compatibility question that is itself a
+high-value, low-cost experiment for the project to run.
+
+### Potential Project Impact
+
+Research (Q-008, key evidence + flags a concrete follow-up experiment).
+
+### Reproducibility
+
+Available (open source code and models).
+
+### Status
+
+RELEVANT — key evidence, with an explicit unresolved sub-question
+
+---
+
+## R-0118 — M4GT-Bench: Evaluation Benchmark for Black-Box Machine-Generated Text Detection
+
+### Citation
+
+Wang et al., "M4GT-Bench: Evaluation Benchmark for Black-Box
+Machine-Generated Text Detection," ACL 2024 (arXiv:2402.11175).
+
+### Source
+
+https://aclanthology.org/2024.acl-long.218/ ; PDF:
+https://arxiv.org/pdf/2402.11175
+
+### Publication Date
+
+ACL 2024; verified 2026-09-12.
+
+### Category
+
+BENCHMARK
+
+### Claims Relevant to Project
+
+Covers nine languages (English, Arabic, Bulgarian, Chinese, Indonesian,
+Russian, Urdu, German, Italian) — the most relevant multilingual
+detection evidence found, overlapping substantially with the project's
+13-language target. Leave-one-language-out XLM-R results (F1/Accuracy):
+trained on all languages 94.86/94.52; held out — Arabic 92.64/92.18,
+Urdu 94.49/94.39, Chinese 84.73/82.51, Italian 85.84/83.51, German
+79.00/73.62, English 72.42/66.51, Bulgarian 67.90/52.74, Russian
+65.26/53.70, Indonesian 69.39/55.83. Held-out accuracy for Bulgarian/
+Russian/Indonesian collapses toward chance (~53%), with recall near
+100% and precision near 51-53% — the detector degenerates into
+labeling nearly everything as machine-generated. Human annotators
+scored 27% best/21% average at identifying the generating model,
+against a 25% random baseline (below chance). EVIDENCE — peer-reviewed,
+independent.
+
+### Methodology
+
+Peer-reviewed, independent benchmark with a leave-one-language-out
+generalization protocol.
+
+### Limitations
+
+Covers 9 of the project's 13 target languages; the remaining 4 are not
+addressed by this source. Uses XLM-R rather than a purpose-built
+detector. Published 2024, generator coverage is dated.
+
+### Relevance
+
+Directly quantifies the multilingual detection generalization failure
+mode most relevant to Q-004 (multilingual validation thresholds) and
+Q-008 (local model quality) jointly: near-chance accuracy on held-out
+languages, with a failure mode (over-flagging as AI-generated) worse
+than having no detector.
+
+### Potential Project Impact
+
+Research (Q-008); Scientific Specification (bears on Q-004's
+multilingual-threshold question); Certification (bears on what
+detection claims could be certified for under-evidenced languages).
+
+### Reproducibility
+
+Available (published benchmark).
+
+### Status
+
+RELEVANT — key evidence
+
+---
+
+## R-0119 — llama.cpp k-quant size/perplexity reference (maintainer discussion)
+
+### Citation
+
+llama.cpp maintainers, GitHub Discussion #2094 (k-quants performance
+comparison).
+
+### Source
+
+https://github.com/ggml-org/llama.cpp/discussions/2094
+
+### Publication Date
+
+Verified 2026-09-12 (original discussion predates verification date;
+exact date not confirmed).
+
+### Category
+
+TOOLING
+
+### Claims Relevant to Project
+
+Canonical size/perplexity trade-off table for LLaMA-7B-class k-quants:
+Q2_K 2.67GB (+0.8698 perplexity vs F16), Q3_K_M 3.06GB (+0.2437), Q4_0
+3.50GB (+0.2499), Q4_K_S 3.56GB (+0.1149), Q4_K_M 3.80GB (+0.0535),
+Q5_K_S 4.33GB (+0.0353), Q5_K_M 4.45GB (+0.0142), Q6_K 5.15GB (+0.0044),
+Q8_0 6.70GB (+0.0004), F16 13.00GB (baseline). Maintainers recommend
+Q4_K_M, Q5_K_S, or Q5_K_M as balanced choices. Sizes independently
+corroborated by R-0121's actual GGUF file sizes for a different model
+(EVIDENCE for sizes); perplexity deltas are the maintainers' own single-
+source measurement (AUTHOR-REPORTED).
+
+### Methodology
+
+Maintainer-run benchmark, widely cited as a de facto reference in the
+llama.cpp community; independently corroborated for sizes, not for
+perplexity deltas.
+
+### Limitations
+
+LLaMA-1-7B era; perplexity is a weaker proxy for downstream task
+quality than the direct benchmark evaluation in R-0120.
+
+### Relevance
+
+Establishes the general shape of the quantization storage/quality
+curve referenced throughout the Q-008 synthesis.
+
+### Potential Project Impact
+
+Research (Q-008); Development (candidate quantization-level default,
+once a local-LLM component is scoped).
+
+### Reproducibility
+
+Available (widely reproduced community reference).
+
+### Status
+
+RELEVANT — background reference, corroborated for sizes
+
+---
+
+## R-0120 — Which Quantization Should I Use? Unified Evaluation of llama.cpp Quantization on Llama-3.1-8B-Instruct
+
+### Citation
+
+(Author list not fully extracted in this pass — verify against source),
+"Which Quantization Should I Use? Unified Evaluation of llama.cpp
+Quantization on Llama-3.1-8B-Instruct," arXiv:2601.14277.
+
+### Source
+
+https://arxiv.org/html/2601.14277v1
+
+### Publication Date
+
+2026; verified 2026-09-12.
+
+### Category
+
+BENCHMARK
+
+### Claims Relevant to Project
+
+Evaluates 13 llama.cpp quantization configurations on downstream
+benchmarks (GSM8K, HellaSwag, IFEval, MMLU, TruthfulQA), not perplexity
+alone. Key results (size/perplexity/GSM8K/HellaSwag/IFEval/MMLU/
+TruthfulQA): F16 ~15GB/7.32/77.63/72.51/78.93/63.50/54.79; Q8_0
+~8.2GB/7.33/77.48/72.52/78.79/63.43/54.81; Q6_K
+~6.4GB/7.35/78.17/72.48/77.63/63.17/54.71; Q5_K_M
+~5.5GB/7.40/78.54/72.33/78.67/62.80/54.45; Q4_K_M
+~4.8GB/7.56/77.41/72.35/79.06/62.43/54.49; Q3_K_M
+~4.2GB/7.96/73.16/73.41/77.19/62.01/54.56. From F16 to Q4_K_M (~3.1x
+disk reduction), MMLU drops only 1.07 points and GSM8K is statistically
+flat; degradation becomes visible at Q3_K_M. Paper recommends Q4_K_S as
+balanced default, Q5_0 as accuracy-favouring. EVIDENCE — independent
+study, standard public benchmarks, third-party model.
+
+### Methodology
+
+Independent peer-reviewed(-track) evaluation across standard public
+benchmarks.
+
+### Limitations
+
+Single model family (Llama-3.1-8B-Instruct); all benchmarks are
+English. **No evidence found** on whether quantization degrades
+multilingual performance faster than English performance — a material
+open question given the project's 13-language target, since
+quantization is known to affect distribution tails most and
+non-English capability often lives in that tail.
+
+### Relevance
+
+The clearest evidence available that moderate quantization (Q4_K_M) is
+close to free in English-benchmark quality terms — but this finding's
+applicability to the project's multilingual requirement is explicitly
+untested.
+
+### Potential Project Impact
+
+Research (Q-008, key evidence with an explicit multilingual caveat).
+
+### Reproducibility
+
+Available (published benchmark).
+
+### Status
+
+RELEVANT — key evidence, multilingual applicability unverified
+
+---
+
+## R-0121 — Meta-Llama-3.1-8B-Instruct GGUF (verified quantized file sizes)
+
+### Citation
+
+bartowski, "Meta-Llama-3.1-8B-Instruct-GGUF," HuggingFace repository
+(community GGUF conversion).
+
+### Source
+
+https://huggingface.co/api/models/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/tree/main
+
+### Publication Date
+
+Verified 2026-09-12.
+
+### Category
+
+MODEL, TOOLING
+
+### Claims Relevant to Project
+
+Real downloadable GGUF quantization artifacts for a current 8B instruct
+model. Verified sizes (EVIDENCE, primary repository metadata): Q2_K
+3,179,136,416B (3.18GB), Q3_K_M 4,018,922,912B (4.02GB), Q4_K_M
+4,920,739,232B (4.92GB), Q5_K_M 5,732,992,416B (5.73GB), Q6_K
+6,596,011,424B (6.60GB), Q8_0 8,540,775,840B (8.54GB), f32
+32,128,885,888B (32.13GB) — cross-consistent with R-0119's and
+R-0120's approximations.
+
+### Methodology
+
+Primary repository file listing.
+
+### Limitations
+
+Confirms sizes only; quality figures are supplied by R-0120 for the
+same base model.
+
+### Relevance
+
+Concrete budget numbers for a general-purpose local LLM fallback
+option: the Q4_K_M-to-Q8_0 delta is 3.62GB for one model, which R-0120
+suggests buys roughly one MMLU point — poor value under a hard 30GB
+cap.
+
+### Potential Project Impact
+
+Research (Q-008); Development (candidate concrete artifact if a local
+general-purpose LLM component is ever scoped).
+
+### Reproducibility
+
+Available (open weights, community-maintained conversion).
+
+### Status
+
+RELEVANT — corroborating evidence
+
+---
+
 # Research Governance
 
 Research sources must be versioned and traceable.

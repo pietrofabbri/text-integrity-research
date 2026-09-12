@@ -1121,17 +1121,23 @@ metadata or versioned resources.
 Detailed architectural documents should be created only when the associated
 component has sufficient complexity to justify its own maintenance boundary.
 
+**Status update (2026-09-12):** per §64's Tranche 1, two of the documents
+below now exist: `docs/04-architecture/CAPABILITY-ARCHITECTURE.md`
+(formalizes §23-26) and `docs/04-architecture/DATA-MODEL.md` (formalizes
+§32-33). The remaining candidates below are unchanged — still potential
+future documents, not yet created; §64 gives the proposed order.
+
 Potential future documents include:
 
 - `CORE-ARCHITECTURE.md`
 - `PIPELINE-ARCHITECTURE.md`
-- `CAPABILITY-ARCHITECTURE.md`
+- `CAPABILITY-ARCHITECTURE.md` — **created**, see above
 - `LANGUAGE-ARCHITECTURE.md`
 - `ANALYSIS-ARCHITECTURE.md`
 - `TRANSFORMATION-ARCHITECTURE.md`
 - `VALIDATION-ARCHITECTURE.md`
 - `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
-- `DATA-MODEL.md`
+- `DATA-MODEL.md` — **created**, see above
 - `CONFIGURATION-ARCHITECTURE.md`
 - `REPORTING-ARCHITECTURE.md`
 - `PLUGIN-ARCHITECTURE.md`
@@ -1231,6 +1237,16 @@ The architecture therefore prioritizes:
 - multilingual extensibility;
 - capability lifecycle management.
 
+**Update (2026-09-12):** per §64 Tranche 1 and `DECISION-LOG.md` DEC-014,
+this area is no longer a single MAP document — `CAPABILITY-ARCHITECTURE.md`
+and `DATA-MODEL.md` now exist. This does not mean the definition phase has
+ended: both new documents formalize generic mechanisms only and
+deliberately still select no specific detector, watermark scheme, model
+or algorithm, consistent with the principle stated above. Areas outside
+04-architecture that describe "04-architecture through 10-certification"
+as uniformly single-MAP-document (e.g. `docs/00-project/START-HERE.md`)
+should be read with this update in mind.
+
 ---
 
 # 63. Governing Principle
@@ -1254,3 +1270,89 @@ None of these events should require redesigning the entire system.
 The architecture is therefore considered successful when scientific and
 technical evolution can occur through bounded, versioned and testable
 capability changes rather than uncontrolled changes to the core.
+
+---
+
+# 64. Proposed Path to Exit Definition Phase (2026-09-12) — Awaiting Owner Decision
+
+This section proposes a prioritized, tranche-based plan for drafting the
+candidate documents listed in §58, using what is now known from
+`03-scientific-specification` (S02/S04/S05) and the research layer
+(R01-R09, in particular R09's local-deployment findings and KB-008/
+KB-010/KB-013/KB-014's capability-evidence gaps). It is a proposal, not a
+decision: per `docs/00-project/DECISION-LOG.md` DEC-004 ("human approval
+is required at macro-tranche boundaries") and this project's consistent
+practice of not silently resolving structural questions (DEC-012, DEC-013
+precedent), no drafting begins under this plan without owner confirmation
+of the tranche order below — or a different order the owner prefers.
+
+## 64.1 Readiness Signal Used
+
+A candidate document from §58 is judged "ready to draft" when the
+requirements and research it would formalize are already established
+(not merely anticipated) elsewhere in the corpus, and judged "premature"
+when drafting it now would require inventing capability-specific choices
+(which detector, which language coverage, which model) that the evidence
+does not yet support — which §25 (Capability Activation) and DEC-005
+(requirements must not be weakened to obtain a result) both argue against
+doing prematurely.
+
+## 64.2 Tranche 1 — Structurally Ready Now
+
+- **`CAPABILITY-ARCHITECTURE.md`**: formalizes §23-26 (Capability
+  Registry, Lifecycle, Activation, Retirement), which are generic
+  mechanisms independent of which specific detector, watermark scheme or
+  model is eventually registered. Nothing in R01-R09 or S02/S04/S05
+  changes this mechanism's shape.
+- **`DATA-MODEL.md`**: formalizes §32-33 (Data/Model Layer, Resource
+  Management), directly informed by R08 §7-9 (dataset provenance/
+  licensing/storage methodology) and R09's concrete verified-size findings
+  for specific candidate models (R-0102-R-0121). This is the architecture
+  document R09's evidence most directly and completely supports drafting
+  today.
+
+## 64.3 Tranche 2 — Ready Once a Narrow Scope Decision Is Made
+
+- **`VALIDATION-ARCHITECTURE.md`**: formalizes §16-20 (Validation Layer,
+  Semantic/Factual/Structural Validation, Minimality), which cross-
+  reference concrete `FID-xxx`/`TRN-xxx` requirements already in S04/S05.
+  However, Q-001 (semantic-equivalence metric) and R09's KB-013 finding
+  (no evidence-backed multilingual factual-consistency option) are both
+  still open — this document can be drafted for the mechanism and for
+  English, but should not assert a finalized multilingual validation
+  approach without a scoping decision on how to handle KB-013's gap
+  (defer multilingual factual validation explicitly, or accept the
+  unverified mDeBERTa-v3-xnli candidate provisionally).
+
+## 64.4 Tranche 3 — Premature Without Further Upstream Resolution
+
+- **`ANALYSIS-ARCHITECTURE.md`** (covers §9-12, including Watermark
+  Analysis and AI-Generated-Text Assessment): KB-008/KB-010/KB-014 all
+  show detector/watermark capability-state evidence is language- and
+  capability-dependent in ways not yet resolved by DCQ-006/007/008 (all
+  still `PENDING`). Drafting this now risks assuming a capability state
+  (e.g. which languages get a validated AI-detection capability) ahead of
+  the evidence.
+- **`LANGUAGE-ARCHITECTURE.md`** (§34-35): depends on the same
+  per-language capability-state resolution as above.
+- **`TRANSFORMATION-ARCHITECTURE.md`** (§13-15): the mechanism (§13-15)
+  is stable, but meaningful content depends on which transformation
+  families are prioritized, which is itself downstream of the validation
+  scoping decision in Tranche 2.
+- **`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `CONFIGURATION-ARCHITECTURE.md`,
+  `REPORTING-ARCHITECTURE.md`, `PLUGIN-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`,
+  `PIPELINE-ARCHITECTURE.md`**: not evaluated in depth in this pass: none
+  of R01-R09's findings bear on them directly, and doing so would extend
+  this proposal beyond what the current research/specification base can
+  actually support. Recommended to revisit after Tranches 1-2.
+
+## 64.5 What This Proposal Does Not Decide
+
+Consistent with DEC-009 (a research finding does not automatically become
+a system requirement): this proposal does not select an actual
+semantic-similarity model, factual-consistency approach, or detector for
+`DATA-MODEL.md` or `VALIDATION-ARCHITECTURE.md` to reference — it only
+proposes *which documents* are ready to be drafted and in *what order*.
+Specific technical choices remain a separate, later decision, to be made
+when each document is actually drafted and to be recorded in
+`docs/00-project/DECISION-LOG.md` at that time.

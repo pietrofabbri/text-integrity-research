@@ -74,11 +74,19 @@ Evaluation & Statistical Methodology
 R08
 Benchmark & Dataset Research
                │
+               ▼
+R09
+Local Deployment Feasibility Research
+               │
                └───────────────┐
                                ▼
                     Scientific Validation
+```
 
-The diagram is conceptual rather than a strict execution order.
+R09 depends specifically on R04 (detector taxonomy) and R08 (storage-
+footprint methodology) rather than on the full linear chain shown above —
+see §11.8 below for the precise dependency. The diagram remains a
+conceptual overview, not a strict execution order.
 
 Research domains may be investigated in parallel.
 
@@ -358,6 +366,17 @@ Therefore:
 
 R07 → validation
 R07 → certification
+11.8 Detector Taxonomy / Storage Methodology → Local Deployment Feasibility
+
+R09's local-model candidates and their evaluation depend on R04's detector
+taxonomy and R08's storage-footprint methodology, not on the full R01-R08
+chain.
+
+Therefore:
+
+R04 → R09
+R08 → R09
+R09 → validation
 12. Research Evidence Flow
 
 Scientific evidence should move through the following conceptual pipeline:
@@ -624,6 +643,7 @@ R05 Multilingual & Linguistic Research	PARTIALLY COMPLETE (literature findings p
 R06 Transformation & Preservation Research	PARTIALLY COMPLETE (literature findings populated 2026-08-24; see R06 §58 and RESEARCH-REGISTRY.md R-0074–R-0085; not yet cross-checked against 03-10 per §35)
 R07 Evaluation & Statistical Methodology	PARTIALLY COMPLETE (literature findings populated 2026-08-24; see R07 §80 and RESEARCH-REGISTRY.md R-0086–R-0097; not yet cross-checked against 03-10 per §35)
 R08 Benchmark & Dataset Research	PARTIALLY COMPLETE (literature findings populated 2026-08-24; see R08 §69 and RESEARCH-REGISTRY.md R-0098–R-0101; informs Q-007; not yet cross-checked against 03-10 per §35)
+R09 Local Deployment Feasibility Research	PARTIALLY COMPLETE (confirmed as a domain 2026-09-12 per DEC-013; literature findings populated 2026-09-12; see R09 §10 and RESEARCH-REGISTRY.md R-0102–R-0121; answers Q-008; not yet cross-checked against 03-10 per §35)
 35. Research Completion Criteria
 
 The research layer may only be considered mature when:
@@ -656,3 +676,50 @@ The research layer is not a static collection of papers.
 
 It is a continuously maintained evidence system that connects scientific
 knowledge to project requirements, experiments, validation and decisions.
+
+38. R09 — Local Deployment Feasibility Research (Confirmed 2026-09-12)
+
+File:
+
+docs/02-research/R09-local-deployment-feasibility-research.md
+
+Purpose
+
+Studies which locally-runnable models, at what verified disk size and
+evidenced quality, can satisfy this project's semantic-similarity,
+factual-consistency and AI-detection validation needs within the ~30GB
+local storage budget (KB-007). Unlike R01-R08, this domain studies a
+project-specific engineering-feasibility question rather than reviewing
+external scientific literature in the abstract.
+
+Key outputs
+per-sub-task candidate model shortlist with verified disk sizes;
+explicit statement of which sub-tasks have a validated multilingual
+option and which do not;
+quantization-tradeoff reference;
+explicit research gaps (R09 §10.7).
+Depends on
+R04 (detector taxonomy);
+R08 (storage-footprint methodology).
+See §11.8.
+Feeds
+validation (once 05-validation leaves definition phase);
+architecture (candidate local-model components, once 04-architecture
+leaves definition phase — see DOCUMENTATION-CHANGE-QUEUE.md DCQ-008).
+
+38.1 Decision History
+
+`docs/00-project/OPEN-QUESTIONS.md` Q-008 identified a gap not covered by
+any of R01-R08. A first literature pass answering it was written to the
+file above, with 20 new sources registered as `R-0102`-`R-0121` in
+`docs/00-project/RESEARCH-REGISTRY.md`, and was initially recorded here as
+a proposal rather than a decision (per DEC-009 and this project's practice
+of not silently resolving structural questions — see
+`DOCUMENT-AUTHORITY-MATRIX.md`, `POST-INVENTORY-QUEUE.md`'s governing
+rule, and DEC-012's precedent). The owner reviewed and approved the
+proposal as presented; this domain, its identifier, and its place in the
+diagram (§2) and domain-status table (§34) are now confirmed per
+`docs/00-project/DECISION-LOG.md` DEC-013 (2026-09-12). This subsection is
+kept as a historical record of that process rather than deleted, per this
+project's general practice of preserving traceability (RESEARCH-MAP.md
+§22, Contradictory Evidence; §29, Deprecation).

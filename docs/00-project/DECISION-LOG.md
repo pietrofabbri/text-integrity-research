@@ -359,3 +359,153 @@ R-0022, R-0086.
 
 None — this decision concerns audit-finding disposition, not a tracked
 open question.
+
+---
+
+## DEC-013 — R09 (Local Deployment Feasibility Research) Confirmed as a New Research Domain
+
+### Date
+
+2026-09-12
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+`docs/02-research/R09-local-deployment-feasibility-research.md`, written to
+answer `OPEN-QUESTIONS.md` Q-008's confirmed research gap, is accepted as a
+permanent ninth research domain under the identifier `R09`. Its addition
+to `RESEARCH-MAP.md`'s domain diagram (§2) and domain-status table (§34) is
+now confirmed, not proposed. The document's own status is changed from
+`PROPOSED` to `ACTIVE`.
+
+### Rationale
+
+The owner approved the proposal as presented (`RESEARCH-MAP.md` §38,
+2026-09-12), matching this project's own recommendation that R09 was the
+best-supported option given the depth and citation quality of the research
+already completed (20 sources, R-0102-R-0121, each independently verified
+against primary repository/benchmark sources). No structural alternative
+(merging into an existing R0x domain, or scoping it differently) was
+requested.
+
+### Alternatives Considered
+
+Per `RESEARCH-MAP.md` §38's original proposal: merging these findings into
+an existing domain (rejected — the findings are project-specific
+deployment-engineering questions, not literature review of the kind R01-R08
+perform, per §2 of the R09 document itself); leaving the findings
+unstructured in the registry alone (rejected — would violate
+`RESEARCH-MAP.md` §4's requirement that research domains have a defined
+relationship to the rest of the project).
+
+### Consequences
+
+`RESEARCH-MAP.md` §2 and §34 are updated to include R09 as a confirmed
+domain. `docs/00-project/OPEN-QUESTIONS.md` Q-008,
+`docs/00-project/KNOWLEDGE-BACKLOG.md` KB-007/KB-013/KB-014/KB-015, and
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` DCQ-008 are updated to
+refer to R09 as confirmed rather than proposed. No document's substantive
+findings changed as a result of this decision — only their status
+language.
+
+### Affected Areas
+
+`docs/02-research/RESEARCH-MAP.md`;
+`docs/02-research/R09-local-deployment-feasibility-research.md`;
+`docs/00-project/OPEN-QUESTIONS.md` (Q-008);
+`docs/00-project/KNOWLEDGE-BACKLOG.md` (KB-007, KB-013, KB-014, KB-015);
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` (DCQ-008).
+
+### Reversal Conditions
+
+If a future review finds R09's scope should be merged, split, or
+retired, that would itself require a new decision (per RESEARCH-MAP.md
+§29, Deprecation) rather than a silent edit.
+
+### Related Research
+
+R-0102 through R-0121.
+
+### Related Questions
+
+Q-008.
+
+---
+
+## DEC-014 — 04-Architecture Begins Exiting Definition Phase (Tranche 1)
+
+### Date
+
+2026-09-12
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner approved the Tranche 1 plan proposed in
+`docs/04-architecture/ARCHITECTURE-MAP.md` §64. Two new architecture
+sub-documents are created: `docs/04-architecture/CAPABILITY-ARCHITECTURE.md`
+(formalizing `ARCHITECTURE-MAP.md` §23-26) and
+`docs/04-architecture/DATA-MODEL.md` (formalizing `ARCHITECTURE-MAP.md`
+§32-33). 04-architecture is no longer a single-MAP-document area.
+
+### Rationale
+
+Both documents formalize generic mechanisms (a capability record schema
+and lifecycle state machine; a data/model layer interface contract) that
+do not depend on which specific detector, watermark scheme, model or
+algorithm the project eventually adopts — matching `ARCHITECTURE-MAP.md`
+§64.1's readiness criterion and `ARCHITECTURE-MAP.md` §2's principle that
+no single algorithm should define the architecture. Neither document
+selects a specific technical component; both explicitly list what they do
+not decide (`CAPABILITY-ARCHITECTURE.md` §15, `DATA-MODEL.md` §12).
+
+### Alternatives Considered
+
+Per `ARCHITECTURE-MAP.md` §64: drafting `VALIDATION-ARCHITECTURE.md`
+instead or in addition (deferred to Tranche 2 — still blocked on a scoping
+decision for KB-013's multilingual factual-consistency gap); drafting
+`ANALYSIS-ARCHITECTURE.md` or `LANGUAGE-ARCHITECTURE.md` (deferred to
+Tranche 3 — premature until DCQ-006/007/008 resolve per-language
+capability-state questions); doing no architecture work until 03-10
+fully resolve their pending items (rejected — Tranche 1's two documents
+do not depend on those resolutions).
+
+### Consequences
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` §58 and §62 are updated to
+record that these two documents now exist. `docs/00-project/START-HERE.md`
+should be corrected the next time it is revised, since its "04-architecture
+through 10-certification" summary line no longer accurately describes
+04-architecture specifically. Tranche 2 (`VALIDATION-ARCHITECTURE.md`)
+and Tranche 3 remain not started, pending the scoping decisions
+`ARCHITECTURE-MAP.md` §64.3-§64.4 describe.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §62);
+`docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (new);
+`docs/04-architecture/DATA-MODEL.md` (new);
+`docs/00-project/START-HERE.md` (now stale on this point).
+
+### Reversal Conditions
+
+If either document is found to have implicitly made a technical decision
+it disclaims (contrary to its own §15/§12 respectively), that content
+should be removed and, if a real decision is needed, recorded separately
+in this log rather than left implicit in an architecture document.
+
+### Related Research
+
+R-0102 through R-0121 (illustrative examples only, per both documents'
+explicit non-adoption disclaimers).
+
+### Related Questions
+
+None directly — this decision concerns architecture-document creation,
+not resolution of a tracked open question.

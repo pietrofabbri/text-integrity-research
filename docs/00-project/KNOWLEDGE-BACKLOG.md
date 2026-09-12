@@ -250,6 +250,22 @@ TRIAGED
 
 HIGH
 
+### Update (2026-09-12, Q-008 research pass)
+
+A dedicated research pass (`docs/02-research/R09-local-deployment-
+feasibility-research.md`, confirmed domain per DECISION-LOG.md DEC-013;
+RESEARCH-REGISTRY.md R-0102-R-0121) found this constraint, while still
+real, is **not the
+binding limitation** for most of the project's local validation needs: a
+lightweight multi-task stack (semantic similarity + multilingual
+factual/entailment signal + a quantized general-purpose fallback model)
+totals well under 10GB using only components with verified disk sizes.
+The exception is AI-text detection, where the best-evidenced open detector
+(Binoculars) alone costs ~28.87GB — nearly the entire budget. See KB-014
+below and OPEN-QUESTIONS.md Q-008's updated evidence: for two of the
+project's three local-validation sub-tasks, evidence quality — not
+storage — is now the open constraint.
+
 ---
 
 ## KB-008 — Multilingual AI-Detection Evidence Is Thin for Most Target Languages
@@ -637,3 +653,205 @@ revisited, evaluate whether to add certainty/hedging as a named
 preservation dimension, and do not treat FactCC/SummaC/QAFactEval/
 AlignScore as validated for this project's use case without a bridging
 study.
+
+---
+
+## KB-013 — No Evidence-Backed Multilingual Factual-Consistency Option Exists
+
+### Source
+
+Q-008 research pass, 2026-09-12
+(`docs/02-research/R09-local-deployment-feasibility-research.md` §10.3).
+
+### Observation
+
+The strongest factual-consistency model found (MiniCheck, R-0109, within
+0.6 points of GPT-4 on LLM-AggreFact) is explicitly English-only per its
+own authors. The only open, small, genuinely multilingual candidate found
+(mDeBERTa-v3-xnli, R-0111) has unverified task-fit — it is evaluated on
+sentence-pair entailment (XNLI), a substantially easier and different task
+than document-level factual-consistency checking. A separate peer-reviewed
+study (mFACT, R-0112) found English faithfulness metrics do not transfer
+well to other languages, directly undermining the assumption that an
+English-trained checker could simply be used cross-lingually.
+
+### Proposal / Hypothesis
+
+The project should not assume a multilingual factual-consistency capability
+exists merely because an English one does. This gap should be weighed
+alongside KB-012's related finding (factual-consistency metrics generally
+unvalidated for this project's transformation/evasion use case, even in
+English) when 03-scientific-specification's fidelity requirements are next
+revisited.
+
+### Potential Impact
+
+- Scientific Specification (S04-fidelity-requirements.md — realistic
+  per-language capability-state assignment for factual preservation)
+- Research (a bridging study evaluating mDeBERTa-v3-xnli, or an
+  LLM-as-judge protocol, against the project's actual task, ideally
+  multilingual)
+
+### Candidate Areas
+
+02-research (R09), 03-scientific-specification
+
+### Related Research
+
+R-0109, R-0110, R-0111, R-0112
+
+### Related Decisions
+
+None yet — this is evidence, not a decision.
+
+### Status
+
+TRIAGED
+
+### Priority
+
+MEDIUM
+
+### Required Action
+
+Do not assign a validated factual-consistency capability state to any
+non-English language without new evidence bridging mDeBERTa-v3-xnli (or an
+equivalent) to this project's actual task.
+
+---
+
+## KB-014 — Local AI-Text Detection Is Bounded by Accuracy and Cross-Lingual Robustness, Not Storage
+
+### Source
+
+Q-008 research pass, 2026-09-12
+(`docs/02-research/R09-local-deployment-feasibility-research.md` §10.4).
+
+### Observation
+
+Independent benchmarks confirm the local-detection sub-task's binding
+constraint is not the ~30GB storage budget (KB-007). RAID (R-0113) found
+accuracy at FPR=5% for the best open detector (Binoculars) at 79.6%, with
+severe generalization collapse for a related architecture (96.3%→33.8%
+from GPT-2 to GPT-4) and adversarial fragility (30-75 point losses to
+simple attacks). M4GT-Bench (R-0118) found leave-one-language-out accuracy
+for a trained multilingual detector collapses toward chance (~53%) for
+Bulgarian, Russian and Indonesian, with the detector degenerating into
+labeling nearly everything as machine-generated — a failure mode worse
+than no detector. Separately, Binoculars itself (R-0117), the best-
+evidenced open option, costs ~28.87GB (two 7B models) to run at full
+precision — nearly the entire storage budget for this one sub-task — and
+its quantization-compatibility is explicitly untested.
+
+### Proposal / Hypothesis
+
+No local AI-text-detection capability should be treated as validated
+merely because a candidate model exists and fits (or can be made to fit)
+the storage budget. Accuracy and cross-lingual robustness evidence must be
+evaluated per candidate and per language, independent of the storage
+question, before any local detection capability is assigned a validated
+state (SPECIFICATION-MAP.md §20-22).
+
+### Potential Impact
+
+- Scientific Specification (per-language, per-capability detection
+  capability states)
+- Certification (10-certification, once past definition phase — bears
+  directly on what detection claims could ever be certified)
+- Research (a concrete, low-cost follow-up experiment: test whether a
+  quantized Falcon-7B/Falcon-7B-Instruct pair preserves Binoculars'
+  detection quality)
+
+### Candidate Areas
+
+02-research (R04, R09), 03-scientific-specification, 10-certification
+
+### Related Research
+
+R-0113, R-0114, R-0115, R-0116, R-0117, R-0118
+
+### Related Decisions
+
+None yet — this is evidence, not a decision.
+
+### Status
+
+TRIAGED
+
+### Priority
+
+HIGH
+
+### Required Action
+
+When a local detection component is scoped in 04-architecture, do not
+select a candidate on storage-fit alone; require accuracy and
+cross-lingual-robustness evidence per RAID/M4GT-Bench-style methodology
+first.
+
+---
+
+## KB-015 — Quantization's Interaction With Multilingual Capability Is Unstudied
+
+### Source
+
+Q-008 research pass, 2026-09-12
+(`docs/02-research/R09-local-deployment-feasibility-research.md` §10.5).
+
+### Observation
+
+The clearest evidence found on quantization quality trade-offs (R-0120,
+peer-reviewed-track, downstream-benchmark evaluation, not perplexity
+alone) shows moderate quantization (Q4_K_M) costs only ~1 MMLU point
+relative to F16 for Llama-3.1-8B-Instruct. **All benchmarks used are
+English-only**, and the paper explicitly does not test whether
+quantization degrades multilingual performance faster than English
+performance — the authors name this as an open question. Quantization is
+known in general to affect distribution tails most, and non-English
+capability in a primarily-English-trained model often lives in that tail,
+making this a plausible, not merely theoretical, risk for this project's
+13-language target.
+
+### Proposal / Hypothesis
+
+The project should not assume a quantized model's English-benchmark
+quality retention (e.g. "Q4_K_M loses ~1 MMLU point") generalizes to its
+non-English capability. This is a candidate for the project's own
+targeted evaluation once a local-LLM component is scoped, rather than
+something further literature search is likely to resolve, since the field
+itself has not yet studied it.
+
+### Potential Impact
+
+- Research (a candidate project-run experiment: compare quantized vs.
+  full-precision multilingual benchmark performance for any locally-run
+  general-purpose model)
+- Architecture (quantization-level defaults, once 04-architecture leaves
+  definition phase, should not be chosen on English-only evidence alone
+  if the component is used for non-English text)
+
+### Candidate Areas
+
+02-research (R09), 04-architecture
+
+### Related Research
+
+R-0119, R-0120, R-0121
+
+### Related Decisions
+
+None yet — this is evidence, not a decision.
+
+### Status
+
+TRIAGED
+
+### Priority
+
+MEDIUM
+
+### Required Action
+
+Flag as an open item for whichever future work scopes a local
+general-purpose LLM component; do not select a quantization level based
+solely on English-benchmark quality-retention figures.

@@ -287,11 +287,50 @@ storage constraint (docs/00-project/KNOWLEDGE-BACKLOG.md) makes this a
 concrete engineering question the project will need to answer before
 04-architecture can leave its definition phase.
 
+### Current Evidence (added 2026-09-12, targeted research pass)
+
+A dedicated research pass now fills the gap noted above. Full findings,
+with citations, are in the confirmed research domain document
+`docs/02-research/R09-local-deployment-feasibility-research.md` (domain
+confirmed 2026-09-12 per `DECISION-LOG.md` DEC-013 — see `RESEARCH-MAP.md`
+§38); 20 new sources are registered as `R-0102`-`R-0121`
+in `RESEARCH-REGISTRY.md`. Headline finding: **the question as originally
+posed conflates two questions with different answers.** Storage is
+comfortably sufficient for a lightweight multi-task stack (an illustrative,
+non-exhaustive combination of small, EVIDENCE-sized components totals well
+under 10GB against the ~30GB budget — R09 §10.1) — *except* that the
+best-evidenced open AI-text detector (Binoculars, R-0117) alone costs
+~28.87GB, nearly the entire budget. Quality, not storage, is where the
+open questions actually are: (1) semantic similarity is well solved by a
+small model (multilingual-e5-large-instruct, R-0103, ~1.14GB, independently
+ranked #1 on MMTEB ahead of 7B-class models — R-0106); (2) factual
+consistency has a strong English-only solution (MiniCheck, R-0109, within
+0.6 points of GPT-4) but **no evidence-backed multilingual option** — the
+only open multilingual candidate (mDeBERTa-v3-xnli, R-0111) has unverified
+task-fit, and a separate study (mFACT, R-0112) shows English factuality
+metrics do not transfer cross-lingually; (3) AI-text detection is bounded
+by accuracy and cross-lingual robustness, not storage — independent
+benchmarks (RAID, R-0113; M4GT-Bench, R-0118) show open detectors either
+collapse toward chance accuracy on several target languages or cost nearly
+the entire storage budget for the one detector that performs well, with
+its quantization-compatibility explicitly untested.
+
 ### Possible Answers (not yet decided)
 
-Not yet explored — this question requires new, targeted research (open
-or locally-runnable model options for the specific validation
-sub-tasks) rather than synthesis of what has already been gathered.
+(a) Split this question into a storage sub-question (answerable now: yes,
+comfortably, for a stack that excludes full-precision Binoculars) and one
+or more quality sub-questions (still open: is there an acceptable
+multilingual factual-consistency option; is there a local detector that is
+simultaneously accurate, multilingual-robust, and storage-affordable) —
+proposed in R09 §10.6, not decided; (b) commission targeted follow-up
+experiments identified as concrete, low-cost gaps rather than further
+literature search: measuring actual quantized disk size for the
+semantic-similarity candidates (R09 §10.2), and testing whether a
+quantized Falcon-7B pair preserves Binoculars' detection quality (R09
+§10.4); (c) treat the multilingual factual-consistency and multilingual
+detection gaps as inputs to Q-004 (multilingual validation thresholds)
+rather than resolving them independently, since both bear directly on
+what "validated" can mean per language and per capability.
 
 ---
 
