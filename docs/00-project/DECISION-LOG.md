@@ -718,3 +718,87 @@ R-0022, R-0046 through R-0073, R-0086, R-0109 through R-0121.
 ### Related Questions
 
 Q-003, Q-008.
+
+---
+
+## DEC-017 — Tranche 3 Reassessed Post-DCQ Propagation; Remains Premature
+
+### Date
+
+2026-09-12
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following `DEC-016`'s execution, the owner selected, from a set of
+proposed next steps, revisiting whether `ARCHITECTURE-MAP.md` §64.4's
+Tranche 3 documents (`ANALYSIS-ARCHITECTURE.md`, `LANGUAGE-ARCHITECTURE.md`,
+`TRANSFORMATION-ARCHITECTURE.md`) are now ready to draft, given that
+DCQ-006/007/008's evidence has since been propagated into
+`03-scientific-specification`. Reassessed against §64.1's readiness
+signal, the conclusion is that Tranche 3 **remains premature**: the
+propagation added evidence-cited cross-reference notes to
+`SPECIFICATION-MAP.md` and related documents, but did not — and explicitly
+disclaimed — assigning actual per-language, per-capability states. Those
+states, not the underlying research evidence, are what Tranche 3's
+documents would need to reference without inventing a capability
+assignment themselves. This decision records that reassessment outcome
+so it is not re-litigated from scratch later, and identifies the concrete
+unblocked next step: populating real per-language/per-capability state
+values in `SPECIFICATION-MAP.md` §22 (and the corresponding
+`S02-scientific-requirements.md` REQ-LANG-006 evidence record) — itself a
+substantive `03-scientific-specification` content decision, proposed here
+as a candidate follow-up rather than begun unilaterally.
+
+### Rationale
+
+`ARCHITECTURE-MAP.md` §64.1's own readiness signal distinguishes evidence
+existing "elsewhere in the corpus" from a document actually being drafted
+against it. DCQ-006/007/008's propagation satisfied the former for
+`03-scientific-specification` but not the state-assignment step Tranche 3
+actually depends on. Drafting Tranche 3 now would require inventing
+per-language capability states as a side effect of writing the
+architecture document — exactly what §64.1, §25 (Capability Activation)
+and `DEC-005` caution against.
+
+### Alternatives Considered
+
+Treating the DCQ-006/007/008 propagation as sufficient to begin Tranche 3
+(rejected — would require inventing capability-state assignments inside
+an architecture document rather than sourcing them from
+`03-scientific-specification`, contrary to `NO-INVENTION-RULES.md`);
+leaving the Tranche 3 blocker's description unchanged from before DEC-016
+(rejected — the blocker's actual shape has narrowed now that the evidence
+is propagated, and leaving the old, less precise description would
+understate what is now known).
+
+### Consequences
+
+`ARCHITECTURE-MAP.md` §64.4 gains a `§64.4.1 Reassessment` subsection
+recording this outcome. No architecture document is drafted under this
+decision. The candidate follow-up (populating `SPECIFICATION-MAP.md` §22's
+real per-language capability states) is proposed, not started, pending
+owner direction.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§64.4.1, new).
+
+### Reversal Conditions
+
+If the owner instead wants Tranche 3 drafted using provisional or
+placeholder capability states, that would need its own explicit decision
+recorded here, since it would reverse this decision's core finding that
+doing so risks inventing evidence.
+
+### Related Research
+
+R-0022, R-0046 through R-0073, R-0086, R-0109 through R-0121.
+
+### Related Questions
+
+None directly — this decision concerns document-readiness sequencing, not
+resolution of a numbered open question.

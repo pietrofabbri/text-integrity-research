@@ -1353,6 +1353,42 @@ doing prematurely.
   this proposal beyond what the current research/specification base can
   actually support. Recommended to revisit after Tranches 1-2.
 
+### 64.4.1 Reassessment (2026-09-12, per DECISION-LOG.md DEC-017)
+
+The owner asked that this Tranche 3 blocker be revisited after DCQ-006/
+007/008's `03-scientific-specification` portions were executed
+(`DECISION-LOG.md` DEC-016; `SPECIFICATION-MAP.md` §17, §20-23, §25-26;
+`S02-scientific-requirements.md`; `S04-fidelity-requirements.md` FID-002).
+That execution added evidence-cited cross-reference notes — it
+deliberately did not assign any actual per-language, per-capability state
+(each added note says so explicitly, e.g. `SPECIFICATION-MAP.md` §22's
+note: "this note records the evidence; it does not assign any state").
+
+The readiness signal in §64.1 requires that "the requirements and
+research it would formalize are already established... elsewhere in the
+corpus" before a candidate document is drafted. For
+`ANALYSIS-ARCHITECTURE.md` and `LANGUAGE-ARCHITECTURE.md`, what would need
+to be established is not the underlying research evidence (already
+registered as R-0022, R-0046-R-0073, R-0086, R-0109-R-0121) but the actual
+per-language/per-capability state assignments (`SPECIFICATION-MAP.md` §22)
+that `03-scientific-specification` itself has not yet performed — only
+generic illustrative examples exist there. `TRANSFORMATION-ARCHITECTURE.md`
+has the same dependency, one level removed (it needs to know which
+validation families have `VALIDATED` capabilities, which in turn needs
+those same state assignments). This propagation pass therefore does not
+change the readiness conclusion: **Tranche 3 remains premature**, for the
+same underlying reason as before, now stated more precisely.
+
+The concrete, currently-unblocked next step toward eventually satisfying
+this readiness signal is not drafting a Tranche 3 document, but populating
+real per-language, per-capability state values in
+`SPECIFICATION-MAP.md` §22 (and the corresponding `S02-scientific-
+requirements.md` REQ-LANG-006 evidence record), grounded in the evidence
+this pass just cited. That is itself a substantive `03-scientific-
+specification` content decision — which capabilities to state for which
+of the 13 languages, and what evidence threshold justifies each state —
+and is proposed here as a candidate follow-up, not begun unilaterally.
+
 ## 64.5 What This Proposal Does Not Decide
 
 Consistent with DEC-009 (a research finding does not automatically become
