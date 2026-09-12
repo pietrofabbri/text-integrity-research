@@ -509,3 +509,212 @@ explicit non-adoption disclaimers).
 
 None directly — this decision concerns architecture-document creation,
 not resolution of a tracked open question.
+
+---
+
+## DEC-015 — Scope Decision for Multilingual Factual/Claim Validation (Unblocks Tranche 2)
+
+### Date
+
+2026-09-12
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+`ARCHITECTURE-MAP.md` §64.3 identified KB-013 (no evidence-backed
+multilingual factual-consistency option) as the blocker for drafting
+`VALIDATION-ARCHITECTURE.md`. This is resolved by splitting factual
+validation into two distinct capability categories rather than treating
+it as one:
+
+1. **`VALIDATE-FACTUAL-STRUCTURED`** — deterministic checks against
+   `S04-fidelity-requirements.md` FID-003's explicit scope (names,
+   entities, dates, quantities, units, identifiers, citations). This is
+   not blocked by KB-013: it does not depend on MiniCheck- or
+   mDeBERTa-style holistic factual-consistency models, only on
+   per-language entity/number extraction, which is a separate (and, per
+   this decision, separately tracked) evidence question.
+2. **`VALIDATE-FACTUAL-CLAIM`** — claim/proposition-level consistency
+   checking (`S04-fidelity-requirements.md` FID-002, the holistic
+   factual-consistency territory R09 actually researched). For English,
+   MiniCheck (R-0109) is a well-evidenced candidate eligible to pursue
+   `CAPABILITY-ARCHITECTURE.md`'s Activation Gate. For all 12 other
+   target languages, no capability may reach `VALIDATED` on this
+   dimension: mDeBERTa-v3-xnli (R-0111) may be registered only as
+   `EXPERIMENTAL`, explicitly ineligible for `VALIDATED` until a bridging
+   study addresses its task-fit, per KB-013.
+3. Per `S04-fidelity-requirements.md` FID-043 (Missing Evidence): any
+   validation run for a language/capability pair without a `VALIDATED`
+   `VALIDATE-FACTUAL-CLAIM` capability must report that dimension as
+   `not measurable` or `unsupported`, never silently omit it or default
+   to a pass.
+
+### Rationale
+
+FID-003's own scope is already narrower than "factual consistency" in
+the general sense R09 researched — it lists concrete, largely
+deterministic categories (entities, dates, quantities) distinct from
+FID-002's claim/proposition-level scope. Recognizing this distinction
+means KB-013's gap (which is specifically about holistic,
+entailment-style factual-consistency checking) does not need to block
+architecture work on the deterministic half of factual validation, which
+has no comparable evidence gap. This avoids both overclaiming evidence
+(adopting an unverified-task-fit model as a production default) and
+unnecessarily blocking unrelated architecture work.
+
+### Alternatives Considered
+
+Accepting mDeBERTa-v3-xnli provisionally as `ACTIVE` for non-English
+`VALIDATE-FACTUAL-CLAIM` (rejected — would violate
+`CAPABILITY-ARCHITECTURE.md` §7's Activation Gate, which requires
+evidence that is not solely `UNVERIFIED`, and KB-013 found exactly that:
+unverified task-fit); deferring all factual-validation architecture work
+until KB-013 is fully resolved (rejected — unnecessarily blocks the
+deterministic half of factual validation, which is not implicated by
+KB-013's finding).
+
+### Consequences
+
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` may now be drafted
+(Tranche 2). `docs/00-project/KNOWLEDGE-BACKLOG.md` KB-013 remains open
+and unresolved as a research question — this decision only unblocks the
+architecture work, it does not supply the missing multilingual evidence
+KB-013 describes.
+
+### Affected Areas
+
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` (new);
+`docs/03-scientific-specification/S04-fidelity-requirements.md`
+(FID-002/FID-003 distinction now load-bearing at the architecture level,
+no content changed);
+`docs/00-project/KNOWLEDGE-BACKLOG.md` (KB-013, unchanged, still open).
+
+### Reversal Conditions
+
+If a future bridging study (per KB-013's own required-action) establishes
+mDeBERTa-v3-xnli's (or another candidate's) task-fit for
+`VALIDATE-FACTUAL-CLAIM`, that capability may then pursue `VALIDATED`
+status through the normal Activation Gate — this decision does not
+permanently prohibit it, only withholds `VALIDATED` status absent that
+evidence.
+
+### Related Research
+
+R-0109, R-0110, R-0111, R-0112.
+
+### Related Questions
+
+None directly tracked — this decision operationalizes KB-013 rather than
+resolving a numbered open question.
+
+---
+
+## DEC-016 — Execute DCQ-006/007/008's 03-Scientific-Specification Propagation Now; Continue Deferring the 04-10 Portions
+
+### Date
+
+2026-09-12
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner instructed ("affrontiamola") that DCQ-006, DCQ-007 and DCQ-008 be
+tackled now, rather than continuing the blanket deferral `DEC-012` (point 3)
+and the DCQ items' own "Notes" sections had established. This decision
+scopes that instruction narrowly rather than treating it as blanket
+un-deferral:
+
+1. The portions of DCQ-006, DCQ-007 and DCQ-008 that target
+   `docs/03-scientific-specification` (`SPECIFICATION-MAP.md` §17, §19-22,
+   §25-26; `S02-scientific-requirements.md`; `S04-fidelity-requirements.md`)
+   are executed now. This area left structural-definition phase before this
+   session began (`START-HERE.md` §3), so there is a concrete, normative
+   document to edit, and `DEC-012` point 3's rationale for not touching it
+   earlier no longer applies once the owner has explicitly asked to
+   proceed.
+2. The portions targeting `docs/04-architecture`, `docs/05-validation`,
+   `docs/06-security`, and `docs/10-certification` remain deferred, because
+   those areas (with the narrow exception of `CAPABILITY-ARCHITECTURE.md`,
+   `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md` per `DEC-014`/`DEC-015`,
+   which already name no specific detector/model) are still in
+   structural-definition phase in substance — there is no concrete
+   normative document there yet that could cite a specific `R-XXXX` finding
+   without pre-empting a technical choice `DEC-009` reserves for later.
+3. Within `docs/04-architecture/ARCHITECTURE-MAP.md` specifically,
+   DCQ-008's request that "any local validation/detection component should
+   cite the specific candidate models" remains deferred: citing specific
+   candidate models in that document would itself be the kind of premature
+   technical commitment `ARCHITECTURE-MAP.md` §64.5 and
+   `CAPABILITY-ARCHITECTURE.md`/`DATA-MODEL.md`/`VALIDATION-ARCHITECTURE.md`'s
+   own "What This Document Does Not Decide" sections all explicitly
+   withhold.
+4. This decision does not resolve KB-008, KB-011, KB-013 or KB-014, or
+   R-0022/R-0086, as open research questions — it only propagates their
+   existing findings into the specification layer as required by
+   `RESEARCH-MAP.md` §20's propagation rule.
+
+### Rationale
+
+The owner's explicit "affrontiamola" instruction is new information
+`DEC-012` did not have when it chose blanket deferral; per this project's
+own change-control convention (a decision may be revisited when new
+evidence is identified — `S02-scientific-requirements.md` §25 — and an
+explicit owner instruction qualifies), that instruction is itself the
+trigger for revisiting `DEC-012`'s stance, but only for the parts of it
+that are now technically actionable (03-scientific-specification).
+Applying the same instruction to areas still in definition phase would not
+propagate an evidenced finding into a normative requirement — it would
+manufacture a normative document prematurely, which `DEC-009` and every
+Tranche-3 architecture document explicitly caution against.
+
+### Alternatives Considered
+
+Treating "affrontiamola" as authorizing all of DCQ-006/007/008 including
+their 04-10 portions (rejected — no concrete document exists yet in
+05-validation/06-security/10-certification to receive a citation, and
+forcing one into existence to satisfy this instruction would itself be an
+invented structural decision, contrary to `NO-INVENTION-RULES.md`);
+continuing `DEC-012`'s full deferral and treating "affrontiamola" as
+referring only to future work (rejected — the instruction was explicit and
+immediate, and the 03-scientific-specification portion is genuinely
+actionable now).
+
+### Consequences
+
+`SPECIFICATION-MAP.md` §17, §19-22, §25-26; `S02-scientific-requirements.md`;
+and `S04-fidelity-requirements.md` receive evidence-cited propagation notes
+per DCQ-006/007/008 (see those documents' own change history for
+specifics). DCQ-006, DCQ-007 and DCQ-008 move from `PENDING` to a
+partially-executed state in `DOCUMENTATION-CHANGE-QUEUE.md`, with their
+still-deferred 04-10 portions explicitly restated rather than silently
+dropped.
+
+### Affected Areas
+
+`docs/03-scientific-specification/SPECIFICATION-MAP.md`;
+`docs/03-scientific-specification/S02-scientific-requirements.md`;
+`docs/03-scientific-specification/S04-fidelity-requirements.md`;
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` (DCQ-006/007/008 status);
+`docs/00-project/KNOWLEDGE-BACKLOG.md` (affected items' Required Action
+status).
+
+### Reversal Conditions
+
+If any of the added propagation notes are found to assert confidence
+beyond their cited `R-XXXX` evidence class, or to implicitly make a
+technical choice reserved for 04-architecture/05-validation, the note
+should be corrected or removed rather than left standing.
+
+### Related Research
+
+R-0022, R-0046 through R-0073, R-0086, R-0109 through R-0121.
+
+### Related Questions
+
+Q-003, Q-008.

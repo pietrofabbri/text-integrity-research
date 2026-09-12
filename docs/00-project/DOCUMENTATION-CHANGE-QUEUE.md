@@ -328,17 +328,27 @@ moves out of pure definition phase, not that they need updating today.
 
 ### Status
 
-PENDING
+IN_PROGRESS
 
 ### Notes
 
-Deliberately left PENDING rather than executed in this pass: 04-architecture,
-05-validation, 06-security, and 10-certification are all still in the
-structural-definition phase (their own MAP documents say so), so there is
-not yet a concrete document to edit in most of them. This entry exists so
-the obligation is not lost once those areas are developed further, per
-`RESEARCH-MAP.md` §20's rule that a finding's home document is not
-necessarily where it was discovered.
+**Update (2026-09-12, per DECISION-LOG.md DEC-016, following the owner's
+"affrontiamola" instruction):** The `docs/03-scientific-specification`
+portion of this item is executed: `SPECIFICATION-MAP.md` §20 (corrected
+KB-008 picture), §22 (per-language capability-state guidance), and §23
+(paraphrase/translation evasion evidence, R-0039/R-0065/R-0066/R-0068/
+R-0069, KB-011) now carry evidence-cited propagation notes citing the
+specific `R-XXXX` identifiers relied upon. The lower-priority
+research-layer-internal update (naming translation-based evasion in R02
+§37.2 and R03 §43.4) remains not yet performed. The 04-architecture,
+05-validation, 06-security, and 10-certification portions remain
+deliberately deferred — those areas are still in structural-definition
+phase in substance (per `START-HERE.md` §6 and, for 04-architecture,
+`ARCHITECTURE-MAP.md` §62's 2026-09-12 update), so there is not yet a
+concrete document there to edit without pre-empting a technical decision
+reserved for later. This entry stays `IN_PROGRESS` rather than moving to
+`VERIFIED`/`CLOSED` until the deferred portions are addressed or
+explicitly re-scoped.
 
 ---
 
@@ -403,16 +413,21 @@ finding.
 
 ### Status
 
-PENDING
+IN_PROGRESS
 
 ### Notes
 
-Deliberately left PENDING, matching DCQ-006's rationale: most affected
-areas are still in structural-definition phase. Registered so the
-obligation is not lost. See
-`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS, §13S for
-the human-decision framing (whether to act now or defer to match the
-areas' own definition-phase status — recommended: defer).
+**Update (2026-09-12, per DECISION-LOG.md DEC-016, following the owner's
+"affrontiamola" instruction):** The `docs/03-scientific-specification`
+portion is executed: `SPECIFICATION-MAP.md` §17 (non-native-writer bias,
+R-0022), §25 and §26 (base-rate/prevalence argument, R-0086) now carry
+evidence-cited propagation notes, and `S02-scientific-requirements.md`
+REQ-AID-004 and REQ-STAT-004 carry corresponding cross-reference notes.
+The 06-security and 10-certification portions remain deliberately
+deferred, matching DCQ-006's rationale — those areas are still in
+structural-definition phase in substance. This entry stays `IN_PROGRESS`
+rather than moving to `VERIFIED`/`CLOSED` until the deferred portions are
+addressed or explicitly re-scoped.
 
 ---
 
@@ -473,12 +488,25 @@ the same deliberate-deferral pattern as DCQ-006/DCQ-007:
 
 ### Status
 
-PENDING
+IN_PROGRESS
 
 ### Notes
 
-Deliberately left PENDING, matching DCQ-006/DCQ-007's rationale:
-04-architecture and most of 03-10 are still in structural-definition
-phase. The `R09` domain identifier itself is now confirmed
-(`DECISION-LOG.md` DEC-013, `RESEARCH-MAP.md` §38) — this item no longer
-depends on that being resolved, only on 04-10 leaving definition phase.
+**Update (2026-09-12, per DECISION-LOG.md DEC-016, following the owner's
+"affrontiamola" instruction):** The `docs/03-scientific-specification`
+portion is executed: `SPECIFICATION-MAP.md` §21 and §22 now carry
+evidence-cited notes reflecting KB-013 (no evidence-backed multilingual
+factual/claim-consistency option) and KB-014 (local detection bounded by
+accuracy/cross-lingual robustness, not storage), and
+`S04-fidelity-requirements.md` FID-002 and `S02-scientific-requirements.md`
+REQ-LANG-006 carry corresponding cross-reference notes. The
+`docs/04-architecture/ARCHITECTURE-MAP.md` portion (citing specific
+candidate models for a local validation/detection component) and the
+10-certification portion remain deliberately deferred: `DEC-016` point 3
+explains that citing specific candidate models in `ARCHITECTURE-MAP.md`
+would itself pre-empt a technical choice that document and
+`CAPABILITY-ARCHITECTURE.md`/`DATA-MODEL.md`/`VALIDATION-ARCHITECTURE.md`
+all explicitly withhold. This entry stays `IN_PROGRESS` rather than moving
+to `VERIFIED`/`CLOSED` until the deferred portions are addressed or
+explicitly re-scoped. The `R09` domain identifier itself is confirmed
+(`DECISION-LOG.md` DEC-013, `RESEARCH-MAP.md` §38).

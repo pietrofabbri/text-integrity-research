@@ -1121,11 +1121,14 @@ metadata or versioned resources.
 Detailed architectural documents should be created only when the associated
 component has sufficient complexity to justify its own maintenance boundary.
 
-**Status update (2026-09-12):** per §64's Tranche 1, two of the documents
-below now exist: `docs/04-architecture/CAPABILITY-ARCHITECTURE.md`
-(formalizes §23-26) and `docs/04-architecture/DATA-MODEL.md` (formalizes
-§32-33). The remaining candidates below are unchanged — still potential
-future documents, not yet created; §64 gives the proposed order.
+**Status update (2026-09-12):** per §64's Tranche 1 and Tranche 2, three
+of the documents below now exist: `docs/04-architecture/
+CAPABILITY-ARCHITECTURE.md` (formalizes §23-26),
+`docs/04-architecture/DATA-MODEL.md` (formalizes §32-33), and
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` (formalizes §16-20,
+unblocked by `DECISION-LOG.md` DEC-015). The remaining candidates below
+are unchanged — still potential future documents, not yet created; §64
+gives the proposed order.
 
 Potential future documents include:
 
@@ -1135,7 +1138,7 @@ Potential future documents include:
 - `LANGUAGE-ARCHITECTURE.md`
 - `ANALYSIS-ARCHITECTURE.md`
 - `TRANSFORMATION-ARCHITECTURE.md`
-- `VALIDATION-ARCHITECTURE.md`
+- `VALIDATION-ARCHITECTURE.md` — **created**, see above
 - `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
 - `DATA-MODEL.md` — **created**, see above
 - `CONFIGURATION-ARCHITECTURE.md`
@@ -1311,18 +1314,20 @@ doing prematurely.
   document R09's evidence most directly and completely supports drafting
   today.
 
-## 64.3 Tranche 2 — Ready Once a Narrow Scope Decision Is Made
+## 64.3 Tranche 2 — Executed (2026-09-12)
 
 - **`VALIDATION-ARCHITECTURE.md`**: formalizes §16-20 (Validation Layer,
-  Semantic/Factual/Structural Validation, Minimality), which cross-
-  reference concrete `FID-xxx`/`TRN-xxx` requirements already in S04/S05.
-  However, Q-001 (semantic-equivalence metric) and R09's KB-013 finding
-  (no evidence-backed multilingual factual-consistency option) are both
-  still open — this document can be drafted for the mechanism and for
-  English, but should not assert a finalized multilingual validation
-  approach without a scoping decision on how to handle KB-013's gap
-  (defer multilingual factual validation explicitly, or accept the
-  unverified mDeBERTa-v3-xnli candidate provisionally).
+  Semantic/Factual/Structural Validation, Minimality), cross-referencing
+  concrete `FID-xxx`/`TRN-xxx` requirements already in S04/S05. The
+  scoping decision this tranche was waiting on is resolved by
+  `DECISION-LOG.md` DEC-015: factual validation splits into a
+  deterministic category (`VALIDATE-FACTUAL-STRUCTURED`, not blocked by
+  KB-013) and a claim/proposition-level category
+  (`VALIDATE-FACTUAL-CLAIM`, where KB-013's gap actually applies and
+  where non-English capabilities may register only `EXPERIMENTAL`
+  candidates). Q-001 (semantic-equivalence metric) remains genuinely
+  open — the document defines where such a metric plugs in, not what it
+  is.
 
 ## 64.4 Tranche 3 — Premature Without Further Upstream Resolution
 
@@ -1337,8 +1342,10 @@ doing prematurely.
   per-language capability-state resolution as above.
 - **`TRANSFORMATION-ARCHITECTURE.md`** (§13-15): the mechanism (§13-15)
   is stable, but meaningful content depends on which transformation
-  families are prioritized, which is itself downstream of the validation
-  scoping decision in Tranche 2.
+  families are prioritized, which in turn depends on which validation
+  families (now defined in `VALIDATION-ARCHITECTURE.md`, Tranche 2) have
+  `VALIDATED` capabilities to check against — still premature until
+  Tranche 3's own blockers (DCQ-006/007/008) resolve.
 - **`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `CONFIGURATION-ARCHITECTURE.md`,
   `REPORTING-ARCHITECTURE.md`, `PLUGIN-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`,
   `PIPELINE-ARCHITECTURE.md`**: not evaluated in depth in this pass: none
@@ -1349,10 +1356,10 @@ doing prematurely.
 ## 64.5 What This Proposal Does Not Decide
 
 Consistent with DEC-009 (a research finding does not automatically become
-a system requirement): this proposal does not select an actual
-semantic-similarity model, factual-consistency approach, or detector for
-`DATA-MODEL.md` or `VALIDATION-ARCHITECTURE.md` to reference — it only
-proposes *which documents* are ready to be drafted and in *what order*.
-Specific technical choices remain a separate, later decision, to be made
+a system requirement): neither this proposal nor the documents it
+produced (`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`,
+`VALIDATION-ARCHITECTURE.md`) select an actual semantic-similarity model,
+factual-consistency approach, or detector. Specific technical choices
+remain a separate, later decision, to be made
 when each document is actually drafted and to be recorded in
 `docs/00-project/DECISION-LOG.md` at that time.

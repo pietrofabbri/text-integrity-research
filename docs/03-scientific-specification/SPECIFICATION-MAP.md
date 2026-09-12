@@ -1,7 +1,8 @@
 # Scientific Specification Map
 
 **Status:** ACTIVE
-**Version:** 0.1
+**Version:** 0.2 (2026-09-12: DCQ-006/007/008 propagation notes added to
+§17, §20-23, §25-26, per DECISION-LOG.md DEC-016)
 **Document type:** Scientific and functional specification architecture
 **Authority:** Normative within the project
 **Scope:** Definition of measurable system objectives, requirements,
@@ -429,6 +430,16 @@ should preserve:
 Detector measurements must be reproducible where the external system allows
 it.
 
+**Note (2026-09-12, DCQ-007, per DECISION-LOG.md DEC-016):** Detector
+reliability is not uniform across writer populations —
+`RESEARCH-REGISTRY.md` R-0022 (RESEARCH EVIDENCE) documents a
+well-confirmed non-native-writer detection bias (elevated false-positive
+rates for non-native writers on evaluated classifiers). Any use of
+detector output for a specification-level decision should treat
+writer-population bias as a known, evidenced confounder rather than an
+unmodeled residual error. This note records the finding; it does not
+itself define a bias-correction mechanism.
+
 ---
 
 # 18. Multi-Detector Evaluation
@@ -477,6 +488,15 @@ Initial target languages are:
 This list is a project priority, not a claim that all languages have equal
 scientific support.
 
+**Note (2026-09-12, DCQ-006, per DECISION-LOG.md DEC-016):** Per
+`KNOWLEDGE-BACKLOG.md` KB-008 (Correction, 2026-08-24), AI-text-detection
+literature evidence exists for all 13 languages listed above, though depth
+varies by language; watermarking literature evidence is comparatively
+thin and does not yet cover all 13 languages at the same depth (see
+`docs/02-research/R05-multilingual-linguistic-research.md` §47.1,
+R-0046-R-0073). This is the specific evidence behind the "not a claim of
+equal scientific support" statement above.
+
 ---
 
 # 21. Language-Specific Requirements
@@ -498,6 +518,19 @@ Each language must be evaluated independently for:
 
 A multilingual component must not be considered validated for all supported
 languages merely because it passes tests in one language.
+
+**Note (2026-09-12, DCQ-008, per DECISION-LOG.md DEC-016):** For "factual
+preservation" specifically, no evidence-backed multilingual factual/claim
+-consistency option currently exists (`KNOWLEDGE-BACKLOG.md` KB-013;
+`RESEARCH-REGISTRY.md` R-0109-R-0112) — see
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` §6 for the architectural
+consequence (`DECISION-LOG.md` DEC-015's `VALIDATE-FACTUAL-CLAIM`
+category). For "detector behavior," local AI-text detection is currently
+bounded by accuracy and cross-lingual robustness rather than storage, with
+near-chance accuracy observed for several target languages among
+presently available local options (KB-014; R-0113-R-0118). See also §17's
+note on non-native-writer bias (R-0022, DCQ-007) — a related but distinct
+confounder.
 
 ---
 
@@ -522,6 +555,19 @@ For example:
 - watermark analysis: RESEARCH_ONLY;
 - external detector integration: NOT_SUPPORTED.
 
+**Note (2026-09-12, DCQ-006/DCQ-008, per DECISION-LOG.md DEC-016):**
+These per-capability-per-language states must be assigned individually
+rather than defaulted uniformly. Current research evidence (not itself a
+capability-state assignment — that remains separate implementation/
+validation work) points toward: AI-text-detection capability states
+varying by language and generally ahead of watermark-analysis states
+(KB-008 correction, R-0046-R-0073); no language currently qualifying for a
+VALIDATED multilingual factual/claim-consistency state (KB-013,
+R-0109-R-0112); and local-detector capability states that should not be
+set to VALIDATED or ACTIVE for a language beyond what its evidenced
+accuracy and cross-lingual robustness supports (KB-014, R-0113-R-0118).
+This note records the evidence; it does not assign any state.
+
 ---
 
 # 23. Robustness Specification
@@ -542,6 +588,19 @@ Potential conditions include:
 - text-length changes.
 
 Robustness claims must identify the exact transformation conditions.
+
+**Note (2026-09-12, DCQ-006, per DECISION-LOG.md DEC-016):** No
+requirement in this specification should be read as assuming
+watermark-based or classifier-based detection remains reliable after
+paraphrasing or translation. Evidence on file shows detection degrading
+sharply under both: detection rate below 0.3 after a single paraphrase
+pass, across all evaluated schemes (`RESEARCH-REGISTRY.md` R-0039), and
+AUC/F1 dropping to 0.55-0.82 after translation, depending on scheme and
+language pair (R-0065, R-0066, R-0068, R-0069; see
+`docs/00-project/KNOWLEDGE-BACKLOG.md` KB-011). A robustness claim under
+this section must therefore not extrapolate a technique's untested
+performance under paraphrasing or translation from its performance under
+other conditions.
 
 ---
 
@@ -581,6 +640,16 @@ Acceptance should consider the relevant combination of:
 
 The exact acceptance policy must be versioned.
 
+**Note (2026-09-12, DCQ-007, per DECISION-LOG.md DEC-016):** Where
+acceptance criteria rely on a detector's false-positive rate (FPR) as part
+of "known detector/watermark coverage," FPR alone is not sufficient to
+judge real-world acceptability without an accompanying prevalence
+estimate for the population being evaluated — `RESEARCH-REGISTRY.md`
+R-0086 (RESEARCH EVIDENCE); see `docs/00-project/OPEN-QUESTIONS.md` Q-003.
+This document does not yet define a prevalence-aware acceptance policy; it
+records that any future one must account for this argument rather than
+treating a bare FPR threshold as sufficient.
+
 ---
 
 # 26. Failure and Rejection
@@ -598,6 +667,15 @@ A candidate transformation should be rejected when:
 - the capability is not valid for the applicable language.
 
 Failure must be observable and diagnosable.
+
+**Note (2026-09-12, DCQ-007, per DECISION-LOG.md DEC-016):** A rejection
+or acceptance decision driven by a detector's reported false-positive rate
+should be interpreted alongside a prevalence estimate for the relevant
+population (R-0086; see §25's note) and should not be confused with the
+population-level base rate of the condition being detected. Separately,
+non-native-writer status is a documented confounder for false-positive
+behavior specifically (R-0022; see §17's note) and should not be silently
+absorbed into a single undifferentiated FPR figure.
 
 ---
 

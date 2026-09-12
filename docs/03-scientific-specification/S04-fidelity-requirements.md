@@ -1,7 +1,8 @@
 # S04 — Fidelity Requirements
 
 **Status:** NORMATIVE
-**Version:** 0.1
+**Version:** 0.2 (2026-09-12: DCQ-008 propagation note added to FID-002,
+per DECISION-LOG.md DEC-016)
 **Document type:** Scientific specification
 **Parent:** `docs/03-scientific-specification/SPECIFICATION-MAP.md`
 **Related:** `docs/03-scientific-specification/S01-system-objectives.md`
@@ -118,6 +119,20 @@ compared explicitly.
 
 A transformation that changes a claim must be classified as a potential
 fidelity failure unless the change is explicitly permitted by the experiment.
+
+**Note (2026-09-12, DCQ-008, per DECISION-LOG.md DEC-016):** This is the
+holistic, claim/proposition-level scope that `DECISION-LOG.md` DEC-015
+identified as where `KNOWLEDGE-BACKLOG.md` KB-013's evidence gap actually
+applies: no evidence-backed multilingual factual/claim-consistency option
+currently exists (`RESEARCH-REGISTRY.md` R-0109-R-0112). For English,
+MiniCheck (R-0109) is a well-evidenced candidate; for the other 12 target
+languages, no candidate currently qualifies as validated (see
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` §6 for the resulting
+`VALIDATE-FACTUAL-CLAIM` architectural treatment, including the FID-043
+requirement that an unvalidated language/capability pair be reported as
+`not measurable`/`unsupported` rather than silently passed). This is
+distinct from FID-003 below, whose scope is narrower and does not carry
+this evidence gap.
 
 ---
 

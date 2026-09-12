@@ -140,36 +140,49 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 14 recorded (`DEC-001`–`DEC-014`) in `DECISION-LOG.md`.
+- **Decisions**: 16 recorded (`DEC-001`–`DEC-016`) in `DECISION-LOG.md`.
+  `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
+  `03-scientific-specification` per the owner's explicit instruction,
+  while continuing to defer their 04-10 portions.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)
   now has a dedicated research pass (R09) — see that document and
   `OPEN-QUESTIONS.md` for why it remains `OPEN` rather than `RESOLVED`.
-- **Knowledge backlog**: 15 items (`KB-001`–`KB-015`).
-- **Documentation change queue**: 8 items (`DCQ-001`–`DCQ-008`); 6 are
-  `PENDING` — deliberately deferred until the areas they'd touch leave
-  structural-definition phase, per `DEC-012` (DCQ-006/007) and the same
-  rationale for DCQ-008.
+- **Knowledge backlog**: 15 items (`KB-001`–`KB-015`); KB-008, KB-011,
+  KB-013 and KB-014 have 2026-09-12 "Update" notes recording that their
+  findings are now propagated into `03-scientific-specification` (still
+  `TRIAGED` — propagation is not the same as resolution).
+- **Documentation change queue**: 8 items (`DCQ-001`–`DCQ-008`); 4
+  (`DCQ-001`–`DCQ-004`) are `PENDING`; 3 (`DCQ-006`–`DCQ-008`) are
+  `IN_PROGRESS` as of 2026-09-12 — their `03-scientific-specification`
+  portions are executed (`DEC-016`), their 04-10 portions remain
+  deliberately deferred per `DEC-012`'s original rationale, which still
+  applies to those areas; 1 (`DCQ-005`) is `VERIFIED`.
 - **Cross-area audit**: `POST-INVENTORY-QUEUE.md` Q001 (the 18-point
   04→10 consistency audit) is `COMPLETE` — see
   `CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS. It found and
   cross-referenced (but did not unify — that's `DEC-012`'s deferral)
   three divergent vocabulary pairs and several duplicated checklists.
 - **04-architecture**: no longer single-MAP-document as of 2026-09-12
-  (`DEC-014`) — `CAPABILITY-ARCHITECTURE.md` and `DATA-MODEL.md` now
-  exist (Tranche 1 of `ARCHITECTURE-MAP.md` §64's proposed exit plan).
-  Both formalize generic mechanisms only; no specific detector, model or
+  (`DEC-014`, `DEC-015`) — `CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`
+  and `VALIDATION-ARCHITECTURE.md` now exist (Tranches 1-2 of
+  `ARCHITECTURE-MAP.md` §64's proposed exit plan). All three formalize
+  generic mechanisms only; no specific detector, model, metric or
   algorithm has been selected, so the area remains in definition phase in
-  substance.
+  substance. Tranche 3 (`ANALYSIS-ARCHITECTURE.md`,
+  `LANGUAGE-ARCHITECTURE.md`, `TRANSFORMATION-ARCHITECTURE.md`) remains
+  premature pending DCQ-006/007/008.
 - **05-validation through 10-certification**: still single-MAP-document,
   structural-definition phase. This remains the project's largest gap
   between what's designed conceptually and what's specified in enough
   detail to implement against.
 - **Repository**: public on GitHub at
-  `github.com/pietrofabbri/text-integrity-research`. As of this update,
-  several files from this session (R09, DEC-013/014, the two new
-  architecture documents, this guide) are written locally but not yet
+  `github.com/pietrofabbri/text-integrity-research`, in sync as of commit
+  `649513a` (2026-09-12). Files from this update (`DEC-016`,
+  `SPECIFICATION-MAP.md`, `S02-scientific-requirements.md`,
+  `S04-fidelity-requirements.md`, `DOCUMENTATION-CHANGE-QUEUE.md`,
+  `KNOWLEDGE-BACKLOG.md`, this guide) are written locally but not yet
   committed — check `git log`/`git status` rather than assuming sync.
 
 ---

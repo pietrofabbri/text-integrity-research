@@ -356,6 +356,14 @@ correction.
 TRIAGED — corrected, not resolved; still requires 03-scientific-
 specification action per DCQ-006.
 
+### Update (2026-09-12, DCQ-006 propagation, per DECISION-LOG.md DEC-016)
+
+`SPECIFICATION-MAP.md` §20 and §22 now carry evidence-cited notes
+reflecting this correction (citing R-0046-R-0073). This is a cross-
+reference, not the per-language capability-state assignment itself — that
+remains separate implementation/validation work, so this item's
+`Required Action` is not yet satisfied and the item remains `TRIAGED`.
+
 ---
 
 ## KB-009 — Unverified Secondary-Sourced Figures From R04 Literature Pass
@@ -578,6 +586,15 @@ picked up; until then, any downstream document that asserts watermark or
 detector robustness should not assume translation-based evasion has been
 accounted for merely because paraphrasing robustness has been discussed.
 
+### Update (2026-09-12, DCQ-006 propagation, per DECISION-LOG.md DEC-016)
+
+`SPECIFICATION-MAP.md` §23 now carries a note citing R-0065/R-0066/
+R-0068/R-0069 alongside R-0039, so downstream specification-level
+robustness claims are on notice. The R02/R03 research-layer-internal
+naming update (§37.2, §43.4) described above remains not yet performed —
+this item's `Required Action` is not fully satisfied and it remains
+`TRIAGED`.
+
 ---
 
 ## KB-012 — Factual-Consistency Metrics Are Unvalidated, and Certainty/Hedging Is an Unnamed Preservation Dimension
@@ -718,6 +735,17 @@ Do not assign a validated factual-consistency capability state to any
 non-English language without new evidence bridging mDeBERTa-v3-xnli (or an
 equivalent) to this project's actual task.
 
+### Update (2026-09-12, DCQ-008 propagation, per DECISION-LOG.md DEC-016)
+
+`S04-fidelity-requirements.md` FID-002 and `SPECIFICATION-MAP.md` §21-22
+now carry notes citing this finding (R-0109-R-0112), and
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` §6 (per `DECISION-LOG.md`
+DEC-015) gives it an architectural consequence (`VALIDATE-FACTUAL-CLAIM`
+ineligible for `VALIDATED` outside English). This is propagation of the
+existing finding, not new evidence resolving it — the bridging study this
+item's `Required Action` calls for has not been performed, so the item
+remains `TRIAGED`.
+
 ---
 
 ## KB-014 — Local AI-Text Detection Is Bounded by Accuracy and Cross-Lingual Robustness, Not Storage
@@ -788,6 +816,16 @@ When a local detection component is scoped in 04-architecture, do not
 select a candidate on storage-fit alone; require accuracy and
 cross-lingual-robustness evidence per RAID/M4GT-Bench-style methodology
 first.
+
+### Update (2026-09-12, DCQ-008 propagation, per DECISION-LOG.md DEC-016)
+
+`SPECIFICATION-MAP.md` §21-22 and `S02-scientific-requirements.md`
+REQ-LANG-006 now carry notes citing this finding (R-0113-R-0118). The
+`04-architecture` portion of this item's `Required Action` (a local
+detection component being scoped) remains not applicable —
+`ARCHITECTURE-MAP.md` and its sub-documents do not yet select any
+candidate model, per `DECISION-LOG.md` DEC-016 point 3 — so this item
+remains `TRIAGED`.
 
 ---
 

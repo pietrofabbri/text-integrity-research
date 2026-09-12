@@ -1,7 +1,8 @@
 # S02 — Scientific Requirements
 
 **Status:** NORMATIVE  
-**Version:** 0.1  
+**Version:** 0.2 (2026-09-12: DCQ-006/007/008 propagation notes added to
+REQ-AID-004, REQ-LANG-006, REQ-STAT-004, per DECISION-LOG.md DEC-016)  
 **Document type:** Scientific requirements specification  
 **Parent:** `docs/03-scientific-specification/SPECIFICATION-MAP.md`  
 **Depends on:** `S01-system-objectives.md`
@@ -266,6 +267,15 @@ that output in statistical analysis.
 Where detector uncertainty or calibration information is available, it
 shall be preserved.
 
+**Note (2026-09-12, DCQ-007, per DECISION-LOG.md DEC-016):**
+`RESEARCH-REGISTRY.md` R-0022 (RESEARCH EVIDENCE) documents a
+well-confirmed non-native-writer detection bias affecting false-positive
+behavior specifically. Where a detector's uncertainty or calibration
+information is preserved under this requirement, writer-population bias
+should be treated as a known, evidenced confounder rather than
+undifferentiated residual error. See also `SPECIFICATION-MAP.md` §17's
+corresponding note.
+
 ---
 
 # 8. Multilingual Requirements
@@ -332,6 +342,19 @@ components.
 
 A language should have an explicit evidence record describing known
 linguistic, dataset and detector limitations.
+
+**Note (2026-09-12, DCQ-006/DCQ-008, per DECISION-LOG.md DEC-016):**
+Concrete evidence currently available for such a record includes: AI-text
+-detection literature evidence exists for all 13 target languages at
+varying depth, while watermarking evidence is comparatively thin
+(`KNOWLEDGE-BACKLOG.md` KB-008 Correction, R-0046-R-0073); no target
+language currently has an evidence-backed multilingual factual/claim
+-consistency option (KB-013, R-0109-R-0112); and locally deployable
+AI-text detectors are currently bounded by accuracy and cross-lingual
+robustness, with near-chance accuracy observed for several target
+languages (KB-014, R-0113-R-0118). This note points to the evidence; it
+does not itself constitute the per-language qualification record this
+requirement calls for.
 
 ---
 
@@ -519,6 +542,14 @@ The relevant sample size shall be recorded for reported aggregate results.
 **Priority:** MUST
 
 Meaningful uncertainty shall be reported where applicable.
+
+**Note (2026-09-12, DCQ-007, per DECISION-LOG.md DEC-016):** Where a
+reported statistic is a detector false-positive rate (FPR), meaningful
+uncertainty reporting under this requirement should include, or be
+accompanied by, a prevalence estimate for the evaluated population — FPR
+alone is not sufficient to judge real-world acceptability
+(`RESEARCH-REGISTRY.md` R-0086; see `docs/00-project/OPEN-QUESTIONS.md`
+Q-003 and `SPECIFICATION-MAP.md` §25-26's corresponding notes).
 
 ---
 
