@@ -135,7 +135,8 @@ distinguish, for every capability relevant to a request:
 2. eligible but not invoked (cancelled, or skipped due to a resource
    limit);
 3. not eligible for the request's language at all
-   (`CAPABILITY-ARCHITECTURE.md` §10's `NOT_SUPPORTED` state);
+   (`SPECIFICATION-MAP.md` §22's `NOT_SUPPORTED` state, recorded
+   per-capability via `CAPABILITY-ARCHITECTURE.md` §10's `languages` map);
 4. invoked and failed;
 5. eligible and invoked, but the external boundary itself was
    unreachable or unavailable (external integrations only).

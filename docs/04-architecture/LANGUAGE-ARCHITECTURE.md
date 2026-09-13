@@ -223,8 +223,15 @@ resource for any language; add a 14th language or change the 13-language
 list in `SPECIFICATION-MAP.md` §20; assign or change any per-capability
 per-language state beyond what `SPECIFICATION-MAP.md` §22.1 already
 records (this document derives from that record, it does not extend it);
-or resolve DCQ-006, DCQ-007 or DCQ-008. All of these remain separate,
-later decisions or research tasks.
+or resolve DCQ-006, DCQ-007 or DCQ-008 (the External Integration,
+Reporting, and Configuration Layers — since resolved by
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`, and
+`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document). This
+document's own `validation_status: mixed` discipline (§8) is, in turn,
+generalized by `REPORTING-ARCHITECTURE.md` §5 (drafted after this
+document, DEC-024) to every dimension a report covers, not only language
+coverage. All of these remain separate, later decisions or research
+tasks except where noted above as since resolved.
 
 ---
 

@@ -1741,3 +1741,178 @@ documentation gap, not a research question, and is recorded in
 `ARCHITECTURE-MAP.md` rather than `OPEN-QUESTIONS.md` for that reason,
 consistent with how the `PIPELINE-ARCHITECTURE.md`/`PLUGIN-ARCHITECTURE.md`
 scoping questions have been recorded throughout Tranche 4.
+
+---
+
+## DEC-027 — Cross-Reference Consolidation Pass Over `docs/04-architecture/`
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+With Tranche 4 concluded (DEC-021 through DEC-026), `docs/04-architecture/`
+now holds ten files (nine sub-documents plus `ARCHITECTURE-MAP.md`), most
+written or edited in rapid succession over a few days. Following this
+project's own precedent (`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`,
+which performed the same kind of pass over `00-project` through early
+`03-scientific-specification`), this decision records a consolidation
+pass scoped to `docs/04-architecture/` alone: a check for stale
+cross-references, contradictions, duplication, terminology drift, and
+missing cross-references among the ten files, per
+`docs/99-backlog/CLAUDE-CONSOLIDATION-INSTRUCTIONS.md` Phases 1-6. Per
+that document's Phase 10, only changes classified as mechanical (no new
+scope or content judgment) were applied directly; anything else is
+recorded below for the owner rather than resolved.
+
+**Mechanical fixes applied directly** (cross-reference additions and
+citation corrections only — no requirement, schema, or scope content was
+changed):
+
+1. `CORE-ARCHITECTURE.md` §9 — its four-state failure taxonomy was
+   presented as closed even though `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+   §7 (drafted afterward, DEC-022) adds a fifth state, restated by
+   `REPORTING-ARCHITECTURE.md` §4. Added a forward pointer; also replaced
+   the placeholder "a Reporting Layer document, §10" with a direct
+   pointer to `REPORTING-ARCHITECTURE.md`.
+2. `CORE-ARCHITECTURE.md` §9 and `REPORTING-ARCHITECTURE.md` §4 both
+   cited "`CAPABILITY-ARCHITECTURE.md` §10's `NOT_SUPPORTED` state" — but
+   that section defines only the per-language map structure, not the
+   state itself. Corrected both citations to `SPECIFICATION-MAP.md` §22,
+   the state's actual origin, matching the attribution
+   `LANGUAGE-ARCHITECTURE.md` §3 already used correctly.
+3. `CAPABILITY-ARCHITECTURE.md` §13 cited "`ARCHITECTURE-MAP.md` §2 and
+   §29 (Independent Detectors)" — verified that `ARCHITECTURE-MAP.md` §29
+   is "External Integration Layer," not "Independent Detectors," and
+   that the "Independent Detectors" heading exists only in
+   `docs/02-research/R04-ai-generated-text-detection-research.md` §29.
+   Corrected the citation to name that document.
+4. `CAPABILITY-ARCHITECTURE.md` §6 — its `DEGRADED`-state reporting
+   requirement pointed only at `ARCHITECTURE-MAP.md` §38; added a pointer
+   to `REPORTING-ARCHITECTURE.md`, which now formalizes that requirement
+   concretely.
+5. `CAPABILITY-ARCHITECTURE.md` §10 — added a note that
+   `CONFIGURATION-ARCHITECTURE.md` §3 depends on this section's
+   eligibility rule and was drafted after this document, previously
+   unreferenced here.
+6. `VALIDATION-ARCHITECTURE.md` §9 — added a pointer from its
+   missing-evidence discipline to `REPORTING-ARCHITECTURE.md` §5, which
+   generalizes it to every report dimension.
+7. `VALIDATION-ARCHITECTURE.md` §14 — added an acknowledgment that
+   `CONFIGURATION-ARCHITECTURE.md` §5 names this document as owning the
+   still-undefined "validation profile" field; not resolved, only
+   acknowledged on both sides now.
+8. `ANALYSIS-ARCHITECTURE.md` §7 — added a pointer from Output Category
+   Tagging to `REPORTING-ARCHITECTURE.md` §6, which requires the tag
+   travel into the report schema.
+9. `LANGUAGE-ARCHITECTURE.md` §9 — its "does not resolve DCQ-006/007/008"
+   language was stale now that all three (External Integration,
+   Reporting, Configuration) are resolved by name; updated, and added a
+   pointer from its `validation_status: mixed` discipline to
+   `REPORTING-ARCHITECTURE.md` §5.
+10. `DATA-MODEL.md` §2 — added the reverse of a relationship
+    `EXTERNAL-INTEGRATION-ARCHITECTURE.md` §2 already stated one-way
+    (the boundary-crossing vs. post-arrival distinction between the two
+    documents).
+11. `CONFIGURATION-ARCHITECTURE.md` §3 — its restatement of
+    `ARCHITECTURE-MAP.md` §36's field list had silently replaced §36's
+    literal "validation profile" with "which profile(s) apply" without
+    flagging that this folds in DEC-025's separate Evaluation Profile
+    concept. Clarified the attribution: §36 itself names only "validation
+    profile"; the Evaluation Profile reference comes from DEC-025, not
+    from §36's own text.
+
+**Recorded, not resolved — requires owner decision:**
+
+`CAPABILITY-ARCHITECTURE.md` §6 defines a capability's *own* lifecycle
+enum (`DISCOVERED → EXPERIMENTAL → VALIDATED → ACTIVE → DEGRADED →
+DEPRECATED → RETIRED`) and §10 states that a capability's per-language
+`languages` map holds "a map from language code to lifecycle state (§6)."
+But `LANGUAGE-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`, and
+`REPORTING-ARCHITECTURE.md` (all drafted after `CAPABILITY-ARCHITECTURE.md`)
+populate that same per-language map with `RESEARCH_ONLY` and
+`NOT_SUPPORTED` — values that are not members of §6's enum and that
+originate instead in `SPECIFICATION-MAP.md` §22's separate default
+vocabulary. No document states whether `NOT_SUPPORTED`/`RESEARCH_ONLY`
+should become additional members of §6's own enum, or remain a distinct
+vocabulary layered on top of it. This is the same class of "lifecycle-
+state vocabulary drift" `docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`
+already found and deferred once at the cross-area level (§5/§13 there);
+it now reproduces inside `04-architecture`'s own sub-documents. A note
+recording this gap, without resolving it, was added to
+`CAPABILITY-ARCHITECTURE.md` §10.
+
+### Rationale
+
+The same discipline applied throughout Tranche 4 — apply what the
+evidence already settles, record rather than guess at what it does not —
+extends naturally to consolidation work: additive cross-references and
+citation corrections change no requirement or scope and are safe to
+apply directly, per `CLAUDE-CONSOLIDATION-INSTRUCTIONS.md` Phase 10's own
+"safe automatic change" category and the precedent already set by
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md` §11. The one genuine
+content question found (the lifecycle-enum/per-language-vocabulary
+relationship) involves a real choice among plausible resolutions and is
+therefore left for the owner, exactly as DCQ-005 was in the prior
+consolidation pass.
+
+### Alternatives Considered
+
+Silently reconciling the lifecycle-enum/vocabulary gap by picking one of
+the plausible resolutions unilaterally (rejected — this is a content
+decision about a formal enum's membership, not a mechanical fix, and
+`NO-INVENTION-RULES.md` and this project's standing practice both require
+such decisions to be proposed and recorded, not silently made);
+performing the full Q001 cross-area audit instead of a scoped
+04-architecture-only pass (deferred — Q001 remains a separate, larger
+undertaking per the prior consolidation report §13/§14, not something to
+fold into this pass without being asked); leaving the stale
+cross-references uncorrected on the grounds that no reader had yet been
+confused by them (rejected — the prior consolidation report's own
+precedent already established mechanical fixes as safe to apply
+proactively rather than waiting for a symptom).
+
+### Consequences
+
+The ten `docs/04-architecture/` files are more internally consistent and
+their cross-references reflect the documents that actually exist as of
+DEC-026, rather than the state each was written in. No requirement,
+schema field, taxonomy, or scope decision was changed by this pass — only
+pointers and citations. The lifecycle-enum/vocabulary gap remains open
+and is now visible in `CAPABILITY-ARCHITECTURE.md` §10 itself, not only
+in this log entry.
+
+### Affected Areas
+
+`docs/04-architecture/CORE-ARCHITECTURE.md` (§9),
+`docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (§6, §10, §13),
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` (§9, §14),
+`docs/04-architecture/ANALYSIS-ARCHITECTURE.md` (§7),
+`docs/04-architecture/LANGUAGE-ARCHITECTURE.md` (§9),
+`docs/04-architecture/DATA-MODEL.md` (§2),
+`docs/04-architecture/REPORTING-ARCHITECTURE.md` (§4),
+`docs/04-architecture/CONFIGURATION-ARCHITECTURE.md` (§3). No new
+sub-document created; no existing requirement or scope changed.
+
+### Reversal Conditions
+
+If the owner resolves the lifecycle-enum/vocabulary gap in a future
+decision, the note in `CAPABILITY-ARCHITECTURE.md` §10 should be replaced
+with whatever concrete rule that decision establishes, rather than left
+alongside it.
+
+### Related Research
+
+None — this decision concerns documentation cross-reference consistency,
+not scientific content.
+
+### Related Questions
+
+None new — the lifecycle-enum/vocabulary gap is an architecture-
+documentation gap in the same family as the Evaluation Layer gap DEC-026
+recorded, not a research question for `OPEN-QUESTIONS.md`.

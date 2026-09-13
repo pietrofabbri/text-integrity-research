@@ -233,8 +233,11 @@ This is the single architectural mechanism that makes DEC-015's scope
 decision safe: a pipeline run on, say, Italian text is not silently
 missing factual-claim validation — it explicitly reports that dimension
 as unsupported for that language, which downstream reporting
-(`ARCHITECTURE-MAP.md` §38) and certification (`ARCHITECTURE-MAP.md`
-§61) must surface rather than suppress.
+(`ARCHITECTURE-MAP.md` §38, formalized concretely by
+`REPORTING-ARCHITECTURE.md` §5 — drafted after this document, DEC-024,
+and generalizing this section's three-state discipline to every
+dimension a report covers, not only validation) and certification
+(`ARCHITECTURE-MAP.md` §61) must surface rather than suppress.
 
 ---
 
@@ -304,10 +307,14 @@ clean pass across all dimensions.
 This document does not: select any specific semantic-similarity metric
 (Q-001 remains open), resolve KB-013's underlying multilingual evidence
 gap (DEC-015 only scopes around it), fix concrete acceptance thresholds
-for any `FID-xxx` requirement, or decide whether
+for any `FID-xxx` requirement, decide whether
 `VALIDATE-FACTUAL-STRUCTURED` is adequately evidenced per language (§6.1
-— an open question this document deliberately does not answer). All of
-these remain separate, later decisions or research tasks.
+— an open question this document deliberately does not answer), or
+define the "validation profile" field that `CONFIGURATION-ARCHITECTURE.md`
+§5 names as this document's outstanding responsibility (recorded there,
+not yet addressed here — `CONFIGURATION-ARCHITECTURE.md` was drafted
+after this document, per DEC-025). All of these remain separate, later
+decisions or research tasks.
 
 ---
 

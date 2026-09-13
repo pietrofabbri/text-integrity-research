@@ -202,7 +202,10 @@ both detector output, not ground truth about whether a text was
 watermarked or AI-generated, however confident the score. This restates,
 at the architecture level, what `ARCHITECTURE-MAP.md` §38 (Reporting
 Layer) says of derived scores generally: they must never replace or be
-presented as equivalent to the underlying observation.
+presented as equivalent to the underlying observation. `REPORTING-ARCHITECTURE.md`
+§6 (drafted after this document, DEC-024) requires this output-category
+tag to travel into the report schema itself, not remain an
+analysis-layer-only annotation.
 
 ---
 

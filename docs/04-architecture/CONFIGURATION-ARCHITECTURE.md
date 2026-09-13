@@ -91,11 +91,15 @@ relates to the other layers that consume it, not the concrete syntax.
 
 Per `ARCHITECTURE-MAP.md` §36, a request's configuration may define:
 language, pipeline, enabled capabilities, transformation constraints,
-which profile(s) apply, external services, resource limits, output
-format, and logging level. This document requires that every field
-populated in a configuration be traceable to the document that actually
-governs its meaning — a configuration is a set of *selections*, not a
-place where new semantics are defined:
+validation profile, external services, resource limits, output format,
+and logging level. "Which profile(s) apply" below covers both §36's own
+literal "validation profile" field (still undefined — §5) and the
+Evaluation Profile reference `DECISION-LOG.md` DEC-025 established as a
+second, distinct profile a configuration selects; §36's own text predates
+DEC-025 and names only the former. This document requires that every
+field populated in a configuration be traceable to the document that
+actually governs its meaning — a configuration is a set of *selections*,
+not a place where new semantics are defined:
 
 - `language` — selects among the languages `LANGUAGE-ARCHITECTURE.md` §4
   registers; does not itself add or define a language.

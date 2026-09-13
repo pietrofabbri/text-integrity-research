@@ -1380,6 +1380,23 @@ alone still genuinely open. DEC-026 also recorded, without resolving, a
 distinct gap: the Evaluation Layer (§21-22) remains unformalized by any
 current or candidate document.
 
+**Update (2026-09-13, post-Tranche-4):** per `DECISION-LOG.md` DEC-027, a
+cross-reference consolidation pass was run over the now-ten files in
+`docs/04-architecture/`, following the precedent set by
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md` for the rest of the
+corpus. Eleven stale cross-references and citation errors were corrected
+mechanically (no requirement or scope content changed). One genuine
+content gap was found and recorded without being resolved: whether
+`CAPABILITY-ARCHITECTURE.md` §6's own capability-lifecycle enum should
+formally include the `RESEARCH_ONLY`/`NOT_SUPPORTED` per-language values
+that `LANGUAGE-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`, and
+`REPORTING-ARCHITECTURE.md` already populate its per-language map with
+(sourced instead from `SPECIFICATION-MAP.md` §22) — the same class of
+"lifecycle-state vocabulary drift" the prior consolidation pass deferred
+once already at the cross-area level. This does not affect the
+definition phase or any Tranche 4 conclusion; see DEC-027 for the full
+list of fixes and the recorded gap.
+
 ---
 
 # 63. Governing Principle

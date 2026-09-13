@@ -245,20 +245,28 @@ preferring one over the other.
 
 Extending `ARCHITECTURE-MAP.md` §45 (Failure Isolation) and §57 (No
 Hidden Scientific State) to the orchestration flow specifically: a
-request-level report (ultimately the responsibility of a Reporting Layer
-document, §10) must be able to distinguish, for the request as a whole:
+request-level report (formalized by `REPORTING-ARCHITECTURE.md`, drafted
+after this document per DEC-024) must be able to distinguish, for the
+request as a whole:
 
 - a capability that ran and produced a result (§6, step 5-6);
 - a capability that was eligible but not invoked (e.g. cancelled, or
   skipped due to a resource limit, §6);
 - a capability that was not eligible for the request's language at all
-  (`CAPABILITY-ARCHITECTURE.md` §10's `NOT_SUPPORTED` state);
+  (`SPECIFICATION-MAP.md` §22's `NOT_SUPPORTED` state, per
+  `LANGUAGE-ARCHITECTURE.md` §3's attribution — `CAPABILITY-ARCHITECTURE.md`
+  §10 records this per-language via its `languages` map but does not
+  itself define the state's origin);
 - a capability that was invoked and failed (§6, step 7).
 
 These four states must never be conflated into a single "no result"
 outcome — doing so would violate the same missing-evidence discipline
 `VALIDATION-ARCHITECTURE.md` §9 already requires for validation results
 specifically, extended here to the orchestration level generally.
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` §7 (drafted after this document,
+DEC-022) adds a fifth state specific to capabilities that cross an
+external boundary; `REPORTING-ARCHITECTURE.md` §4 restates all five as a
+single report-schema requirement.
 
 ---
 

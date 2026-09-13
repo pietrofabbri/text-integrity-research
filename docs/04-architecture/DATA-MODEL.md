@@ -40,6 +40,15 @@ storage/resource budget is actually enforced.
 If any statement in this document appears to conflict with `DATA-MAP.md`,
 `DATA-MAP.md` governs, and this document should be corrected.
 
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` (drafted after this document,
+DEC-022) covers a related but distinct question: the boundary crossing
+itself — a model download, dataset fetch, or cloud call happening at all
+— which is logically prior to and distinct from what this document does
+with the artifact once it is local (§5 Resource Resolution Flow, §7
+Resource Budget Enforcement Point). That document's own §2 states this
+relationship in the other direction; this document did not yet reference
+it back before this consolidation pass.
+
 ---
 
 # 3. Layer Responsibility

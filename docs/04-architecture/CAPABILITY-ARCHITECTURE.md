@@ -153,7 +153,9 @@ DISCOVERED → EXPERIMENTAL → VALIDATED → ACTIVE → DEPRECATED → RETIRED
   quality has declined (e.g. a new benchmark shows regression, an
   external dependency changed behavior) but immediate retirement is not
   yet justified. A `DEGRADED` capability must not be silently treated as
-  equivalent to `ACTIVE` in reports (`ARCHITECTURE-MAP.md` §38).
+  equivalent to `ACTIVE` in reports — formalized by
+  `REPORTING-ARCHITECTURE.md` (drafted after this document, DEC-024),
+  which restates `ARCHITECTURE-MAP.md` §38 concretely.
 - **DEPRECATED** — scheduled for retirement; per `ARCHITECTURE-MAP.md`
   §48, must record reason, replacement if available, affected
   capabilities/experiments, and intended removal.
@@ -243,6 +245,24 @@ language-specific `EXPERIMENTAL` or absent state — this directly
 implements `RESEARCH-MAP.md` §46 (Multilingual Benchmark: "a single
 aggregate score is insufficient") at the architecture level.
 
+`LANGUAGE-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`, and
+`REPORTING-ARCHITECTURE.md` (all drafted after this document) populate
+this same per-language map with `RESEARCH_ONLY` and `NOT_SUPPORTED`
+values, sourced from `SPECIFICATION-MAP.md` §22's default vocabulary
+rather than from §6's lifecycle enum above. This document does not
+define a formal relationship between §6's record-lifecycle states and
+that separate per-language default vocabulary — whether `NOT_SUPPORTED`/
+`RESEARCH_ONLY` should be treated as additional members of §6's enum, or
+as a distinct "no record exists yet" vocabulary that precedes it, is an
+open gap this consolidation pass records without resolving, since
+extending §6's enum is a content decision reserved for the owner, not a
+mechanical fix.
+
+`CONFIGURATION-ARCHITECTURE.md` §3 depends on this section's eligibility
+rule ("a configuration may only narrow, never widen, what this section
+already makes eligible") — that document was drafted after this one and
+is not yet referenced here.
+
 ---
 
 # 11. Evidence Requirements (No-Invention Rules at the Architecture Level)
@@ -281,7 +301,12 @@ changes when the capability's behavior changes.
 
 # 13. Multiple Candidates per Category
 
-Per `ARCHITECTURE-MAP.md` §2 and §29 (Independent Detectors), more than
+Per `ARCHITECTURE-MAP.md` §2 and
+`docs/02-research/R04-ai-generated-text-detection-research.md` §29
+(Independent Detectors — this project's own `ARCHITECTURE-MAP.md` §29 is
+"External Integration Layer," a different section; this citation was
+corrected during the 2026-09-13 consolidation pass to name the document
+that actually carries the "Independent Detectors" heading), more than
 one capability record may exist in the same category (e.g. multiple
 `DETECT-*` capabilities). This is expected, not an anomaly: R09 §10.4
 found no single local AI-detection candidate that is simultaneously
