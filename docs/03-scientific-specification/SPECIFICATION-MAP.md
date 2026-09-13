@@ -1,8 +1,9 @@
 # Scientific Specification Map
 
 **Status:** ACTIVE
-**Version:** 0.2 (2026-09-12: DCQ-006/007/008 propagation notes added to
-§17, §20-23, §25-26, per DECISION-LOG.md DEC-016)
+**Version:** 0.3 (2026-09-12: DCQ-006/007/008 propagation notes added to
+§17, §20-23, §25-26, per DECISION-LOG.md DEC-016; §22.1 per-language
+capability-state assignment added per DEC-018)
 **Document type:** Scientific and functional specification architecture
 **Authority:** Normative within the project
 **Scope:** Definition of measurable system objectives, requirements,
@@ -566,7 +567,81 @@ VALIDATED multilingual factual/claim-consistency state (KB-013,
 R-0109-R-0112); and local-detector capability states that should not be
 set to VALIDATED or ACTIVE for a language beyond what its evidenced
 accuracy and cross-lingual robustness supports (KB-014, R-0113-R-0118).
-This note records the evidence; it does not assign any state.
+This note recorded the evidence without assigning any state. §22.1 below
+performs that assignment.
+
+## 22.1 Per-Language Capability-State Assignment (2026-09-12)
+
+Per `DECISION-LOG.md` DEC-017/DEC-018, this subsection performs the
+assignment §22's note above deferred, for the three capabilities with
+enough per-language literature detail in the research layer to support a
+defensible state: AI-generated-text detection, watermarking, and
+factual/claim-consistency validation. Semantic-similarity validation is
+*not* included here: the strongest available evidence
+(`RESEARCH-REGISTRY.md` R-0103/R-0106) supports a general multilingual
+capability claim but was not found broken down per specific target
+language, so assigning 13 differentiated states for it would invent
+detail the evidence does not contain — this is recorded as a gap, not
+silently defaulted.
+
+**Method.** Because no capability in this project has yet been
+implemented or run through `CAPABILITY-ARCHITECTURE.md`'s Activation Gate,
+no cell below is `EXPERIMENTAL`, `VALIDATED`, `ACTIVE`, `DEGRADED`,
+`DEPRECATED` or `RETIRED` — those states describe a capability's
+standing *within this project*, which does not yet exist for anything in
+this table. Every cell is therefore either `RESEARCH_ONLY` (literature
+evidence exists that the capability is plausible for that language,
+cited below) or `NOT_SUPPORTED` (no such evidence was found, or the only
+evidence found is of a candidate whose task-fit is itself unverified —
+see the factual/claim-consistency table's note). This follows KB-008's
+own original proposal ("should default to RESEARCH_ONLY or NOT_SUPPORTED
+rather than any validated tier"). A state recorded here is a documentation
+default, not a runtime configuration — it must be revisited once a
+capability is actually registered and evaluated under
+`CAPABILITY-ARCHITECTURE.md`.
+
+### 22.1.1 AI-Generated-Text Detection
+
+| Language | State | Evidence | Note |
+|---|---|---|---|
+| English | RESEARCH_ONLY | R04 §39 (general) | Field's default evaluation language; multi-lab convergence, not itself singly cited |
+| Spanish | RESEARCH_ONLY | R-0019, R-0021 | Benchmark-inclusion only; BLUFF (R-0021) figures UNVERIFIED |
+| French | RESEARCH_ONLY | R-0019, R-0021 | Same tier as Spanish — benchmark-inclusion only |
+| German | RESEARCH_ONLY | R-0047, R-0048, R-0049 | Peer-reviewed shared task + benchmark inclusion |
+| Japanese | RESEARCH_ONLY | R-0057 | Dedicated peer-reviewed study (100% LOO accuracy) — strongest single-language evidence found |
+| Portuguese | RESEARCH_ONLY | R-0049, R-0058 | Dedicated study (PT-Detect) exists |
+| Russian | RESEARCH_ONLY | R-0047, R-0048, R-0049, R-0053, R-0118 | Dedicated/benchmark evidence exists, but R-0118 (M4GT-Bench) found leave-one-language-out accuracy collapses toward chance (~53%) — evidence of a failure mode, not merely thin coverage |
+| Italian | RESEARCH_ONLY | R-0047, R-0048, R-0059 | R-0059 is a *negative* finding: no practical in-the-wild detection method currently exists against an unknown closed-API model |
+| Dutch | RESEARCH_ONLY | R-0049 | Weakest tier found: benchmark-inclusion only, no dedicated standalone study |
+| Polish | RESEARCH_ONLY | R-0052 | Dedicated study (first Polish shared task) |
+| Turkish | RESEARCH_ONLY | R-0060 | Dedicated study (first Turkish study) |
+| Chinese | RESEARCH_ONLY | R-0054, R-0069 | Dedicated benchmark (AUTHOR-REPORTED tier, not independently verified) |
+| Indonesian | RESEARCH_ONLY | R-0046, R-0048, R-0118 | R-0118 (M4GT-Bench) found leave-one-language-out accuracy collapses toward chance — same failure-mode caveat as Russian |
+
+### 22.1.2 Watermarking (Generation and Detection)
+
+| Language | State | Evidence | Note |
+|---|---|---|---|
+| English | RESEARCH_ONLY | R02/R03 general findings | Field's default evaluation language |
+| Chinese | RESEARCH_ONLY | R-0069 | SynthID robustness study; F1 0.711 — worst-surviving of the languages it tested |
+| Japanese | RESEARCH_ONLY | R-0063, R-0064, R-0069 | Open, unresolved tension: best-surviving under round-trip translation (R-0069, F1 0.819) yet flagged as typologically hardest for watermark design (R-0063/R-0064) — both preserved per `RESEARCH-MAP.md` §22, not resolved |
+| Indonesian | RESEARCH_ONLY | R-0066 | Included in a dedicated cross-lingual attack-robustness test |
+| Spanish | NOT_SUPPORTED | — | No dedicated watermarking study found |
+| French | NOT_SUPPORTED | — | No dedicated watermarking study found |
+| German | NOT_SUPPORTED | — | No dedicated watermarking study found (R05 §47.1) |
+| Portuguese | NOT_SUPPORTED | — | No dedicated watermarking study found (R05 §47.1) |
+| Russian | NOT_SUPPORTED | — | No dedicated watermarking study found (R05 §47.1) |
+| Italian | NOT_SUPPORTED | — | No dedicated watermarking study found (R05 §47.1) |
+| Dutch | NOT_SUPPORTED | — | No dedicated watermarking study found (R05 §47.1) |
+| Polish | NOT_SUPPORTED | — | No dedicated watermarking study found (R05 §47.1) |
+| Turkish | NOT_SUPPORTED | R-0071 (background only) | R-0071 documents tokenization fragmentation mechanics but explicitly does not itself test watermarking — a risk factor, not evidence of capability |
+
+### 22.1.3 Factual/Claim-Consistency Validation (`VALIDATE-FACTUAL-CLAIM`, per `DECISION-LOG.md` DEC-015)
+
+| Language | State | Evidence | Note |
+|---|---|---|---|
+| English | RESEARCH_ONLY | R-0109 | MiniCheck — well-evidenced; per DEC-015, eligible to *pursue* the Activation Gate, not yet validated within this project |
+| All 12 other target languages | NOT_SUPPORTED | R-0111, R-0112 | mDeBERTa-v3-xnli (R-0111) is the only open multilingual candidate, but its task-fit (XNLI entailment vs. document-level factual-consistency) is unverified, and mFACT (R-0112) found English-trained faithfulness metrics do not transfer well cross-lingually. Per KB-013's own finding ("no evidence-backed multilingual factual-consistency option exists"), a candidate model existing is not the same as an evidence-backed capability existing — hence `NOT_SUPPORTED` rather than `RESEARCH_ONLY` here, unlike the detection/watermarking tables above where cited studies support the capability itself, not merely a candidate for it |
 
 ---
 

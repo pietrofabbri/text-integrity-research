@@ -350,6 +350,13 @@ reserved for later. This entry stays `IN_PROGRESS` rather than moving to
 `VERIFIED`/`CLOSED` until the deferred portions are addressed or
 explicitly re-scoped.
 
+**Further update (2026-09-12, DEC-018):** `SPECIFICATION-MAP.md` §22.1
+now assigns real per-language `RESEARCH_ONLY`/`NOT_SUPPORTED` states for
+AI-text detection and watermarking, grounded in R-0046-R-0073 — the
+concrete "per-language capability-state defaults" this item's `Required
+Updates` called for. The lower-priority R02/R03 internal-naming update
+(translation-based evasion) remains not performed.
+
 ---
 
 ## DCQ-007 — Propagate Two Scientific-Integrity Gaps Found by the Q001 Audit
@@ -510,3 +517,9 @@ all explicitly withhold. This entry stays `IN_PROGRESS` rather than moving
 to `VERIFIED`/`CLOSED` until the deferred portions are addressed or
 explicitly re-scoped. The `R09` domain identifier itself is confirmed
 (`DECISION-LOG.md` DEC-013, `RESEARCH-MAP.md` §38).
+
+**Further update (2026-09-12, DEC-018):** `SPECIFICATION-MAP.md` §22.1
+now assigns real per-language states for factual/claim-consistency
+validation, grounded in R-0109-R-0112 (all 12 non-English languages
+`NOT_SUPPORTED`, English `RESEARCH_ONLY`). The `ARCHITECTURE-MAP.md`
+portion remains deferred for the reason stated above.

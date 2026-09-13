@@ -140,14 +140,22 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 17 recorded (`DEC-001`–`DEC-017`) in `DECISION-LOG.md`.
+- **Decisions**: 19 recorded (`DEC-001`–`DEC-019`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
   reassesses whether that propagation unblocks `ARCHITECTURE-MAP.md` §64.4
-  Tranche 3 — conclusion: not yet; see `ARCHITECTURE-MAP.md` §64.4.1 for
-  the precise remaining gap (real per-language capability-state
-  assignments, not yet performed anywhere in the corpus).
+  Tranche 3 — conclusion at that point: not yet. `DEC-018` (same day)
+  performs the missing per-language capability-state assignment:
+  `SPECIFICATION-MAP.md` §22.1 assigns `RESEARCH_ONLY`/`NOT_SUPPORTED`
+  states per language for AI-detection, watermarking and factual/claim-
+  consistency (semantic-similarity intentionally excluded, insufficient
+  per-language evidence). `DEC-019` (2026-09-13) re-reassesses Tranche 3
+  in light of `DEC-018`: `ANALYSIS-ARCHITECTURE.md` and
+  `LANGUAGE-ARCHITECTURE.md` are now **structurally ready to draft**
+  (pending a separate owner confirmation, per `DEC-004`);
+  `TRANSFORMATION-ARCHITECTURE.md` remains premature — it needs actually-
+  `VALIDATED` capabilities, which documentation work alone cannot supply.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)

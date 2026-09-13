@@ -802,3 +802,197 @@ R-0022, R-0046 through R-0073, R-0086, R-0109 through R-0121.
 
 None directly — this decision concerns document-readiness sequencing, not
 resolution of a numbered open question.
+
+---
+
+## DEC-018 — Per-Language Capability-State Assignment Populated in SPECIFICATION-MAP.md §22.1
+
+### Date
+
+2026-09-12
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner approved (`"va bene se procedi con quello"`) the candidate
+follow-up `DEC-017` identified: populating real per-language,
+per-capability state values in `SPECIFICATION-MAP.md` §22, grounded in
+the evidence DCQ-006/007/008 already propagated (`DEC-016`). This is now
+done as `SPECIFICATION-MAP.md` §22.1, covering three capabilities with
+sufficient per-language literature detail: AI-generated-text detection,
+watermarking, and factual/claim-consistency validation
+(`VALIDATE-FACTUAL-CLAIM`, per `DEC-015`). Semantic-similarity validation
+is explicitly excluded from this assignment: the available evidence
+(R-0103/R-0106) supports a general multilingual capability claim but was
+not found broken down per specific target language, and assigning 13
+differentiated states for it would invent detail the evidence does not
+contain — this is recorded in §22.1 as a scope limitation, not silently
+defaulted.
+
+Every assigned state is `RESEARCH_ONLY` or `NOT_SUPPORTED` only —
+`EXPERIMENTAL`, `VALIDATED`, `ACTIVE`, `DEGRADED`, `DEPRECATED` and
+`RETIRED` all describe a capability's standing *within this project*,
+which does not yet exist for anything in the table (no capability has
+been implemented or run through `CAPABILITY-ARCHITECTURE.md`'s Activation
+Gate). This follows `KNOWLEDGE-BACKLOG.md` KB-008's own original proposal.
+For factual/claim-consistency specifically, the 12 non-English languages
+are marked `NOT_SUPPORTED` rather than `RESEARCH_ONLY`, even though a
+candidate model (mDeBERTa-v3-xnli, R-0111) exists, because its task-fit is
+itself unverified and `KNOWLEDGE-BACKLOG.md` KB-013 found no
+evidence-backed option exists for those languages — a candidate existing
+is not the same as an evidence-backed capability existing.
+
+### Rationale
+
+`ARCHITECTURE-MAP.md` §64.4.1 (`DEC-017`) identified this exact gap as
+the actual prerequisite for Tranche 3 architecture documents, and framed
+it as a distinct, substantive content decision requiring explicit owner
+direction before being started — which the owner then gave. Doing this
+now, using only the two states that require no project-level
+implementation evidence (`RESEARCH_ONLY`/`NOT_SUPPORTED`), keeps the
+assignment strictly within what the already-registered research supports,
+consistent with `NO-INVENTION-RULES.md` and `DEC-005` (requirements must
+not be weakened, nor evidence overstated, to obtain a result).
+
+### Alternatives Considered
+
+Assigning `EXPERIMENTAL` states to the strongest candidates (e.g. English
+factual-consistency via MiniCheck, or Japanese detection via R-0057)
+(rejected — `EXPERIMENTAL` per `CAPABILITY-ARCHITECTURE.md`'s lifecycle
+implies a project-registered candidate under evaluation, which does not
+yet exist for anything in this project); marking mDeBERTa-v3-xnli's 12
+non-English languages `RESEARCH_ONLY` since a candidate model is
+documented (rejected — would overstate KB-013's own finding that no
+evidence-backed option exists, conflating "a candidate exists" with "the
+capability is evidenced"); including a semantic-similarity row using
+general multilingual claims applied uniformly across all 13 languages
+(rejected — would invent per-language detail the cited evidence, R-0103/
+R-0106, does not contain).
+
+### Consequences
+
+`SPECIFICATION-MAP.md` §22.1 (new) and `S02-scientific-requirements.md`
+REQ-LANG-006 are updated. `ARCHITECTURE-MAP.md` §64.4.1's identified
+prerequisite for Tranche 3 is now partially satisfied for two of its
+three capability families (detection, watermarking) and the factual-
+consistency family already had architecture-level treatment via
+`DEC-015` — whether this is now sufficient to reopen Tranche 3 readiness
+is a separate question, not decided here, and should be assessed
+explicitly if and when Tranche 3 is next considered.
+
+### Affected Areas
+
+`docs/03-scientific-specification/SPECIFICATION-MAP.md` (§22.1, new);
+`docs/03-scientific-specification/S02-scientific-requirements.md`
+(REQ-LANG-006).
+
+### Reversal Conditions
+
+Any cell in §22.1 should be revised (not silently left stale) once: (a)
+a capability is actually registered and evaluated under
+`CAPABILITY-ARCHITECTURE.md`'s Activation Gate for that language, moving
+it beyond `RESEARCH_ONLY`/`NOT_SUPPORTED`; or (b) new research evidence is
+registered that changes a language's evidence tier (e.g. a dedicated
+watermarking study for a currently `NOT_SUPPORTED` language, or a
+bridging study resolving mDeBERTa-v3-xnli's task-fit per KB-013's required
+action).
+
+### Related Research
+
+R-0019, R-0021, R-0046 through R-0073, R-0109 through R-0118.
+
+### Related Questions
+
+Q-003, Q-008.
+
+---
+
+## DEC-019 — Tranche 3 Re-Reassessed Post-DEC-018: ANALYSIS-ARCHITECTURE.md and LANGUAGE-ARCHITECTURE.md Now Structurally Ready; TRANSFORMATION-ARCHITECTURE.md Still Premature
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval to proceed with `DEC-017`'s identified
+follow-up (executed as `DEC-018`), the owner asked that Tranche 3
+readiness be reassessed a second time. Re-running `ARCHITECTURE-MAP.md`
+§64.1's readiness test against `SPECIFICATION-MAP.md` §22.1's new
+per-language state assignments:
+
+1. **`ANALYSIS-ARCHITECTURE.md`** and **`LANGUAGE-ARCHITECTURE.md`**:
+   their specific blocker (no per-language/per-capability state
+   assignments existed for detection or watermarking) is now resolved by
+   `DEC-018`. Both are reassessed as **structurally ready to draft** —
+   as generic-mechanism documents that reference `SPECIFICATION-MAP.md`
+   §22.1 for current per-language readiness, in the same non-invention
+   style as `CAPABILITY-ARCHITECTURE.md`/`DATA-MODEL.md`/
+   `VALIDATION-ARCHITECTURE.md`.
+2. **`TRANSFORMATION-ARCHITECTURE.md`** remains premature: it needs
+   validation families with actual `VALIDATED` capabilities to check
+   transformations against, not merely a documented default state.
+   `DEC-018` assigned only `RESEARCH_ONLY`/`NOT_SUPPORTED` states, by
+   design, because no capability in this project has been implemented or
+   passed `CAPABILITY-ARCHITECTURE.md`'s Activation Gate. This is a
+   different kind of blocker than `ANALYSIS-ARCHITECTURE.md`'s, and no
+   documentation update can resolve it — only actual implementation and
+   evaluation work can.
+3. Per `DEC-004` (human approval required at macro-tranche boundaries)
+   and this project's practice for Tranches 1-2, this decision records
+   the reassessment only. Drafting `ANALYSIS-ARCHITECTURE.md` and
+   `LANGUAGE-ARCHITECTURE.md` requires a further, separate owner
+   confirmation before it begins.
+
+### Rationale
+
+§64.1's readiness signal turns on whether drafting a document would
+require inventing capability-specific choices the evidence does not
+support. `DEC-018` closed exactly the gap `DEC-017` identified for two of
+the three Tranche 3 documents. The third document's blocker was
+mischaracterized as the same gap in the original §64.4 text but is
+actually a distinct, deeper dependency (on actual capability validation,
+not on documented per-language defaults) — this decision corrects that
+distinction explicitly rather than letting it stay conflated.
+
+### Alternatives Considered
+
+Treating all of Tranche 3 as unblocked together (rejected —
+`TRANSFORMATION-ARCHITECTURE.md`'s dependency is not satisfied by
+`DEC-018` and treating it as such would misrepresent what `RESEARCH_ONLY`/
+`NOT_SUPPORTED` states actually mean); treating none of Tranche 3 as
+unblocked, deferring re-evaluation further (rejected — would ignore that
+`ANALYSIS-ARCHITECTURE.md`/`LANGUAGE-ARCHITECTURE.md`'s specific,
+narrower blocker is genuinely resolved).
+
+### Consequences
+
+`ARCHITECTURE-MAP.md` §64.4 gains a `§64.4.2 Second Reassessment`
+subsection. No document is drafted under this decision — drafting
+`ANALYSIS-ARCHITECTURE.md`/`LANGUAGE-ARCHITECTURE.md` awaits explicit
+owner confirmation, to be sought next.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§64.4.2, new).
+
+### Reversal Conditions
+
+If, once drafting is attempted, either document turns out to require an
+undocumented technical choice after all, that finding should be recorded
+here and the document's readiness downgraded rather than drafted anyway.
+
+### Related Research
+
+R-0022, R-0046 through R-0073, R-0086, R-0109 through R-0121.
+
+### Related Questions
+
+None directly — this decision concerns document-readiness sequencing.

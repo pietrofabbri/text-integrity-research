@@ -364,6 +364,17 @@ reference, not the per-language capability-state assignment itself — that
 remains separate implementation/validation work, so this item's
 `Required Action` is not yet satisfied and the item remains `TRIAGED`.
 
+### Further update (2026-09-12, DEC-018)
+
+`SPECIFICATION-MAP.md` §22.1 now performs the per-language capability-
+state assignment itself (documentation-default `RESEARCH_ONLY`/
+`NOT_SUPPORTED` states, since no capability is yet project-implemented).
+This satisfies this item's `Required Action` at the documentation level;
+the item remains `TRIAGED` because the underlying evidence gaps
+(uneven depth, several languages at benchmark-inclusion-only tier) are
+unresolved research questions, not something a documentation update can
+close.
+
 ---
 
 ## KB-009 — Unverified Secondary-Sourced Figures From R04 Literature Pass
@@ -746,6 +757,14 @@ existing finding, not new evidence resolving it — the bridging study this
 item's `Required Action` calls for has not been performed, so the item
 remains `TRIAGED`.
 
+### Further update (2026-09-12, DEC-018)
+
+`SPECIFICATION-MAP.md` §22.1 now assigns `NOT_SUPPORTED` for this
+capability across all 12 non-English target languages (English:
+`RESEARCH_ONLY`), explicitly distinguishing "a candidate model exists"
+from "an evidence-backed capability exists" per this item's own finding.
+The bridging study remains not performed; the item remains `TRIAGED`.
+
 ---
 
 ## KB-014 — Local AI-Text Detection Is Bounded by Accuracy and Cross-Lingual Robustness, Not Storage
@@ -826,6 +845,14 @@ detection component being scoped) remains not applicable —
 `ARCHITECTURE-MAP.md` and its sub-documents do not yet select any
 candidate model, per `DECISION-LOG.md` DEC-016 point 3 — so this item
 remains `TRIAGED`.
+
+### Further update (2026-09-12, DEC-018)
+
+`SPECIFICATION-MAP.md` §22.1 now assigns per-language `RESEARCH_ONLY`/
+`NOT_SUPPORTED` states for AI-text detection, explicitly flagging Russian
+and Indonesian's near-chance leave-one-language-out accuracy collapse
+(R-0118) as a failure-mode caveat rather than treating them as merely
+thin-evidence languages. The item remains `TRIAGED`.
 
 ---
 

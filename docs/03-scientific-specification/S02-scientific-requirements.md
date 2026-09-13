@@ -1,8 +1,10 @@
 # S02 — Scientific Requirements
 
 **Status:** NORMATIVE  
-**Version:** 0.2 (2026-09-12: DCQ-006/007/008 propagation notes added to
-REQ-AID-004, REQ-LANG-006, REQ-STAT-004, per DECISION-LOG.md DEC-016)  
+**Version:** 0.3 (2026-09-12: DCQ-006/007/008 propagation notes added to
+REQ-AID-004, REQ-LANG-006, REQ-STAT-004, per DECISION-LOG.md DEC-016;
+REQ-LANG-006 updated per DEC-018's per-language capability-state
+assignment)  
 **Document type:** Scientific requirements specification  
 **Parent:** `docs/03-scientific-specification/SPECIFICATION-MAP.md`  
 **Depends on:** `S01-system-objectives.md`
@@ -355,6 +357,16 @@ robustness, with near-chance accuracy observed for several target
 languages (KB-014, R-0113-R-0118). This note points to the evidence; it
 does not itself constitute the per-language qualification record this
 requirement calls for.
+
+**Update (2026-09-12, per DECISION-LOG.md DEC-018):**
+`SPECIFICATION-MAP.md` §22.1 now performs a first per-language,
+per-capability state assignment (AI-text detection, watermarking,
+factual/claim-consistency) grounded in this evidence, using only
+`RESEARCH_ONLY`/`NOT_SUPPORTED` since no capability is yet implemented
+within this project. This satisfies this requirement's call for an
+explicit evidence record for those three capabilities; semantic-
+preservation qualification remains unassigned, as recorded in §22.1's own
+scope note.
 
 ---
 

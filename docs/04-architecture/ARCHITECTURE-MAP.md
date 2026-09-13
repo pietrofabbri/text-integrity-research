@@ -1389,6 +1389,44 @@ specification` content decision — which capabilities to state for which
 of the 13 languages, and what evidence threshold justifies each state —
 and is proposed here as a candidate follow-up, not begun unilaterally.
 
+### 64.4.2 Second Reassessment (2026-09-13, per DECISION-LOG.md DEC-019)
+
+The owner approved §64.4.1's candidate follow-up; `SPECIFICATION-MAP.md`
+§22.1 now assigns real per-language states for AI-generated-text
+detection, watermarking, and factual/claim-consistency validation
+(`DECISION-LOG.md` DEC-018). This section re-runs the §64.1 readiness
+test against that new state, per document:
+
+- **`ANALYSIS-ARCHITECTURE.md`**: §64.4's blocker was specifically the
+  absence of per-language/per-capability state assignments for
+  detection and watermarking. `SPECIFICATION-MAP.md` §22.1.1/§22.1.2 now
+  supply exactly that (13 languages, `RESEARCH_ONLY`/`NOT_SUPPORTED`,
+  each cell cited to a specific `R-XXXX`). A document formalizing the
+  generic watermark-analysis/AI-detection-assessment mechanism — how a
+  capability record queries and respects these per-language states,
+  mirroring `VALIDATION-ARCHITECTURE.md`'s treatment of the factual-
+  validation split — no longer requires inventing anything §22.1 does
+  not already supply. **Reassessed as structurally ready.**
+- **`LANGUAGE-ARCHITECTURE.md`**: depended on the identical resolution.
+  **Reassessed as structurally ready**, on the same basis.
+- **`TRANSFORMATION-ARCHITECTURE.md`**: §64.4's blocker was different in
+  kind, not merely in degree — it needs to know which validation
+  families have *`VALIDATED`* capabilities to check transformations
+  against, not merely which have a documented default state. Every cell
+  in `SPECIFICATION-MAP.md` §22.1 is `RESEARCH_ONLY` or `NOT_SUPPORTED`
+  by design (§22.1's own Method note: no capability in this project has
+  yet been implemented or passed `CAPABILITY-ARCHITECTURE.md`'s
+  Activation Gate). No documentation update can manufacture a `VALIDATED`
+  capability — that requires actual implementation and evaluation work
+  that has not started. **Remains premature**, for a reason DEC-018 could
+  not and did not resolve.
+
+Consistent with `DECISION-LOG.md` DEC-004 (human approval required at
+macro-tranche boundaries) and this proposal's own practice for Tranches
+1-2, drafting `ANALYSIS-ARCHITECTURE.md` and `LANGUAGE-ARCHITECTURE.md`
+does not begin under this reassessment alone — it requires the owner's
+explicit confirmation, given separately from the reassessment itself.
+
 ## 64.5 What This Proposal Does Not Decide
 
 Consistent with DEC-009 (a research finding does not automatically become
