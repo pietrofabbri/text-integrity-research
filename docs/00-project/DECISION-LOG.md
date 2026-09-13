@@ -1400,3 +1400,226 @@ independent of the research layer.
 
 None directly — this decision concerns architecture-document evaluation
 and a documentation-scoping gap, not a scientific question.
+
+---
+
+## DEC-024 — REPORTING-ARCHITECTURE.md Drafted
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's explicit confirmation to proceed with the
+candidate DEC-023 assessed as structurally ready,
+`docs/04-architecture/REPORTING-ARCHITECTURE.md` is drafted, formalizing
+`ARCHITECTURE-MAP.md` §38 (Reporting Layer) together with §21 (Evaluation
+Layer). Rather than formalizing a section range no other document yet
+touched (as `CORE-ARCHITECTURE.md` and `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+did), this document's task was to consolidate reporting obligations
+already required, individually, by four documents already drafted:
+`CORE-ARCHITECTURE.md` §9's failure/eligibility taxonomy (extended to a
+fifth state by `EXTERNAL-INTEGRATION-ARCHITECTURE.md` §7);
+`ANALYSIS-ARCHITECTURE.md` §7's output-category tagging;
+`VALIDATION-ARCHITECTURE.md` §9's missing-evidence states (`FID-043`),
+generalized in this document to every dimension a report covers, not
+only validation; and `EXTERNAL-INTEGRATION-ARCHITECTURE.md` §5-6's
+external-observation tagging and data-transfer logging. It organizes the
+report schema into an observation tier (individual, unaggregated results
+with every field the source documents already require intact) and a
+summary tier (any human-readable rollup, required to be derived from,
+and traceable back to, the observation tier — never an independent,
+potentially divergent record). It selects no specific serialization
+format, storage technology, or rendering/UI, and explicitly does not
+resolve the `CONFIGURATION-ARCHITECTURE.md`/Evaluation-Profile scoping
+overlap `DECISION-LOG.md` DEC-023 recorded.
+
+### Rationale
+
+`DECISION-LOG.md` DEC-023 already assessed this document as structurally
+ready, finding its content already scattered across every sub-document
+drafted so far rather than merely conceptually available in
+`ARCHITECTURE-MAP.md`. The owner's confirmation to proceed is the
+authorization this decision executes, consistent with this project's
+macro-tranche-boundary practice (`DEC-004`) of drafting only after
+separate, explicit confirmation distinct from the evaluation step itself.
+
+### Alternatives Considered
+
+Waiting for the `CONFIGURATION-ARCHITECTURE.md` scoping question to
+resolve before drafting this document (rejected — DEC-023 already found
+the two documents' readiness to be independent, and this document's own
+§2 and §11 make explicit that it depends on neither the existence nor the
+resolution of that overlap, only on being able to record whichever
+configuration/evaluation-profile information exists); inventing a
+concrete serialization format or UI to make the document feel more
+"complete" (rejected — `ARCHITECTURE-MAP.md` §43 reserves this for
+Development, and doing so here would violate the same discipline every
+prior tranche document has followed).
+
+### Consequences
+
+`docs/04-architecture/REPORTING-ARCHITECTURE.md` exists, the eighth
+sub-document in 04-architecture. `ARCHITECTURE-MAP.md` §58, §62 and §64.7
+should be updated to record its creation.
+`CONFIGURATION-ARCHITECTURE.md` remains the last of Tranche 4's original
+six candidates still blocked, pending its own scoping decision;
+`PIPELINE-ARCHITECTURE.md` and `PLUGIN-ARCHITECTURE.md` remain open
+scoping questions as before.
+
+### Affected Areas
+
+`docs/04-architecture/REPORTING-ARCHITECTURE.md` (new);
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §62, §64.7).
+
+### Reversal Conditions
+
+If `REPORTING-ARCHITECTURE.md` is found to have implicitly selected a
+specific serialization format, storage technology, or certification
+criterion contrary to its own §11, that content should be removed and, if
+a real decision is needed, recorded separately in this log — the same
+reversal condition set for every prior tranche document. If the
+observation-tier/summary-tier split (§3) proves unworkable once a
+concrete schema is implemented, that split should be revised rather than
+left standing as a mismatch.
+
+### Related Research
+
+None — this decision concerns software-architecture mechanics
+independent of the research layer.
+
+### Related Questions
+
+None directly — this decision concerns architecture-document creation.
+
+---
+
+## DEC-025 — Configuration/Evaluation-Profile Scoping Resolved; CONFIGURATION-ARCHITECTURE.md Drafted
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Resolving the scoping question `DECISION-LOG.md` DEC-023 recorded (an
+unrecorded overlap between `ARCHITECTURE-MAP.md` §36's Configuration
+Layer content list and §37's Evaluation Profile content list): the two
+are distinct, composable concepts, not the same object under two names,
+and not a strict subset relationship either.
+
+- **Configuration** (§36) governs a single request/run's operational
+  settings — what a specific execution actually does (language, pipeline,
+  enabled capabilities, transformation constraints, which profile(s)
+  apply, external services, resource limits, output format, logging
+  level).
+- **An Evaluation Profile** (§37) is a versioned, named, explicitly-scoped
+  bundle of techniques, detectors, languages, datasets, transformations,
+  metrics, thresholds, date, and evidence baseline — grounded not only in
+  §37 but, decisively, in `docs/03-scientific-specification/
+  SPECIFICATION-MAP.md` §27 ("No Universal Success Claim": "effectiveness
+  is evaluated against a versioned, explicitly defined evaluation
+  profile") and §28 (Effectiveness Profiles: baseline, conservative,
+  multilingual, research, regression, release certification). Its purpose
+  is scientific/evidentiary — scoping an effectiveness claim to an
+  explicit, reproducible basis — not operational.
+
+The overlap in field names (languages, transformations, detectors/
+analyzers, thresholds) reflects composition, not duplication: a
+Configuration selects *which* Evaluation Profile (by name/version)
+governs a given run's effectiveness framing; the Evaluation Profile is
+the versioned definition being selected. This is the same relationship
+already implicit, but never made explicit until now, in
+`ARCHITECTURE-MAP.md` §5 and `CORE-ARCHITECTURE.md` §5 (both already list
+"configuration" and "evaluation profile" as two separate, coexisting
+interface inputs) and in `ARCHITECTURE-MAP.md` §40 (Reproducibility, which
+already lists "configuration" and "evaluation profile" as two separate
+reproducibility inputs, side by side).
+
+With this resolved, `docs/04-architecture/CONFIGURATION-ARCHITECTURE.md`
+is drafted, formalizing §36 and its now-explicit relationship to §37.
+
+### Rationale
+
+This resolution does not invent a relationship between the two concepts;
+it makes explicit a distinction the corpus's own cross-references already
+assumed. Three independent places in the already-existing corpus treat
+Configuration and Evaluation Profile as separate: `ARCHITECTURE-MAP.md`
+§5 and its restatement in `CORE-ARCHITECTURE.md` §5 (an interface accepts
+both, as two distinct selections), `ARCHITECTURE-MAP.md` §40 (both listed
+as separate reproducibility inputs), and, most decisively,
+`SPECIFICATION-MAP.md` §27-28 — an authoritative scientific-specification
+document, not merely an architectural one — which defines an evaluation
+profile's purpose as preventing an unscoped, universal effectiveness
+claim. That purpose has no operational-configuration analogue: a single
+production run's Configuration does not itself make a scientific
+effectiveness claim, so treating the two as the same concept would have
+required ignoring §27-28's own stated rationale for the term.
+
+### Alternatives Considered
+
+Treating Configuration and Evaluation Profile as the same concept under
+two names (rejected — directly contradicted by §5/`CORE-ARCHITECTURE.md`
+§5 and §40 already listing both as separate, coexisting items; if they
+were one concept, listing both would be redundant, and the corpus does
+not otherwise duplicate list items this way); treating Evaluation Profile
+as a strict subset of Configuration (rejected — `SPECIFICATION-MAP.md`
+§27-28 grounds Evaluation Profile in the scientific/evidentiary layer,
+with named profiles such as "release certification" that a single
+request's operational Configuration would not itself define or version);
+leaving `CONFIGURATION-ARCHITECTURE.md` blocked indefinitely pending
+further evidence (rejected — the ambiguity was resolvable from evidence
+already in the corpus; further deferral would have been avoidable delay,
+not genuine caution).
+
+### Consequences
+
+`docs/04-architecture/CONFIGURATION-ARCHITECTURE.md` exists, the ninth
+sub-document in 04-architecture and the last of Tranche 4's original six
+candidates to be resolved one way or another (`PIPELINE-ARCHITECTURE.md`
+and `PLUGIN-ARCHITECTURE.md` remain open scoping questions, unaffected by
+this decision). `ARCHITECTURE-MAP.md` §58, §62 and §64.7 should be updated
+to record both the scoping resolution and the document's creation.
+Separately, this evaluation noted that §36's own term "validation
+profile" is not itself defined by `VALIDATION-ARCHITECTURE.md` or any
+other document — a smaller, distinct gap this decision does not resolve;
+`CONFIGURATION-ARCHITECTURE.md` treats it as an open field name pending
+its own definition rather than inventing a meaning for it.
+
+### Affected Areas
+
+`docs/04-architecture/CONFIGURATION-ARCHITECTURE.md` (new);
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §62, §64.7).
+
+### Reversal Conditions
+
+If a future document finds that Configuration and Evaluation Profile were
+in fact intended as a single concept (contrary to the reading in this
+decision), or that the composition relationship described here does not
+match how `CAPABILITY-ARCHITECTURE.md` capabilities or
+`VALIDATION-ARCHITECTURE.md` validators actually consume a Configuration
+once implemented, this decision should be revisited and revised rather
+than left standing as a mismatch. If `CONFIGURATION-ARCHITECTURE.md` is
+found to have implicitly selected a specific configuration format,
+schema, or storage mechanism contrary to its own "What This Document Does
+Not Decide" section, that content should be removed and, if a real
+decision is needed, recorded separately in this log.
+
+### Related Research
+
+None — this decision concerns software-architecture and scientific-
+specification cross-referencing, not new research evidence.
+
+### Related Questions
+
+None directly — this decision concerns architecture-document scoping and
+creation.

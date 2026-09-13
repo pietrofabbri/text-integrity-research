@@ -1157,6 +1157,33 @@ and `REPORTING-ARCHITECTURE.md` remain the next candidates, still pending
 the deeper evaluation DEC-021 deferred for both; `PIPELINE-ARCHITECTURE.md`
 and `PLUGIN-ARCHITECTURE.md` remain unresolved scoping questions.
 
+**Status update (2026-09-13, latest):** per `DECISION-LOG.md` DEC-023 and
+DEC-024, `REPORTING-ARCHITECTURE.md` (§38) was evaluated as structurally
+ready — its content already scattered across `CORE-ARCHITECTURE.md`,
+`ANALYSIS-ARCHITECTURE.md`, `VALIDATION-ARCHITECTURE.md` and
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` rather than merely conceptually
+available — and is now drafted (see `docs/04-architecture/
+REPORTING-ARCHITECTURE.md`). `CONFIGURATION-ARCHITECTURE.md` (§36) was
+evaluated in the same pass and found **blocked**, for a reason distinct
+from any prior candidate's: a previously unrecorded content overlap with
+§37 (Evaluation Profiles), recorded at §64.7 rather than resolved by
+drafting around it. `PIPELINE-ARCHITECTURE.md` and `PLUGIN-ARCHITECTURE.md`
+remain unresolved scoping questions.
+
+**Status update (2026-09-13, final):** per `DECISION-LOG.md` DEC-025,
+the Configuration/Evaluation-Profile overlap is resolved — the two are
+distinct, composable concepts (Configuration selects which named,
+versioned Evaluation Profile applies; it does not define what that
+profile contains), grounded in `ARCHITECTURE-MAP.md` §5/§40 already
+listing both separately and, decisively, in
+`SPECIFICATION-MAP.md` §27-28's evidentiary purpose for an Evaluation
+Profile. `CONFIGURATION-ARCHITECTURE.md` is now drafted on that resolved
+basis (see `docs/04-architecture/CONFIGURATION-ARCHITECTURE.md`), the
+ninth sub-document in 04-architecture and the last of Tranche 4's
+original six candidates resolved one way or another.
+`PIPELINE-ARCHITECTURE.md` and `PLUGIN-ARCHITECTURE.md` remain the only
+open scoping questions.
+
 Potential future documents include:
 
 - `CORE-ARCHITECTURE.md` — **created**, see above
@@ -1168,8 +1195,8 @@ Potential future documents include:
 - `VALIDATION-ARCHITECTURE.md` — **created**, see above
 - `EXTERNAL-INTEGRATION-ARCHITECTURE.md` — **created**, see above
 - `DATA-MODEL.md` — **created**, see above
-- `CONFIGURATION-ARCHITECTURE.md`
-- `REPORTING-ARCHITECTURE.md`
+- `CONFIGURATION-ARCHITECTURE.md` — **created**, see above
+- `REPORTING-ARCHITECTURE.md` — **created**, see above
 - `PLUGIN-ARCHITECTURE.md`
 
 These are candidates rather than immediate mandatory files.
@@ -1304,6 +1331,31 @@ evidence-independent rather than blocked on per-language or per-model
 research. It selects no specific external provider, protocol, data
 format, or security-control mechanism, so the definition phase remains
 unaffected in substance by this addition as well.
+
+**Update (2026-09-13, latest):** per `DECISION-LOG.md` DEC-023 and
+DEC-024, `REPORTING-ARCHITECTURE.md` now also exists — the eighth
+sub-document in 04-architecture, consolidating reporting obligations
+already required individually by the other seven rather than adding a
+new one. `CONFIGURATION-ARCHITECTURE.md` remains not drafted: DEC-023
+found it blocked by a previously unrecorded content overlap with §37
+(Evaluation Profiles), a scoping question distinct from any prior
+document's evidence-based blocker, recorded at §64.7 rather than
+resolved unilaterally. It selects no specific serialization format,
+storage technology, or certification criterion, so the definition phase
+remains unaffected in substance by this addition as well.
+
+**Update (2026-09-13, final):** per `DECISION-LOG.md` DEC-025, the
+Configuration/Evaluation-Profile overlap DEC-023 recorded is now resolved
+(the two are distinct, composable concepts — see §64.7), and
+`CONFIGURATION-ARCHITECTURE.md` now also exists — the ninth and, per
+Tranche 4's original six-candidate list, final sub-document this pass
+resolves one way or another. It selects no specific configuration format,
+schema language, or storage mechanism, and explicitly leaves the meaning
+of §36's own "validation profile" field undefined pending a separate,
+later decision, so the definition phase remains unaffected in substance
+by this addition as well. `PIPELINE-ARCHITECTURE.md` and
+`PLUGIN-ARCHITECTURE.md` remain 04-architecture's only open scoping
+questions.
 
 ---
 
@@ -1499,13 +1551,16 @@ a system requirement): neither this proposal nor the documents it
 produced (`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`,
 `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
 `LANGUAGE-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`,
-`EXTERNAL-INTEGRATION-ARCHITECTURE.md`) select an actual
-semantic-similarity model, factual-consistency approach, detector,
-watermark scheme, tokenizer, interface technology, external provider,
-integration protocol, or security-control mechanism. Specific technical
-choices remain a separate, later decision, to be made when each
-document's mechanism is actually implemented and to be recorded in
-`docs/00-project/DECISION-LOG.md` at that time.
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`,
+`CONFIGURATION-ARCHITECTURE.md`) select an actual semantic-similarity
+model, factual-consistency approach, detector, watermark scheme,
+tokenizer, interface technology, external provider, integration protocol,
+security-control mechanism, report serialization format, or
+configuration file format/schema language. Specific technical choices
+remain a separate, later decision, to be made when each document's
+mechanism is actually
+implemented and to be recorded in `docs/00-project/DECISION-LOG.md` at
+that time.
 
 ## 64.6 Tranche 4 (2026-09-13, per DECISION-LOG.md DEC-021)
 
@@ -1586,7 +1641,10 @@ category), and §56 (Schema-First Principle: reports need an explicit,
 versioned schema). A `REPORTING-ARCHITECTURE.md` document's task is
 therefore real but bounded: unify these already-scattered obligations
 into one coherent schema and document, without inventing any new
-reporting concept the corpus does not already require.
+reporting concept the corpus does not already require. **Update
+(2026-09-13, per `DECISION-LOG.md` DEC-024):** drafted, following the
+owner's confirmation to proceed with this candidate. See
+`docs/04-architecture/REPORTING-ARCHITECTURE.md`.
 
 **`CONFIGURATION-ARCHITECTURE.md` (§36) — found not yet ready, for a
 reason distinct from any prior tranche document's blocker.** §36 is
@@ -1617,3 +1675,23 @@ scoping question, not answered by omission.
 `CONFIGURATION-ARCHITECTURE.md` therefore remains **not drafted**, pending
 a scoping decision — to be proposed and recorded in `DECISION-LOG.md` in
 its own right — on the Configuration/Evaluation-Profile relationship.
+
+**Update (2026-09-13, per `DECISION-LOG.md` DEC-025):** that scoping
+decision is now made. Configuration and Evaluation Profile are distinct,
+composable concepts, not the same object under two names and not a
+strict subset relationship: Configuration selects, by name and version,
+which Evaluation Profile governs a run's effectiveness framing; the
+Evaluation Profile itself — grounded in `SPECIFICATION-MAP.md` §27-28's
+evidentiary purpose, not merely in §37 — defines what that framing
+actually contains. The field-list overlap reflects this
+selection/definition composition, not duplication — the same reading
+`ARCHITECTURE-MAP.md` §5 and `CORE-ARCHITECTURE.md` §5 already implied by
+listing "configuration" and "evaluation profile" as two separate,
+coexisting interface inputs, and `ARCHITECTURE-MAP.md` §40 implied by
+listing them as two separate reproducibility inputs. `CONFIGURATION-ARCHITECTURE.md`
+is now drafted on this resolved basis (see `docs/04-architecture/
+CONFIGURATION-ARCHITECTURE.md`). This evaluation also surfaced a smaller,
+distinct gap: §36's own "validation profile" field is not defined by
+`VALIDATION-ARCHITECTURE.md` or any other document — recorded, not
+resolved, and not conflated with the Evaluation-Profile question this
+decision settles.

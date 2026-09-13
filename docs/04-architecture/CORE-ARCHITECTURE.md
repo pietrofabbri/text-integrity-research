@@ -123,9 +123,12 @@ cross-reference §58 separately:
     after this document was written).
 11. Persistence Layer — not yet formalized; not named among §58's
     candidate documents either, and this document does not add it as one.
-12. Reporting Layer — not yet formalized beyond `ARCHITECTURE-MAP.md` §38.
-13. Configuration Layer — not yet formalized beyond `ARCHITECTURE-MAP.md`
-    §36 (a candidate document, per §10 below).
+12. Reporting Layer — `REPORTING-ARCHITECTURE.md` (formalizes §38,
+    drafted 2026-09-13 per `DECISION-LOG.md` DEC-024, after this document
+    was written).
+13. Configuration Layer — `CONFIGURATION-ARCHITECTURE.md` (formalizes
+    §36, drafted 2026-09-13 per `DECISION-LOG.md` DEC-025 after resolving
+    its scoping overlap with §37, both after this document was written).
 
 Layer 3 (Text Representation) also covers the Language Architecture's
 concerns from a different angle: `LANGUAGE-ARCHITECTURE.md` governs which
@@ -266,12 +269,11 @@ representations (`ARCHITECTURE-MAP.md` §43 reserves this for
 Development); decide whether `PIPELINE-ARCHITECTURE.md` is a distinct
 document from this one or whether §6's Orchestration Layer treatment
 already covers what it would contain — that scoping question is left
-open rather than answered by omission; formalize the
-Configuration Layer (§36) or Reporting Layer (§38) beyond the brief
-cross-references in §4 and §9 — each remains its own candidate document
-(the External Integration Layer, §29-31, is now formalized separately by
-`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, drafted after this document); or
-resolve DCQ-006, DCQ-007 or DCQ-008.
+open rather than answered by omission; or resolve DCQ-006, DCQ-007 or
+DCQ-008 (the External Integration, Reporting, and Configuration Layers —
+§29-31, §38, §36 — are now formalized separately by
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`, and
+`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document).
 
 ---
 

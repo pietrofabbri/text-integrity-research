@@ -77,8 +77,9 @@ of them would need to plug into.
   area (`docs/06-security/`, per §61).
 - `ARCHITECTURE-MAP.md` §36 (Configuration Layer) and §38 (Reporting
   Layer) are cross-referenced (§5, §7 below) but not formalized by this
-  document — both remain their own candidate documents per DEC-021's
-  triage.
+  document; both are since formalized separately by
+  `CONFIGURATION-ARCHITECTURE.md` and `REPORTING-ARCHITECTURE.md`, drafted
+  after this document (`DECISION-LOG.md` DEC-024, DEC-025).
 
 ---
 
@@ -151,10 +152,12 @@ must support, per §30's own list:
 - **configuration visibility** — what will be sent, and under what
   configuration, must be inspectable before the call is made
   (`ARCHITECTURE-MAP.md` §36 governs where that configuration itself
-  lives, once a Configuration Layer document formalizes it);
+  lives, formalized by `CONFIGURATION-ARCHITECTURE.md` §3, drafted after
+  this document);
 - **data-transfer logging** — that a transfer happened, to which
   provider, and what category of data (§4) must be recorded, feeding the
-  Reporting Layer (`ARCHITECTURE-MAP.md` §38) once formalized;
+  Reporting Layer (`ARCHITECTURE-MAP.md` §38, formalized by
+  `REPORTING-ARCHITECTURE.md` §8, drafted after this document);
 - **failure handling** — an unreachable or erroring external service must
   surface as an explicit failure state (§7 below), never as a silent
   empty result;
@@ -180,9 +183,10 @@ finding, and it is never permitted to silently substitute for, override,
 or gate a local capability's own result. If a cloud detector and a local
 capability disagree, both observations must be reported side by side
 (`CORE-ARCHITECTURE.md` §6, aggregation must not collapse per-capability
-results into a single value) — this document does not decide, and no
-document yet decides, how a report should present a disagreement to a
-reader; that is a Reporting Layer concern (§38, not yet formalized).
+results into a single value) — this document does not decide how a
+report should present a disagreement to a reader; that is
+`REPORTING-ARCHITECTURE.md` §7's concern (Cross-Analyzer disagreement as
+a reportable result), drafted after this document.
 
 ---
 
@@ -269,9 +273,11 @@ Development); define the security controls `ARCHITECTURE-MAP.md` §49-50
 require beyond naming the single crossing point they must attach to
 (§8); decide whether local fallback is *mandatory* for any specific
 capability that has an external variant — that remains a
-`CAPABILITY-ARCHITECTURE.md`-level, per-capability decision; formalize
-the Configuration Layer (§36) or Reporting Layer (§38) beyond the
-cross-references in §5-6; or resolve DCQ-006, DCQ-007, or DCQ-008.
+`CAPABILITY-ARCHITECTURE.md`-level, per-capability decision; or resolve
+DCQ-006, DCQ-007, or DCQ-008 (the Reporting and Configuration Layers,
+§38 and §36, are now formalized separately by
+`REPORTING-ARCHITECTURE.md` and `CONFIGURATION-ARCHITECTURE.md`, both
+drafted after this document).
 
 ---
 
