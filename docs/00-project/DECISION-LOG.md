@@ -1916,3 +1916,122 @@ not scientific content.
 None new — the lifecycle-enum/vocabulary gap is an architecture-
 documentation gap in the same family as the Evaluation Layer gap DEC-026
 recorded, not a research question for `OPEN-QUESTIONS.md`.
+
+---
+
+## DEC-028 — Correct a Mislabeled DCQ Cross-Reference in Three `docs/04-architecture/` Documents
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+While applying DEC-027's consolidation fixes, a further, more
+significant citation error was found and is corrected by this decision:
+`CORE-ARCHITECTURE.md` §10, `EXTERNAL-INTEGRATION-ARCHITECTURE.md` §10,
+and (introduced by DEC-027's own edit, then corrected in the same pass)
+`LANGUAGE-ARCHITECTURE.md` §9 all stated that the External Integration,
+Reporting, and Configuration Layers being undefined was tracked as
+`DCQ-006`, `DCQ-007`, and/or `DCQ-008` in
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md`, and that drafting
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`, and
+`CONFIGURATION-ARCHITECTURE.md` resolved those items.
+
+This is factually wrong. `DOCUMENTATION-CHANGE-QUEUE.md`'s actual
+DCQ-006 ("Propagate R02/R03/R04/R05 Literature Findings Beyond the
+Research Layer"), DCQ-007 ("Propagate Two Scientific-Integrity Gaps
+Found by the Q001 Audit"), and DCQ-008 ("Propagate Q-008/R09
+Local-Deployment Findings to Architecture and Specification") are all
+about propagating specific research findings into per-language
+capability states and requirements — the same items `DEC-016` through
+`DEC-019` already correctly used to explain why `ANALYSIS-` and
+`LANGUAGE-ARCHITECTURE.md` (Tranche 3) were blocked. None of the eight
+items in `DOCUMENTATION-CHANGE-QUEUE.md` is about the External
+Integration, Reporting, or Configuration Layers specifically — the
+closest match is `DCQ-004` ("Introduce External Evidence Boundary,"
+still `PENDING`), whose "Required Updates" list includes "Architecture,"
+and which genuinely is the subject `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+addresses. No DCQ item exists at all for Reporting or Configuration
+Layer creation — those gaps were simply never filed in
+`DOCUMENTATION-CHANGE-QUEUE.md`, and the "DCQ-006/007/008" label attached
+to them in the three documents above appears to have been an
+unverified restatement, not a citation to anything that actually says
+that.
+
+Corrected: `CORE-ARCHITECTURE.md` §10 and `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+§10 now state plainly that DCQ-006/007/008 are unrelated
+research-propagation items, and separately that the External
+Integration/Reporting/Configuration Layers are formalized by their own
+three documents with no DCQ item ever tracking that fact — except for
+the External Integration Layer specifically, where `DCQ-004` is now
+named as the actual (still-`PENDING`) matching item, recorded in
+`DOCUMENTATION-CHANGE-QUEUE.md` itself with a note, not marked resolved.
+`LANGUAGE-ARCHITECTURE.md` §9's version of the same error, introduced
+minutes earlier in this same consolidation pass (DEC-027), is corrected
+identically.
+
+### Rationale
+
+`NO-INVENTION-RULES.md` requires that a citation actually say what it is
+cited for; a governance document that confidently cites the wrong
+tracking item is worse than one that cites nothing, because it looks
+verified when it is not. This was caught only because DEC-027's own
+verification step — reading the actual target of every citation before
+trusting a sub-agent's cross-reference audit — was applied to a citation
+outside that audit's original findings list, on the general principle
+that a consolidation pass should follow every citation it touches back
+to its stated source, not just the ones flagged by the tool that
+produced the initial findings.
+
+### Alternatives Considered
+
+Leaving the error in place since it does not affect any requirement or
+technical decision (rejected — a governance log whose own citations are
+unverified undermines the traceability this project's documentation
+exists to provide, per `docs/01-governance/P00-project-governance.md`'s
+authority hierarchy and `NO-INVENTION-RULES.md`'s evidentiary discipline
+generally); marking `DCQ-004` `VERIFIED` or `CLOSED` now that
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` exists (rejected — DCQ-004's
+Required Updates list five areas, only one of which,
+Architecture, has anything drafted against it; declaring the whole item
+resolved would overstate what has actually been done, and deciding
+whether a partially-addressed item's status should change is a content
+judgment for the owner, not a mechanical fix).
+
+### Consequences
+
+`CORE-ARCHITECTURE.md`, `EXTERNAL-INTEGRATION-ARCHITECTURE.md`, and
+`LANGUAGE-ARCHITECTURE.md` no longer misattribute a documentation-gap
+resolution to DCQ items that do not track it.
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` DCQ-004 carries a note
+identifying `EXTERNAL-INTEGRATION-ARCHITECTURE.md` as addressing its
+Architecture line, without changing its `PENDING` status. No requirement
+or scope content was changed.
+
+### Affected Areas
+
+`docs/04-architecture/CORE-ARCHITECTURE.md` (§10),
+`docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md` (§10),
+`docs/04-architecture/LANGUAGE-ARCHITECTURE.md` (§9),
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` (DCQ-004, note added).
+
+### Reversal Conditions
+
+If the owner decides `DCQ-004` should be marked resolved, partially
+resolved, or re-scoped now that its Architecture line has a document
+against it, that decision should be recorded as its own entry rather
+than inferred from this one.
+
+### Related Research
+
+None — this decision concerns a documentation citation error, not
+scientific content.
+
+### Related Questions
+
+None — this is a citation-accuracy correction, not a new open question.

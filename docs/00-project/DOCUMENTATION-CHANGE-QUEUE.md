@@ -173,6 +173,26 @@ offline core execution.
 
 PENDING
 
+### Notes
+
+**Update (2026-09-13, per `DECISION-LOG.md` DEC-028):** a consolidation
+pass over `docs/04-architecture/` found that several sub-documents
+(`CORE-ARCHITECTURE.md`, `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
+`LANGUAGE-ARCHITECTURE.md`) had mislabeled the External Integration
+Layer's documentation gap as "`DCQ-006/007/008`" — this project's actual
+DCQ-006/007/008 track research-finding propagation, unrelated to the
+External Integration Layer. This item, DCQ-004, is the one whose subject
+matter (an external evidence boundary while preserving offline core
+execution) `EXTERNAL-INTEGRATION-ARCHITECTURE.md` (drafted 2026-09-13,
+DEC-022) actually addresses, for the "Architecture" line of this item's
+Required Updates specifically. This note records that correspondence
+without marking this item resolved: `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+addresses only the Architecture line above; Security, Validation,
+Operations, and Data remain unaddressed by any document, and whether the
+Architecture line itself should be marked satisfied is an owner
+judgment, not a mechanical fact this consolidation pass can settle on
+its own. Status left `PENDING`.
+
 ---
 
 ## DCQ-005 — Resolve Duplicate S02/S03 Identifiers in Scientific Specification

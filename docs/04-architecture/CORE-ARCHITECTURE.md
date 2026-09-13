@@ -278,14 +278,20 @@ serialization format for the preservation snapshot or intermediate
 representations (`ARCHITECTURE-MAP.md` §43 reserves this for
 Development); formalize the Evaluation Layer (§21-22) beyond §6's
 result-aggregation responsibility — a gap `DECISION-LOG.md` DEC-026
-recorded without resolving; or resolve DCQ-006, DCQ-007 or DCQ-008 (the
-External Integration, Reporting, and Configuration Layers — §29-31, §38,
-§36 — are now formalized separately by
+recorded without resolving; or resolve DCQ-006, DCQ-007 or DCQ-008
+(research-finding-propagation items, unrelated to this point — see
+DEC-028 below). The External Integration, Reporting, and Configuration
+Layers (§29-31, §38, §36) are now formalized separately by
 `EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`, and
-`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document; whether
-`PIPELINE-ARCHITECTURE.md` was a distinct document from this one — left
-open when this document was written — is resolved by `DECISION-LOG.md`
-DEC-026 as not needed, since §6 already covers its full plausible scope).
+`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document; this
+document previously mislabeled that gap as `DCQ-006/007/008`, corrected
+by `DECISION-LOG.md` DEC-028 (2026-09-13) —
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` never tracked External
+Integration/Reporting/Configuration Layer creation under those numbers.
+Whether `PIPELINE-ARCHITECTURE.md` was a distinct document from this
+one — left open when this document was written — is resolved by
+`DECISION-LOG.md` DEC-026 as not needed, since §6 already covers its
+full plausible scope.
 
 ---
 

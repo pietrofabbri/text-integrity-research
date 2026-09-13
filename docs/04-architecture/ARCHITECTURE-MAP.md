@@ -1397,6 +1397,19 @@ once already at the cross-area level. This does not affect the
 definition phase or any Tranche 4 conclusion; see DEC-027 for the full
 list of fixes and the recorded gap.
 
+**Update (2026-09-13, DEC-028):** while applying DEC-027's fixes, a more
+significant citation error was found in `CORE-ARCHITECTURE.md` and
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` (and, briefly, introduced by
+DEC-027 itself into `LANGUAGE-ARCHITECTURE.md`, then corrected in the
+same pass): all three had misattributed the External Integration/
+Reporting/Configuration Layers' documentation gap to
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` items `DCQ-006/007/008`,
+which actually track unrelated research-finding-propagation work. The
+closest genuine match is `DCQ-004` ("Introduce External Evidence
+Boundary," still `PENDING`), now noted there — not marked resolved,
+since only its "Architecture" line has anything drafted against it. See
+DEC-028 for the full correction.
+
 ---
 
 # 63. Governing Principle

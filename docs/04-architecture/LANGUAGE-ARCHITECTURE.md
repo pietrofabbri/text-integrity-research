@@ -223,10 +223,16 @@ resource for any language; add a 14th language or change the 13-language
 list in `SPECIFICATION-MAP.md` §20; assign or change any per-capability
 per-language state beyond what `SPECIFICATION-MAP.md` §22.1 already
 records (this document derives from that record, it does not extend it);
-or resolve DCQ-006, DCQ-007 or DCQ-008 (the External Integration,
-Reporting, and Configuration Layers — since resolved by
+or resolve DCQ-006, DCQ-007 or DCQ-008 (research-finding-propagation
+items, unrelated to this point). The External Integration, Reporting,
+and Configuration Layers are now formalized separately by
 `EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`, and
-`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document). This
+`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document —
+`DECISION-LOG.md` DEC-028 (2026-09-13) corrects an equivalent
+mislabeling of that gap as `DCQ-006/007/008` found in
+`CORE-ARCHITECTURE.md` and `EXTERNAL-INTEGRATION-ARCHITECTURE.md`;
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` never tracked this gap
+under those numbers. This
 document's own `validation_status: mixed` discipline (§8) is, in turn,
 generalized by `REPORTING-ARCHITECTURE.md` §5 (drafted after this
 document, DEC-024) to every dimension a report covers, not only language

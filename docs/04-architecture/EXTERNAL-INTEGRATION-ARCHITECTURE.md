@@ -274,10 +274,20 @@ require beyond naming the single crossing point they must attach to
 (§8); decide whether local fallback is *mandatory* for any specific
 capability that has an external variant — that remains a
 `CAPABILITY-ARCHITECTURE.md`-level, per-capability decision; or resolve
-DCQ-006, DCQ-007, or DCQ-008 (the Reporting and Configuration Layers,
-§38 and §36, are now formalized separately by
-`REPORTING-ARCHITECTURE.md` and `CONFIGURATION-ARCHITECTURE.md`, both
-drafted after this document).
+DCQ-006, DCQ-007, or DCQ-008 (research-finding-propagation items,
+unrelated to this point). The Reporting and Configuration Layers (§38
+and §36) are now formalized separately by `REPORTING-ARCHITECTURE.md`
+and `CONFIGURATION-ARCHITECTURE.md`, both drafted after this document;
+this document previously mislabeled that gap as `DCQ-006/007/008`,
+corrected by `DECISION-LOG.md` DEC-028 (2026-09-13) —
+`docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` never tracked Reporting/
+Configuration Layer creation under those numbers. Of the eight items
+that document does track, `DCQ-004` ("Introduce External Evidence
+Boundary," still `PENDING`) is the one whose subject matter this
+document actually formalizes — DEC-028 records this without marking
+`DCQ-004` resolved, since deciding whether this document satisfies all
+of DCQ-004's "Required Updates" (Architecture, Security, Validation,
+Operations, Data) is a judgment for the owner, not this document.
 
 ---
 

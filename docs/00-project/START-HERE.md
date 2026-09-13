@@ -146,7 +146,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 27 recorded (`DEC-001`–`DEC-027`) in `DECISION-LOG.md`.
+- **Decisions**: 28 recorded (`DEC-001`–`DEC-028`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -231,7 +231,14 @@ one being silently "fixed" — see
   sibling documents already populate its per-language map with (those
   values come from `SPECIFICATION-MAP.md` §22 instead) — the same class
   of vocabulary drift `CLAUDE-CONSOLIDATION-REPORT.md` deferred once
-  already at the cross-area level.
+  already at the cross-area level. `DEC-028` (same day) corrects a more
+  significant error found while applying `DEC-027`'s fixes: `CORE-` and
+  `EXTERNAL-INTEGRATION-ARCHITECTURE.md` had misattributed the External
+  Integration/Reporting/Configuration Layers' documentation gap to
+  `DOCUMENTATION-CHANGE-QUEUE.md` items `DCQ-006/007/008`, which actually
+  track unrelated research-finding-propagation work; the actual matching
+  item is `DCQ-004` ("Introduce External Evidence Boundary," still
+  `PENDING`), now noted there without being marked resolved.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)
@@ -292,16 +299,20 @@ one being silently "fixed" — see
   detail to implement against.
 - **Repository**: public on GitHub at
   `github.com/pietrofabbri/text-integrity-research`; the DEC-016–DEC-022
-  batch is confirmed committed by the owner (commit `3bb6d27`), and the
+  batch is confirmed committed by the owner (commit `3bb6d27`), the
   DEC-023–DEC-025 batch is confirmed committed (commit `dd8ae19`,
   "Draft REPORTING-ARCHITECTURE.md and CONFIGURATION-ARCHITECTURE.md;
-  resolve Configuration/Evaluation-Profile scoping"). Files from the
-  DEC-026–DEC-027 work (`DECISION-LOG.md`, `ARCHITECTURE-MAP.md`,
-  `START-HERE.md`, `CORE-ARCHITECTURE.md`,
+  resolve Configuration/Evaluation-Profile scoping"), and the DEC-026
+  batch is confirmed committed (commit `68e2642`, "Resolve
+  PIPELINE-ARCHITECTURE.md as not needed; record Evaluation Layer gap").
+  Files from the DEC-027–DEC-028 work (`DECISION-LOG.md`,
+  `ARCHITECTURE-MAP.md`, `START-HERE.md`, `CORE-ARCHITECTURE.md`,
   `CAPABILITY-ARCHITECTURE.md`, `VALIDATION-ARCHITECTURE.md`,
   `ANALYSIS-ARCHITECTURE.md`, `LANGUAGE-ARCHITECTURE.md`,
   `DATA-MODEL.md`, `REPORTING-ARCHITECTURE.md`,
-  `CONFIGURATION-ARCHITECTURE.md`) are written locally — check
+  `CONFIGURATION-ARCHITECTURE.md`,
+  `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
+  `DOCUMENTATION-CHANGE-QUEUE.md`) are written locally — check
   `git log`/`git status` rather than assuming sync.
 
 ---
