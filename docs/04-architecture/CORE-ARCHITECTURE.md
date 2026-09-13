@@ -67,7 +67,9 @@ them would need to plug into.
   (`VALIDATION-ARCHITECTURE.md` §3) is already restated there and is not
   duplicated here.
 - Whether a separate `PIPELINE-ARCHITECTURE.md` document is needed beyond
-  §6 below is explicitly not decided by this document — see §10.
+  §6 below was left open by this document — resolved by
+  `DECISION-LOG.md` DEC-026 (`ARCHITECTURE-MAP.md` §64.8) as **not
+  needed**: §6 already covers its full plausible scope.
 
 ---
 
@@ -266,14 +268,16 @@ This document does not: select any specific interface technology
 (CLI, GUI, API framework); fix a concrete data structure or
 serialization format for the preservation snapshot or intermediate
 representations (`ARCHITECTURE-MAP.md` §43 reserves this for
-Development); decide whether `PIPELINE-ARCHITECTURE.md` is a distinct
-document from this one or whether §6's Orchestration Layer treatment
-already covers what it would contain — that scoping question is left
-open rather than answered by omission; or resolve DCQ-006, DCQ-007 or
-DCQ-008 (the External Integration, Reporting, and Configuration Layers —
-§29-31, §38, §36 — are now formalized separately by
+Development); formalize the Evaluation Layer (§21-22) beyond §6's
+result-aggregation responsibility — a gap `DECISION-LOG.md` DEC-026
+recorded without resolving; or resolve DCQ-006, DCQ-007 or DCQ-008 (the
+External Integration, Reporting, and Configuration Layers — §29-31, §38,
+§36 — are now formalized separately by
 `EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`, and
-`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document).
+`CONFIGURATION-ARCHITECTURE.md`, all drafted after this document; whether
+`PIPELINE-ARCHITECTURE.md` was a distinct document from this one — left
+open when this document was written — is resolved by `DECISION-LOG.md`
+DEC-026 as not needed, since §6 already covers its full plausible scope).
 
 ---
 

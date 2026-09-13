@@ -146,7 +146,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 25 recorded (`DEC-001`–`DEC-025`) in `DECISION-LOG.md`.
+- **Decisions**: 26 recorded (`DEC-001`–`DEC-026`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -206,10 +206,21 @@ one being silently "fixed" — see
   defines what that framing contains — grounded in `ARCHITECTURE-MAP.md`
   §5 and §40 already listing both as separate, coexisting items. On this
   resolved basis, `DEC-025` executes drafting of
-  `CONFIGURATION-ARCHITECTURE.md` (formalizing §36), the ninth and final
-  Tranche 4 sub-document; it also records, without resolving, a smaller
-  gap: §36's own "validation profile" field is not yet defined by any
-  document.
+  `CONFIGURATION-ARCHITECTURE.md` (formalizing §36), the ninth
+  sub-document; it also records, without resolving, a smaller gap: §36's
+  own "validation profile" field is not yet defined by any document.
+  `DEC-026` (same day) resolves the last readily-resolvable Tranche 4
+  question: `PIPELINE-ARCHITECTURE.md` is **not needed** as a separate
+  document — an exhaustive search found no pipeline concept in the corpus
+  beyond the single, fixed flow `CORE-ARCHITECTURE.md` §6 already covers
+  (no composition, branching, or versioned registry mentioned anywhere).
+  `DEC-026` also records, without resolving or adding as a new candidate,
+  a distinct gap found along the way: the Evaluation Layer (§21-22) is
+  not formalized by any current or candidate document. With this, all six
+  of Tranche 4's original candidates are resolved one way or another;
+  only `PLUGIN-ARCHITECTURE.md` remains genuinely open, for lack of any
+  corpus text to reason from — it needs the owner's own scoping input,
+  not further evidence-mining.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)
@@ -237,12 +248,11 @@ one being silently "fixed" — see
   `LANGUAGE-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`,
   `EXTERNAL-INTEGRATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md` and
   `CONFIGURATION-ARCHITECTURE.md` now exist (Tranches 1, 2, 3a and 4 of
-  `ARCHITECTURE-MAP.md` §64's proposed exit plan — all six original
-  Tranche 4 candidates now resolved one way or another). All nine
-  formalize generic mechanisms only; no specific detector, model,
-  tokenizer, interface technology, external provider, serialization
-  format, configuration schema, metric or algorithm has been selected, so
-  the area remains in definition phase in substance.
+  `ARCHITECTURE-MAP.md` §64's proposed exit plan). All nine formalize
+  generic mechanisms only; no specific detector, model, tokenizer,
+  interface technology, external provider, serialization format,
+  configuration schema, metric or algorithm has been selected, so the area
+  remains in definition phase in substance.
   `TRANSFORMATION-ARCHITECTURE.md` (the remaining Tranche 3 candidate)
   remains premature: `DEC-019` found its blocker is a different, deeper
   dependency (actually-`VALIDATED` capabilities) that
@@ -254,11 +264,17 @@ one being silently "fixed" — see
   profile, grounded in `SPECIFICATION-MAP.md` §27-28, defines what it
   contains) — see `ARCHITECTURE-MAP.md` §64.7. That evaluation also
   surfaced a smaller, separate, still-open gap: §36's own "validation
-  profile" field is undefined by any document. `PIPELINE-ARCHITECTURE.md`'s
-  scoping relative to `CORE-ARCHITECTURE.md` §6 is left open;
-  `PLUGIN-ARCHITECTURE.md` is not assessable — no parent section exists
-  for it in `ARCHITECTURE-MAP.md`. These two remain 04-architecture's only
-  open scoping questions.
+  profile" field is undefined by any document. `DEC-026` resolved
+  `PIPELINE-ARCHITECTURE.md` as **not needed** — `CORE-ARCHITECTURE.md`
+  §6 already covers its full plausible scope, and no distinct pipeline
+  concept exists anywhere in the corpus — while recording, without
+  resolving, a distinct gap: the Evaluation Layer (§21-22) is not
+  formalized by any current or candidate document (`ARCHITECTURE-MAP.md`
+  §64.8). With this, all six of Tranche 4's original candidates are
+  resolved one way or another; only `PLUGIN-ARCHITECTURE.md` remains
+  open — no parent section exists for it in `ARCHITECTURE-MAP.md`, and
+  resolving it needs the owner's own scoping input, not further
+  evidence-mining.
 - **05-validation through 10-certification**: still single-MAP-document,
   structural-definition phase. This remains the project's largest gap
   between what's designed conceptually and what's specified in enough
@@ -267,7 +283,7 @@ one being silently "fixed" — see
   `github.com/pietrofabbri/text-integrity-research`, in sync as of commit
   `649513a` (2026-09-12) at last check; the DEC-016–DEC-022 batch is
   confirmed committed by the owner (commit `3bb6d27`). Files from the
-  DEC-023–DEC-025 work (`REPORTING-ARCHITECTURE.md`,
+  DEC-023–DEC-026 work (`REPORTING-ARCHITECTURE.md`,
   `CONFIGURATION-ARCHITECTURE.md`, `ARCHITECTURE-MAP.md`,
   `CORE-ARCHITECTURE.md`, `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
   `DECISION-LOG.md`, this guide) are written locally — check

@@ -1623,3 +1623,121 @@ specification cross-referencing, not new research evidence.
 
 None directly — this decision concerns architecture-document scoping and
 creation.
+
+---
+
+## DEC-026 — PIPELINE-ARCHITECTURE.md Resolved as Not Needed; Evaluation Layer Gap Recorded
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Resolving the last readily-resolvable scoping question from Tranche 4's
+original six candidates: `PIPELINE-ARCHITECTURE.md` is **not needed as a
+separate document**. Its full plausible scope — pipeline construction,
+stage execution order, dispatch flow — is already formalized by
+`docs/04-architecture/CORE-ARCHITECTURE.md` §6 (Orchestration Layer,
+including a concrete 7-step dispatch flow) and §3 (High-Level Pipeline,
+restated from `ARCHITECTURE-MAP.md` §3). An exhaustive search of
+`ARCHITECTURE-MAP.md` for any pipeline concept beyond this single, fixed,
+linear flow — composition, branching, multiple pipeline "shapes," a
+versioned pipeline registry, conditional or parallel stage execution —
+found none: the terms do not appear anywhere in the corpus. Drafting a
+separate `PIPELINE-ARCHITECTURE.md` would therefore either duplicate
+`CORE-ARCHITECTURE.md` §6 verbatim or invent pipeline concepts the corpus
+does not support — both contrary to `NO-INVENTION-RULES.md`.
+
+Separately, this evaluation surfaced a genuine, distinct, and previously
+unflagged gap: `ARCHITECTURE-MAP.md` §21-22 (Evaluation Layer,
+Experimental Matrix) — the pipeline's EVALUATION stage — is not
+formalized by any current or candidate document.
+`docs/04-architecture/CORE-ARCHITECTURE.md` §3 explicitly disclaims
+formalizing it beyond result-aggregation; `REPORTING-ARCHITECTURE.md`
+formalizes only the reporting of results, not the evaluation/benchmarking
+mechanics themselves (benchmark execution, detector comparison,
+regression analysis, statistical analysis, per §21). This decision does
+not add a new candidate document to resolve that gap — proposing a new
+§58 candidate that was never on the original list would itself be a
+structural decision beyond what this evaluation was asked to do — it only
+records the gap for the owner's future consideration.
+
+### Rationale
+
+The same evidence-based method that resolved DEC-025's Configuration/
+Evaluation-Profile overlap applies here: before treating a scoping
+question as blocked indefinitely, check whether the corpus's own text
+already resolves it. Here it does, but in the opposite direction from
+DEC-025 — rather than finding a real, distinct scope that merely needed
+articulating, this evaluation found no distinct scope exists at all.
+Recording "not needed" is itself a real scoping decision (per this
+project's standing practice that structural/scope decisions must be
+proposed and recorded, not silently skipped) — it prevents a future
+contributor from treating `PIPELINE-ARCHITECTURE.md`'s continued absence
+from `docs/04-architecture/` as an oversight rather than a considered
+conclusion.
+
+### Alternatives Considered
+
+Drafting a placeholder `PIPELINE-ARCHITECTURE.md` anyway, restating
+`CORE-ARCHITECTURE.md` §6 under a different title (rejected — pure
+duplication serves no purpose and risks the two documents silently
+drifting apart over time, the exact failure `ARCHITECTURE-MAP.md` §57 and
+`LANGUAGE-ARCHITECTURE.md` §5 warn against for other duplicated-bookkeeping
+cases); silently leaving the Evaluation Layer gap unrecorded now that
+`PIPELINE-ARCHITECTURE.md` is resolved (rejected —
+`docs/99-backlog/POST-INVENTORY-QUEUE.md`'s Governing Rule requires a gap
+found during an audit be recorded, not silently dropped because it fell
+outside the specific question being resolved); unilaterally proposing a
+new `EVALUATION-ARCHITECTURE.md` candidate to close that gap (rejected —
+adding a candidate document not on the original `§58` list is itself a
+scope decision the owner should weigh in on, not something to decide
+unilaterally while resolving an unrelated question).
+
+### Consequences
+
+`ARCHITECTURE-MAP.md` §58's candidate list and §64.6/§64.7 should mark
+`PIPELINE-ARCHITECTURE.md` as resolved ("not needed — see
+`CORE-ARCHITECTURE.md` §6") rather than a pending candidate.
+`CORE-ARCHITECTURE.md` §2 and §10's "left open" language about
+`PIPELINE-ARCHITECTURE.md` should be updated to reflect the resolution.
+The Evaluation Layer (§21-22) gap is recorded as an open finding, not
+resolved by this decision. `PLUGIN-ARCHITECTURE.md` remains the only
+genuinely unresolved scoping question among Tranche 4's original six
+candidates — unlike `PIPELINE-ARCHITECTURE.md` and
+`CONFIGURATION-ARCHITECTURE.md`, its blocker is a total absence of any
+corpus text to reason from, not an overlap or duplication question this
+kind of evidence-based analysis can resolve; it requires the owner's own
+scoping input on what "plugin" should mean for this project, if anything.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §64.6, §64.7, new
+§64.8); `docs/04-architecture/CORE-ARCHITECTURE.md` (§2, §10). No new
+sub-document created by this decision.
+
+### Reversal Conditions
+
+If a future need arises for a pipeline concept `ARCHITECTURE-MAP.md`
+does not currently describe (e.g. conditional branching, multiple
+named pipeline topologies), that need should be proposed and recorded as
+its own decision — at which point `PIPELINE-ARCHITECTURE.md` (or an
+equivalent) may become genuinely necessary, and this decision's "not
+needed" conclusion should be revisited rather than treated as permanent.
+
+### Related Research
+
+None — this decision concerns software-architecture document scoping.
+
+### Related Questions
+
+None directly — the Evaluation Layer gap noted above is an architecture-
+documentation gap, not a research question, and is recorded in
+`ARCHITECTURE-MAP.md` rather than `OPEN-QUESTIONS.md` for that reason,
+consistent with how the `PIPELINE-ARCHITECTURE.md`/`PLUGIN-ARCHITECTURE.md`
+scoping questions have been recorded throughout Tranche 4.

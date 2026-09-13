@@ -1170,7 +1170,7 @@ from any prior candidate's: a previously unrecorded content overlap with
 drafting around it. `PIPELINE-ARCHITECTURE.md` and `PLUGIN-ARCHITECTURE.md`
 remain unresolved scoping questions.
 
-**Status update (2026-09-13, final):** per `DECISION-LOG.md` DEC-025,
+**Status update (2026-09-13, later):** per `DECISION-LOG.md` DEC-025,
 the Configuration/Evaluation-Profile overlap is resolved — the two are
 distinct, composable concepts (Configuration selects which named,
 versioned Evaluation Profile applies; it does not define what that
@@ -1179,15 +1179,31 @@ listing both separately and, decisively, in
 `SPECIFICATION-MAP.md` §27-28's evidentiary purpose for an Evaluation
 Profile. `CONFIGURATION-ARCHITECTURE.md` is now drafted on that resolved
 basis (see `docs/04-architecture/CONFIGURATION-ARCHITECTURE.md`), the
-ninth sub-document in 04-architecture and the last of Tranche 4's
-original six candidates resolved one way or another.
+ninth sub-document in 04-architecture.
 `PIPELINE-ARCHITECTURE.md` and `PLUGIN-ARCHITECTURE.md` remain the only
 open scoping questions.
+
+**Status update (2026-09-13, final):** per `DECISION-LOG.md` DEC-026,
+`PIPELINE-ARCHITECTURE.md` is resolved as **not needed as a separate
+document** — its full plausible scope is already formalized by
+`CORE-ARCHITECTURE.md` §6, and no distinct pipeline concept (composition,
+branching, a versioned registry) exists anywhere in this corpus to
+formalize separately; see §64.8. This is the last of Tranche 4's original
+six candidates resolved one way or another — four drafted
+(`CORE-`, `EXTERNAL-INTEGRATION-`, `REPORTING-`, `CONFIGURATION-ARCHITECTURE.md`),
+one resolved as unnecessary (`PIPELINE-ARCHITECTURE.md`), one still
+genuinely open (`PLUGIN-ARCHITECTURE.md`, for lack of any corpus text to
+reason from, not for an overlap this kind of analysis can resolve). DEC-026
+also recorded a distinct, previously unflagged gap: the Evaluation Layer
+(§21-22) is not formalized by any current or candidate document — noted
+for the owner's future consideration, not added as a new candidate
+unilaterally.
 
 Potential future documents include:
 
 - `CORE-ARCHITECTURE.md` — **created**, see above
-- `PIPELINE-ARCHITECTURE.md`
+- `PIPELINE-ARCHITECTURE.md` — **resolved as not needed**, see §64.8
+  (`CORE-ARCHITECTURE.md` §6 already covers its full scope)
 - `CAPABILITY-ARCHITECTURE.md` — **created**, see above
 - `LANGUAGE-ARCHITECTURE.md` — **created**, see above
 - `ANALYSIS-ARCHITECTURE.md` — **created**, see above
@@ -1344,18 +1360,25 @@ resolved unilaterally. It selects no specific serialization format,
 storage technology, or certification criterion, so the definition phase
 remains unaffected in substance by this addition as well.
 
-**Update (2026-09-13, final):** per `DECISION-LOG.md` DEC-025, the
+**Update (2026-09-13, later):** per `DECISION-LOG.md` DEC-025, the
 Configuration/Evaluation-Profile overlap DEC-023 recorded is now resolved
 (the two are distinct, composable concepts — see §64.7), and
-`CONFIGURATION-ARCHITECTURE.md` now also exists — the ninth and, per
-Tranche 4's original six-candidate list, final sub-document this pass
-resolves one way or another. It selects no specific configuration format,
-schema language, or storage mechanism, and explicitly leaves the meaning
-of §36's own "validation profile" field undefined pending a separate,
-later decision, so the definition phase remains unaffected in substance
-by this addition as well. `PIPELINE-ARCHITECTURE.md` and
-`PLUGIN-ARCHITECTURE.md` remain 04-architecture's only open scoping
-questions.
+`CONFIGURATION-ARCHITECTURE.md` now also exists — the ninth sub-document.
+It selects no specific configuration format, schema language, or storage
+mechanism, and explicitly leaves the meaning of §36's own "validation
+profile" field undefined pending a separate, later decision, so the
+definition phase remains unaffected in substance by this addition as
+well.
+
+**Update (2026-09-13, final):** per `DECISION-LOG.md` DEC-026,
+`PIPELINE-ARCHITECTURE.md` is resolved as not needed — see §64.8. This
+adds no new sub-document (its scope was already covered by
+`CORE-ARCHITECTURE.md` §6), so it does not itself affect the definition
+phase, but it does close out Tranche 4's original six-candidate list:
+four drafted, one resolved as unnecessary, and `PLUGIN-ARCHITECTURE.md`
+alone still genuinely open. DEC-026 also recorded, without resolving, a
+distinct gap: the Evaluation Layer (§21-22) remains unformalized by any
+current or candidate document.
 
 ---
 
@@ -1695,3 +1718,53 @@ distinct gap: §36's own "validation profile" field is not defined by
 `VALIDATION-ARCHITECTURE.md` or any other document — recorded, not
 resolved, and not conflated with the Evaluation-Profile question this
 decision settles.
+
+## 64.8 Tranche 4, Concluded: PIPELINE-ARCHITECTURE.md Resolved as Not Needed (2026-09-13, per DECISION-LOG.md DEC-026)
+
+The last readily-resolvable candidate from §64.6's original six is
+`PIPELINE-ARCHITECTURE.md`. `CORE-ARCHITECTURE.md` §2 and §10 left open
+"whether `PIPELINE-ARCHITECTURE.md` is a distinct document from this one
+or whether §6's Orchestration Layer treatment already covers what it
+would contain." This section resolves that question.
+
+An exhaustive search of this document for any pipeline concept beyond the
+single, fixed, linear flow already stated in §3 (INPUT → PRESERVATION
+SNAPSHOT → NORMALIZATION/REPRESENTATION → ANALYSIS → OPTIONAL CONTROLLED
+TRANSFORMATION → INTEGRITY VALIDATION → EVALUATION → OUTPUT + REPORT) and
+already restated and elaborated by `CORE-ARCHITECTURE.md` §3 and §6 (a
+concrete 7-step dispatch flow) found nothing further: this document never
+mentions pipeline composition, branching, multiple named pipeline
+"shapes," a versioned pipeline registry, or conditional/parallel stage
+execution, anywhere. **`PIPELINE-ARCHITECTURE.md` is therefore resolved
+as not needed as a separate document** — its entire plausible scope is
+already formalized by `CORE-ARCHITECTURE.md` §6. Drafting it separately
+would either duplicate that section verbatim (risking the two silently
+drifting apart, the exact failure mode `ARCHITECTURE-MAP.md` §57 and
+`LANGUAGE-ARCHITECTURE.md` §5 warn against elsewhere) or invent pipeline
+concepts this corpus does not support, contrary to `NO-INVENTION-RULES.md`.
+
+This evaluation also surfaced a distinct, previously unflagged gap, found
+while checking what §3's pipeline stages are formalized by: §21-22 (the
+Evaluation Layer and Experimental Matrix — the pipeline's EVALUATION
+stage) is not formalized by any current or candidate document.
+`CORE-ARCHITECTURE.md` §3 explicitly disclaims formalizing EVALUATION
+beyond result-aggregation; `REPORTING-ARCHITECTURE.md` formalizes only
+the reporting of results (§38), not the evaluation/benchmarking mechanics
+themselves (benchmark execution, detector comparison, regression
+analysis, statistical analysis, per §21). This section records that gap
+without resolving it and without adding a new §58 candidate to close
+it — proposing a document that was never on the original list is itself
+a scope decision for the owner to make, not one this evaluation should
+decide unilaterally while resolving `PIPELINE-ARCHITECTURE.md`'s
+question.
+
+With this, all six of Tranche 4's original candidates
+(`ARCHITECTURE-MAP.md` §64.6) are resolved one way or another: four
+drafted (`CORE-`, `EXTERNAL-INTEGRATION-`, `REPORTING-`,
+`CONFIGURATION-ARCHITECTURE.md`), one resolved as unnecessary
+(`PIPELINE-ARCHITECTURE.md`, this section), and one — `PLUGIN-ARCHITECTURE.md` —
+still genuinely open, for a reason distinct from every other candidate
+resolved this tranche: it has no corpus text to reason from at all, not
+an overlap or duplication question this kind of evidence-based analysis
+can settle. Resolving it requires the owner's own scoping input on
+whether, and what, "plugin" should mean for this project.
