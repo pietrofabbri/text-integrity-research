@@ -70,16 +70,16 @@ one-line-per-area summary only.
   a single MAP document (e.g. `ARCHITECTURE-MAP.md`, `SECURITY-MAP.md`),
   explicitly in structural-definition phase: no sub-documents, concepts
   defined but not all thresholds/algorithms chosen. **As of 2026-09-12/13
-  (`DECISION-LOG.md` DEC-014, DEC-020), 04-architecture is the
+  (`DECISION-LOG.md` DEC-014, DEC-020, DEC-021), 04-architecture is the
   exception**: it now also has `CAPABILITY-ARCHITECTURE.md`,
-  `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`
-  and `LANGUAGE-ARCHITECTURE.md`, per a tranche plan in
-  `ARCHITECTURE-MAP.md` §64. All five formalize generic mechanisms only
-  and still select no specific detector, model, tokenizer or algorithm,
-  so 04-architecture remains in definition phase in substance even
-  though it is no longer single-document. 05-validation through
-  10-certification are unaffected by this update. Do not read a MAP
-  document's (or these five sub-documents') existence as implying the
+  `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
+  `LANGUAGE-ARCHITECTURE.md` and `CORE-ARCHITECTURE.md`, per a tranche plan
+  in `ARCHITECTURE-MAP.md` §64. All six formalize generic mechanisms only
+  and still select no specific detector, model, tokenizer, interface
+  technology or algorithm, so 04-architecture remains in definition phase
+  in substance even though it is no longer single-document. 05-validation
+  through 10-certification are unaffected by this update. Do not read a
+  MAP document's (or these six sub-documents') existence as implying the
   capability it describes is implemented, tested, validated, or
   certified — `docs/99-backlog/DOCUMENT-AUTHORITY-MATRIX.md` and
   `CLAUDE-CONSOLIDATION-INSTRUCTIONS.md` Phase 9 are explicit that these
@@ -136,13 +136,13 @@ one being silently "fixed" — see
 
 ---
 
-# 6. Current state snapshot (2026-09-12, updated)
+# 6. Current state snapshot (2026-09-13, updated)
 
 - **Research**: 121 sources registered (`R-0001`–`R-0121`) across **nine**
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 20 recorded (`DEC-001`–`DEC-020`) in `DECISION-LOG.md`.
+- **Decisions**: 21 recorded (`DEC-001`–`DEC-021`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -159,7 +159,17 @@ one being silently "fixed" — see
   actually-`VALIDATED` capabilities, which documentation work alone
   cannot supply. `DEC-020` (same day) executes that drafting: both
   documents now exist, per `DEC-004`'s macro-tranche-boundary
-  confirmation, given separately and explicitly.
+  confirmation, given separately and explicitly. `DEC-021` (same day,
+  following the owner's request for a recommendation on the next
+  priority) triages the six remaining unevaluated `§64.4` candidates
+  against a different, evidence-independent readiness test: it executes
+  drafting of `CORE-ARCHITECTURE.md` (formalizing §3-8, the execution
+  backbone the other five sub-documents already assume);
+  `EXTERNAL-INTEGRATION-ARCHITECTURE.md` is assessed as likely similarly
+  ready but not drafted; `CONFIGURATION-ARCHITECTURE.md` and
+  `REPORTING-ARCHITECTURE.md` are noted but not deeply evaluated;
+  `PLUGIN-ARCHITECTURE.md` is triaged as **not assessable** — it has no
+  parent section in `ARCHITECTURE-MAP.md` at all.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)
@@ -181,28 +191,37 @@ one being silently "fixed" — see
   cross-referenced (but did not unify — that's `DEC-012`'s deferral)
   three divergent vocabulary pairs and several duplicated checklists.
 - **04-architecture**: no longer single-MAP-document as of 2026-09-12/13
-  (`DEC-014`, `DEC-015`, `DEC-020`) — `CAPABILITY-ARCHITECTURE.md`,
-  `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`
-  and `LANGUAGE-ARCHITECTURE.md` now exist (Tranches 1, 2 and 3a of
-  `ARCHITECTURE-MAP.md` §64's proposed exit plan). All five formalize
-  generic mechanisms only; no specific detector, model, tokenizer, metric
-  or algorithm has been selected, so the area remains in definition phase
-  in substance. `TRANSFORMATION-ARCHITECTURE.md` (the remaining Tranche 3
-  candidate) remains premature: `DEC-019` found its blocker is a
-  different, deeper dependency (actually-`VALIDATED` capabilities) that
+  (`DEC-014`, `DEC-015`, `DEC-020`, `DEC-021`) — `CAPABILITY-ARCHITECTURE.md`,
+  `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
+  `LANGUAGE-ARCHITECTURE.md` and `CORE-ARCHITECTURE.md` now exist
+  (Tranches 1, 2, 3a and 4 of `ARCHITECTURE-MAP.md` §64's proposed exit
+  plan). All six formalize generic mechanisms only; no specific detector,
+  model, tokenizer, interface technology, metric or algorithm has been
+  selected, so the area remains in definition phase in substance.
+  `TRANSFORMATION-ARCHITECTURE.md` (the remaining Tranche 3 candidate)
+  remains premature: `DEC-019` found its blocker is a different, deeper
+  dependency (actually-`VALIDATED` capabilities) that
   `SPECIFICATION-MAP.md` §22.1's per-language assignment (`DEC-018`) does
-  not resolve.
+  not resolve. Of Tranche 4's other five candidates (`DEC-021`),
+  `EXTERNAL-INTEGRATION-ARCHITECTURE.md` is the recorded next candidate
+  if the owner wants to continue; `CONFIGURATION-ARCHITECTURE.md` and
+  `REPORTING-ARCHITECTURE.md` are unevaluated in depth;
+  `PIPELINE-ARCHITECTURE.md`'s scoping relative to `CORE-ARCHITECTURE.md`
+  §6 is left open; `PLUGIN-ARCHITECTURE.md` is not assessable — no parent
+  section exists for it in `ARCHITECTURE-MAP.md`.
 - **05-validation through 10-certification**: still single-MAP-document,
   structural-definition phase. This remains the project's largest gap
   between what's designed conceptually and what's specified in enough
   detail to implement against.
 - **Repository**: public on GitHub at
   `github.com/pietrofabbri/text-integrity-research`, in sync as of commit
-  `649513a` (2026-09-12). Files from this update (`DEC-016`,
-  `SPECIFICATION-MAP.md`, `S02-scientific-requirements.md`,
+  `649513a` (2026-09-12) at last check. Files from the DEC-016–DEC-021
+  work (`SPECIFICATION-MAP.md`, `S02-scientific-requirements.md`,
   `S04-fidelity-requirements.md`, `DOCUMENTATION-CHANGE-QUEUE.md`,
-  `KNOWLEDGE-BACKLOG.md`, this guide) are written locally but not yet
-  committed — check `git log`/`git status` rather than assuming sync.
+  `KNOWLEDGE-BACKLOG.md`, `ANALYSIS-ARCHITECTURE.md`,
+  `LANGUAGE-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`,
+  `ARCHITECTURE-MAP.md`, `DECISION-LOG.md`, this guide) are written
+  locally — check `git log`/`git status` rather than assuming sync.
 
 ---
 

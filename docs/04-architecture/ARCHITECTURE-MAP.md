@@ -1136,13 +1136,22 @@ LANGUAGE-ARCHITECTURE.md` (formalizes §34-35), both unblocked by
 (DEC-018). `TRANSFORMATION-ARCHITECTURE.md` remains not created — §64.4.2
 found its blocker is a different, deeper dependency (actually-`VALIDATED`
 capabilities, not documented per-language defaults) that this round did
-not resolve. The remaining candidates below are unchanged — still
-potential future documents, not yet created; §64 gives the proposed
-order.
+not resolve.
+
+**Status update (2026-09-13, later):** per §64.6 (Tranche 4) and
+`DECISION-LOG.md` DEC-021, `docs/04-architecture/CORE-ARCHITECTURE.md`
+now also exists (formalizes §3-8), evaluated as evidence-independent and
+therefore ready without waiting on any per-language record.
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` and `CONFIGURATION-ARCHITECTURE.md`/
+`REPORTING-ARCHITECTURE.md` are assessed but not drafted in this pass;
+`PIPELINE-ARCHITECTURE.md` and `PLUGIN-ARCHITECTURE.md` remain unresolved
+scoping questions (§64.6). The remaining candidates below are otherwise
+unchanged — still potential future documents, not yet created; §64 gives
+the proposed order.
 
 Potential future documents include:
 
-- `CORE-ARCHITECTURE.md`
+- `CORE-ARCHITECTURE.md` — **created**, see above
 - `PIPELINE-ARCHITECTURE.md`
 - `CAPABILITY-ARCHITECTURE.md` — **created**, see above
 - `LANGUAGE-ARCHITECTURE.md` — **created**, see above
@@ -1267,11 +1276,17 @@ principle. `TRANSFORMATION-ARCHITECTURE.md` (the remaining Tranche 3
 candidate) is not yet drafted: §64.4.2 found it depends on capabilities
 actually reaching `VALIDATED` status
 (`CAPABILITY-ARCHITECTURE.md` §6-7), not merely on a documented
-per-language default — a dependency this update does not resolve. The
-definition phase, in substance, therefore continues even as the document
-count grows: no specific detector, watermark scheme, model, tokenizer or
-algorithm has been selected by any of the five sub-documents now in
-04-architecture.
+per-language default — a dependency this update does not resolve.
+
+**Update (2026-09-13, later):** per §64.6 (Tranche 4) and
+`DECISION-LOG.md` DEC-021, `CORE-ARCHITECTURE.md` now also exists,
+formalizing §3-8's execution backbone. This document's readiness did not
+depend on research evidence at all, unlike every prior tranche document —
+it was deferred only for pacing, per §64.4's original "revisit after
+Tranches 1-2" note. The definition phase, in substance, therefore
+continues even as the document count grows: no specific detector,
+watermark scheme, model, tokenizer, interface technology or algorithm has
+been selected by any of the six sub-documents now in 04-architecture.
 
 ---
 
@@ -1466,8 +1481,50 @@ Consistent with DEC-009 (a research finding does not automatically become
 a system requirement): neither this proposal nor the documents it
 produced (`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`,
 `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
-`LANGUAGE-ARCHITECTURE.md`) select an actual semantic-similarity model,
-factual-consistency approach, detector, watermark scheme, or tokenizer.
-Specific technical choices remain a separate, later decision, to be made
-when each document's mechanism is actually implemented and to be recorded
-in `docs/00-project/DECISION-LOG.md` at that time.
+`LANGUAGE-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`) select an actual
+semantic-similarity model, factual-consistency approach, detector,
+watermark scheme, tokenizer, or interface technology. Specific technical
+choices remain a separate, later decision, to be made when each
+document's mechanism is actually implemented and to be recorded in
+`docs/00-project/DECISION-LOG.md` at that time.
+
+## 64.6 Tranche 4 (2026-09-13, per DECISION-LOG.md DEC-021)
+
+§64.4's six unevaluated candidates (`CORE-ARCHITECTURE.md`,
+`PIPELINE-ARCHITECTURE.md`, `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
+`CONFIGURATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`,
+`PLUGIN-ARCHITECTURE.md`) were deliberately left unassessed, "recommended
+to revisit after Tranches 1-2." With Tranches 1, 2 and 3a complete, this
+section performs that revisit for the first of them.
+
+Unlike §64.1's readiness signal (evidence sufficiency per language/
+capability), these six candidates' readiness turns on a different
+question: whether `ARCHITECTURE-MAP.md` already contains enough
+conceptual definition, independent of any research evidence, to
+formalize without inventing new software-architecture concepts. On that
+test:
+
+- **`CORE-ARCHITECTURE.md`** (§3-8): well-specified, evidence-independent,
+  and foundational — every capability document drafted so far assumes an
+  orchestration/preservation-snapshot layer exists. **Reassessed as
+  structurally ready**, and drafted (see `docs/04-architecture/
+  CORE-ARCHITECTURE.md`).
+- **`EXTERNAL-INTEGRATION-ARCHITECTURE.md`** (§29-31): similarly
+  well-specified and evidence-independent, directly grounded in DEC-001
+  (offline core). Assessed as likely ready but not drafted in this pass —
+  scoped as a candidate next step, not begun unilaterally.
+- **`CONFIGURATION-ARCHITECTURE.md`** (§36) and
+  **`REPORTING-ARCHITECTURE.md`** (§38): reasonably specified but lower
+  priority; not evaluated to the same depth in this pass.
+- **`PIPELINE-ARCHITECTURE.md`**: has no clearly distinct parent section —
+  its likely content overlaps substantially with §6 (Orchestration
+  Layer), which `CORE-ARCHITECTURE.md` §6 now formalizes.
+  `CORE-ARCHITECTURE.md` §10 explicitly leaves open whether this should
+  remain a separate document or whether §6's treatment already covers it,
+  rather than silently deciding either way.
+- **`PLUGIN-ARCHITECTURE.md`**: no parent section in `ARCHITECTURE-MAP.md`
+  addresses a plugin mechanism at all. Drafting it now would mean
+  inventing a concept the corpus has not yet defined, contrary to
+  `NO-INVENTION-RULES.md`. **Remains unevaluated** — a scoping decision
+  (what a "plugin" would mean in this architecture) would need to come
+  first, as its own proposal.

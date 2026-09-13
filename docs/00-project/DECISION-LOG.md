@@ -1100,3 +1100,110 @@ R-0121.
 ### Related Questions
 
 None directly — this decision concerns architecture-document creation.
+
+---
+
+## DEC-021 — Tranche 4: CORE-ARCHITECTURE.md Drafted; Remaining Candidates Triaged
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's request for a recommendation on the next priority,
+and having completed Tranches 1, 2 and 3a, `ARCHITECTURE-MAP.md` §64.4's
+six previously-unevaluated candidates (`CORE-ARCHITECTURE.md`,
+`PIPELINE-ARCHITECTURE.md`, `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
+`CONFIGURATION-ARCHITECTURE.md`, `REPORTING-ARCHITECTURE.md`,
+`PLUGIN-ARCHITECTURE.md`) were triaged against whether
+`ARCHITECTURE-MAP.md` already contains enough conceptual definition to
+formalize without inventing new software-architecture concepts — a
+different readiness test than §64.1's evidence-sufficiency signal, since
+none of these six depend on per-language or per-model research evidence
+at all.
+
+1. **`docs/04-architecture/CORE-ARCHITECTURE.md`** is drafted, formalizing
+   `ARCHITECTURE-MAP.md` §3-8 (High-Level Architecture, Architectural
+   Layers, Interface Layer, Orchestration Layer, Text Representation
+   Layer, Preservation Snapshot) — the execution backbone every capability
+   document drafted so far (`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`,
+   `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
+   `LANGUAGE-ARCHITECTURE.md`) assumes exists. It selects no interface
+   technology, data format, or algorithm, and explicitly leaves open
+   whether a separate `PIPELINE-ARCHITECTURE.md` is warranted beyond its
+   own §6 (Orchestration Layer) treatment.
+2. **`EXTERNAL-INTEGRATION-ARCHITECTURE.md`** (§29-31) is assessed as
+   likely similarly ready (well-specified, evidence-independent, grounded
+   in DEC-001) but not drafted in this pass — recorded as the next
+   candidate, not begun unilaterally.
+3. **`CONFIGURATION-ARCHITECTURE.md`** (§36) and
+   **`REPORTING-ARCHITECTURE.md`** (§38) are noted as reasonably specified
+   but were not evaluated to the same depth.
+4. **`PLUGIN-ARCHITECTURE.md`** has no parent section in
+   `ARCHITECTURE-MAP.md` defining a plugin mechanism at all — triaged as
+   **not assessable** without first scoping what "plugin" would mean in
+   this architecture, which this decision does not attempt, per
+   `NO-INVENTION-RULES.md`.
+
+### Rationale
+
+`ARCHITECTURE-MAP.md` §64.4's original text deferred these six
+candidates purely for pacing ("would extend this proposal beyond what the
+current research/specification base can actually support... revisit
+after Tranches 1-2"), not because of any evidence gate like §64.1's. With
+Tranches 1-3a complete, revisiting is due. `CORE-ARCHITECTURE.md` is the
+strongest candidate precisely because its readiness never depended on
+research evidence — it is arguably less blocked than any prior tranche
+document, and its absence was becoming a real gap: five sub-documents
+already assume an orchestration/preservation-snapshot layer that nothing
+had formalized.
+
+### Alternatives Considered
+
+Drafting all six remaining candidates in one pass (rejected —
+`PLUGIN-ARCHITECTURE.md` has no source material to formalize without
+inventing one, and `PIPELINE-ARCHITECTURE.md`'s relationship to
+`CORE-ARCHITECTURE.md` §6 needed to be resolved by drafting the latter
+first, not decided in the abstract); starting technical implementation
+instead of continuing documentation-layer work (considered as an
+alternative next priority but not chosen — the architecture remains in
+definition phase in substance, per `ARCHITECTURE-MAP.md` §62, and jumping
+to implementation would require the specific technical choices §64.5
+explicitly defers).
+
+### Consequences
+
+`docs/04-architecture/CORE-ARCHITECTURE.md` exists. `ARCHITECTURE-MAP.md`
+§58, §62 and a new §64.6 record its creation and the triage outcome for
+the other five candidates. `EXTERNAL-INTEGRATION-ARCHITECTURE.md` is the
+recorded next candidate should the owner want to continue this line of
+work.
+
+### Affected Areas
+
+`docs/04-architecture/CORE-ARCHITECTURE.md` (new);
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §62, §64.6).
+
+### Reversal Conditions
+
+If `CORE-ARCHITECTURE.md` is found to have implicitly made a technical
+decision it disclaims (contrary to its own §10), that content should be
+removed and, if a real decision is needed, recorded separately in this
+log — the same reversal condition set for every prior tranche document.
+If `PIPELINE-ARCHITECTURE.md` is later drafted and found to duplicate
+`CORE-ARCHITECTURE.md` §6 rather than add distinct content, that
+duplication should be resolved by merging rather than left standing.
+
+### Related Research
+
+None — this decision concerns software-architecture mechanics
+independent of the research layer.
+
+### Related Questions
+
+None directly — this decision concerns architecture-document creation.
