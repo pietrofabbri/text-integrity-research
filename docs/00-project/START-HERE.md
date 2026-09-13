@@ -69,15 +69,17 @@ one-line-per-area summary only.
 - **04-architecture through 10-certification** — each area was originally
   a single MAP document (e.g. `ARCHITECTURE-MAP.md`, `SECURITY-MAP.md`),
   explicitly in structural-definition phase: no sub-documents, concepts
-  defined but not all thresholds/algorithms chosen. **As of 2026-09-12
-  (`DECISION-LOG.md` DEC-014), 04-architecture is the exception**: it now
-  also has `CAPABILITY-ARCHITECTURE.md` and `DATA-MODEL.md`, per a
-  tranche plan in `ARCHITECTURE-MAP.md` §64. Both formalize generic
-  mechanisms only and still select no specific detector, model or
-  algorithm, so 04-architecture remains in definition phase in
-  substance even though it is no longer single-document. 05-validation
-  through 10-certification are unaffected by this update. Do not read a
-  MAP document's (or these two sub-documents') existence as implying the
+  defined but not all thresholds/algorithms chosen. **As of 2026-09-12/13
+  (`DECISION-LOG.md` DEC-014, DEC-020), 04-architecture is the
+  exception**: it now also has `CAPABILITY-ARCHITECTURE.md`,
+  `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`
+  and `LANGUAGE-ARCHITECTURE.md`, per a tranche plan in
+  `ARCHITECTURE-MAP.md` §64. All five formalize generic mechanisms only
+  and still select no specific detector, model, tokenizer or algorithm,
+  so 04-architecture remains in definition phase in substance even
+  though it is no longer single-document. 05-validation through
+  10-certification are unaffected by this update. Do not read a MAP
+  document's (or these five sub-documents') existence as implying the
   capability it describes is implemented, tested, validated, or
   certified — `docs/99-backlog/DOCUMENT-AUTHORITY-MATRIX.md` and
   `CLAUDE-CONSOLIDATION-INSTRUCTIONS.md` Phase 9 are explicit that these
@@ -140,7 +142,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 19 recorded (`DEC-001`–`DEC-019`) in `DECISION-LOG.md`.
+- **Decisions**: 20 recorded (`DEC-001`–`DEC-020`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -152,10 +154,12 @@ one being silently "fixed" — see
   consistency (semantic-similarity intentionally excluded, insufficient
   per-language evidence). `DEC-019` (2026-09-13) re-reassesses Tranche 3
   in light of `DEC-018`: `ANALYSIS-ARCHITECTURE.md` and
-  `LANGUAGE-ARCHITECTURE.md` are now **structurally ready to draft**
-  (pending a separate owner confirmation, per `DEC-004`);
-  `TRANSFORMATION-ARCHITECTURE.md` remains premature — it needs actually-
-  `VALIDATED` capabilities, which documentation work alone cannot supply.
+  `LANGUAGE-ARCHITECTURE.md` reassessed as **structurally ready to draft**;
+  `TRANSFORMATION-ARCHITECTURE.md` remains premature — it needs
+  actually-`VALIDATED` capabilities, which documentation work alone
+  cannot supply. `DEC-020` (same day) executes that drafting: both
+  documents now exist, per `DEC-004`'s macro-tranche-boundary
+  confirmation, given separately and explicitly.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)
@@ -176,15 +180,18 @@ one being silently "fixed" — see
   `CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS. It found and
   cross-referenced (but did not unify — that's `DEC-012`'s deferral)
   three divergent vocabulary pairs and several duplicated checklists.
-- **04-architecture**: no longer single-MAP-document as of 2026-09-12
-  (`DEC-014`, `DEC-015`) — `CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`
-  and `VALIDATION-ARCHITECTURE.md` now exist (Tranches 1-2 of
-  `ARCHITECTURE-MAP.md` §64's proposed exit plan). All three formalize
-  generic mechanisms only; no specific detector, model, metric or
-  algorithm has been selected, so the area remains in definition phase in
-  substance. Tranche 3 (`ANALYSIS-ARCHITECTURE.md`,
-  `LANGUAGE-ARCHITECTURE.md`, `TRANSFORMATION-ARCHITECTURE.md`) remains
-  premature pending DCQ-006/007/008.
+- **04-architecture**: no longer single-MAP-document as of 2026-09-12/13
+  (`DEC-014`, `DEC-015`, `DEC-020`) — `CAPABILITY-ARCHITECTURE.md`,
+  `DATA-MODEL.md`, `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`
+  and `LANGUAGE-ARCHITECTURE.md` now exist (Tranches 1, 2 and 3a of
+  `ARCHITECTURE-MAP.md` §64's proposed exit plan). All five formalize
+  generic mechanisms only; no specific detector, model, tokenizer, metric
+  or algorithm has been selected, so the area remains in definition phase
+  in substance. `TRANSFORMATION-ARCHITECTURE.md` (the remaining Tranche 3
+  candidate) remains premature: `DEC-019` found its blocker is a
+  different, deeper dependency (actually-`VALIDATED` capabilities) that
+  `SPECIFICATION-MAP.md` §22.1's per-language assignment (`DEC-018`) does
+  not resolve.
 - **05-validation through 10-certification**: still single-MAP-document,
   structural-definition phase. This remains the project's largest gap
   between what's designed conceptually and what's specified in enough

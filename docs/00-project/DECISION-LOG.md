@@ -996,3 +996,107 @@ R-0022, R-0046 through R-0073, R-0086, R-0109 through R-0121.
 ### Related Questions
 
 None directly — this decision concerns document-readiness sequencing.
+
+---
+
+## DEC-020 — Tranche 3a Executed: ANALYSIS-ARCHITECTURE.md and LANGUAGE-ARCHITECTURE.md Drafted
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner confirmed drafting (`"vai"`), the macro-tranche-boundary
+confirmation `DEC-019` said would be sought separately. Two new
+architecture sub-documents are created:
+
+1. **`docs/04-architecture/ANALYSIS-ARCHITECTURE.md`** — formalizes
+   `ARCHITECTURE-MAP.md` §9-12 (Analysis Layer, Watermark Analysis,
+   AI-Generated-Text Assessment, Provenance Analysis). Gives concrete
+   architectural treatment to watermark analysis and AI-generation
+   assessment (both grounded in `SPECIFICATION-MAP.md` §22.1's
+   per-language states) and to provenance analysis (for which it
+   explicitly records the absence of any comparable per-language or even
+   general evidence, rather than inventing one). Implements
+   `S02-scientific-requirements.md` §27 (Scientific Ground-Truth Rule) as
+   an architectural output-category tag, and cross-analyzer independence
+   per `ARCHITECTURE-MAP.md` §2 and REQ-DET-005/006.
+2. **`docs/04-architecture/LANGUAGE-ARCHITECTURE.md`** — formalizes
+   `ARCHITECTURE-MAP.md` §34-35 (Language Architecture, Language
+   Capability Registry). Defines a language-centric registry view that is
+   explicitly *derived* from `CAPABILITY-ARCHITECTURE.md` §10's
+   capability-centric per-language states, not a second place where those
+   states are recorded — avoiding the kind of duplicated bookkeeping
+   `ARCHITECTURE-MAP.md` §57 (No Hidden Scientific State) and
+   `DATA-MAP.md` §94 already caution against. Also formalizes tokenizer/
+   script-level risk factors (R-0044/R-0049/R-0062/R-0071) as a distinct,
+   non-substitutable category from capability-level evidence.
+
+Neither document selects any specific detector, watermark scheme,
+tokenizer, or model — both follow the same non-invention discipline as
+`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md` and
+`VALIDATION-ARCHITECTURE.md` before them, per DEC-009.
+`TRANSFORMATION-ARCHITECTURE.md` is not drafted under this decision — its
+blocker (needing actually-`VALIDATED` capabilities) is unresolved, per
+`DEC-019`.
+
+### Rationale
+
+`DEC-019` established that these two documents' specific readiness
+blocker was resolved by `DEC-018`, and that drafting required a separate,
+explicit owner confirmation per `DEC-004`. That confirmation was given.
+Drafting now, following the established Tranche 1/2 pattern exactly
+(generic mechanism, explicit "What This Document Does Not Decide"
+section, illustrative non-binding examples), keeps the documents
+consistent with the rest of the corpus and avoids inventing any
+capability-specific choice the evidence does not support.
+
+### Alternatives Considered
+
+Drafting all of Tranche 3 together, including `TRANSFORMATION-ARCHITECTURE.md`
+(rejected — `DEC-019` found its dependency genuinely unresolved; drafting
+it now would require assuming which validation families are `VALIDATED`,
+which none currently are); deferring drafting further pending a fourth
+reassessment (rejected — the owner's confirmation was explicit and
+`DEC-019`'s readiness finding for these two documents specifically was
+not in question).
+
+### Consequences
+
+`docs/04-architecture/ANALYSIS-ARCHITECTURE.md` and
+`docs/04-architecture/LANGUAGE-ARCHITECTURE.md` exist.
+`ARCHITECTURE-MAP.md` §58, §62 and §64.4 are updated to record their
+creation. 04-architecture now has five sub-documents beyond the MAP
+itself, all still in substance within the structural-definition phase per
+`ARCHITECTURE-MAP.md` §62's restated principle. `TRANSFORMATION-ARCHITECTURE.md`
+and the six unevaluated candidates from §64.4 remain open for a future
+tranche.
+
+### Affected Areas
+
+`docs/04-architecture/ANALYSIS-ARCHITECTURE.md` (new);
+`docs/04-architecture/LANGUAGE-ARCHITECTURE.md` (new);
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §62, §64.4.3).
+
+### Reversal Conditions
+
+If either document is found to have implicitly made a technical decision
+it disclaims (contrary to its own §10/§9 "What This Document Does Not
+Decide" sections respectively), that content should be removed and, if a
+real decision is needed, recorded separately in this log rather than left
+implicit in an architecture document — the same reversal condition
+`DEC-014` set for Tranche 1.
+
+### Related Research
+
+R-0022, R-0039, R-0044, R-0046 through R-0073, R-0086, R-0109 through
+R-0121.
+
+### Related Questions
+
+None directly — this decision concerns architecture-document creation.

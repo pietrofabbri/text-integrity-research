@@ -1126,17 +1126,27 @@ of the documents below now exist: `docs/04-architecture/
 CAPABILITY-ARCHITECTURE.md` (formalizes §23-26),
 `docs/04-architecture/DATA-MODEL.md` (formalizes §32-33), and
 `docs/04-architecture/VALIDATION-ARCHITECTURE.md` (formalizes §16-20,
-unblocked by `DECISION-LOG.md` DEC-015). The remaining candidates below
-are unchanged — still potential future documents, not yet created; §64
-gives the proposed order.
+unblocked by `DECISION-LOG.md` DEC-015).
+
+**Status update (2026-09-13):** per §64.4.2's second reassessment and
+`DECISION-LOG.md` DEC-020, two more now exist: `docs/04-architecture/
+ANALYSIS-ARCHITECTURE.md` (formalizes §9-12) and `docs/04-architecture/
+LANGUAGE-ARCHITECTURE.md` (formalizes §34-35), both unblocked by
+`SPECIFICATION-MAP.md` §22.1's per-language capability-state assignment
+(DEC-018). `TRANSFORMATION-ARCHITECTURE.md` remains not created — §64.4.2
+found its blocker is a different, deeper dependency (actually-`VALIDATED`
+capabilities, not documented per-language defaults) that this round did
+not resolve. The remaining candidates below are unchanged — still
+potential future documents, not yet created; §64 gives the proposed
+order.
 
 Potential future documents include:
 
 - `CORE-ARCHITECTURE.md`
 - `PIPELINE-ARCHITECTURE.md`
 - `CAPABILITY-ARCHITECTURE.md` — **created**, see above
-- `LANGUAGE-ARCHITECTURE.md`
-- `ANALYSIS-ARCHITECTURE.md`
+- `LANGUAGE-ARCHITECTURE.md` — **created**, see above
+- `ANALYSIS-ARCHITECTURE.md` — **created**, see above
 - `TRANSFORMATION-ARCHITECTURE.md`
 - `VALIDATION-ARCHITECTURE.md` — **created**, see above
 - `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
@@ -1249,6 +1259,19 @@ or algorithm, consistent with the principle stated above. Areas outside
 04-architecture that describe "04-architecture through 10-certification"
 as uniformly single-MAP-document (e.g. `docs/00-project/START-HERE.md`)
 should be read with this update in mind.
+
+**Update (2026-09-13):** per §64.4.2 (Tranche 3a) and `DECISION-LOG.md`
+DEC-020, `ANALYSIS-ARCHITECTURE.md` and `LANGUAGE-ARCHITECTURE.md` now
+also exist, both formalizing generic mechanisms only, per the same
+principle. `TRANSFORMATION-ARCHITECTURE.md` (the remaining Tranche 3
+candidate) is not yet drafted: §64.4.2 found it depends on capabilities
+actually reaching `VALIDATED` status
+(`CAPABILITY-ARCHITECTURE.md` §6-7), not merely on a documented
+per-language default — a dependency this update does not resolve. The
+definition phase, in substance, therefore continues even as the document
+count grows: no specific detector, watermark scheme, model, tokenizer or
+algorithm has been selected by any of the five sub-documents now in
+04-architecture.
 
 ---
 
@@ -1427,13 +1450,24 @@ macro-tranche boundaries) and this proposal's own practice for Tranches
 does not begin under this reassessment alone — it requires the owner's
 explicit confirmation, given separately from the reassessment itself.
 
+### 64.4.3 Tranche 3a Executed (2026-09-13, per DECISION-LOG.md DEC-020)
+
+The owner gave the confirmation §64.4.2 required. `ANALYSIS-ARCHITECTURE.md`
+(formalizing §9-12) and `LANGUAGE-ARCHITECTURE.md` (formalizing §34-35)
+are now drafted, both selecting no specific detector, watermark scheme,
+tokenizer or model, consistent with §64.1's readiness signal and every
+prior tranche document's practice. `TRANSFORMATION-ARCHITECTURE.md`
+remains not drafted, per §64.4.2's finding that its blocker is
+unresolved.
+
 ## 64.5 What This Proposal Does Not Decide
 
 Consistent with DEC-009 (a research finding does not automatically become
 a system requirement): neither this proposal nor the documents it
 produced (`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`,
-`VALIDATION-ARCHITECTURE.md`) select an actual semantic-similarity model,
-factual-consistency approach, or detector. Specific technical choices
-remain a separate, later decision, to be made
-when each document is actually drafted and to be recorded in
-`docs/00-project/DECISION-LOG.md` at that time.
+`VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
+`LANGUAGE-ARCHITECTURE.md`) select an actual semantic-similarity model,
+factual-consistency approach, detector, watermark scheme, or tokenizer.
+Specific technical choices remain a separate, later decision, to be made
+when each document's mechanism is actually implemented and to be recorded
+in `docs/00-project/DECISION-LOG.md` at that time.
