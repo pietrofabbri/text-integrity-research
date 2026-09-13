@@ -1537,7 +1537,12 @@ test:
   `docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md`.
 - **`CONFIGURATION-ARCHITECTURE.md`** (§36) and
   **`REPORTING-ARCHITECTURE.md`** (§38): reasonably specified but lower
-  priority; not evaluated to the same depth in this pass.
+  priority; not evaluated to the same depth in this pass. **Update
+  (2026-09-13, per `DECISION-LOG.md` DEC-023):** now evaluated to the same
+  depth — see §64.7 below. `REPORTING-ARCHITECTURE.md` assessed
+  structurally ready; `CONFIGURATION-ARCHITECTURE.md` found to have an
+  unresolved scoping overlap with §37 (Evaluation Profiles), recorded
+  rather than drafted around.
 - **`PIPELINE-ARCHITECTURE.md`**: has no clearly distinct parent section —
   its likely content overlaps substantially with §6 (Orchestration
   Layer), which `CORE-ARCHITECTURE.md` §6 now formalizes.
@@ -1550,3 +1555,65 @@ test:
   `NO-INVENTION-RULES.md`. **Remains unevaluated** — a scoping decision
   (what a "plugin" would mean in this architecture) would need to come
   first, as its own proposal.
+
+## 64.7 Tranche 4, Continued: Evaluating REPORTING-ARCHITECTURE.md and CONFIGURATION-ARCHITECTURE.md (2026-09-13, per DECISION-LOG.md DEC-023)
+
+Following DEC-021's deferral of these two candidates to "not evaluated to
+the same depth," this section applies §64.6's readiness test (conceptual
+definition already present, independent of research evidence) to each in
+turn.
+
+**`REPORTING-ARCHITECTURE.md` (§38) — assessed structurally ready.**
+Unlike `CORE-ARCHITECTURE.md` and `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
+which formalized a section range that no other document yet touched,
+Reporting's obligations are already scattered, concretely, across every
+sub-document drafted so far: `CORE-ARCHITECTURE.md` §9 (the four-state
+failure/eligibility taxonomy a report must represent),
+`ANALYSIS-ARCHITECTURE.md` §7 (Output Category Tagging — every analysis
+result carries a tag a report must preserve, never collapse),
+`VALIDATION-ARCHITECTURE.md` §9 (Missing-Evidence Reporting, which
+already cites this section directly), and
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` §5-7 (data-transfer logging and
+the "external boundary unreachable" state). §38 itself already specifies
+a full content list (input identifier/hash, language, enabled
+capabilities, versions, transformations, changes, validation results,
+detector and watermark-analysis observations, uncertainty, warnings,
+errors, final status) and requires the report be machine-readable with
+human-readable summaries derived from the same underlying data — directly
+reinforced by §21 (Evaluation Layer: "derived scores must never replace
+the underlying observations"), §51 (reports as a distinct storage
+category), and §56 (Schema-First Principle: reports need an explicit,
+versioned schema). A `REPORTING-ARCHITECTURE.md` document's task is
+therefore real but bounded: unify these already-scattered obligations
+into one coherent schema and document, without inventing any new
+reporting concept the corpus does not already require.
+
+**`CONFIGURATION-ARCHITECTURE.md` (§36) — found not yet ready, for a
+reason distinct from any prior tranche document's blocker.** §36 is
+directly grounded (Configuration is one of the Architectural Principle's
+nine separated concerns, §2.7, and its own layer, §4.13) and reinforced
+by §57 (No Hidden Scientific State: "all scientifically relevant state
+must be discoverable from configuration"), §40-41 (Reproducibility and
+Deterministic Core both list configuration), and §46-47 (configuration
+schemas must be independently versionable, breaking changes explicit).
+However, this evaluation surfaced a genuine, previously unrecorded
+overlap: §36's content list (language, pipeline, enabled capabilities,
+transformation constraints, validation profile, external services,
+resource limits, output format, logging level) substantially overlaps
+§37's Evaluation Profile content list (analyzers, detectors,
+transformations, languages, datasets, metrics, thresholds, external
+integrations, required validation) — `ARCHITECTURE-MAP.md` nowhere states
+whether an Evaluation Profile is a specialization of Configuration, a
+separate parallel concept, or the same thing under two names. Per
+`docs/99-backlog/POST-INVENTORY-QUEUE.md`'s Governing Rule (a
+contradiction or gap found during an audit is *recorded*, not silently
+reconciled) and `NO-INVENTION-RULES.md`, this document does not resolve
+that relationship by drafting around it — doing so would mean silently
+inventing a scoping decision (in either direction) that the corpus has
+not made. This is the same discipline `CORE-ARCHITECTURE.md` §10 already
+applied to the `PIPELINE-ARCHITECTURE.md`/§6 overlap: recorded as an open
+scoping question, not answered by omission.
+
+`CONFIGURATION-ARCHITECTURE.md` therefore remains **not drafted**, pending
+a scoping decision — to be proposed and recorded in `DECISION-LOG.md` in
+its own right — on the Configuration/Evaluation-Profile relationship.

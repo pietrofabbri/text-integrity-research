@@ -1298,3 +1298,105 @@ independent of the research layer.
 ### Related Questions
 
 None directly — this decision concerns architecture-document creation.
+
+---
+
+## DEC-023 — REPORTING-ARCHITECTURE.md Assessed Ready; CONFIGURATION-ARCHITECTURE.md Found Blocked by an Unrecorded Scoping Overlap
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's confirmation to proceed with the deeper evaluation
+DEC-021 deferred, `CONFIGURATION-ARCHITECTURE.md` (§36) and
+`REPORTING-ARCHITECTURE.md` (§38) were each evaluated against §64.6's
+readiness test. Findings, recorded in `ARCHITECTURE-MAP.md` §64.7:
+
+1. **`REPORTING-ARCHITECTURE.md`** is assessed **structurally ready**.
+   Its obligations are already scattered concretely across every
+   sub-document drafted so far (`CORE-ARCHITECTURE.md` §9,
+   `ANALYSIS-ARCHITECTURE.md` §7, `VALIDATION-ARCHITECTURE.md` §9,
+   `EXTERNAL-INTEGRATION-ARCHITECTURE.md` §5-7), plus §38's own content
+   list and the reinforcing principles in §21, §51 and §56. Drafting it
+   would unify already-required obligations, not invent new ones. It is
+   **not drafted by this decision** — only assessed — pending the
+   owner's separate confirmation to draft, consistent with this
+   project's macro-tranche-boundary practice (`DEC-004`).
+2. **`CONFIGURATION-ARCHITECTURE.md`** is assessed **not yet ready**, for
+   a reason distinct from any prior tranche document's blocker: this
+   evaluation found that §36's content list substantially overlaps §37's
+   (Evaluation Profiles) content list, and `ARCHITECTURE-MAP.md` nowhere
+   states whether an Evaluation Profile is a specialization of
+   Configuration, a separate parallel concept, or the same thing under
+   two names. This gap was previously unrecorded. Per
+   `docs/99-backlog/POST-INVENTORY-QUEUE.md`'s Governing Rule and
+   `NO-INVENTION-RULES.md`, this decision does not resolve the
+   relationship — it records the gap and leaves
+   `CONFIGURATION-ARCHITECTURE.md` undrafted pending a scoping decision.
+
+### Rationale
+
+The owner asked specifically for the deeper evaluation DEC-021 had
+deferred for both documents — "not evaluated to the same depth" as
+`CORE-ARCHITECTURE.md` and `EXTERNAL-INTEGRATION-ARCHITECTURE.md`.
+Applying that same depth surfaced a real, previously unnoticed
+overlap for one of the two candidates — exactly the kind of finding
+`docs/99-backlog/CLAUDE-CONSOLIDATION-INSTRUCTIONS.md`'s
+Inventory → Audit → Change → Verify discipline exists to catch before it
+gets baked into a new document silently. Drafting
+`CONFIGURATION-ARCHITECTURE.md` around the overlap (by picking either
+reading of the Configuration/Evaluation-Profile relationship without
+recording the choice) would have repeated the exact failure mode
+`NO-INVENTION-RULES.md` exists to prevent — an unrecorded structural
+decision presented as if it were already settled.
+
+### Alternatives Considered
+
+Drafting `CONFIGURATION-ARCHITECTURE.md` anyway, treating Evaluation
+Profiles as a subset of Configuration or vice versa (rejected — either
+choice is a real scoping decision, not something this evaluation is
+authorized to make silently); deferring the `REPORTING-ARCHITECTURE.md`
+evaluation until `CONFIGURATION-ARCHITECTURE.md`'s overlap was resolved,
+on the theory the two should proceed together (rejected — the two
+documents' readiness turned out to be independent, and gating one on the
+other would delay a document that is genuinely ready without cause).
+
+### Consequences
+
+`ARCHITECTURE-MAP.md` §64.6's `CONFIGURATION-ARCHITECTURE.md`/
+`REPORTING-ARCHITECTURE.md` bullet and a new §64.7 record these findings.
+`REPORTING-ARCHITECTURE.md` becomes the recorded next candidate for
+drafting, pending separate confirmation.
+`CONFIGURATION-ARCHITECTURE.md` is blocked until a scoping decision on
+its relationship to Evaluation Profiles (§37) is proposed and recorded in
+this log in its own right.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§64.6, new §64.7). No new
+sub-document created by this decision.
+
+### Reversal Conditions
+
+If the Configuration/Evaluation-Profile scoping decision, once made,
+finds the overlap was illusory (e.g. the two lists were always intended
+to describe the same object under two names, and no real ambiguity
+existed), this decision's characterization of `CONFIGURATION-ARCHITECTURE.md`
+as blocked should be revised and the document drafted without further
+delay.
+
+### Related Research
+
+None — this decision concerns software-architecture mechanics
+independent of the research layer.
+
+### Related Questions
+
+None directly — this decision concerns architecture-document evaluation
+and a documentation-scoping gap, not a scientific question.

@@ -144,7 +144,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 22 recorded (`DEC-001`–`DEC-022`) in `DECISION-LOG.md`.
+- **Decisions**: 23 recorded (`DEC-001`–`DEC-023`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -179,6 +179,17 @@ one being silently "fixed" — see
   detector results as tagged external observations never substituted for
   a local result, and a fifth failure state — "external boundary
   unreachable" — extending `CORE-ARCHITECTURE.md` §9's taxonomy).
+  `DEC-023` (same day, following the owner's confirmation to proceed with
+  the deeper evaluation `DEC-021` deferred) evaluates
+  `REPORTING-ARCHITECTURE.md` and `CONFIGURATION-ARCHITECTURE.md`:
+  `REPORTING-ARCHITECTURE.md` is assessed **structurally ready** (its
+  obligations are already scattered across every sub-document drafted so
+  far); `CONFIGURATION-ARCHITECTURE.md` is found **not yet ready**, for a
+  new reason — a previously unrecorded overlap between §36's content list
+  and §37's (Evaluation Profiles), which `ARCHITECTURE-MAP.md` does not
+  resolve. Per this project's own audit discipline, that gap is recorded
+  (`ARCHITECTURE-MAP.md` §64.7) rather than silently resolved by drafting
+  around it.
 - **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
   `Status: OPEN` — each has literature-backed "Current Evidence," none
   resolved by inference. Q-008 (local models within the storage budget)
@@ -213,9 +224,11 @@ one being silently "fixed" — see
   blocker is a different, deeper dependency (actually-`VALIDATED`
   capabilities) that `SPECIFICATION-MAP.md` §22.1's per-language
   assignment (`DEC-018`) does not resolve. Of Tranche 4's other four
-  remaining candidates: `CONFIGURATION-ARCHITECTURE.md` and
-  `REPORTING-ARCHITECTURE.md` are unevaluated in depth (the recorded next
-  candidates if the owner wants to continue this line of work);
+  candidates: `DEC-023` assessed `REPORTING-ARCHITECTURE.md` as
+  **structurally ready** (recorded next candidate, pending separate
+  confirmation to draft) and `CONFIGURATION-ARCHITECTURE.md` as
+  **blocked** by a newly found, previously unrecorded overlap with §37
+  (Evaluation Profiles) — see `ARCHITECTURE-MAP.md` §64.7;
   `PIPELINE-ARCHITECTURE.md`'s scoping relative to `CORE-ARCHITECTURE.md`
   §6 is left open; `PLUGIN-ARCHITECTURE.md` is not assessable — no parent
   section exists for it in `ARCHITECTURE-MAP.md`.
@@ -225,7 +238,7 @@ one being silently "fixed" — see
   detail to implement against.
 - **Repository**: public on GitHub at
   `github.com/pietrofabbri/text-integrity-research`, in sync as of commit
-  `649513a` (2026-09-12) at last check. Files from the DEC-016–DEC-022
+  `649513a` (2026-09-12) at last check. Files from the DEC-016–DEC-023
   work (`SPECIFICATION-MAP.md`, `S02-scientific-requirements.md`,
   `S04-fidelity-requirements.md`, `DOCUMENTATION-CHANGE-QUEUE.md`,
   `KNOWLEDGE-BACKLOG.md`, `ANALYSIS-ARCHITECTURE.md`,
