@@ -118,8 +118,9 @@ cross-reference §58 separately:
    §21-22, §37.
 8. Capability Layer — `CAPABILITY-ARCHITECTURE.md`.
 9. Data / Model Layer — `DATA-MODEL.md`.
-10. External Integration Layer — not yet formalized beyond
-    `ARCHITECTURE-MAP.md` §29-31 (a candidate document, per §10 below).
+10. External Integration Layer — `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+    (formalizes §29-31, drafted 2026-09-13 per `DECISION-LOG.md` DEC-022,
+    after this document was written).
 11. Persistence Layer — not yet formalized; not named among §58's
     candidate documents either, and this document does not add it as one.
 12. Reporting Layer — not yet formalized beyond `ARCHITECTURE-MAP.md` §38.
@@ -265,10 +266,12 @@ representations (`ARCHITECTURE-MAP.md` §43 reserves this for
 Development); decide whether `PIPELINE-ARCHITECTURE.md` is a distinct
 document from this one or whether §6's Orchestration Layer treatment
 already covers what it would contain — that scoping question is left
-open rather than answered by omission; formalize the External
-Integration Layer (§29-31), Configuration Layer (§36), or Reporting Layer
-(§38) beyond the brief cross-references in §4 and §9 — each remains its
-own candidate document; or resolve DCQ-006, DCQ-007 or DCQ-008.
+open rather than answered by omission; formalize the
+Configuration Layer (§36) or Reporting Layer (§38) beyond the brief
+cross-references in §4 and §9 — each remains its own candidate document
+(the External Integration Layer, §29-31, is now formalized separately by
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`, drafted after this document); or
+resolve DCQ-006, DCQ-007 or DCQ-008.
 
 ---
 

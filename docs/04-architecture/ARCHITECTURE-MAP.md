@@ -1149,6 +1149,14 @@ scoping questions (§64.6). The remaining candidates below are otherwise
 unchanged — still potential future documents, not yet created; §64 gives
 the proposed order.
 
+**Status update (2026-09-13, later still):** per `DECISION-LOG.md`
+DEC-022, `docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md` now
+also exists (formalizes §29-31), executing the candidate DEC-021
+identified as "likely ready but not drafted." `CONFIGURATION-ARCHITECTURE.md`
+and `REPORTING-ARCHITECTURE.md` remain the next candidates, still pending
+the deeper evaluation DEC-021 deferred for both; `PIPELINE-ARCHITECTURE.md`
+and `PLUGIN-ARCHITECTURE.md` remain unresolved scoping questions.
+
 Potential future documents include:
 
 - `CORE-ARCHITECTURE.md` — **created**, see above
@@ -1158,7 +1166,7 @@ Potential future documents include:
 - `ANALYSIS-ARCHITECTURE.md` — **created**, see above
 - `TRANSFORMATION-ARCHITECTURE.md`
 - `VALIDATION-ARCHITECTURE.md` — **created**, see above
-- `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+- `EXTERNAL-INTEGRATION-ARCHITECTURE.md` — **created**, see above
 - `DATA-MODEL.md` — **created**, see above
 - `CONFIGURATION-ARCHITECTURE.md`
 - `REPORTING-ARCHITECTURE.md`
@@ -1287,6 +1295,15 @@ Tranches 1-2" note. The definition phase, in substance, therefore
 continues even as the document count grows: no specific detector,
 watermark scheme, model, tokenizer, interface technology or algorithm has
 been selected by any of the six sub-documents now in 04-architecture.
+
+**Update (2026-09-13, later still):** per `DECISION-LOG.md` DEC-022,
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` now also exists, formalizing
+§29-31's adapter and external-data-boundary mechanics — the seventh
+sub-document in 04-architecture, and, like `CORE-ARCHITECTURE.md`,
+evidence-independent rather than blocked on per-language or per-model
+research. It selects no specific external provider, protocol, data
+format, or security-control mechanism, so the definition phase remains
+unaffected in substance by this addition as well.
 
 ---
 
@@ -1481,9 +1498,11 @@ Consistent with DEC-009 (a research finding does not automatically become
 a system requirement): neither this proposal nor the documents it
 produced (`CAPABILITY-ARCHITECTURE.md`, `DATA-MODEL.md`,
 `VALIDATION-ARCHITECTURE.md`, `ANALYSIS-ARCHITECTURE.md`,
-`LANGUAGE-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`) select an actual
+`LANGUAGE-ARCHITECTURE.md`, `CORE-ARCHITECTURE.md`,
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`) select an actual
 semantic-similarity model, factual-consistency approach, detector,
-watermark scheme, tokenizer, or interface technology. Specific technical
+watermark scheme, tokenizer, interface technology, external provider,
+integration protocol, or security-control mechanism. Specific technical
 choices remain a separate, later decision, to be made when each
 document's mechanism is actually implemented and to be recorded in
 `docs/00-project/DECISION-LOG.md` at that time.
@@ -1512,7 +1531,10 @@ test:
 - **`EXTERNAL-INTEGRATION-ARCHITECTURE.md`** (§29-31): similarly
   well-specified and evidence-independent, directly grounded in DEC-001
   (offline core). Assessed as likely ready but not drafted in this pass —
-  scoped as a candidate next step, not begun unilaterally.
+  scoped as a candidate next step, not begun unilaterally. **Update
+  (2026-09-13, per `DECISION-LOG.md` DEC-022):** drafted, following the
+  owner's confirmation to proceed with this candidate. See
+  `docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md`.
 - **`CONFIGURATION-ARCHITECTURE.md`** (§36) and
   **`REPORTING-ARCHITECTURE.md`** (§38): reasonably specified but lower
   priority; not evaluated to the same depth in this pass.

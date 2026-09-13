@@ -1207,3 +1207,94 @@ independent of the research layer.
 ### Related Questions
 
 None directly — this decision concerns architecture-document creation.
+
+---
+
+## DEC-022 — EXTERNAL-INTEGRATION-ARCHITECTURE.md Drafted
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's explicit confirmation to proceed with the next
+candidate DEC-021 identified, `docs/04-architecture/
+EXTERNAL-INTEGRATION-ARCHITECTURE.md` is drafted, formalizing
+`ARCHITECTURE-MAP.md` §29-31 (External Integration Layer, External Data
+Boundary, Cloud Detector Integration). It defines: the adapter isolation
+principle (§3, narrowing §27's general Dependency Isolation to the exact
+boundary where data or a request crosses outside the local system); a
+distinction between outbound integrations (user text sent externally) and
+inbound-only ones (an artifact fetched, nothing of the user's sent) that
+the earlier sections did not separately name; the concrete obligations
+§30's external-data-boundary requirements impose at that adapter boundary
+specifically, rather than left to interface-layer convention; how a cloud
+detector's result must be tagged and reported as an external observation
+per `ANALYSIS-ARCHITECTURE.md` §7, never substituted for a local
+capability's own result (§31); a fifth failure/availability state
+("external boundary unreachable") that extends `CORE-ARCHITECTURE.md`
+§9's four-state taxonomy, distinguishing "the boundary itself was
+unreachable" from "the capability ran and failed"; and the single
+crossing point at which `ARCHITECTURE-MAP.md` §49's security controls for
+downloaded artifacts must attach. It selects no specific external
+provider, protocol, data format, or security-control mechanism.
+
+### Rationale
+
+`DECISION-LOG.md` DEC-021 already assessed this document as "likely
+ready" on the same evidence-independent test that made
+`CORE-ARCHITECTURE.md` draftable — §29-31 describe boundary and isolation
+mechanics, not a scientific claim requiring per-language or per-model
+evidence — and identified it as the recorded next candidate. The owner's
+confirmation to proceed with that recommendation is the authorization
+this decision executes.
+
+### Alternatives Considered
+
+Drafting `CONFIGURATION-ARCHITECTURE.md` or `REPORTING-ARCHITECTURE.md`
+instead (rejected for this pass — DEC-021 assessed both as "reasonably
+specified but not evaluated to the same depth," meaning a diligent
+drafting pass would need to start with that evaluation, not proceed
+straight to drafting as `EXTERNAL-INTEGRATION-ARCHITECTURE.md` could);
+attempting `PLUGIN-ARCHITECTURE.md` (rejected — DEC-021 found no parent
+section exists for it at all, so drafting it now would mean inventing a
+scope, contrary to `NO-INVENTION-RULES.md`).
+
+### Consequences
+
+`docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md` exists,
+formalizing generic adapter/boundary mechanics only.
+`ARCHITECTURE-MAP.md` §58, §62 and §64.6 should be updated to record its
+creation. `CONFIGURATION-ARCHITECTURE.md` and `REPORTING-ARCHITECTURE.md`
+remain the next candidates if the owner wants to continue this line of
+work, still pending the deeper evaluation DEC-021 deferred for both.
+
+### Affected Areas
+
+`docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md` (new);
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58, §62, §64.6).
+
+### Reversal Conditions
+
+If `EXTERNAL-INTEGRATION-ARCHITECTURE.md` is found to have implicitly
+selected a specific provider, protocol, or security mechanism contrary to
+its own §10, that content should be removed and, if a real decision is
+needed, recorded separately in this log — the same reversal condition set
+for every prior tranche document. If the outbound/inbound-only
+distinction (§4) proves not to match how `CAPABILITY-ARCHITECTURE.md`
+capabilities actually use external integrations once implemented, that
+distinction should be revised rather than left standing as a mismatch.
+
+### Related Research
+
+None — this decision concerns software-architecture mechanics
+independent of the research layer.
+
+### Related Questions
+
+None directly — this decision concerns architecture-document creation.
