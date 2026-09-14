@@ -2470,3 +2470,109 @@ not scientific content.
 ### Related Questions
 
 None new.
+
+---
+
+## DEC-033 — Post-Batch Consolidation Pass: `ARCHITECTURE-MAP.md` §62 Changelog Gap, and Verification That `LANGUAGE-ARCHITECTURE.md` §4 Is Not a New DEC-029-Class Contradiction
+
+### Date
+
+2026-09-14
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the same precedent `DEC-027` set (a mechanical consolidation
+pass after a batch of substantive decisions), a follow-up audit was run
+after the `DEC-029`–`DEC-032` batch was committed (`8cadb61`). The audit
+checked, corpus-wide: stale "Evaluation Layer not yet formalized"
+language; stale "nine sub-documents" counts; stale citations to
+`VALIDATION-ARCHITECTURE.md`'s pre-`DEC-031` §14/§15 numbering; any other
+occurrence of `RESEARCH_ONLY`/`NOT_SUPPORTED` phrased as if it were a
+member of `CAPABILITY-ARCHITECTURE.md` §6's enum, beyond
+`ANALYSIS-ARCHITECTURE.md` §5 (`DEC-029`); any other language-specific
+use of `DISCOVERED` beyond `ANALYSIS-ARCHITECTURE.md` §4 (`DEC-029`); and
+general cross-reference/TODO health. Two items surfaced:
+
+1. **A genuine mechanical gap, fixed directly.**
+   `ARCHITECTURE-MAP.md` §62 ("Current Architectural State") is a running,
+   dated changelog. Its `DEC-026`-dated entry states the Evaluation Layer
+   "remains unformalized by any current or candidate document," and no
+   later §62 entry ever retracted that statement — unlike §58's own
+   candidate list, which `DEC-032` correctly updated. A reader following
+   §62 alone (as several other documents, e.g. `START-HERE.md`, direct
+   readers to do) would not learn the Evaluation Layer was formalized.
+   Fixed mechanically by appending a `DEC-032`-dated entry to §62 in the
+   same style as every prior entry in that section, cross-referencing §58
+   and `DEC-032`. No content, scope, or requirement changed.
+
+2. **A candidate finding, investigated and confirmed to be a false
+   positive — recorded here so it is not re-raised by a future pass.**
+   `LANGUAGE-ARCHITECTURE.md` §4 derives `supported_operations` by
+   including any capability record whose per-language state is "at any
+   state above `NOT_SUPPORTED`." On its face this resembles the phrasing
+   `DEC-029` flagged as a problem in `ANALYSIS-ARCHITECTURE.md` §5 ("at
+   any state above `DISCOVERED`"). Checked directly against `DEC-030`'s
+   own text rather than assumed: `DEC-030`'s Consequences section already
+   explicitly names `LANGUAGE-ARCHITECTURE.md`'s existing per-language-map
+   usage of `RESEARCH_ONLY`/`NOT_SUPPORTED` and states it "remains correct
+   under this resolution and needs no further correction." The two
+   phrasings are not equivalent: `ANALYSIS-ARCHITECTURE.md` §5 places
+   `RESEARCH_ONLY` *above* `DISCOVERED`, contradicting `DEC-030`'s stated
+   precedence (the pre-enum vocabulary comes *before* `DISCOVERED`, not
+   after it) — which is why `DEC-029` recorded it as a genuine
+   contradiction. `LANGUAGE-ARCHITECTURE.md` §4 instead treats
+   `NOT_SUPPORTED` as the floor and everything else — `RESEARCH_ONLY` and
+   the full §6 enum alike — as "above" it, which is consistent with, not
+   contradictory to, `DEC-030`'s resolution. No gap; no edit made.
+
+### Rationale
+
+`NO-INVENTION-RULES.md` and this project's standing practice require an
+audit's findings to be recorded, including a candidate finding that
+verification clears — recording the clearance here, with the reasoning
+that distinguishes it from `DEC-029`'s genuine case, prevents a future
+pass from re-flagging the same surface-level phrasing and re-spending
+research effort on an already-settled question. The §62 fix itself
+follows `DEC-027`'s own precedent for mechanical, no-content-change
+corrections applied directly rather than routed through an
+`AskUserQuestion` cycle.
+
+### Alternatives Considered
+
+Leaving §62 unfixed on the reasoning that `DEC-032` and §58 already
+document the change elsewhere (rejected — §62 is maintained specifically
+as the authoritative running narrative of architectural state, and other
+documents point readers to it); recording the `LANGUAGE-ARCHITECTURE.md`
+§4 phrasing as a new open gap alongside `DEC-029` without first checking
+`DEC-030`'s own text (rejected — this would have misstated an already-
+settled question as open, the same class of error `DEC-028` corrected
+for a citation instead of a status).
+
+### Consequences
+
+`ARCHITECTURE-MAP.md` §62 now accurately reflects the ten-document state
+of `docs/04-architecture/` through `DEC-032`. `LANGUAGE-ARCHITECTURE.md`
+§4 needs no correction and should not be re-flagged absent new evidence.
+`DEC-029` remains the sole open item from this lineage.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§62).
+
+### Reversal Conditions
+
+The `LANGUAGE-ARCHITECTURE.md` §4 clearance should be revisited only if
+`DEC-030` itself is reopened or reinterpreted.
+
+### Related Research
+
+None — this is an internal documentation-consistency question, not a
+scientific one.
+
+### Related Questions
+
+None new — `DEC-029` remains the one directly related open item.

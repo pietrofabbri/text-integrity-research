@@ -1435,6 +1435,29 @@ see the new `VALIDATION-ARCHITECTURE.md` §14 (which renumbers that
 document's former §14/§15 to §15/§16) and the corresponding update to
 `CONFIGURATION-ARCHITECTURE.md` §5/§8/§9.
 
+**Update (2026-09-13, DEC-032):** the Evaluation Layer gap this section's
+`DEC-026` entry above recorded (§21-22, previously unformalized by any
+current or candidate document) is now resolved: per the owner's explicit
+direction, `docs/04-architecture/EVALUATION-ARCHITECTURE.md` is created —
+the tenth sub-document in `docs/04-architecture/`, formalizing the
+Experimental Matrix, benchmark execution and detector/transformation
+comparison, raw-measurement preservation, evaluation-level regression
+analysis (distinct from `VALIDATION-ARCHITECTURE.md` §12's
+validation-level regression), and the statistical-analysis/Reporting
+boundary. It selects no specific benchmark suite, statistical test, or
+detector/transformation implementation, so the definition phase remains
+unaffected in substance by this addition, consistent with every prior
+tranche document. See §58 above and `DECISION-LOG.md` DEC-032 for the
+full grounding.
+
+**Update (2026-09-14, DEC-033):** a follow-up consolidation pass found
+this section itself had not been updated for `DEC-032` (the entry above
+was added to close that gap) and separately verified that
+`LANGUAGE-ARCHITECTURE.md` §4's "at any state above `NOT_SUPPORTED`"
+phrasing is not a new instance of the `DEC-029` contradiction — `DEC-030`
+already examined and cleared that usage directly. See `DECISION-LOG.md`
+DEC-033.
+
 ---
 
 # 63. Governing Principle
