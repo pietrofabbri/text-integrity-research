@@ -249,14 +249,24 @@ aggregate score is insufficient") at the architecture level.
 `REPORTING-ARCHITECTURE.md` (all drafted after this document) populate
 this same per-language map with `RESEARCH_ONLY` and `NOT_SUPPORTED`
 values, sourced from `SPECIFICATION-MAP.md` §22's default vocabulary
-rather than from §6's lifecycle enum above. This document does not
-define a formal relationship between §6's record-lifecycle states and
-that separate per-language default vocabulary — whether `NOT_SUPPORTED`/
-`RESEARCH_ONLY` should be treated as additional members of §6's enum, or
-as a distinct "no record exists yet" vocabulary that precedes it, is an
-open gap this consolidation pass records without resolving, since
-extending §6's enum is a content decision reserved for the owner, not a
-mechanical fix.
+rather than from §6's lifecycle enum above. `DECISION-LOG.md` DEC-030
+resolves the relationship: `NOT_SUPPORTED` and `RESEARCH_ONLY` are not
+members of §6's enum. They are a distinct vocabulary describing a
+language's standing *before* this section's per-language lifecycle state
+begins to apply to it — before any capability-record-level work (even a
+`DISCOVERED`-level candidate) has been proposed specifically for that
+language. Once a `DISCOVERED`-or-later candidate is proposed for a
+language, that language's entry in the `languages` map moves onto §6's
+own enum; until then, it is described by `SPECIFICATION-MAP.md` §22's
+vocabulary instead, and the two are never both populated for the same
+language at the same time. This does not resolve the narrower, separate
+inconsistency `DECISION-LOG.md` DEC-029 records: `ANALYSIS-ARCHITECTURE.md`
+§4 uses `DISCOVERED` for a language with no existing evidence at all
+(based only on a planned, not-yet-conducted project-internal experiment),
+which sits in tension with this section's and §6's own requirement that
+`DISCOVERED` requires an `R-XXXX` entry to already exist — DEC-030's
+sequencing resolution does not by itself settle whether that specific use
+of `DISCOVERED` is valid.
 
 `CONFIGURATION-ARCHITECTURE.md` §3 depends on this section's eligibility
 rule ("a configuration may only narrow, never widen, what this section

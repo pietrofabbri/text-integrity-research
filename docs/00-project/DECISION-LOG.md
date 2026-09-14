@@ -1803,7 +1803,8 @@ changed):
 6. `VALIDATION-ARCHITECTURE.md` §9 — added a pointer from its
    missing-evidence discipline to `REPORTING-ARCHITECTURE.md` §5, which
    generalizes it to every report dimension.
-7. `VALIDATION-ARCHITECTURE.md` §14 — added an acknowledgment that
+7. `VALIDATION-ARCHITECTURE.md` §14 (renumbered §15 by DEC-031, which
+   inserted a new §14) — added an acknowledgment that
    `CONFIGURATION-ARCHITECTURE.md` §5 names this document as owning the
    still-undefined "validation profile" field; not resolved, only
    acknowledged on both sides now.
@@ -1891,7 +1892,8 @@ in this log entry.
 
 `docs/04-architecture/CORE-ARCHITECTURE.md` (§9),
 `docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (§6, §10, §13),
-`docs/04-architecture/VALIDATION-ARCHITECTURE.md` (§9, §14),
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` (§9, §14 — renumbered
+§15 by DEC-031),
 `docs/04-architecture/ANALYSIS-ARCHITECTURE.md` (§7),
 `docs/04-architecture/LANGUAGE-ARCHITECTURE.md` (§9),
 `docs/04-architecture/DATA-MODEL.md` (§2),
@@ -2035,3 +2037,436 @@ scientific content.
 ### Related Questions
 
 None — this is a citation-accuracy correction, not a new open question.
+
+---
+
+## DEC-029 — Record a Confirmed Contradiction in `ANALYSIS-ARCHITECTURE.md` §4/§5's Use of `DISCOVERED`
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+While researching DEC-030's lifecycle-enum question (below), a distinct,
+confirmed textual contradiction was found and is recorded here without
+being resolved. `CAPABILITY-ARCHITECTURE.md` §6 defines `DISCOVERED` as
+requiring an existing research-registry entry: "a candidate method or
+model has been identified in the research layer (an `R-XXXX` entry
+exists) but no capability record has been created yet." But
+`ANALYSIS-ARCHITECTURE.md` §4 states that a watermark-analysis capability
+for a language with **no** citable scientific source "may still be
+proposed as `DISCOVERED` (`CAPABILITY-ARCHITECTURE.md` §6) if a
+project-internal experiment is planned, which is a different claim than
+citing existing evidence" — proposing `DISCOVERED` status precisely where
+§6's own precondition (an `R-XXXX` entry already existing) is not met, a
+*planned* experiment being explicitly distinguished from "citing existing
+evidence."
+
+Separately, `ANALYSIS-ARCHITECTURE.md` §5 uses `DISCOVERED` as if it were
+already a valid value inside the same per-language `languages` map that
+`SPECIFICATION-MAP.md` §22.1 populates with `RESEARCH_ONLY` ("for any
+capability whose `languages` map includes Russian or Indonesian at any
+state above `DISCOVERED`") — mixing the two vocabularies DEC-030 (below)
+addresses, without itself acknowledging that they come from different
+documents.
+
+This decision does not resolve either point. Whether a *planned but
+not-yet-conducted* project-internal experiment should be sufficient
+grounds for `DISCOVERED` status (loosening §6's literal precondition), or
+whether `ANALYSIS-ARCHITECTURE.md` §4 should be corrected to require an
+actual `R-XXXX` entry first, is a content decision about what evidentiary
+bar `DISCOVERED` requires — not a citation error this pass can fix
+mechanically, and not settled by DEC-030's sequencing resolution, which
+addresses a different question (where `RESEARCH_ONLY`/`NOT_SUPPORTED`
+sit relative to §6's enum, not what `DISCOVERED` itself requires).
+
+### Rationale
+
+`NO-INVENTION-RULES.md` and this project's standing practice require a
+contradiction found during any audit to be recorded, not silently
+resolved by picking whichever reading seems more convenient. This one
+surfaced incidentally while researching a different, related question
+(DEC-030) — exactly the kind of adjacent finding `POST-INVENTORY-QUEUE.md`'s
+Governing Rule already requires recording rather than dropping because it
+fell outside the specific question being researched.
+
+### Alternatives Considered
+
+Silently correcting `ANALYSIS-ARCHITECTURE.md` §4 to remove the
+"planned experiment" language (rejected — this may reflect a genuine,
+intended project position that a planned internal experiment is grounds
+enough for `DISCOVERED`, which is a legitimate policy choice, not
+obviously wrong; deciding which reading is correct is the owner's call);
+silently loosening `CAPABILITY-ARCHITECTURE.md` §6's `DISCOVERED`
+definition to accommodate `ANALYSIS-ARCHITECTURE.md`'s usage (rejected
+for the same reason, in the other direction).
+
+### Consequences
+
+`ANALYSIS-ARCHITECTURE.md` §4/§5's use of `DISCOVERED` and
+`CAPABILITY-ARCHITECTURE.md` §6's definition of it remain in tension.
+Anyone relying on `DISCOVERED`'s precise precondition should read both
+sections and be aware of this unresolved conflict rather than assume
+either alone is authoritative.
+
+### Affected Areas
+
+`docs/04-architecture/ANALYSIS-ARCHITECTURE.md` (§4, §5),
+`docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (§6). No file was
+edited by this decision beyond this log entry and the cross-reference
+DEC-030 adds to `CAPABILITY-ARCHITECTURE.md` §10.
+
+### Reversal Conditions
+
+Resolved when the owner decides which reading of `DISCOVERED`'s
+precondition governs, at which point either `ANALYSIS-ARCHITECTURE.md`
+§4 or `CAPABILITY-ARCHITECTURE.md` §6 (or both) should be corrected to
+match.
+
+### Related Research
+
+None — this is an internal documentation-consistency question, not a
+scientific one.
+
+### Related Questions
+
+None new — related to but distinct from the gap DEC-027 recorded and
+DEC-030 resolves.
+
+---
+
+## DEC-030 — Resolve the Relationship Between `CAPABILITY-ARCHITECTURE.md` §6's Lifecycle Enum and `SPECIFICATION-MAP.md` §22's Per-Language Vocabulary
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Resolving the gap `DECISION-LOG.md` DEC-027 recorded (and
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md` §5S/§13S first flagged
+at the cross-area level as unresolved "lifecycle-state vocabulary
+drift"), per the owner's explicit direction: `NOT_SUPPORTED` and
+`RESEARCH_ONLY` (`SPECIFICATION-MAP.md` §22) are **not** additional
+members of `CAPABILITY-ARCHITECTURE.md` §6's enum
+(`DISCOVERED → EXPERIMENTAL → VALIDATED → ACTIVE → DEGRADED →
+DEPRECATED → RETIRED`). They are a **distinct vocabulary describing a
+language's standing before §6's per-language lifecycle state begins to
+apply to it** — before any capability-record-level candidate, even a
+`DISCOVERED`-level one, has been proposed specifically for that
+language. Once a `DISCOVERED`-or-later candidate is proposed for a given
+language, that language's entry in the relevant capability's `languages`
+map (`CAPABILITY-ARCHITECTURE.md` §10) moves onto §6's own enum; the two
+vocabularies are never both populated for the same language at the same
+time — one precedes the other, they do not coexist as alternatives.
+
+This is consistent with, though not dictated by, `SPECIFICATION-MAP.md`
+§22.1's own Method note ("no capability in this project has yet been
+implemented or run through `CAPABILITY-ARCHITECTURE.md`'s Activation
+Gate, [so] no cell below is `EXPERIMENTAL`, `VALIDATED`, `ACTIVE`,
+`DEGRADED`, `DEPRECATED` or `RETIRED`... Every cell is therefore either
+`RESEARCH_ONLY`... or `NOT_SUPPORTED`... A state recorded here is a
+documentation default, not a runtime configuration — it must be
+revisited once a capability is actually registered"), and with
+`CAPABILITY-ARCHITECTURE.md` §6's own definition of `DISCOVERED`
+requiring an `R-XXXX` entry to exist (i.e., `DISCOVERED` already
+describes a pre-record-creation state, one step before `RESEARCH_ONLY`/
+`NOT_SUPPORTED` would need to persist).
+
+This decision does **not** resolve `DECISION-LOG.md` DEC-029's separate,
+narrower finding: whether `ANALYSIS-ARCHITECTURE.md` §4's specific use of
+`DISCOVERED` (for a language with no existing `R-XXXX` evidence, based on
+a merely planned experiment) is itself valid under §6's precondition.
+That is a question about what `DISCOVERED` requires, not about where
+`RESEARCH_ONLY`/`NOT_SUPPORTED` sit relative to the enum, and remains
+open.
+
+### Rationale
+
+A dedicated research pass (not a guess) confirmed the corpus does not
+settle this question outright — evidence is suggestive but genuinely
+mixed (see the research findings summarized in this decision's
+Alternatives Considered). Given that, the owner's explicit choice among
+the two live options (`SPECIFICATION-MAP.md` §22.1's "documentation
+default, not yet registered" framing supports treating the vocabulary as
+prior-and-separate rather than merged into §6's enum) is recorded here as
+the resolution, consistent with this project's practice that a genuine
+content decision — not resolvable by evidence alone — is the owner's to
+make and this log's job to record once made.
+
+### Alternatives Considered
+
+Extending §6's enum to formally include `NOT_SUPPORTED`/`RESEARCH_ONLY`
+as its first two members (considered — this was the owner's non-chosen
+alternative; it would also have been internally consistent, since
+`SPECIFICATION-MAP.md` §22's own flat list already places them before
+`EXPERIMENTAL`, but the owner preferred keeping the vocabularies formally
+distinct rather than merging them into one enum); leaving the gap
+unresolved for a later decision (considered — also offered as an option,
+not chosen, since the owner elected to resolve it now); inferring a
+resolution silently from the suggestive-but-mixed evidence without
+asking (rejected — `ANALYSIS-ARCHITECTURE.md` §4's conflicting use of
+`DISCOVERED` for a no-evidence language, found during this same research
+pass, is direct proof the evidence does not cleanly converge on one
+reading, so resolving this without the owner's explicit choice would
+have risked recording an inference as fact).
+
+### Consequences
+
+`CAPABILITY-ARCHITECTURE.md` §10 now states this relationship directly
+rather than as an open gap. `LANGUAGE-ARCHITECTURE.md`,
+`ANALYSIS-ARCHITECTURE.md`, and `REPORTING-ARCHITECTURE.md`'s existing
+use of `RESEARCH_ONLY`/`NOT_SUPPORTED` in the per-language map remains
+correct under this resolution and needs no further correction. DEC-029's
+narrower `DISCOVERED`-precondition question remains genuinely open and is
+not closed by this decision.
+
+### Affected Areas
+
+`docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (§10).
+
+### Reversal Conditions
+
+If, once actual capabilities exist and are registered, this sequencing
+proves unworkable in practice (e.g. a language needs to be marked both
+"no evidence" and "an experiment is underway" simultaneously in a way
+that does not fit a strict before/after ordering), this decision should
+be revisited rather than worked around silently.
+
+### Related Research
+
+None — this decision concerns a documentation vocabulary relationship,
+not scientific content. The underlying per-language evidence itself
+(`SPECIFICATION-MAP.md` §22.1) is unaffected.
+
+### Related Questions
+
+None new — DEC-029 remains the one directly related open item.
+
+---
+
+## DEC-031 — Define "Validation Profile" (`ARCHITECTURE-MAP.md` §36), Resolving `CONFIGURATION-ARCHITECTURE.md` §5's Recorded Gap
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Resolving the gap `DECISION-LOG.md` DEC-025 recorded (and
+`CONFIGURATION-ARCHITECTURE.md` §5 confirmed, after a full corpus search,
+was defined nowhere at all — not merely uncited, but never elaborated by
+any document), per the owner's explicit direction: "validation profile"
+is defined as **the same structural pattern as Evaluation Profile,
+applied to validation instead of effectiveness**. Concretely, a
+Validation Profile is a named, versioned bundle specifying which
+validation families (`VALIDATION-ARCHITECTURE.md` §4) apply to a request,
+which validator and minimum capability lifecycle state governs each,
+which of each family's checks are hard constraints versus soft
+objectives (§7) and their acceptance thresholds (documented per §11's
+`FID-038`/`FID-039` requirements), and whether regression validation
+(§12) against a prior baseline is required. This is defined in full in
+`VALIDATION-ARCHITECTURE.md`'s new §14, per that document's own
+established authority over validation-family scope (§4) and the
+ownership `CONFIGURATION-ARCHITECTURE.md` §5 already assigned it.
+
+An Evaluation Profile and a Validation Profile remain structurally
+parallel but evidentially distinct, per this project's existing
+Configuration/Evaluation-Profile resolution (DEC-025): the former scopes
+a scientific effectiveness *claim*, the latter scopes what evidentiary
+bar a specific transformation or output must clear to be reported as
+validated. A Configuration selects a Validation Profile by name and
+version only — the same one-way-reference discipline DEC-025 established
+for Evaluation Profile — never embedding or restating its content
+inline.
+
+This decision defines the field's *meaning* only. It does not populate
+any specific named Validation Profile (e.g. a concrete "conservative" or
+"research" validation profile) — that remains a later, separate task,
+consistent with every other sub-document's practice of defining
+mechanism before content.
+
+### Rationale
+
+A dedicated research pass confirmed this gap was a clean
+`UNKNOWN — INSUFFICIENT PROJECT EVIDENCE`, not a contested-but-resolvable
+question like DEC-025's Configuration/Evaluation-Profile overlap had
+been — no corpus text anywhere defines or gestures at what "validation
+profile" should contain, so no evidence-based resolution was available
+(per `NO-INVENTION-RULES.md`, this rules out inferring a definition
+silently). The owner's explicit choice to model it on the already-
+established, already-successful Evaluation Profile pattern gives this
+decision a concrete, non-invented anchor: it borrows a structure this
+project has already adopted and reasoned through once (DEC-025), rather
+than inventing a new one from nothing.
+
+### Alternatives Considered
+
+Retiring the field as redundant (offered as an option, not chosen by the
+owner — this would have required deciding that §36's own "validation
+profile" listing was simply an error, which the evidence does not
+support any more than it supports a definition: nothing indicates it was
+a mistake, only that it was never elaborated); leaving the gap open for
+later (offered, not chosen — the owner elected to resolve it now, in the
+same session as DEC-030); inventing a definition disconnected from any
+existing project concept (rejected outright — would have violated
+`NO-INVENTION-RULES.md` regardless of what the owner wanted, since a
+definition must still be grounded in what the project's own validation
+concepts (families, hard/soft constraints, thresholds, regression) can
+actually support, which the adopted definition is).
+
+### Consequences
+
+`ARCHITECTURE-MAP.md` §36's "validation profile" field now has a defined
+meaning, symmetrical with "evaluation profile" (§37) in structure and
+distinct from it in evidentiary purpose.
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` gains a new §14,
+renumbering its former §14 ("What This Document Does Not Decide") to
+§15 and former §15 ("Final Principle") to §16 — the two external
+citations to the former §14, both in this log's own DEC-027 entry, are
+annotated in place with the renumbering rather than rewritten.
+`docs/04-architecture/CONFIGURATION-ARCHITECTURE.md` §5, §8, and §9 are
+updated to reflect the resolution instead of the prior "undefined" state.
+No specific named Validation Profile exists yet — populating one remains
+open, consistent with this whole tranche's practice of formalizing
+mechanism ahead of content.
+
+### Affected Areas
+
+`docs/04-architecture/VALIDATION-ARCHITECTURE.md` (new §14; former §14→§15,
+former §15→§16), `docs/04-architecture/CONFIGURATION-ARCHITECTURE.md`
+(§5, §8, §9), `docs/00-project/DECISION-LOG.md` (DEC-027's two citations
+of the former §14, annotated).
+
+### Reversal Conditions
+
+If, once actual Validation Profiles are populated, this structure proves
+inadequate (e.g. a validation concern arises that doesn't fit the
+family/validator/threshold/regression shape defined here), this
+decision should be revisited rather than patched silently.
+
+### Related Research
+
+None — this decision concerns a documentation/configuration mechanism,
+not scientific content.
+
+### Related Questions
+
+None new — this closes the gap `DECISION-LOG.md` DEC-025 recorded.
+
+---
+
+## DEC-032 — Add the Evaluation Layer as a New Candidate and Draft `EVALUATION-ARCHITECTURE.md`
+
+### Date
+
+2026-09-13
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+`DECISION-LOG.md` DEC-026 found the Evaluation Layer (`ARCHITECTURE-MAP.md`
+§21-22 — benchmark execution, detector comparison, transformation
+comparison, robustness experiments, regression analysis, statistical
+analysis, report generation, and the Experimental Matrix's ten
+dimensions) unformalized by any current or candidate document, and
+deliberately did not add it as a new §58 candidate, reasoning that doing
+so unilaterally would itself be an unrequested scope decision. Per the
+owner's explicit confirmation, this decision adds it as a new candidate
+and drafts it: `docs/04-architecture/EVALUATION-ARCHITECTURE.md` now
+exists, the tenth sub-document in `docs/04-architecture/`.
+
+The document formalizes §21-22 as the mechanism that combines individual
+analysis/validation/external-integration measurements (already governed
+by `ANALYSIS-ARCHITECTURE.md`, `VALIDATION-ARCHITECTURE.md`, and
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`) into comparative experiment
+results, while carefully distinguishing itself from four adjacent
+mechanisms already formalized, to avoid duplicating any of them:
+
+- it is not the Analysis Layer (a single measurement is its raw input,
+  not its subject);
+- it is not `VALIDATION-ARCHITECTURE.md` §12's Regression Validation
+  (which asks whether a changed capability still passes previously-
+  passing outcomes; this document's regression analysis asks whether
+  *measured performance* has changed, independent of pass/fail);
+- it is not the Reporting Layer (it produces results;
+  `REPORTING-ARCHITECTURE.md` defines how they are presented);
+- it does not redefine `CAPABILITY-ARCHITECTURE.md` §6's `DEGRADED`
+  determination, only supplies the evidence such a determination would
+  be grounded in.
+
+### Rationale
+
+The owner's "facciamole" ("let's do them") response, given after this
+session presented the Evaluation Layer alongside three other open items
+each requiring a distinct decision, is treated here as authorizing this
+specific item's own explicit sub-choice ("sì, aggiungilo e scrivilo ora")
+rather than as blanket authorization to invent scope for items that
+genuinely have no textual grounding (contrast `PLUGIN-ARCHITECTURE.md`,
+where the owner's answer was "not sure, let's talk" — correctly left
+undecided rather than guessed at). Unlike `PLUGIN-ARCHITECTURE.md`, the
+Evaluation Layer already has extensive corpus grounding
+(`ARCHITECTURE-MAP.md` §21-22 itself, plus `ANALYSIS-ARCHITECTURE.md`
+§8's explicit forward reference to "`ARCHITECTURE-MAP.md` §21's
+Evaluation Layer treatment," `CAPABILITY-ARCHITECTURE.md` §7's regression-
+test requirement, and `CORE-ARCHITECTURE.md` §4's explicit "not yet
+formalized" flag) — drafting it does not require inventing content, only
+organizing what the corpus already requires, consistent with how every
+other Tranche 4 document was justified.
+
+### Alternatives Considered
+
+Adding it as a candidate but deferring the actual drafting (offered as an
+option in the question put to the owner; not chosen — the owner elected
+to draft it in the same step); continuing to treat it as only a recorded
+gap without ever promoting it to a candidate (rejected — the owner's
+explicit "facciamole" and specific selection supersede DEC-026's earlier
+self-imposed restraint, which was itself conditional on not having asked
+the owner yet).
+
+### Consequences
+
+`docs/04-architecture/` now has ten sub-documents.
+`ARCHITECTURE-MAP.md` §58's candidate list and `CORE-ARCHITECTURE.md`
+§4/§10 are updated to reflect the Evaluation Layer as formalized rather
+than open. `PLUGIN-ARCHITECTURE.md` remains the only genuinely open
+architectural scoping question from the original Tranche 4 list, still
+awaiting the owner's own input on what "plugin" should mean, if anything.
+
+### Affected Areas
+
+`docs/04-architecture/EVALUATION-ARCHITECTURE.md` (new),
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58),
+`docs/04-architecture/CORE-ARCHITECTURE.md` (§4, §10).
+
+### Reversal Conditions
+
+None anticipated absent a future finding that this document's boundary
+with `VALIDATION-ARCHITECTURE.md` §12 or `REPORTING-ARCHITECTURE.md`
+proves unworkable in practice, at which point it should be revisited
+rather than patched silently.
+
+### Related Research
+
+None — this decision concerns an architecture-documentation mechanism,
+not scientific content.
+
+### Related Questions
+
+None new.

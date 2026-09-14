@@ -302,7 +302,58 @@ clean pass across all dimensions.
 
 ---
 
-# 14. What This Document Does Not Decide
+# 14. Validation Profile (Resolves `CONFIGURATION-ARCHITECTURE.md` §5's Recorded Gap, per `DECISION-LOG.md` DEC-031)
+
+`ARCHITECTURE-MAP.md` §36 names "validation profile" as a Configuration
+field, distinct by name from "evaluation profile" (§37).
+`CONFIGURATION-ARCHITECTURE.md` §5 found that no document defined it and
+assigned this document, as the one already authoritative for
+validation-family scope (§4), the responsibility of defining it if and
+when it is defined. `DECISION-LOG.md` DEC-031 authorizes this section to
+do so, modeled deliberately on the Evaluation Profile pattern DEC-025
+already established, since the two are structurally parallel but
+evidentially distinct: an Evaluation Profile (`SPECIFICATION-MAP.md`
+§27-28) scopes a *scientific effectiveness claim* about detection or
+watermarking; a Validation Profile scopes what evidentiary bar a
+*transformation or output* must clear, for a given request or class of
+requests, to be reported as validated.
+
+A Validation Profile is a named, versioned bundle specifying:
+
+- which validation families (§4) apply to a request, and which do not
+  (a request need not invoke every family §4 defines);
+- for each applicable family, which specific validator (§5's Plug-In
+  Point) is consulted, at what capability lifecycle state
+  (`CAPABILITY-ARCHITECTURE.md` §6) it must at minimum stand to be
+  consulted at all;
+- for each applicable family, which of its checks are hard constraints
+  versus soft objectives (§7, `FID-041`/`FID-042`) and, for hard
+  constraints, the concrete acceptance threshold — the specific value
+  `FID-038`/`FID-039` (§11) already requires every such threshold to
+  document (what it measures, what it does not measure, language
+  coverage, known biases, known failure modes, evidence, version);
+- whether regression validation (§12) against a specific prior baseline
+  is required before a result may be reported under this profile.
+
+Like an Evaluation Profile, a Validation Profile's own content is defined
+and versioned here (or in whatever future document elaborates specific
+threshold values — this document still selects no concrete threshold
+per §14 below), never re-derived from or overridden by a request's
+Configuration. Per `CONFIGURATION-ARCHITECTURE.md` §4's one-way-reference
+discipline (already established for Evaluation Profile), a Configuration
+selects a Validation Profile by name and version only; it does not embed
+or restate the profile's content inline.
+
+This section resolves the field's *meaning*. It does not itself define
+any specific named Validation Profile (e.g. a "conservative" or
+"research" validation profile analogous to `SPECIFICATION-MAP.md` §28's
+named Evaluation Profiles) — populating actual named profiles is a
+later, separate task, consistent with this document's practice
+throughout of defining mechanism, not selecting content.
+
+---
+
+# 15. What This Document Does Not Decide
 
 This document does not: select any specific semantic-similarity metric
 (Q-001 remains open), resolve KB-013's underlying multilingual evidence
@@ -310,15 +361,13 @@ gap (DEC-015 only scopes around it), fix concrete acceptance thresholds
 for any `FID-xxx` requirement, decide whether
 `VALIDATE-FACTUAL-STRUCTURED` is adequately evidenced per language (§6.1
 — an open question this document deliberately does not answer), or
-define the "validation profile" field that `CONFIGURATION-ARCHITECTURE.md`
-§5 names as this document's outstanding responsibility (recorded there,
-not yet addressed here — `CONFIGURATION-ARCHITECTURE.md` was drafted
-after this document, per DEC-025). All of these remain separate, later
+populate any specific named Validation Profile under §14's now-defined
+mechanism (§14's own scope note). All of these remain separate, later
 decisions or research tasks.
 
 ---
 
-# 15. Final Principle
+# 16. Final Principle
 
 A validation architecture is trustworthy only if what it does not know is
 as visible as what it does. This document's central mechanism —

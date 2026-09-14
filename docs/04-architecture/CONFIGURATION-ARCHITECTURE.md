@@ -157,22 +157,23 @@ overridden by, a request's Configuration.
 
 ---
 
-# 5. The Undefined "Validation Profile" Field
+# 5. The "Validation Profile" Field (Resolved by DEC-031)
 
 `ARCHITECTURE-MAP.md` §36 also lists "validation profile" as a
 Configuration field, distinct from "evaluation profile" (§37) by name.
-This document's evaluation found that no other document —
-`VALIDATION-ARCHITECTURE.md` included — defines what a "validation
-profile" actually is. Per `NO-INVENTION-RULES.md`, this document does not
-invent a definition for it. It records the field's existence (because §36
-already lists it) and requires that, if and when a "validation profile"
-concept is defined, it be defined in `VALIDATION-ARCHITECTURE.md` (the
-document already authoritative for validation-family scope, per that
-document's §4) and referenced from here by name only — the same
-one-way-reference discipline §4 above applies to Evaluation Profile. This
-document does not resolve what "validation profile" means; that remains a
-separate, later gap, distinct from the Configuration/Evaluation-Profile
-overlap DEC-025 resolved, and should not be conflated with it.
+This document originally found that no other document —
+`VALIDATION-ARCHITECTURE.md` included — defined what a "validation
+profile" actually was, and recorded rather than invented that gap. Per
+`DECISION-LOG.md` DEC-031, `VALIDATION-ARCHITECTURE.md` §14 (drafted
+after this section) now defines it: a named, versioned bundle scoping
+which validation families apply, which validators and thresholds govern
+each, and which checks are hard constraints versus soft objectives — the
+evidentiary bar a transformation or output must clear to be reported as
+validated, structurally parallel to but evidentially distinct from an
+Evaluation Profile's effectiveness-claim scope. This document's role
+remains the same one-way-reference discipline §4 above applies to
+Evaluation Profile: a Configuration selects a Validation Profile by name
+and version only, never embeds or restates its content.
 
 ---
 
@@ -221,8 +222,9 @@ enabled capabilities: [subset of CAPABILITY-ARCHITECTURE.md §10's
 evaluation_profile: reference only — name="multilingual", version="v1"
   (SPECIFICATION-MAP.md §28) — NOT an inline copy of that profile's
   techniques/detectors/thresholds/evidence-baseline
-validation_profile: [field exists per ARCHITECTURE-MAP.md §36; its
-  meaning is not yet defined by any document — recorded, not invented]
+validation_profile: reference only — name and version, per
+  VALIDATION-ARCHITECTURE.md §14 (DEC-031) — NOT an inline copy of that
+  profile's family selection/validators/thresholds
 external_services: cloud AI-detector = disabled (default, per
   EXTERNAL-INTEGRATION-ARCHITECTURE.md §5's opt-in requirement)
 resource_limits: [request-level; independent of DATA-MODEL.md §7's
@@ -242,9 +244,10 @@ technique is added to that profile.
 
 This document does not: select any specific configuration file format,
 schema language, or storage mechanism (`ARCHITECTURE-MAP.md` §43 reserves
-this for Development); define what "validation profile" means (§5 — a
-separate gap for `VALIDATION-ARCHITECTURE.md` or a later decision to
-resolve); define the content or governance of any specific Evaluation
+this for Development); populate any specific named Validation Profile
+under the mechanism §5/DEC-031 now defines (`VALIDATION-ARCHITECTURE.md`
+§14's own scope note — a later, separate task); define the content or
+governance of any specific Evaluation
 Profile (`SPECIFICATION-MAP.md` §27-28 and `ARCHITECTURE-MAP.md` §37
 remain authoritative for that); change the resource-budget enforcement
 `DATA-MODEL.md` §7 already places at the Data/Model Layer; or resolve

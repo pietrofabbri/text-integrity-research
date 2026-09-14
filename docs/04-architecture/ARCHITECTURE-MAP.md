@@ -1199,6 +1199,11 @@ also recorded a distinct, previously unflagged gap: the Evaluation Layer
 for the owner's future consideration, not added as a new candidate
 unilaterally.
 
+**Status update (2026-09-13, DEC-032):** the owner has since confirmed
+the Evaluation Layer (§21-22) as a new candidate and directed it drafted
+now. `docs/04-architecture/EVALUATION-ARCHITECTURE.md` (formalizing
+§21-22) is created — see DEC-032 for the full grounding.
+
 Potential future documents include:
 
 - `CORE-ARCHITECTURE.md` — **created**, see above
@@ -1213,6 +1218,9 @@ Potential future documents include:
 - `DATA-MODEL.md` — **created**, see above
 - `CONFIGURATION-ARCHITECTURE.md` — **created**, see above
 - `REPORTING-ARCHITECTURE.md` — **created**, see above
+- `EVALUATION-ARCHITECTURE.md` — **created**, see DEC-032 (formalizes
+  §21-22, the Evaluation Layer/Experimental Matrix gap DEC-026 first
+  recorded)
 - `PLUGIN-ARCHITECTURE.md`
 
 These are candidates rather than immediate mandatory files.
@@ -1409,6 +1417,23 @@ closest genuine match is `DCQ-004` ("Introduce External Evidence
 Boundary," still `PENDING`), now noted there — not marked resolved,
 since only its "Architecture" line has anything drafted against it. See
 DEC-028 for the full correction.
+
+**Update (2026-09-13, owner decisions):** three further gaps recorded
+during Tranche 4/consolidation work are now resolved by the owner's
+explicit direction. `DECISION-LOG.md` DEC-030 resolves DEC-027's
+lifecycle-enum question: `NOT_SUPPORTED`/`RESEARCH_ONLY`
+(`SPECIFICATION-MAP.md` §22) are a distinct vocabulary describing a
+language's standing *before* `CAPABILITY-ARCHITECTURE.md` §6's enum
+begins to apply to it, not additional members of that enum — see
+`CAPABILITY-ARCHITECTURE.md` §10. A separate, narrower contradiction
+found while researching that question — `ANALYSIS-ARCHITECTURE.md` §4's
+use of `DISCOVERED` for a language with no existing evidence — is
+recorded, not resolved, as DEC-029. `DECISION-LOG.md` DEC-031 defines
+`ARCHITECTURE-MAP.md` §36's previously-undefined "validation profile"
+field, modeled on the Evaluation Profile pattern DEC-025 established —
+see the new `VALIDATION-ARCHITECTURE.md` §14 (which renumbers that
+document's former §14/§15 to §15/§16) and the corresponding update to
+`CONFIGURATION-ARCHITECTURE.md` §5/§8/§9.
 
 ---
 

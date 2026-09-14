@@ -116,8 +116,9 @@ cross-reference §58 separately:
    §13-15 (`TRANSFORMATION-ARCHITECTURE.md` remains premature, per
    `DECISION-LOG.md` DEC-019).
 6. Validation Layer — `VALIDATION-ARCHITECTURE.md`.
-7. Evaluation Layer — not yet formalized beyond `ARCHITECTURE-MAP.md`
-   §21-22, §37.
+7. Evaluation Layer — `EVALUATION-ARCHITECTURE.md` (formalizes §21-22,
+   drafted per `DECISION-LOG.md` DEC-032, after this document was
+   written).
 8. Capability Layer — `CAPABILITY-ARCHITECTURE.md`.
 9. Data / Model Layer — `DATA-MODEL.md`.
 10. External Integration Layer — `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
@@ -276,9 +277,10 @@ This document does not: select any specific interface technology
 (CLI, GUI, API framework); fix a concrete data structure or
 serialization format for the preservation snapshot or intermediate
 representations (`ARCHITECTURE-MAP.md` §43 reserves this for
-Development); formalize the Evaluation Layer (§21-22) beyond §6's
-result-aggregation responsibility — a gap `DECISION-LOG.md` DEC-026
-recorded without resolving; or resolve DCQ-006, DCQ-007 or DCQ-008
+Development); redefine the Evaluation Layer (§21-22) beyond §6's
+result-aggregation responsibility — the gap `DECISION-LOG.md` DEC-026
+recorded is now resolved by `EVALUATION-ARCHITECTURE.md`, drafted per
+DEC-032 after this document; or resolve DCQ-006, DCQ-007 or DCQ-008
 (research-finding-propagation items, unrelated to this point — see
 DEC-028 below). The External Integration, Reporting, and Configuration
 Layers (§29-31, §38, §36) are now formalized separately by
