@@ -148,7 +148,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 33 recorded (`DEC-001`–`DEC-033`) in `DECISION-LOG.md`.
+- **Decisions**: 34 recorded (`DEC-001`–`DEC-034`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -317,7 +317,15 @@ one being silently "fixed" — see
   `ARCHITECTURE-MAP.md` §62 (never updated for `DEC-032`), and verifies
   — checking `DEC-030`'s own text directly rather than assuming — that
   `LANGUAGE-ARCHITECTURE.md` §4's similar-looking phrasing is not a new
-  instance of `DEC-029`'s contradiction.
+  instance of `DEC-029`'s contradiction. `DEC-034` (2026-09-14) closes
+  the last open Tranche 4 candidate: per the owner's explicit choice among
+  three corpus-grounded readings, "plugin" is scoped as a generic
+  extensibility synonym (`P00-project-governance.md` §14) already covered
+  by `CAPABILITY-ARCHITECTURE.md`'s registry and
+  `EXTERNAL-INTEGRATION-ARCHITECTURE.md`'s adapter boundary —
+  `PLUGIN-ARCHITECTURE.md` is resolved as not needed, the same outcome
+  `DEC-026` reached for `PIPELINE-ARCHITECTURE.md`. All six of Tranche
+  4's original candidates are now resolved.
 - **05-validation through 10-certification**: still single-MAP-document,
   structural-definition phase. This remains the project's largest gap
   between what's designed conceptually and what's specified in enough

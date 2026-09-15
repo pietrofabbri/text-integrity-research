@@ -2576,3 +2576,122 @@ scientific one.
 ### Related Questions
 
 None new — `DEC-029` remains the one directly related open item.
+
+---
+
+## DEC-034 — Resolve `PLUGIN-ARCHITECTURE.md` as Not Needed: "Plugin" Scoped as a Generic Extensibility Synonym
+
+### Date
+
+2026-09-14
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+`PLUGIN-ARCHITECTURE.md` was the last of Tranche 4's original six
+candidates (`ARCHITECTURE-MAP.md` §64.6) left genuinely open, for a
+reason distinct from every other candidate: it had no corpus text to
+reason from at all, not an overlap or duplication question resolvable by
+evidence alone. Resolving it required the owner's own scoping input on
+whether, and what, "plugin" should mean for this project — which this
+decision now records.
+
+Presented with three grounded readings distilled from the corpus's own
+two "plugin" mentions — (a) a generic extensibility synonym, per
+`P00-project-governance.md` §14's Additive-by-Default Principle, which
+lists "component, adapter, plugin or registry entry" side by side; (b) a
+distinct, heavier concept — dynamic loading of untrusted third-party
+code — per `SECURITY-MAP.md` §51-52's "untrusted plugin execution" and
+"Plugin Security" (trust boundaries, declared permissions); or (c) no
+plugin system intended at all, the term appearing only incidentally in
+both places above — the owner chose **(a): generic extensibility
+synonym**.
+
+Under this reading, `PLUGIN-ARCHITECTURE.md` is **resolved as not needed
+as a separate document**. Each of §14's four terms is already formalized
+elsewhere in the corpus except "plugin" itself, which under this reading
+names no mechanism beyond them: "adapter" is
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` §3's Adapter Isolation Principle
+(external providers isolated behind an adapter boundary the rest of the
+system depends on exclusively); "registry entry" is
+`CAPABILITY-ARCHITECTURE.md`'s capability registry (lifecycle states,
+`R-XXXX` linkage, per-language `languages` maps); "component" is this
+corpus's own generic term for its building blocks (analyzers, validators,
+detectors, transformations), each already formalized in its own
+sub-document. §14's sentence lists four near-synonymous ways to extend
+the system without touching unrelated core functionality; under the
+owner's chosen reading, "plugin" is not a fifth, distinct mechanism.
+
+This decision does **not** resolve or extend to `SECURITY-MAP.md`
+§51-52's separate "untrusted plugin execution" concept — that reading was
+offered and not chosen. `SECURITY-MAP.md` §51-52 is unaffected and
+remains available should the project later actually plan dynamic or
+untrusted code loading; no new architecture document is created for that
+scenario by this decision, since no corpus text currently describes such
+a mechanism as planned.
+
+### Rationale
+
+This mirrors `DEC-026`'s resolution of `PIPELINE-ARCHITECTURE.md`: a
+candidate closed not by drafting new content but by confirming, once the
+missing scoping input existed, that its plausible scope is already
+covered by already-formalized documents — avoiding both duplication risk
+(`ARCHITECTURE-MAP.md` §57 and `LANGUAGE-ARCHITECTURE.md` §5's drift
+warning: two places recording the same mechanism can silently disagree)
+and invention (`NO-INVENTION-RULES.md`: drafting a document for a
+concept the corpus never defined). Presenting three corpus-grounded
+readings rather than inventing one, and letting the owner choose, follows
+this project's standing practice (the same pattern used for `DEC-030` and
+`DEC-031`'s AskUserQuestion cycles) for a genuine content decision no
+amount of further evidence-mining could settle unilaterally.
+
+### Alternatives Considered
+
+Reading (b), "untrusted code execution" (would have made
+`PLUGIN-ARCHITECTURE.md` a genuinely new document formalizing dynamic
+loading/sandboxing per `SECURITY-MAP.md` §51-52; offered, not chosen).
+Reading (c), "no plugin system at all" (would have retired the candidate
+for lack of intent rather than for being already-covered; offered, not
+chosen — though the practical documentation outcome, no new document, is
+the same as (a)'s). Drafting `PLUGIN-ARCHITECTURE.md` anyway under
+reading (a), restating "component/adapter/registry entry" content already
+covered elsewhere (rejected — would duplicate
+`CAPABILITY-ARCHITECTURE.md`'s registry and
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md`'s adapter boundary, risking drift,
+the exact reasoning `DEC-026` applied to `PIPELINE-ARCHITECTURE.md`).
+
+### Consequences
+
+`PLUGIN-ARCHITECTURE.md` is resolved as not needed as a separate
+document, closing the last of Tranche 4's original six candidates — all
+six now resolved: four drafted (`CORE-`, `EXTERNAL-INTEGRATION-`,
+`REPORTING-`, `CONFIGURATION-ARCHITECTURE.md`), two resolved as not
+needed (`PIPELINE-`, `PLUGIN-ARCHITECTURE.md`). `docs/04-architecture/`
+remains at ten sub-documents. `SECURITY-MAP.md` §51-52's narrower
+"untrusted plugin execution" concept is unaffected and remains available
+for a future, actually-planned dynamic-loading mechanism.
+
+### Affected Areas
+
+`docs/04-architecture/ARCHITECTURE-MAP.md` (§58 candidate list, new
+§64.9, §62 changelog), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+If the project later actually plans dynamic or untrusted plugin loading
+(not merely an example in a principle statement), this decision should be
+revisited — it resolved only the generic-extensibility reading, not the
+security/trust-boundary one `SECURITY-MAP.md` §51-52 separately
+describes.
+
+### Related Research
+
+None — this is a documentation-scoping decision, not a scientific one.
+
+### Related Questions
+
+None new — this closes the last item from `ARCHITECTURE-MAP.md` §64.6's
+original Tranche 4 candidate list.

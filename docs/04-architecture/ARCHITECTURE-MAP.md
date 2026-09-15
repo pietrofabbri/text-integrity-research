@@ -1221,7 +1221,10 @@ Potential future documents include:
 - `EVALUATION-ARCHITECTURE.md` — **created**, see DEC-032 (formalizes
   §21-22, the Evaluation Layer/Experimental Matrix gap DEC-026 first
   recorded)
-- `PLUGIN-ARCHITECTURE.md`
+- `PLUGIN-ARCHITECTURE.md` — **resolved as not needed**, see §64.9
+  ("plugin" scoped as a generic extensibility synonym already covered by
+  `CAPABILITY-ARCHITECTURE.md`'s registry and
+  `EXTERNAL-INTEGRATION-ARCHITECTURE.md`'s adapter boundary)
 
 These are candidates rather than immediate mandatory files.
 
@@ -1457,6 +1460,12 @@ was added to close that gap) and separately verified that
 phrasing is not a new instance of the `DEC-029` contradiction — `DEC-030`
 already examined and cleared that usage directly. See `DECISION-LOG.md`
 DEC-033.
+
+**Update (2026-09-14, DEC-034):** per the owner's explicit scoping input,
+`PLUGIN-ARCHITECTURE.md` — the one candidate this section's Tranche 4
+entries above left genuinely open — is now resolved as not needed: see
+§64.9 and `DECISION-LOG.md` DEC-034. All six of Tranche 4's original
+candidates are now resolved.
 
 ---
 
@@ -1846,3 +1855,44 @@ resolved this tranche: it has no corpus text to reason from at all, not
 an overlap or duplication question this kind of evidence-based analysis
 can settle. Resolving it requires the owner's own scoping input on
 whether, and what, "plugin" should mean for this project.
+
+## 64.9 Tranche 4, Finally Concluded: `PLUGIN-ARCHITECTURE.md` Resolved as Not Needed (2026-09-14, per `DECISION-LOG.md` DEC-034)
+
+Per the owner's explicit scoping input — the missing input §64.6 and §64.8
+identified as the actual blocker — "plugin" is scoped for this project as
+a **generic extensibility synonym**, equivalent to "component," "adapter,"
+or "registry entry" as `P00-project-governance.md` §14 (Additive-by-Default
+Principle) lists them side by side ("add a component, adapter, plugin or
+registry entry rather than modify unrelated core functionality"), not a
+distinct mechanism of its own.
+
+Under this reading, each of §14's four terms is already formalized
+elsewhere in this corpus except "plugin" itself, which names no
+additional concept beyond them: "adapter" is `EXTERNAL-INTEGRATION-
+ARCHITECTURE.md` §3's Adapter Isolation Principle; "registry entry" is
+`CAPABILITY-ARCHITECTURE.md`'s capability registry (lifecycle states,
+`R-XXXX` linkage); "component" is this corpus's generic term for its
+building blocks (analyzers, validators, detectors, transformations),
+each formalized in its own sub-document. `PLUGIN-ARCHITECTURE.md` is
+therefore **resolved as not needed as a separate document** — the same
+outcome, and the same reasoning (`ARCHITECTURE-MAP.md` §57 and
+`LANGUAGE-ARCHITECTURE.md` §5's drift warning; `NO-INVENTION-RULES.md`),
+that §64.8 applied to `PIPELINE-ARCHITECTURE.md`.
+
+This decision does not extend to `SECURITY-MAP.md` §51-52's separate
+"untrusted plugin execution" / "Plugin Security" concept (trust
+boundaries, declared permissions for dynamically-loaded, potentially
+untrusted code) — a narrower, distinct concept the owner was offered and
+did not choose as this project's scoping for "plugin." Should the
+project later actually plan dynamic/untrusted code loading,
+`SECURITY-MAP.md` §51-52 already anticipates the security requirements
+that would apply; this decision creates no new document for that
+scenario, since no corpus text currently describes it as planned.
+
+With this, all six of Tranche 4's original candidates
+(`ARCHITECTURE-MAP.md` §64.6) are now resolved: four drafted (`CORE-`,
+`EXTERNAL-INTEGRATION-`, `REPORTING-`, `CONFIGURATION-ARCHITECTURE.md`),
+two resolved as not needed (`PIPELINE-ARCHITECTURE.md`, §64.8;
+`PLUGIN-ARCHITECTURE.md`, this section). `docs/04-architecture/` remains
+at ten sub-documents. See `DECISION-LOG.md` DEC-034 for the full
+grounding.
