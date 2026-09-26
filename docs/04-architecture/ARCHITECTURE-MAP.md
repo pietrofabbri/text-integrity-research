@@ -1467,6 +1467,16 @@ entries above left genuinely open — is now resolved as not needed: see
 §64.9 and `DECISION-LOG.md` DEC-034. All six of Tranche 4's original
 candidates are now resolved.
 
+**Update (2026-09-15, DEC-035):** per the owner's explicit choice,
+`DECISION-LOG.md` DEC-029's recorded contradiction — whether
+`ANALYSIS-ARCHITECTURE.md` §4's use of `DISCOVERED` for a language with
+no existing evidence, based only on a planned internal experiment, is
+valid under `CAPABILITY-ARCHITECTURE.md` §6's precondition — is now
+resolved: §6's `DISCOVERED` definition is loosened to accept a planned,
+project-internal experiment alongside an existing `R-XXXX` entry.
+`ANALYSIS-ARCHITECTURE.md` §4 needed no correction. See
+`CAPABILITY-ARCHITECTURE.md` §6/§10 and `DECISION-LOG.md` DEC-035.
+
 ---
 
 # 63. Governing Principle

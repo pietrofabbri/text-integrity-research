@@ -137,9 +137,12 @@ DISCOVERED → EXPERIMENTAL → VALIDATED → ACTIVE → DEPRECATED → RETIRED
                                               ↘ DEGRADED ↗
 ```
 
-- **DISCOVERED** — a candidate method or model has been identified in the
-  research layer (an `R-XXXX` entry exists) but no capability record has
-  been created yet.
+- **DISCOVERED** — a candidate method or model has been identified as
+  worth pursuing, evidenced either by an existing `R-XXXX` entry in the
+  research layer, or by a planned, project-internal experiment not yet
+  conducted (`DECISION-LOG.md` DEC-035 loosens this precondition from
+  requiring an `R-XXXX` entry alone) — but no capability record has been
+  created yet.
 - **EXPERIMENTAL** — a capability record exists and the component is
   implemented, but has not passed the Activation Gate (§7).
 - **VALIDATED** — the Activation Gate (§7) has been passed for at least
@@ -259,14 +262,15 @@ language. Once a `DISCOVERED`-or-later candidate is proposed for a
 language, that language's entry in the `languages` map moves onto §6's
 own enum; until then, it is described by `SPECIFICATION-MAP.md` §22's
 vocabulary instead, and the two are never both populated for the same
-language at the same time. This does not resolve the narrower, separate
-inconsistency `DECISION-LOG.md` DEC-029 records: `ANALYSIS-ARCHITECTURE.md`
-§4 uses `DISCOVERED` for a language with no existing evidence at all
-(based only on a planned, not-yet-conducted project-internal experiment),
-which sits in tension with this section's and §6's own requirement that
-`DISCOVERED` requires an `R-XXXX` entry to already exist — DEC-030's
-sequencing resolution does not by itself settle whether that specific use
-of `DISCOVERED` is valid.
+language at the same time. The narrower, separate inconsistency
+`DECISION-LOG.md` DEC-029 recorded — `ANALYSIS-ARCHITECTURE.md` §4 using
+`DISCOVERED` for a language with no existing evidence at all, based only
+on a planned, not-yet-conducted project-internal experiment — is now
+resolved by `DECISION-LOG.md` DEC-035, per the owner's explicit choice:
+§6's `DISCOVERED` definition above is loosened to accept a planned,
+project-internal experiment as sufficient grounds, alongside an existing
+`R-XXXX` entry. `ANALYSIS-ARCHITECTURE.md` §4's usage was correct all
+along under this resolution and needs no further correction.
 
 `CONFIGURATION-ARCHITECTURE.md` §3 depends on this section's eligibility
 rule ("a configuration may only narrow, never widen, what this section

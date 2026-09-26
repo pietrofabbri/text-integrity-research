@@ -2695,3 +2695,87 @@ None — this is a documentation-scoping decision, not a scientific one.
 
 None new — this closes the last item from `ARCHITECTURE-MAP.md` §64.6's
 original Tranche 4 candidate list.
+
+---
+
+## DEC-035 — Resolve DEC-029: Loosen `CAPABILITY-ARCHITECTURE.md` §6's `DISCOVERED` Precondition to Accept a Planned Experiment
+
+### Date
+
+2026-09-15
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+`DEC-029` recorded, without resolving, a confirmed contradiction:
+`CAPABILITY-ARCHITECTURE.md` §6 defines `DISCOVERED` as requiring an
+existing `R-XXXX` research-registry entry, but `ANALYSIS-ARCHITECTURE.md`
+§4 proposes `DISCOVERED` status for a language with no existing evidence
+at all, grounded only in a planned, not-yet-conducted project-internal
+experiment. `DEC-029` explicitly left two readings open as the owner's
+call: loosen §6 to match §4's usage, or tighten §4 to match §6's literal
+precondition.
+
+Per the owner's explicit choice, presented as two corpus-grounded
+readings: **`CAPABILITY-ARCHITECTURE.md` §6's `DISCOVERED` precondition is
+loosened.** A candidate may now be `DISCOVERED` either because an
+`R-XXXX` entry already exists in the research layer, or because a
+planned, project-internal experiment (not yet conducted) has been
+proposed for it. `ANALYSIS-ARCHITECTURE.md` §4's existing use of
+`DISCOVERED` is confirmed correct under this resolution and requires no
+correction. `CAPABILITY-ARCHITECTURE.md` §6 (the `DISCOVERED` definition)
+and §10 (the cross-reference that previously described `DEC-029` as
+unresolved) are both edited accordingly.
+
+### Rationale
+
+`DEC-029` explicitly identified this as a genuine policy choice neither
+reading could be inferred correctly without inventing the owner's intent
+(`NO-INVENTION-RULES.md`) — consistent with this project's established
+practice (`DEC-030`, `DEC-031`, `DEC-034`) of presenting corpus-grounded
+alternatives and recording the owner's explicit choice rather than
+picking one silently.
+
+### Alternatives Considered
+
+The opposite resolution — tightening `ANALYSIS-ARCHITECTURE.md` §4 to
+require an actual `R-XXXX` entry before `DISCOVERED`, correcting §4
+rather than §6 (offered to the owner, not chosen). Leaving `DEC-029` open
+pending further research (not a live option here — the corpus itself
+does not resolve this; it is a pure policy choice, not an evidentiary gap
+further research could close, as `DEC-029` itself already established).
+
+### Consequences
+
+`CAPABILITY-ARCHITECTURE.md` §6's `DISCOVERED` definition now explicitly
+accepts either an existing `R-XXXX` entry or a planned, project-internal
+experiment. §10's cross-reference to `DEC-029` is updated to record this
+resolution. No other document required correction —
+`ANALYSIS-ARCHITECTURE.md` §4/§5 were already consistent with the chosen
+reading and needed no edit. This closes the last open content-decision
+gap this project's `DEC-027` consolidation pass and its aftermath
+(`DEC-028` through `DEC-034`) surfaced.
+
+### Affected Areas
+
+`docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (§6, §10).
+
+### Reversal Conditions
+
+If, once actual research activity begins, "planned but not yet conducted"
+proves too permissive in practice (e.g. capabilities accumulate
+`DISCOVERED` status for experiments that are repeatedly deferred or never
+actually run), this decision should be revisited — for example by adding
+an expiry or a required review interval for experiment-only `DISCOVERED`
+entries — rather than silently tightened back.
+
+### Related Research
+
+None — this is a documentation/policy decision, not a scientific one.
+
+### Related Questions
+
+None new — this closes `DEC-029`.

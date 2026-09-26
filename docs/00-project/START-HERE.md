@@ -142,13 +142,13 @@ one being silently "fixed" — see
 
 ---
 
-# 6. Current state snapshot (2026-09-14, updated)
+# 6. Current state snapshot (2026-09-15, updated)
 
 - **Research**: 121 sources registered (`R-0001`–`R-0121`) across **nine**
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 34 recorded (`DEC-001`–`DEC-034`) in `DECISION-LOG.md`.
+- **Decisions**: 35 recorded (`DEC-001`–`DEC-035`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -325,7 +325,12 @@ one being silently "fixed" — see
   `EXTERNAL-INTEGRATION-ARCHITECTURE.md`'s adapter boundary —
   `PLUGIN-ARCHITECTURE.md` is resolved as not needed, the same outcome
   `DEC-026` reached for `PIPELINE-ARCHITECTURE.md`. All six of Tranche
-  4's original candidates are now resolved.
+  4's original candidates are now resolved. `DEC-035` (2026-09-15) closes
+  `DEC-029`'s last open content gap: per the owner's explicit choice
+  between two corpus-grounded readings, `CAPABILITY-ARCHITECTURE.md` §6's
+  `DISCOVERED` precondition is loosened to accept a planned,
+  project-internal experiment alongside an existing `R-XXXX` entry —
+  `ANALYSIS-ARCHITECTURE.md` §4's existing usage needed no correction.
 - **05-validation through 10-certification**: still single-MAP-document,
   structural-definition phase. This remains the project's largest gap
   between what's designed conceptually and what's specified in enough
@@ -337,12 +342,16 @@ one being silently "fixed" — see
   DEC-026 batch is confirmed committed (commit `68e2642`), the DEC-027
   batch is confirmed committed (commit `b3892b9`, "Consolidation pass
   over docs/04-architecture"), the DEC-028 batch is confirmed committed
-  (commit `e6efa2b`, "Correct DCQ-006/007/008 mislabeling..."), and the
+  (commit `e6efa2b`, "Correct DCQ-006/007/008 mislabeling..."), the
   DEC-029–DEC-032 batch is confirmed committed (commit `8cadb61`,
   "Resolve lifecycle-enum vocabulary and validation-profile gaps; add
-  EVALUATION-ARCHITECTURE.md"). Files from the DEC-033 follow-up
-  (`DECISION-LOG.md`, `ARCHITECTURE-MAP.md`, `START-HERE.md`) are written
-  locally — check `git log`/`git status` rather than assuming sync.
+  EVALUATION-ARCHITECTURE.md"), the DEC-033 batch is confirmed committed
+  (commit `6d55b5d`, "Fix ARCHITECTURE-MAP.md §62 changelog gap..."), and
+  the DEC-034 batch is confirmed committed (commit `7e3fccb`, "Resolve
+  PLUGIN-ARCHITECTURE.md as not needed..."). Files from the DEC-035
+  follow-up (`DECISION-LOG.md`, `ARCHITECTURE-MAP.md`, `START-HERE.md`,
+  `CAPABILITY-ARCHITECTURE.md`) are written locally — check
+  `git log`/`git status` rather than assuming sync.
 
 ---
 
