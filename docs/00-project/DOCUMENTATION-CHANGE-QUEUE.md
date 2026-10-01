@@ -131,7 +131,15 @@ Verify that all major capability types have:
 
 ### Status
 
-PENDING
+IN_PROGRESS
+
+### Notes
+
+**Update (2026-10-01):** The Architecture line of this item is executed:
+`docs/04-architecture/CAPABILITY-ARCHITECTURE.md` (DEC-014, DEC-035) formalizes
+the capability lifecycle, versioning, status taxonomy, activation gate, and
+retirement path. Development, Operations, and Certification lines remain
+deferred until those areas leave definition phase.
 
 ---
 
@@ -150,7 +158,15 @@ Scientific uncertainty and evolving detection methodologies.
 
 ### Status
 
-PENDING
+IN_PROGRESS
+
+### Notes
+
+**Update (2026-10-01):** The Scientific Specification and Architecture portions
+are executed: `SPECIFICATION-MAP.md` §27-28 establishes the evidentiary role
+of Evaluation Profiles, and `CONFIGURATION-ARCHITECTURE.md` (DEC-025) and
+`EVALUATION-ARCHITECTURE.md` (DEC-032) formalize their structure and composition.
+Validation and Certification lines remain deferred.
 
 ---
 
@@ -171,27 +187,16 @@ offline core execution.
 
 ### Status
 
-PENDING
+IN_PROGRESS
 
 ### Notes
 
-**Update (2026-09-13, per `DECISION-LOG.md` DEC-028):** a consolidation
-pass over `docs/04-architecture/` found that several sub-documents
-(`CORE-ARCHITECTURE.md`, `EXTERNAL-INTEGRATION-ARCHITECTURE.md`,
-`LANGUAGE-ARCHITECTURE.md`) had mislabeled the External Integration
-Layer's documentation gap as "`DCQ-006/007/008`" — this project's actual
-DCQ-006/007/008 track research-finding propagation, unrelated to the
-External Integration Layer. This item, DCQ-004, is the one whose subject
-matter (an external evidence boundary while preserving offline core
-execution) `EXTERNAL-INTEGRATION-ARCHITECTURE.md` (drafted 2026-09-13,
-DEC-022) actually addresses, for the "Architecture" line of this item's
-Required Updates specifically. This note records that correspondence
-without marking this item resolved: `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
-addresses only the Architecture line above; Security, Validation,
-Operations, and Data remain unaddressed by any document, and whether the
-Architecture line itself should be marked satisfied is an owner
-judgment, not a mechanical fact this consolidation pass can settle on
-its own. Status left `PENDING`.
+**Update (2026-09-13, per `DECISION-LOG.md` DEC-028; updated 2026-10-01):**
+The Architecture line is executed by `EXTERNAL-INTEGRATION-ARCHITECTURE.md`
+(drafted 2026-09-13, DEC-022), which formalizes the Adapter Isolation
+Principle, the external data boundary, and tagged external observations.
+Security, Validation, Operations, and Data remain deferred until those areas
+advance past definition phase. Status updated to `IN_PROGRESS`.
 
 ---
 

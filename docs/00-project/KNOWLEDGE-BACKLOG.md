@@ -104,11 +104,16 @@ than through a permanent binary claim.
 
 ### Status
 
-TRIAGED
+INCORPORATED
 
 ### Priority
 
 CRITICAL
+
+### Incorporation Note (2026-10-01)
+
+Formalized in `SPECIFICATION-MAP.md` §27-28, `CONFIGURATION-ARCHITECTURE.md` §5
+(DEC-025), and `EVALUATION-ARCHITECTURE.md` §6 (DEC-032).
 
 ---
 
@@ -132,11 +137,18 @@ provider, timestamp, configuration and provenance metadata where possible.
 
 ### Status
 
-TRIAGED
+INCORPORATED
 
 ### Priority
 
 HIGH
+
+### Incorporation Note (2026-10-01)
+
+Formalized in `EXTERNAL-INTEGRATION-ARCHITECTURE.md` §3, §5-7 (DEC-022) and
+`REPORTING-ARCHITECTURE.md` §6 (DEC-024). External results are preserved as
+individual observations, tagged with `EXTERNAL_OBSERVATION`, and never substituted
+for ground truth.
 
 ---
 
@@ -160,11 +172,16 @@ retirement and removal.
 
 ### Status
 
-TRIAGED
+INCORPORATED
 
 ### Priority
 
 HIGH
+
+### Incorporation Note (2026-10-01)
+
+Formalized in `CAPABILITY-ARCHITECTURE.md` §6 (DEC-014, DEC-035) via explicit
+`DEPRECATED` and `RETIRED` lifecycle states.
 
 ---
 
@@ -181,11 +198,17 @@ open-question registry and documentation change queue.
 
 ### Status
 
-TRIAGED
+INCORPORATED
 
 ### Priority
 
 CRITICAL
+
+### Incorporation Note (2026-10-01)
+
+Fully established and operational: `PROJECT-MAP.md`, `KNOWLEDGE-BACKLOG.md`,
+`DECISION-LOG.md`, `ASSUMPTION-REGISTRY.md`, `OPEN-QUESTIONS.md`, and
+`DOCUMENTATION-CHANGE-QUEUE.md` are actively maintained.
 
 ---
 
@@ -203,11 +226,16 @@ a substantive change.
 
 ### Status
 
-TRIAGED
+INCORPORATED
 
 ### Priority
 
 CRITICAL
+
+### Incorporation Note (2026-10-01)
+
+Formalized in `P00-project-governance.md` §6 (Autonomous Verification) and
+`CLAUDE-CONSOLIDATION-INSTRUCTIONS.md`.
 
 ---
 
@@ -224,11 +252,17 @@ Separate development/maintenance intelligence from runtime execution.
 
 ### Status
 
-TRIAGED
+INCORPORATED
 
 ### Priority
 
 CRITICAL
+
+### Incorporation Note (2026-10-01)
+
+Formalized in `DECISION-LOG.md` DEC-001, `CORE-ARCHITECTURE.md` §4, and
+`EXTERNAL-INTEGRATION-ARCHITECTURE.md` §3: core execution is 100% offline and
+independent of external GenAI services.
 
 ---
 

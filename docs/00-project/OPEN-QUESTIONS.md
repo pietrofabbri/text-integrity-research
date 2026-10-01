@@ -93,7 +93,7 @@ approach) instead of a similarity score. None of these has been decided.
 
 ## Q-002 — How should conflicting external detector evidence be represented?
 
-Status: OPEN
+Status: RESOLVED
 
 Different detectors may disagree, use different thresholds or measure
 different phenomena.
@@ -114,14 +114,23 @@ existing principle (contradictory evidence must be preserved, not
 resolved by picking the favorable result) is directly load-bearing here,
 not a theoretical concern.
 
-### Possible Answers (not yet decided)
+### Resolution (2026-10-01, Tranche 4 / DEC-022 / DEC-024)
 
-(a) Report per-tool results individually rather than an aggregate/
-majority verdict, with each tool's version and test date (R03 §16-17,
-Cloud/External Detectors, Detector Drift); (b) treat disagreement itself
-as a signal (e.g., flag for human review whenever tools disagree, rather
-than forcing a resolution); (c) do not present any single external
-detector's output as ground truth in the certification-relevant path.
+Resolved by the drafting and acceptance of
+`docs/04-architecture/EXTERNAL-INTEGRATION-ARCHITECTURE.md` (DEC-022) and
+`docs/04-architecture/REPORTING-ARCHITECTURE.md` (DEC-024).
+
+The architecture adopts Possible Answers (a) and (c):
+1. **Preservation of Individual Observations:** External detector outputs
+   are preserved individually in an observation tier with provider,
+   timestamp, version, and external observation tag (`EXTERNAL_OBSERVATION`),
+   never collapsed into an aggregate majority verdict or substituted for a
+   local result.
+2. **Disagreement as Uncertainty:** Disagreements between external detectors
+   are recorded explicitly as uncertainty in reporting rather than forced
+   into an artificial consensus.
+3. **No Ground Truth Status:** No external detector output is presented as
+   ground truth in the certification or evaluation path.
 
 ---
 
@@ -315,22 +324,21 @@ collapse toward chance accuracy on several target languages or cost nearly
 the entire storage budget for the one detector that performs well, with
 its quantization-compatibility explicitly untested.
 
-### Possible Answers (not yet decided)
+### Resolution & Status (2026-10-01)
 
-(a) Split this question into a storage sub-question (answerable now: yes,
-comfortably, for a stack that excludes full-precision Binoculars) and one
-or more quality sub-questions (still open: is there an acceptable
-multilingual factual-consistency option; is there a local detector that is
-simultaneously accurate, multilingual-robust, and storage-affordable) —
-proposed in R09 §10.6, not decided; (b) commission targeted follow-up
-experiments identified as concrete, low-cost gaps rather than further
-literature search: measuring actual quantized disk size for the
-semantic-similarity candidates (R09 §10.2), and testing whether a
-quantized Falcon-7B pair preserves Binoculars' detection quality (R09
-§10.4); (c) treat the multilingual factual-consistency and multilingual
-detection gaps as inputs to Q-004 (multilingual validation thresholds)
-rather than resolving them independently, since both bear directly on
-what "validated" can mean per language and per capability.
+Status: PARTIALLY RESOLVED (Storage resolved; Quality/Robustness tracked in KB-013/KB-014)
+
+Per R09 §10.6 and DEC-013, the storage budget dimension of this question is **resolved**:
+- **Storage Sub-question (RESOLVED):** Local storage (~30GB) is comfortably
+  sufficient for a lightweight multi-task validation stack (well under 10GB for
+  multilingual embedding/semantic similarity and local factual checking). The
+  storage budget is binding only if attempting to run unquantized dual-7B
+  detectors (Binoculars at ~28.87GB).
+- **Quality & Multilingual Robustness Sub-question (OPEN):** The remaining open
+  aspects are quality limitations, not storage. These are tracked in:
+  - `KB-013` (No evidence-backed multilingual factual-consistency model);
+  - `KB-014` (Local detection bounded by accuracy/cross-lingual robustness);
+  - `KB-015` (Quantization impact on non-English capability).
 
 ---
 

@@ -241,21 +241,18 @@ one being silently "fixed" — see
   track unrelated research-finding-propagation work; the actual matching
   item is `DCQ-004` ("Introduce External Evidence Boundary," still
   `PENDING`), now noted there without being marked resolved.
-- **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`, all
-  `Status: OPEN` — each has literature-backed "Current Evidence," none
-  resolved by inference. Q-008 (local models within the storage budget)
-  now has a dedicated research pass (R09) — see that document and
-  `OPEN-QUESTIONS.md` for why it remains `OPEN` rather than `RESOLVED`.
-- **Knowledge backlog**: 15 items (`KB-001`–`KB-015`); KB-008, KB-011,
-  KB-013 and KB-014 have 2026-09-12 "Update" notes recording that their
-  findings are now propagated into `03-scientific-specification` (still
-  `TRIAGED` — propagation is not the same as resolution).
-- **Documentation change queue**: 8 items (`DCQ-001`–`DCQ-008`); 4
-  (`DCQ-001`–`DCQ-004`) are `PENDING`; 3 (`DCQ-006`–`DCQ-008`) are
-  `IN_PROGRESS` as of 2026-09-12 — their `03-scientific-specification`
-  portions are executed (`DEC-016`), their 04-10 portions remain
-  deliberately deferred per `DEC-012`'s original rationale, which still
-  applies to those areas; 1 (`DCQ-005`) is `VERIFIED`.
+- **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`; `Q-002` is
+  `RESOLVED` (per DEC-022 and DEC-024 in Tranche 4); `Q-008` is `PARTIALLY RESOLVED`
+  (storage budget resolved by R09/DEC-013, quality/robustness tracked in
+  KB-013/KB-014); 7 remain `Status: OPEN`.
+- **Knowledge backlog**: 15 items (`KB-001`–`KB-015`); `KB-001` through `KB-006`
+  are `INCORPORATED` following the formalization of 04-architecture (Tranches 1-4);
+  `KB-007` through `KB-015` remain `TRIAGED` with dedicated research and propagation
+  updates.
+- **Documentation change queue**: 8 items (`DCQ-001`–`DCQ-008`); `DCQ-001` is
+  `PENDING`; 6 (`DCQ-002`–`DCQ-004`, `DCQ-006`–`DCQ-008`) are `IN_PROGRESS`
+  with their specification and/or architecture portions executed; 1 (`DCQ-005`)
+  is `VERIFIED`.
 - **Cross-area audit**: `POST-INVENTORY-QUEUE.md` Q001 (the 18-point
   04→10 consistency audit) is `COMPLETE` — see
   `CLAUDE-CONSOLIDATION-REPORT.md`, SECOND PASS. It found and
