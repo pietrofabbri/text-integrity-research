@@ -1282,7 +1282,8 @@ Before publishing or relying on a major scientific conclusion, verify:
 
 # 74. Current Validation State
 
-The project is currently defining the validation framework.
+The project is transitioning from structural-definition phase to modular
+validation specifications.
 
 Final thresholds, benchmarks and statistical methodologies should not be
 invented before the research phase establishes their suitability.
@@ -1315,3 +1316,38 @@ The purpose is to determine, as rigorously as practical:
 
 A scientifically valuable system must make failure measurable rather than
 hide it.
+
+---
+
+# 76. Candidate Sub-Documents for Validation Architecture
+
+Following the tranche-based precedent set by `docs/04-architecture/ARCHITECTURE-MAP.md`
+§58/§64, `docs/05-validation/` exits its single-MAP definition phase through
+focused, evidence-grounded sub-documents:
+
+1. **`STATISTICAL-VALIDATION-METHODOLOGY.md`** (Tranche 1, Executed 2026-10-01):
+   Formalizes §28–33, §44–47, and §66. Defines the experimental protocol,
+   primary metric convention (TPR@fixed-FPR with prevalence bounds per R-0086),
+   anti-pseudoreplication rules, paired testing architecture, confounder controls
+   (including non-native-writer bias per R-0022), bootstrap uncertainty
+   quantification, and the Minimum Experiment Record schema.
+2. **`FIDELITY-VALIDATION-PROTOCOL.md`** (Tranche 2, Candidate):
+   Formalizes §12–21. Governs empirical verification of semantic preservation,
+   factual/claim consistency (split per DEC-015 into structured vs. claim tiers),
+   numerical and entity integrity, and minimality budgets (`S04`/`S05` linkage).
+3. **`DETECTOR-VALIDATION-PROTOCOL.md`** (Tranche 3, Candidate):
+   Formalizes §22–27, §36, and §48–50. Governs standardized benchmark evaluation
+   (RAID, M4GT-Bench per R08/R09), watermark verification, evasion resistance
+   (paraphrase R-0039, translation R-0065/R-0066), and detector drift.
+4. **`VALIDATION-GATES.md`** (Tranche 4, Candidate):
+   Formalizes §44–46, §55–59, and §73. Governs formal transition criteria
+   from `EXPERIMENTAL` to `VALIDATED` (`CAPABILITY-ARCHITECTURE.md` Activation Gate),
+   evidence package structure, and release certification criteria.
+
+---
+
+# 77. Validation Architecture Tranche Log
+
+- **Tranche 1 (Executed 2026-10-01):** `docs/05-validation/STATISTICAL-VALIDATION-METHODOLOGY.md`
+  is drafted and active, grounding all future experiments in rigorous statistical
+  protocols without prematurely selecting fixed application models or detectors.

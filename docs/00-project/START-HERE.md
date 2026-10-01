@@ -327,11 +327,13 @@ one being silently "fixed" — see
   between two corpus-grounded readings, `CAPABILITY-ARCHITECTURE.md` §6's
   `DISCOVERED` precondition is loosened to accept a planned,
   project-internal experiment alongside an existing `R-XXXX` entry —
-  `ANALYSIS-ARCHITECTURE.md` §4's existing usage needed no correction.
-- **05-validation through 10-certification**: still single-MAP-document,
-  structural-definition phase. This remains the project's largest gap
-  between what's designed conceptually and what's specified in enough
-  detail to implement against.
+- **05-validation**: no longer single-MAP-document as of 2026-10-01 (`DECISION-LOG.md`
+  DEC-036) — `STATISTICAL-VALIDATION-METHODOLOGY.md` now exists (Tranche 1 of
+  `VALIDATION-MAP.md` §76's roadmap), formalizing TPR@fixed-FPR metrics, prevalence
+  sensitivity analysis, anti-pseudoreplication rules, paired testing, non-native bias
+  controls, and bootstrap uncertainty estimation.
+- **06-security through 10-certification**: still single-MAP-document,
+  structural-definition phase.
 - **Repository**: public on GitHub at
   `github.com/pietrofabbri/text-integrity-research`; the DEC-016–DEC-022
   batch is confirmed committed by the owner (commit `3bb6d27`), the

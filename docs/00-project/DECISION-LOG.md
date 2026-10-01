@@ -2779,3 +2779,53 @@ None — this is a documentation/policy decision, not a scientific one.
 ### Related Questions
 
 None new — this closes `DEC-029`.
+
+---
+
+## DEC-036 — Exit Structural-Definition Phase for 05-Validation: Establish Tranche Plan and Draft STATISTICAL-VALIDATION-METHODOLOGY.md
+
+### Date
+
+2026-10-01
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's instruction to advance beyond the definition phase and the successful macro-tranche precedent established in `docs/04-architecture/ARCHITECTURE-MAP.md` §58/§64, `docs/05-validation/` formally exits its single-MAP structural-definition phase.
+
+1. **Validation Architecture Tranche Roadmap:** `docs/05-validation/VALIDATION-MAP.md` §76 defines four candidate sub-documents:
+   - `STATISTICAL-VALIDATION-METHODOLOGY.md` (Tranche 1);
+   - `FIDELITY-VALIDATION-PROTOCOL.md` (Tranche 2);
+   - `DETECTOR-VALIDATION-PROTOCOL.md` (Tranche 3);
+   - `VALIDATION-GATES.md` (Tranche 4).
+2. **Execution of Tranche 1:** `docs/05-validation/STATISTICAL-VALIDATION-METHODOLOGY.md` is drafted and made active. It formalizes:
+   - The primary metric convention: TPR@1%FPR and TPR@0.1%FPR, rejecting unconstrained accuracy and headline AUROC;
+   - Prevalence / base-rate sensitivity analysis (R-0086);
+   - Rules against pseudoreplication and definition of independent experimental units (R07 §71-74);
+   - Paired evaluation architecture for transformations (S05 / VALIDATION-MAP §29);
+   - Confounder controls, specifically non-native writer bias (R-0022 / REQ-AID-004) and text length stratification;
+   - 95% bootstrap confidence intervals and expected calibration error (ECE);
+   - The Minimum Experiment Record schema satisfying `EVALUATION-ARCHITECTURE.md` §7.
+
+### Rationale
+
+`04-architecture` is fully drafted across ten sub-documents, leaving `05-validation` through `10-certification` as the principal remaining definition-phase gap identified in `START-HERE.md` §6. `R07` (Evaluation and Statistical Methodology) and `S02` (`REQ-STAT-*`) provide all necessary research and normative requirements to formalize statistical rigor without inventing application-specific models or algorithms.
+
+### Consequences
+
+`docs/05-validation/` is no longer a single-MAP area. `STATISTICAL-VALIDATION-METHODOLOGY.md` governs all subsequent benchmark evaluations and experimental validation passes.
+
+### Affected Areas
+
+`docs/05-validation/VALIDATION-MAP.md` (§76, §77), `docs/05-validation/STATISTICAL-VALIDATION-METHODOLOGY.md`, `docs/00-project/START-HERE.md`.
+
+### Related Research
+
+`R-0022`, `R-0027`, `R-0086`, `R-0087`, `R-0090`, `R-0093`, `R-0094`, `R-0098`.
+
+### Related Decisions
+
+`DEC-001`, `DEC-002`, `DEC-011`, `DEC-014`, `DEC-032`.
