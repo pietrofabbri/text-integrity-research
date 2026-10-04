@@ -1,2 +1,21 @@
 .DS_Store
 *.bak
+
+# I progetti fratelli hanno ognuno il proprio repository Git e il proprio
+# remote. Vivono dentro questa cartella per comodita', ma tracciarli qui
+# metterebbe dentro il repository di governance 187 MB che appartengono
+# ad altri due progetti — e, peggio, romperebbe la regola dei confini: un
+# file pubblicato sotto `docs/` deve essere governato da `DECISION-LOG.md`,
+# e il codice di un altro progetto non lo e'.
+# Se un giorno i progetti fratelli dovranno stare qui dentro, la decisione
+# va presa e scritta, non fatta da un `git add -A`.
+/i-cinque-duchi/
+/traduttore-ferrarese/
+/ascolto-ferrarese/
+
+# Rotte di compilazione e strumenti locali.
+__pycache__/
+*.pyc
+
+# Locale dell'applicazione: non e' del progetto.
+/.freebuff/
