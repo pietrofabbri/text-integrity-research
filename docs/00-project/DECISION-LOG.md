@@ -2829,3 +2829,329 @@ Following the owner's instruction to advance beyond the definition phase and the
 ### Related Decisions
 
 `DEC-001`, `DEC-002`, `DEC-011`, `DEC-014`, `DEC-032`.
+
+---
+
+## DEC-037 — Execute Tranche 2 of the 05-Validation Roadmap: Draft FIDELITY-VALIDATION-PROTOCOL.md
+
+### Date
+
+2026-10-06
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's instruction to proceed with "the next one" after the Tranche
+roadmap established by `DEC-036` became visible, `docs/05-validation/FIDELITY-VALIDATION-PROTOCOL.md`
+is drafted and made active as Tranche 2 of `VALIDATION-MAP.md` §76.
+
+The document formalizes §12–21 (Input/Output Integrity, Semantic Preservation,
+Semantic Acceptance, Factual Preservation, Numerical Integrity, Entity Integrity,
+Structural Integrity, Linguistic Quality, Minimality, Transformation Budget)
+across nine numbered sections:
+
+1. Purpose & Scope, governed by `FID-100` (Final Fidelity Principle);
+2. Input/Output Integrity (`TRN-001`/`TRN-002`/`FID-024`/`TRN-015`);
+3. Semantic Preservation Measurement — requires ≥2 methodologically-distinct
+   metrics per `FID-037` (R06 §58.2) and separately-reported Semantic Acceptance
+   dimensions per `FID-006`/`FID-007`/`FID-002`/`FID-047`;
+4. Factual Preservation, split per `DEC-015` into a Structured Tier
+   (deterministic, `FID-003`/`FID-008`/`FID-009`/`FID-012`, not blocked by
+   `KB-013`) and a Claim Tier (`FID-002`, English-only via MiniCheck `R-0109`,
+   all other languages capped per `FID-043` Missing Evidence reporting — no
+   non-English tool or threshold is invented, consistent with `NO-INVENTION-RULES.md`);
+5. Numerical and Entity Integrity (§16–17), with an explicit caveat per
+   `FID-090`/`FID-091` that a PASS is deterministic-extraction-under-declared-conditions
+   only;
+6. Structural Integrity (§18, `FID-016`/`FID-017`/`FID-033`–`FID-035`);
+7. Linguistic Quality, titled "An Acknowledged Evidence Gap" — `R06-transformation-preservation-research.md`
+   §58 registers zero `R-XXXX` citations for fluency/linguistic-quality measurement
+   for this use case; no metric is selected; `not measurable` reporting is required
+   per `FID-043`, and the gap is flagged (not unilaterally added) as a
+   `KNOWLEDGE-BACKLOG.md` candidate;
+8. Minimality and Transformation Budget (§20–21), framing minimality as
+   constraint-satisfaction rather than a primary objective (R06 §58.1), requiring
+   the minimality/fidelity trade-off be reported as an explicit Pareto curve per
+   `FID-040` (R06 §58.5, `R-0075` "The Mark Fades");
+9. Governance & Traceability, including Preservation-Before-Optimization ordering
+   per `FID-094` and a forward pointer to `VALIDATION-GATES.md` (Tranche 4,
+   still Candidate) as the eventual consumer of this document's output for
+   transition-criteria decisions.
+
+### Rationale
+
+`VALIDATION-MAP.md` §76 (established 2026-10-01 under `DEC-036`) explicitly names
+`FIDELITY-VALIDATION-PROTOCOL.md` as Tranche 2 and scopes it to §12–21. The owner's
+"procediamo con la prox" directly authorizes executing this pre-identified next
+candidate; it does not authorize inventing new scope beyond what `DEC-036` already
+named. All citations (`FID-*`, `TRN-*`, `R-XXXX`) were verified against `S04-fidelity-requirements.md`,
+`S05-transformation-requirements.md`, and `R06-transformation-preservation-research.md`
+§58 before drafting, per `NO-INVENTION-RULES.md`.
+
+### Alternatives Considered
+
+- **Deferring Tranche 2 to instead address the larger `06-security`–`10-certification`
+  structural gap:** rejected because the owner's instruction was a direct,
+  unqualified "proceed," and `DEC-036`'s own roadmap makes Tranche 2 the
+  explicitly-named next step within the area already being extended — no
+  separate scope decision is needed to continue a roadmap the owner's own
+  prior session already authorized.
+- **Inventing a linguistic-quality metric to avoid leaving §7 incomplete:**
+  rejected per `NO-INVENTION-RULES.md` — the research layer (`R06` §58)
+  registers no citation for this dimension, so the gap is recorded, not
+  silently filled.
+- **Replicating `DEC-036`'s shortened decision-record template:** rejected
+  in favor of this project's dominant full template (used in ~35 of ~36
+  prior decisions), for consistency.
+
+### Consequences
+
+`docs/05-validation/FIDELITY-VALIDATION-PROTOCOL.md` governs all subsequent
+fidelity/transformation-preservation validation passes. `VALIDATION-MAP.md`
+§76 and §77 are updated to mark Tranche 2 Executed. One evidence gap
+(linguistic quality / fluency measurement) remains open and flagged as a
+`KNOWLEDGE-BACKLOG.md` candidate, not yet formally added. Tranche 3
+(`DETECTOR-VALIDATION-PROTOCOL.md`) and Tranche 4 (`VALIDATION-GATES.md`)
+remain open candidates.
+
+### Affected Areas
+
+`docs/05-validation/FIDELITY-VALIDATION-PROTOCOL.md` (new),
+`docs/05-validation/VALIDATION-MAP.md` (§76, §77),
+`docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+If future empirical work surfaces `R-XXXX` evidence for linguistic-quality
+measurement in this use case, §7 of `FIDELITY-VALIDATION-PROTOCOL.md` should
+be revised to select a metric rather than continuing to report `not measurable`.
+
+### Related Research
+
+`R-0024`, `R-0074`–`R-0085`, `R-0109` (cited via `R06` §58 and `DEC-015`).
+
+### Related Questions
+
+None new.
+
+---
+
+## DEC-038 — Execute Tranche 3 of the 05-Validation Roadmap: Draft DETECTOR-VALIDATION-PROTOCOL.md
+
+### Date
+
+2026-10-06
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's instruction "vai con 3 e con 4" (go with 3 and 4), `docs/05-validation/DETECTOR-VALIDATION-PROTOCOL.md`
+is drafted and made active as Tranche 3 of `VALIDATION-MAP.md` §76, formalizing
+§22–27 (Watermark Measurement, Watermark Families, Detector Registry, Detector
+Independence, Cloud Detector Validation, Detector Drift), §36 (Evaluation Against
+AI Detectors), and §48–50 (Robustness Testing, Distribution Shift, Longitudinal
+Validation) across ten numbered sections, grounded in `R02-watermark-research.md`
+§37, `R03-watermark-detection-research.md` §43, `R04-ai-generated-text-detection-research.md`
+§39, and `R08-benchmark-dataset-research.md` §69.
+
+The document records eight named evidence gaps instead of inventing methodology to
+close them: (1) detector-registry-as-practice has no dedicated `R-XXXX` citation;
+(2) quantitative/pairwise detector independence is explicitly stated by `R03` §43.5
+as "not performed in this pass"; (3) cloud/external detector drift has no dedicated
+measurement study, only attack-surface evidence; (4) cross-language distribution
+shift is confirmed thin for 9 of the project's 13 target languages (`R04` §39.4);
+(5) longitudinal/temporal detector decay has no dedicated study, only mechanistic
+grounding (`R-0028`); (6) `M4GT-Bench`, named alongside RAID in `VALIDATION-MAP.md`
+§76's original Tranche-3 brief, has no independent `R-XXXX` citation of its own —
+only M4's (`R-0019`) successor-lineage status; (7) train/test separation for
+detector benchmarks specifically has no populated citation in `R08` §69; (8)
+watermark translation-evasion evidence (CWRA/X-SIR, "Uncovering the Hidden Threat,"
+ESPERANTO, SynthID robustness) is held only in `KNOWLEDGE-BACKLOG.md` KB-011
+(status TRIAGED) and has not yet been propagated into `R02`/`R03`'s own Literature
+Findings — this document reports that status accurately rather than citing KB-011's
+content as if it were already native R02/R03 evidence.
+
+### Rationale
+
+`VALIDATION-MAP.md` §76 (established 2026-10-01 under `DEC-036`) explicitly names
+`DETECTOR-VALIDATION-PROTOCOL.md` as Tranche 3 and scopes it to §22–27, §36, §48–50.
+The owner's explicit "vai con 3" authorizes executing this pre-identified candidate;
+it does not authorize inventing new scope. Every citation was verified against the
+actual R02/R03/R04/R08 Literature Findings sections and `S02-scientific-requirements.md`
+before drafting, per `NO-INVENTION-RULES.md`.
+
+### Alternatives Considered
+
+- **Treating KB-011's translation-evasion findings (R-0065/R-0066/R-0068/R-0069) as
+  equivalent to native R02/R03 citations**, since `VALIDATION-MAP.md` §76's own
+  original text names them this way: rejected — KB-011 itself states its required
+  propagation into R02/R03 "remains not yet performed," so this document reports
+  the evidence's actual current location and status rather than overstating it.
+- **Inventing an M4GT-Bench-specific research citation** to match RAID's citation
+  standard: rejected per `NO-INVENTION-RULES.md` — no such citation exists in the
+  corpus; M4GT-Bench's lineage from M4 (`R-0019`) is reported instead.
+- **Silently performing the quantitative detector-independence analysis `R03` §43.5
+  flags as not performed**, to present a cleaner independence story: rejected — the
+  research layer itself flags this as open; this document inherits that status.
+
+### Consequences
+
+`docs/05-validation/DETECTOR-VALIDATION-PROTOCOL.md` governs all subsequent
+watermark/detector measurement, independence, drift, robustness, and benchmark
+evaluation. `VALIDATION-MAP.md` §76 and §77 are updated to mark Tranche 3 Executed.
+Eight evidence gaps remain open, flagged as `KNOWLEDGE-BACKLOG.md` candidates, not
+yet formally added. Tranche 4 (`VALIDATION-GATES.md`) is executed alongside this
+decision under `DEC-039`.
+
+### Affected Areas
+
+`docs/05-validation/DETECTOR-VALIDATION-PROTOCOL.md` (new),
+`docs/05-validation/VALIDATION-MAP.md` (§76, §77),
+`docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+If future research work closes any of the eight named gaps (e.g. a dedicated
+pairwise detector-independence study, or KB-011's required R02/R03 propagation
+being performed), the relevant section of this document should be revised to cite
+the new evidence rather than continuing to report the gap as open.
+
+### Related Research
+
+`R-0001`, `R-0013`–`R-0015`, `R-0020`, `R-0022`–`R-0024`, `R-0027`–`R-0029`,
+`R-0032`–`R-0036`, `R-0038`–`R-0042`, `R-0044`, `R-0049`.
+
+### Related Questions
+
+None new.
+
+---
+
+## DEC-039 — Execute Tranche 4 of the 05-Validation Roadmap: Draft VALIDATION-GATES.md
+
+### Date
+
+2026-10-06
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's instruction "vai con 3 e con 4" (go with 3 and 4),
+`docs/05-validation/VALIDATION-GATES.md` is drafted and made active as Tranche 4
+of `VALIDATION-MAP.md` §76, formalizing §44–46 (Acceptance Thresholds, Threshold
+Versioning, Confidence), §55–59 (Capability Validation Gate, Release Validation,
+Release Status, Certification Boundary, Evidence Package), and §73 (Validation
+Quality Gate), across nine numbered sections.
+
+This document's scope sits directly on a lifecycle/status-vocabulary contradiction
+the project had already found, via `CLAUDE-CONSOLIDATION-REPORT.md`'s SECOND PASS
+§5S/§13S, and explicitly deferred via `DEC-012`: `VALIDATION-MAP.md` §57's
+vocabulary (`NOT_EVALUATED, EXPERIMENTAL, CONDITIONALLY_VALIDATED, VALIDATED,
+DEGRADED, DEPRECATED, RETIRED`) versus `CERTIFICATION-MAP.md` §3's
+(`UNTESTED, EXPERIMENTAL, VALIDATED, CERTIFIED, DEPRECATED, RETIRED`). §5S also
+records a related lifecycle-state mismatch (`SPECIFICATION-MAP.md` §5 vs.
+`S02-scientific-requirements.md` §24) and a network-mode mismatch
+(`SECURITY-MAP.md` §14 vs. `OPERATIONS-MAP.md` §136), and notes the audit counted
+"8–10 non-identical capability-lifecycle enumerations scattered across the corpus"
+without itemizing them. This document identifies `CAPABILITY-ARCHITECTURE.md` §6
+(`DISCOVERED, EXPERIMENTAL, VALIDATED, ACTIVE, DEGRADED, DEPRECATED, RETIRED`) as
+one specific instance within that uncounted set — not previously named alongside
+the three vocabulary pairs §5S does itemize. Per `NO-INVENTION-RULES.md`'s
+Ambiguous Information protocol, this document does **not** perform the
+reconciliation — it writes its own text in `VALIDATION-MAP.md`'s vocabulary (since
+that is this document's Parent) while stating explicitly that this is a choice of
+which document's vocabulary to write in, not a determination that it is
+authoritative over the others. DEC-012's own stated trigger for revisiting the
+reconciliation — "until 04-architecture through 10-certification leave
+structural-definition phase" — is not yet met (06-security through 10-certification
+remain single-MAP-document), so this document continues that deferral rather than
+treating 05-validation's own completion as sufficient grounds to force it.
+
+**Correction to an earlier drafting error, recorded here per this project's own
+"verify fourth" discipline (`CLAUDE-CONSOLIDATION-REPORT.md` §14S.6):** an initial
+draft of this document and decision stated that `CLAUDE-CONSOLIDATION-REPORT.md`'s
+"SECOND PASS, §5S/§13S" could not be located in the repository, based on a research
+subagent's read of an incomplete file snapshot that happened not to include
+`docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md`. Direct verification against the
+live repository found the file, and its SECOND PASS section, present and exactly as
+cited. That incorrect "documentation-integrity finding" has been removed from both
+this decision and `VALIDATION-GATES.md` §2 before either was finalized against the
+owner's repository — no incorrect claim was committed to the project's history.
+
+### Rationale
+
+`VALIDATION-MAP.md` §76 (established 2026-10-01 under `DEC-036`) explicitly names
+`VALIDATION-GATES.md` as Tranche 4 and scopes it to §44–46, §55–59, §73. The
+owner's explicit "vai con 4" authorizes executing this pre-identified candidate.
+`DEC-029` (records a related contradiction without resolving it) and `DEC-030`
+(resolves a narrower, adjacent question while explicitly declining to resolve the
+broader one) are the project's own established precedent for how to proceed when
+a new document's scope sits on top of a deliberately-deferred contradiction — this
+decision follows that same precedent rather than inventing a resolution or silently
+picking a vocabulary as authoritative.
+
+### Alternatives Considered
+
+- **Picking one of the vocabularies as authoritative** to make this document's own
+  text cleaner: rejected — this is precisely the content decision `DEC-012` already
+  deferred pending 04–10 leaving structural-definition phase, and
+  `NO-INVENTION-RULES.md` requires preserving, not silently resolving,
+  ambiguous/contradictory information.
+- **Treating 05-validation's own exit from structural-definition phase (this
+  Tranche roadmap's completion) as grounds to force the reconciliation now:**
+  rejected — `DEC-012`'s trigger condition names all of 04-architecture through
+  10-certification, not any single area, and five of those areas remain
+  single-MAP-document.
+- **Leaving the newly-identified `CAPABILITY-ARCHITECTURE.md` §6 instance
+  unmentioned** since §5S does not itemize it by name: rejected — §5S's own text
+  acknowledges a larger, uncounted set of lifecycle enumerations exists; naming one
+  specific member of that set is recording an existing, already-acknowledged gap
+  more precisely, not inventing a new one.
+
+### Consequences
+
+`docs/05-validation/VALIDATION-GATES.md` governs all subsequent capability-gate,
+release-validation, and evidence-package decisions for this project. It names
+`CAPABILITY-ARCHITECTURE.md` §7's Activation Gate as the concrete mechanism
+implementing `VALIDATION-MAP.md` §55's nine-point gate test. `VALIDATION-MAP.md`
+§76 and §77 are updated to mark Tranche 4 Executed, closing the four-tranche
+roadmap `DEC-036` established. The lifecycle/status vocabulary contradiction
+remains deferred per `DEC-012`, now with `CAPABILITY-ARCHITECTURE.md` §6 named as
+one additional, specific instance of the uncounted set §5S already flagged.
+`06-security` through `10-certification` remain the project's largest outstanding
+structural gap, and are also DEC-012's own stated precondition for revisiting the
+reconciliation.
+
+### Affected Areas
+
+`docs/05-validation/VALIDATION-GATES.md` (new),
+`docs/05-validation/VALIDATION-MAP.md` (§76, §77),
+`docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Per `DEC-012`, once `06-security` through `10-certification` also leave
+structural-definition phase, the owner should make the HUMAN DECISION REQUIRED
+call on which lifecycle/status vocabulary (now at least four partially-overlapping
+candidates) is authoritative, or how they are to be reconciled; this document
+should then be revised to reflect that decision rather than continuing to write in
+`VALIDATION-MAP.md`'s vocabulary by default.
+
+### Related Research
+
+None directly — this is a governance/methodology decision built on
+`R07-evaluation-statistical-methodology.md` §80's statistical-threshold findings
+(`R-0086`, `R-0093`–`R-0097`), not new primary research.
+
+### Related Questions
+
+None new — the vocabulary reconciliation remains deferred per `DEC-012`.

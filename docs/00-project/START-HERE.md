@@ -148,7 +148,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 35 recorded (`DEC-001`–`DEC-035`) in `DECISION-LOG.md`.
+- **Decisions**: 39 recorded (`DEC-001`–`DEC-039`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -327,13 +327,46 @@ one being silently "fixed" — see
   between two corpus-grounded readings, `CAPABILITY-ARCHITECTURE.md` §6's
   `DISCOVERED` precondition is loosened to accept a planned,
   project-internal experiment alongside an existing `R-XXXX` entry —
+  `DEC-036` (2026-10-01, authored by a different session) exits
+  `05-validation`'s single-MAP definition phase, establishing a four-tranche
+  roadmap (`VALIDATION-MAP.md` §76) and executing Tranche 1,
+  `STATISTICAL-VALIDATION-METHODOLOGY.md`. `DEC-037` (2026-10-06) executes
+  Tranche 2, drafting `FIDELITY-VALIDATION-PROTOCOL.md` (semantic preservation,
+  the DEC-015 structured/claim factual split, numerical/entity/structural
+  integrity, minimality/transformation-budget; records rather than invents a
+  linguistic-quality evidence gap). `DEC-038` (2026-10-06) executes Tranche 3,
+  drafting `DETECTOR-VALIDATION-PROTOCOL.md` (watermark/detector measurement,
+  independence, cloud validation, drift, robustness/distribution-shift/
+  longitudinal validation, benchmark evaluation; records eight named evidence
+  gaps rather than inventing methodology, including M4GT-Bench's own missing
+  `R-XXXX` citation and the still-unpropagated KB-011 translation-evasion
+  findings). `DEC-039` (2026-10-06) executes Tranche 4, drafting
+  `VALIDATION-GATES.md` (acceptance thresholds, the Capability Validation Gate
+  and its relationship to `CAPABILITY-ARCHITECTURE.md`'s Activation Gate,
+  release validation, certification boundary, evidence package, Validation
+  Quality Gate) — this document continues, without performing, the
+  deliberately-deferred (`DEC-012`, grounded in `CLAUDE-CONSOLIDATION-REPORT.md`
+  SECOND PASS §5S/§13S) reconciliation among `VALIDATION-MAP.md` §57,
+  `CERTIFICATION-MAP.md` §3, and `CAPABILITY-ARCHITECTURE.md` §6 (the last named
+  here as one specific, previously-unnamed instance of the larger, uncounted set
+  of lifecycle enumerations §5S already flags). DEC-012's own trigger for
+  revisiting this — all of 04-architecture through 10-certification leaving
+  structural-definition phase — is not yet met. This closes the four-tranche
+  `05-validation` roadmap `DEC-036` established.
 - **05-validation**: no longer single-MAP-document as of 2026-10-01 (`DECISION-LOG.md`
-  DEC-036) — `STATISTICAL-VALIDATION-METHODOLOGY.md` now exists (Tranche 1 of
-  `VALIDATION-MAP.md` §76's roadmap), formalizing TPR@fixed-FPR metrics, prevalence
-  sensitivity analysis, anti-pseudoreplication rules, paired testing, non-native bias
-  controls, and bootstrap uncertainty estimation.
+  DEC-036). All four candidate sub-documents named by `VALIDATION-MAP.md` §76's
+  roadmap are now drafted and active: `STATISTICAL-VALIDATION-METHODOLOGY.md`
+  (Tranche 1, Executed 2026-10-01), `FIDELITY-VALIDATION-PROTOCOL.md` (Tranche 2,
+  Executed 2026-10-06, DEC-037), `DETECTOR-VALIDATION-PROTOCOL.md` (Tranche 3,
+  Executed 2026-10-06, DEC-038), and `VALIDATION-GATES.md` (Tranche 4, Executed
+  2026-10-06, DEC-039). The lifecycle/status vocabulary reconciliation
+  (`VALIDATION-MAP.md` §57 vs. `CERTIFICATION-MAP.md` §3 vs.
+  `CAPABILITY-ARCHITECTURE.md` §6, among others) remains deferred per `DEC-012`
+  until 06-security through 10-certification also leave structural-definition
+  phase.
 - **06-security through 10-certification**: still single-MAP-document,
-  structural-definition phase.
+  structural-definition phase — now the project's largest remaining
+  documentation gap, following the completion of the `05-validation` roadmap.
 - **Repository**: public on GitHub at
   `github.com/pietrofabbri/text-integrity-research`; the DEC-016–DEC-022
   batch is confirmed committed by the owner (commit `3bb6d27`), the
@@ -347,10 +380,17 @@ one being silently "fixed" — see
   EVALUATION-ARCHITECTURE.md"), the DEC-033 batch is confirmed committed
   (commit `6d55b5d`, "Fix ARCHITECTURE-MAP.md §62 changelog gap..."), and
   the DEC-034 batch is confirmed committed (commit `7e3fccb`, "Resolve
-  PLUGIN-ARCHITECTURE.md as not needed..."). Files from the DEC-035
-  follow-up (`DECISION-LOG.md`, `ARCHITECTURE-MAP.md`, `START-HERE.md`,
-  `CAPABILITY-ARCHITECTURE.md`) are written locally — check
-  `git log`/`git status` rather than assuming sync.
+  PLUGIN-ARCHITECTURE.md as not needed..."). The DEC-035 follow-up
+  (`DECISION-LOG.md`, `ARCHITECTURE-MAP.md`, `START-HERE.md`,
+  `CAPABILITY-ARCHITECTURE.md`) and the DEC-036 batch
+  (`STATISTICAL-VALIDATION-METHODOLOGY.md`, register-consolidation commit
+  `3d63607`) are confirmed on `origin/main` at commit `f8f7a35`. The
+  DEC-037–DEC-039 batch (`DECISION-LOG.md`, `VALIDATION-MAP.md`,
+  `START-HERE.md`, `FIDELITY-VALIDATION-PROTOCOL.md`,
+  `DETECTOR-VALIDATION-PROTOCOL.md`, `VALIDATION-GATES.md`) was prepared
+  directly against a fresh clone of `origin/main` rather than via the
+  owner's local working copy — check `git log`/`git status` rather than
+  assuming sync before building on it further.
 
 ---
 

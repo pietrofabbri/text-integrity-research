@@ -1331,18 +1331,26 @@ focused, evidence-grounded sub-documents:
    anti-pseudoreplication rules, paired testing architecture, confounder controls
    (including non-native-writer bias per R-0022), bootstrap uncertainty
    quantification, and the Minimum Experiment Record schema.
-2. **`FIDELITY-VALIDATION-PROTOCOL.md`** (Tranche 2, Candidate):
+2. **`FIDELITY-VALIDATION-PROTOCOL.md`** (Tranche 2, Executed 2026-10-06):
    Formalizes §12–21. Governs empirical verification of semantic preservation,
    factual/claim consistency (split per DEC-015 into structured vs. claim tiers),
    numerical and entity integrity, and minimality budgets (`S04`/`S05` linkage).
-3. **`DETECTOR-VALIDATION-PROTOCOL.md`** (Tranche 3, Candidate):
-   Formalizes §22–27, §36, and §48–50. Governs standardized benchmark evaluation
-   (RAID, M4GT-Bench per R08/R09), watermark verification, evasion resistance
-   (paraphrase R-0039, translation R-0065/R-0066), and detector drift.
-4. **`VALIDATION-GATES.md`** (Tranche 4, Candidate):
-   Formalizes §44–46, §55–59, and §73. Governs formal transition criteria
-   from `EXPERIMENTAL` to `VALIDATED` (`CAPABILITY-ARCHITECTURE.md` Activation Gate),
-   evidence package structure, and release certification criteria.
+3. **`DETECTOR-VALIDATION-PROTOCOL.md`** (Tranche 3, Executed 2026-10-06):
+   Formalizes §22–27, §36, and §48–50. Governs watermark measurement and
+   families, the detector registry, detector independence, cloud detector
+   validation, detector drift, evaluation-against-detectors methodology,
+   robustness/distribution-shift/longitudinal validation, and standardized
+   benchmark evaluation (RAID per R-0020; M4GT-Bench noted as not yet
+   independently evidenced beyond M4's R-0019 lineage).
+4. **`VALIDATION-GATES.md`** (Tranche 4, Executed 2026-10-06):
+   Formalizes §44–46, §55–59, and §73. Governs acceptance thresholds, the
+   Capability Validation Gate and its relationship to
+   `CAPABILITY-ARCHITECTURE.md`'s Activation Gate, release validation,
+   the certification boundary, evidence package structure, and the
+   Validation Quality Gate — while explicitly recording, rather than
+   resolving, the unreconciled `VALIDATION-MAP.md` §57 /
+   `CERTIFICATION-MAP.md` §3 / `CAPABILITY-ARCHITECTURE.md` §6 vocabulary
+   contradiction.
 
 ---
 
@@ -1351,3 +1359,35 @@ focused, evidence-grounded sub-documents:
 - **Tranche 1 (Executed 2026-10-01):** `docs/05-validation/STATISTICAL-VALIDATION-METHODOLOGY.md`
   is drafted and active, grounding all future experiments in rigorous statistical
   protocols without prematurely selecting fixed application models or detectors.
+- **Tranche 2 (Executed 2026-10-06):** `docs/05-validation/FIDELITY-VALIDATION-PROTOCOL.md`
+  (`DECISION-LOG.md` DEC-037) is drafted and active, formalizing semantic
+  preservation, the DEC-015 structured/claim factual split, numerical and entity
+  integrity, structural integrity, minimality and transformation-budget measurement.
+  It records one open evidence gap rather than inventing a metric: §19 (Linguistic
+  Quality) finds zero `R-XXXX` grounding in `R06-transformation-preservation-research.md`
+  §58 and requires `not measurable` reporting until that gap is closed (candidate for
+  `KNOWLEDGE-BACKLOG.md`, not yet added there).
+- **Tranche 3 (Executed 2026-10-06):** `docs/05-validation/DETECTOR-VALIDATION-PROTOCOL.md`
+  (`DECISION-LOG.md` DEC-038) is drafted and active, formalizing watermark/detector
+  measurement, independence, cloud validation, drift, robustness/distribution-shift/
+  longitudinal validation, and benchmark evaluation. It records eight named evidence
+  gaps rather than inventing methodology to close them (detector-registry-as-practice,
+  quantitative detector independence, cloud-detector drift, cross-language distribution
+  shift for 9 of 13 target languages, longitudinal detector decay, M4GT-Bench's own
+  citation status, train/test separation for detector benchmarks, and the native-R02/R03
+  propagation status of watermark translation-evasion evidence currently held only in
+  `KNOWLEDGE-BACKLOG.md` KB-011) — none added to `KNOWLEDGE-BACKLOG.md` unilaterally.
+- **Tranche 4 (Executed 2026-10-06):** `docs/05-validation/VALIDATION-GATES.md`
+  (`DECISION-LOG.md` DEC-039) is drafted and active, formalizing acceptance
+  thresholds, the Capability Validation Gate, release validation, the certification
+  boundary, evidence package structure, and the Validation Quality Gate. It
+  explicitly continues — without performing — the deliberately-deferred
+  reconciliation (`DECISION-LOG.md` DEC-012, grounded in
+  `CLAUDE-CONSOLIDATION-REPORT.md` SECOND PASS §5S/§13S) between this document's
+  own §57, `CERTIFICATION-MAP.md` §3, and `CAPABILITY-ARCHITECTURE.md` §6 (the
+  last identified as one specific, previously-unnamed instance of the larger,
+  uncounted "8–10 non-identical capability-lifecycle enumerations" §5S already
+  flags). DEC-012's own trigger for revisiting this — all of 04-architecture
+  through 10-certification leaving structural-definition phase — is not yet met.
+  This closes the four-tranche roadmap this section and §76 established under
+  DEC-036.
