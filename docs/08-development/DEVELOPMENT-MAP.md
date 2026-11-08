@@ -2276,3 +2276,65 @@ determines whether the resulting capability is scientifically supported.
 
 This separation allows the project to evolve rapidly without allowing the
 development agent to silently redefine the project itself.
+
+---
+
+# 202. Candidate Sub-Documents for Development Architecture
+
+**Status: PROPOSED by `DEC-040` (2026-11-09); awaiting owner approval per §197.**
+Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
+
+## Tranche 1 — `AGENT-WORK-MODEL.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize the AI-assisted work model: batches, stop conditions, change classes, decision boundaries, development phases, consistency reviews, audit trail, batch final states, tranche rules. Sources in this map: §2–24, §115–125, §170–173, §188–201.
+- **Expected deliverable:** `docs/08-development/AGENT-WORK-MODEL.md`, plus its `DECISION-LOG.md` entry and §203 update.
+- **Completion criteria:** §198; every assigned section covered or explicitly recorded as a gap; no invented values (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository. The code-oriented profiles of §160 do not yet apply.
+- **Expected risk:** MEDIUM (judgment); §17–20 do not enumerate new normative documents.
+- **Known constraint:** Must record, not resolve, the four unreconciled human-approval lists (§14, §20, `SECURITY-MAP.md` §19/§77; `CLAUDE-CONSOLIDATION-REPORT.md` SECOND PASS §4S/§12S).
+
+
+## Tranche 2 — `TEST-AND-VERIFICATION-POLICY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize test categories, determinism, offline suite, benchmark integrity, scientific holdout, verification profiles, failure policy, Development Quality Gate. Sources in this map: §46–66, §159–169, §187.
+- **Expected deliverable:** `docs/08-development/TEST-AND-VERIFICATION-POLICY.md`, plus its `DECISION-LOG.md` entry and §203 update.
+- **Completion criteria:** §198; every assigned section covered or explicitly recorded as a gap; no invented values (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository. The code-oriented profiles of §160 do not yet apply.
+- **Expected risk:** MEDIUM (judgment); §17–20 do not enumerate new normative documents.
+- **Known constraint:** Must align with `05-validation` (DEC-036–DEC-039) without restating its thresholds.
+
+
+## Tranche 3 — `ENGINEERING-STANDARDS.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize code quality, error handling, result status, builds, dependency management, commit discipline, rollback, release candidate, generated files, repository cleanliness. Sources in this map: §67–82, §104–109, §126–132.
+- **Expected deliverable:** `docs/08-development/ENGINEERING-STANDARDS.md`, plus its `DECISION-LOG.md` entry and §203 update.
+- **Completion criteria:** §198; every assigned section covered or explicitly recorded as a gap; no invented values (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository. The code-oriented profiles of §160 do not yet apply.
+- **Expected risk:** LOW–MEDIUM (judgment); §17–20 do not enumerate new normative documents.
+- **Known constraint:** §108 is one of four uncrossed release-readiness lists (with `OPERATIONS-MAP.md` §183, `DATA-MAP.md` §117, `CERTIFICATION-MAP.md` §149): record only.
+
+
+## Tranche 4 — `CAPABILITY-EVOLUTION-POLICY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize capability isolation and lifecycle, interface contracts, language contracts, configuration, capability registry, algorithm replacement, migration, compatibility, refactoring. Sources in this map: §25–35, §83–103.
+- **Expected deliverable:** `docs/08-development/CAPABILITY-EVOLUTION-POLICY.md`, plus its `DECISION-LOG.md` entry and §203 update.
+- **Completion criteria:** §198; every assigned section covered or explicitly recorded as a gap; no invented values (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository. The code-oriented profiles of §160 do not yet apply.
+- **Expected risk:** MEDIUM (judgment); §17–20 do not enumerate new normative documents.
+- **Known constraint:** §27 is a further lifecycle enumeration; reconciliation stays deferred per `DEC-012`.
+
+
+## Tranche 5 — `DOCUMENTATION-AND-MAINTENANCE-POLICY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize impact analysis, documentation synchronization, debt registers, onboarding and context preservation, change propagation, maintenance, reproducibility and archives. Sources in this map: §36–45, §110–114, §133–158, §174–186.
+- **Expected deliverable:** `docs/08-development/DOCUMENTATION-AND-MAINTENANCE-POLICY.md`, plus its `DECISION-LOG.md` entry and §203 update.
+- **Completion criteria:** §198; every assigned section covered or explicitly recorded as a gap; no invented values (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository. The code-oriented profiles of §160 do not yet apply.
+- **Expected risk:** LOW–MEDIUM (judgment); §17–20 do not enumerate new normative documents.
+- **Known constraint:** Touches `KB-004` and `KB-005` (both CRITICAL, TRIAGED per the project roadmap): check them at execution.
+
+---
+
+# 203. Development Architecture Tranche Log
+
+No tranche executed yet.

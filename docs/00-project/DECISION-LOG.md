@@ -3155,3 +3155,62 @@ None directly — this is a governance/methodology decision built on
 ### Related Questions
 
 None new — the vocabulary reconciliation remains deferred per `DEC-012`.
+
+---
+
+## DEC-040 — Propose Exit from Structural-Definition Phase for 08-Development: Five-Tranche Roadmap
+
+### Date
+
+2026-11-09
+
+### Status
+
+PROPOSED
+
+### Decision
+
+Proposed for owner approval; no tranche is executed by this entry. `DEVELOPMENT-MAP.md` §197 assigns approval of tranche boundaries to the human operator, so this entry becomes ACCEPTED only on the owner's explicit confirmation of the boundaries below.
+
+1. `docs/08-development/` would exit its single-MAP phase through five sub-documents, defined in `DEVELOPMENT-MAP.md` §202 using the fields required by §196:
+   - `AGENT-WORK-MODEL.md` (Tranche 1): §2–24, §115–125, §170–173, §188–201;
+   - `TEST-AND-VERIFICATION-POLICY.md` (Tranche 2): §46–66, §159–169, §187;
+   - `ENGINEERING-STANDARDS.md` (Tranche 3): §67–82, §104–109, §126–132;
+   - `CAPABILITY-EVOLUTION-POLICY.md` (Tranche 4): §25–35, §83–103;
+   - `DOCUMENTATION-AND-MAINTENANCE-POLICY.md` (Tranche 5): §36–45, §110–114, §133–158, §174–186;
+2. Every section §2–§201 is assigned to exactly one tranche. `DEVELOPMENT-MAP.md` stays the entry point and is not rewritten.
+3. Each tranche, when executed, is its own `DECISION-LOG.md` entry and is logged in §203.
+
+### Rationale
+
+`08-development` is the area most directly tied to writing code, and the project roadmap of 2026-10-06 ranks it first among the five remaining single-MAP areas (a cost/benefit judgment, not a project rule). The map currently contains zero `R-XXXX`, `FID-`, `TRN-` or `REQ-` citations (verified by direct search, 2026-11-09), so traceability is the main substantive gap each tranche must address. The grouping is a thematic judgment by the drafting agent; it is not derived from an existing source.
+
+### Alternatives Considered
+
+- Executing Tranche 1 in the same decision, as `DEC-036` did: rejected here because §197 requires approval of the boundary first.
+- Keeping one document per block of the map's numbering: rejected because related topics are scattered (for example verification in §46–66 and §159–169).
+- Starting from `06-security`: the roadmap places it second; available if the owner prefers.
+
+### Consequences
+
+If accepted, `08-development` leaves the single-MAP phase on execution of Tranche 1. Until then nothing normative changes. Known contradictions listed in §202 are carried forward as recorded items, not resolved.
+
+### Affected Areas
+
+`docs/08-development/DEVELOPMENT-MAP.md` (§202, §203), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection or redefinition of the boundaries; discovery during execution that a tranche cannot meet §198 within its boundary (handled per §199).
+
+### Related Research
+
+None cited yet; evidence mapping is part of each tranche.
+
+### Related Questions
+
+None new. Lifecycle vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-012`, `DEC-036`.
