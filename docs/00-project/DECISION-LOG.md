@@ -3166,11 +3166,11 @@ None new — the vocabulary reconciliation remains deferred per `DEC-012`.
 
 ### Status
 
-PROPOSED
+ACCEPTED
 
 ### Decision
 
-Proposed for owner approval; no tranche is executed by this entry. `DEVELOPMENT-MAP.md` §197 assigns approval of tranche boundaries to the human operator, so this entry becomes ACCEPTED only on the owner's explicit confirmation of the boundaries below.
+The owner explicitly approved the boundaries below on 2026-11-09, as `DEVELOPMENT-MAP.md` §197 requires. No tranche is executed by this entry.
 
 1. `docs/08-development/` would exit its single-MAP phase through five sub-documents, defined in `DEVELOPMENT-MAP.md` §202 using the fields required by §196:
    - `AGENT-WORK-MODEL.md` (Tranche 1): §2–24, §115–125, §170–173, §188–201;
