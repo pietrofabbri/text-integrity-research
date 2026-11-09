@@ -3737,11 +3737,11 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 
 ### Status
 
-PROPOSED
+ACCEPTED
 
 ### Decision
 
-Proposed for owner approval; no tranche is executed by this entry.
+Asked directly whether these boundaries could be treated as approved, the owner answered "vai con quello che ti sembra più sensato" (2026-11-09). The agent treated this as delegated approval of these boundaries only, not of the `10-certification` or `09-operations` boundaries, and recorded it here. No tranche is executed by this entry.
 
 1. `docs/07-data/` would exit its single-MAP phase through five sub-documents, defined in `DATA-MAP.md` §126 with the fields of `AGENT-WORK-MODEL.md` §11:
    - `DATA-IDENTITY-AND-METADATA.md` (Tranche 1): §2–33, §73–78, §80–82;
