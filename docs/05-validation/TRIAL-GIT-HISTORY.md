@@ -51,3 +51,18 @@ No real text had yet been passed through these capabilities. This trial uses the
 # 5. What Is Still Needed
 
 Pairs of real texts with the same content and known differences, in several languages, with an independent judgment of what really changed. That needs data and acceptance criteria, which are reserved to the owner (`DEC-057`).
+
+# 6. Addendum: One Owner-Supplied Italian Pair (2026-11-09)
+
+The owner supplied one original and one reworded Italian text of about 1,650 characters, with a list of the changes. The texts are not stored in the repository. This is one case and supports no rate.
+
+**As supplied:** structure `PASS`, numbers `PASS` (`2022` and `513` unchanged), consistent with the owner's list. Minimality reported 43% changed tokens and a character edit distance of 552, also consistent with a heavy rewording.
+
+**Controlled edits on the same text, by the agent:** removing a list item, changing `513` or `2022`, and removing a title line were each detected.
+
+**Weaknesses shown:**
+
+1. **`513 kg` changed to `513 g` gives `PASS`.** Units are not read (already a listed limitation), and this case shows how serious it is.
+2. A meaning reversal (`non riciclate` to `riciclate`) passes both checks, as expected: these capabilities do not assess meaning.
+3. Ordered-list markers (`1.` to `5.`) are counted as numbers in the text.
+4. Titles without Markdown syntax are read as paragraph text, merged with adjacent lines, so the paragraph count does not match what a reader sees. Plain-text input is the likely common case.
