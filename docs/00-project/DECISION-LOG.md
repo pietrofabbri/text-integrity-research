@@ -4129,3 +4129,103 @@ None applicable.
 ### Related Decisions
 
 `DEC-041`, `DEC-042`, `DEC-048`, `DEC-057`.
+
+
+---
+
+## DEC-059 — Unicode Handling Baseline and Data Identifier Convention
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's delegation ("prendi le decisioni che ti sembrano più sensate e procedi", 2026-11-09), resolving `DATA-IDENTITY-AND-METADATA.md` DIM-G1 and, as a baseline, DIM-G2:
+
+1. **Unicode:** canonical text is never normalized or cleaned. Any normalization happens in a separate, named and versioned view (`DATA-MAP.md` §18, §78). Invisible characters, bidirectional controls, zero-width characters and homoglyphs are preserved and, where a detector exists, reported; they are not silently removed (§75). No normalization form is selected as a project default.
+2. **Identifiers:** `DATA-[CATEGORY]-[SHORT-NAME]`, where `[CATEGORY]` is one of `SOURCE`, `DERIVED`, `BENCHMARK`, `TEST`, `EXPERIMENT`, `MODEL`, `LINGUISTIC`, `METADATA`, `RESULT`, `REFERENCE` (§3), and `[SHORT-NAME]` may contain hyphens. The example in §12 would read `DATA-SOURCE-EN-001`.
+
+### Rationale
+
+Preserve-and-report is the only choice that loses no information and takes no position on how normalization affects detectors or watermarks.
+
+### Alternatives Considered
+
+Adopting NFC as a default: rejected, since no project evidence shows it is neutral for the measurements of interest.
+
+### Consequences
+
+Behaviors for specific analyses remain to be specified per capability.
+
+### Affected Areas
+
+`docs/07-data/DATA-IDENTITY-AND-METADATA.md`.
+
+### Reversal Conditions
+
+Research showing a specific normalization is safe or needed; owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None.
+
+### Related Decisions
+
+`DEC-052`, `DEC-057`.
+
+---
+
+## DEC-060 — First Capability: Structural Validation of Markdown (Experimental)
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the same delegation, `CAP-VALIDATE-STRUCTURAL-MARKDOWN` is the first capability, specified in `docs/05-validation/VALIDATE-STRUCTURAL-CAPABILITY.md` and implemented in `src/text_integrity/validate_structural.py`. Its status is `EXPERIMENTAL`. `pyproject.toml` declares the package, with no dependencies.
+
+### Rationale
+
+Of the candidates, it is the one with an existing specification (`FID-016`; `FIDELITY-VALIDATION-PROTOCOL.md` §6) and no need for a model or dataset, so it raises no licensing or storage issue. Numerical integrity was considered and deferred because digit formats are locale-ambiguous and need more specification. Detection and watermarking need models, datasets and open scientific choices.
+
+### Alternatives Considered
+
+Numerical and entity integrity; a detector; a watermark implementation.
+
+### Consequences
+
+This sets no scientific acceptance criterion and is not wired to any pipeline. MEDIUM risk, C2 impact, approved under `DEC-057`; review per `AGENT-SECURITY-BOUNDARY.md` §7 found none of the listed behaviors. All 26 unit tests pass, and `ruff`, `mypy` and `tools/verify_docs.py` report no blocking finding. It has not been used in any experiment.
+
+### Affected Areas
+
+`src/`, `tests/`, `pyproject.toml`, `docs/05-validation/VALIDATE-STRUCTURAL-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal; a Markdown parser dependency justified under `DEVELOPMENT-MAP.md` §78.
+
+### Related Research
+
+None applicable; recorded as a condition not met for `VALIDATED`.
+
+### Related Questions
+
+`Q-001`, for what this does not address.
+
+### Related Decisions
+
+`DEC-015`, `DEC-057`, `DEC-058`, `DEC-059`.

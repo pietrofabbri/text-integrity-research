@@ -125,7 +125,7 @@ This document formalizes how data is categorized, identified, versioned, traced 
 | DIM-G3 | No manifests or data cards exist | Implementation tranche |
 | DIM-G4 | The manifest format is not selected | Implementation tranche |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** DIM-G1 is decided by `DEC-059`, which also sets a baseline for DIM-G2; specific behaviors remain per capability.
 
 ---
 
