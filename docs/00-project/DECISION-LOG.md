@@ -3627,3 +3627,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-001`, `DEC-004`, `DEC-005`, `DEC-012`, `DEC-041`, `DEC-046`.
+
+
+---
+
+## DEC-049 — Execute Tranche 3 of the 06-Security Roadmap: Draft SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-046` boundaries and delegated instruction to proceed (2026-11-09), `docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` is drafted and made active as Tranche 3 of `SECURITY-MAP.md` §92, formalizing §25–33, §51–53 and §57–62. It adds no requirement or numeric value beyond its sources and records SCS-C1 to SCS-C4 and SCS-G1 to SCS-G5, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-046`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+No tool, format or branching model is selected. Branching model and backup location need owner decisions before implementation (SCS-G2, SCS-G3).
+
+### Affected Areas
+
+`docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md`, `docs/06-security/SECURITY-MAP.md` (§92, §93), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-012`, `DEC-034`, `DEC-043`, `DEC-046`.

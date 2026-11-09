@@ -1332,7 +1332,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Must align with `AGENT-WORK-MODEL.md`. The human-authority lists (AWM-C1) and the two change scales (AWM-C2, AWM-C3) stay recorded, not resolved.
 
 
-## Tranche 3 — `SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (Approved, not executed)
+## Tranche 3 — `SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (Executed 2026-11-09, `DEC-049`)
 
 - **Objective / allowed scope:** Formalize dependency, supply-chain, dataset, model, archive and temporary-file security; dynamic code; plugin security; capability permissions; repository, git and branch safety; backup, integrity hashes and reproducible environment. Sources in this map: §25–33, §51–53, §57–62.
 - **Expected deliverable:** `docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1360,3 +1360,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 # 93. Security Architecture Tranche Log
 - **Tranche 1 (Executed 2026-11-09):** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md` (`DEC-047`). Records TDB-C1 to TDB-C4 and TDB-G1 to TDB-G5.
 - **Tranche 2 (Executed 2026-11-09):** `docs/06-security/AGENT-SECURITY-BOUNDARY.md` (`DEC-048`). Records ASB-C1 to ASB-C5 and ASB-G1 to ASB-G4.
+- **Tranche 3 (Executed 2026-11-09):** `docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (`DEC-049`). Records SCS-C1 to SCS-C4 and SCS-G1 to SCS-G5.
