@@ -96,7 +96,7 @@ AI-generated code passes the same validation as human-written code; AI generatio
 | ASB-G3 | How approval of a MEDIUM batch is given and recorded (§75) | `AGENT-WORK-MODEL.md`, by decision |
 | ASB-G4 | What form counts as "explicit" approval (§24). `DEC-046` records one case: an answer delegating the choice, given to a direct request for approval, and treated as approval of tranche boundaries. Whether that form would suffice for a CRITICAL change is not established. **PROPOSAL:** it should not | Owner decision |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** ASB-G1 to ASB-G4 are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 

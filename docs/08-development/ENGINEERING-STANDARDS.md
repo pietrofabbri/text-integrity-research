@@ -14,7 +14,7 @@
 
 # 1. Purpose & Scope
 
-This document formalizes code quality, result reporting, builds, dependencies, change history, release candidates and generated files. It selects no language, tool, linter, formatter or package manager, because no project document does (ENG-G1). It sets no numeric value.
+This document formalizes code quality, result reporting, builds, dependencies, change history, release candidates and generated files. It selected no language or tool when written (ENG-G1); `DEC-057` has since selected Python and the first tools. It sets no numeric value.
 
 ---
 
@@ -26,7 +26,7 @@ This document formalizes code quality, result reporting, builds, dependencies, c
 | ENG-C2 | Result vocabularies | `DEVELOPMENT-MAP.md` §72; `REPORTING-ARCHITECTURE.md` §5 | §72: `SUCCESS, PARTIAL, FAILED, UNAVAILABLE, INVALID, NOT_EVALUATED`, for operations. Reporting: `not measurable, unsupported, not applicable`, for dimensions in a report. Whether they should correspond is not established. |
 | ENG-C3 | Dependency metadata | `DEVELOPMENT-MAP.md` §77; `SECURITY-MAP.md` §25 | Overlapping field lists. §77 adds compatibility information; §25 adds dependency relationship and security status, and applies to runtime dependencies. **INFERENCE:** record the fields of both. |
 | ENG-C4 | Update classes | `DEVELOPMENT-MAP.md` §79; `SECURITY-MAP.md` §27 | §79 sets a procedure; §27 adds a required distinction between patch, minor, major and security updates. Compatible; both apply. |
-| ENG-R1 | **Generator scripts that would overwrite maintained documents** | `update_project_map.py`, `update_research_map.py` (repository root); §126–128 | Each script writes a fixed embedded text over its target. Verified 2026-11-09: the embedded texts are older and shorter than the current documents (17,131 against 22,387 characters for `PROJECT-MAP.md`; 14,703 against 17,614 for `RESEARCH-MAP.md`). Running either would discard later edits. Disposition is an owner decision (ENG-G4). Until then the agent must not run them. |
+| ENG-R1 | **Generator scripts that would overwrite maintained documents** | `update_project_map.py`, `update_research_map.py` (repository root); §126–128 | Each script writes a fixed embedded text over its target. Verified 2026-11-09: the embedded texts are older and shorter than the current documents (17,131 against 22,387 characters for `PROJECT-MAP.md`; 14,703 against 17,614 for `RESEARCH-MAP.md`). Running either would discard later edits. Disposition is an owner decision (ENG-G4). Until then the agent must not run them. **Update:** retired by `DEC-057` and removed; recoverable from Git history. |
 
 ---
 
@@ -110,7 +110,7 @@ History rewriting is addressed in `AGENT-WORK-MODEL.md` §12.
 | ENG-G4 | Disposition of the two generator scripts (ENG-R1): retire, correct or keep | Owner decision |
 | ENG-G5 | No dependency register exists yet | Implementation tranche |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** ENG-G1 and ENG-G4 are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 

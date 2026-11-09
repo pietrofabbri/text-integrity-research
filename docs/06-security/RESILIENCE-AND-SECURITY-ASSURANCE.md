@@ -118,7 +118,7 @@ The aim is neither to forbid automation nor to let the agent do anything: automa
 | RSA-G4 | No decision on exposing a public detection API; `DEC-046` and this document make none | Owner decision if ever proposed |
 | RSA-G5 | Translation-based evasion is not yet named in `R02` §37.2 and `R03` §43.4 (recorded by `DCQ-006` as a lower-priority research-layer update) | `02-research` |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** the agent-review part of RSA-G3 are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 

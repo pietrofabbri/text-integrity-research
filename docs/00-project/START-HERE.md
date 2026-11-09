@@ -148,7 +148,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 56 recorded (`DEC-001`–`DEC-056`; `DEC-051` sets the `07-data` tranche roadmap; `DEC-046` sets the `06-security` tranche roadmap; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
+- **Decisions**: 58 recorded (`DEC-001`–`DEC-058`; `DEC-057` resolves owner questions on delegation and `DEC-058` adds the first code, `tools/verify_docs.py`; `DEC-051` sets the `07-data` tranche roadmap; `DEC-046` sets the `06-security` tranche roadmap; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -420,7 +420,7 @@ what's deliberately deferred (and why) lives in:
 
 - `docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` — DCQ items `PENDING`
   (research propagation waiting on 04-10 to leave definition phase).
-- `docs/00-project/OPEN-QUESTIONS.md` — all 19 questions; see each entry's `Status`.
+- `docs/00-project/OPEN-QUESTIONS.md` — all 19 questions; `Q-010`–`Q-017` and `Q-019` are resolved by `DEC-057`; see each entry's `Status`.
 - `docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md` §12S/§13S — audit
   findings classified REVIEW REQUIRED or HUMAN DECISION REQUIRED, with
   their disposition recorded in `DECISION-LOG.md` DEC-012 where a

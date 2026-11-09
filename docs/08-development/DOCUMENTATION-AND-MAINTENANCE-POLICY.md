@@ -164,7 +164,7 @@ The process must not update only the code (§153). No major implementation is co
 | DMP-G4 | Which experiments are "important" (§181) and when compatibility is "practical" (§182) have no stated criterion | Per-capability specification |
 | DMP-G5 | Schedules for §175 are not defined | Future automation |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** DMP-G3 are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 

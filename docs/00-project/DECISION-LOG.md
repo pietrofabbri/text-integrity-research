@@ -4030,3 +4030,102 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-012`, `DEC-051`.
+
+
+---
+
+## DEC-057 — Resolve Q-010 to Q-017 and Q-019, and Partly Q-018, on the Owner's Delegation
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner instructed the agent: "prendi le decisioni che ti sembrano più sensate e procedi" (2026-11-09). The agent resolved `Q-010`–`Q-017` and `Q-019`, and partly `Q-018`, as recorded in each question's Resolution in `OPEN-QUESTIONS.md`. In summary: the two change scales stay separate; tranche approval covers MEDIUM batches, while CRITICAL changes need specific approval; resource budgets do not apply to documentation tranches; the session container counts as local; the language is Python; the two generator scripts are retired; the README becomes a short pointer; the agent reviews security, with owner sign-off for HIGH, CRITICAL and exceptions; `OFFLINE` is the default and user text is never sent externally without opt-in for that run.
+
+### Rationale
+
+Each choice is the more conservative or more reversible option among those recorded, and none widens a security boundary. `Q-014` is an engineering judgment without comparative evaluation.
+
+### Alternatives Considered
+
+The options listed in each question.
+
+### Consequences
+
+Implementation may begin within the rules of `AGENT-SECURITY-BOUNDARY.md` §8. These decisions do **not** extend to: legal or licensing judgments (`Q-007`; `P00-project-governance.md` §3), release approval, CRITICAL changes, or scientific acceptance criteria. Protection of `main` needs the owner: this session's access was refused when it tried (HTTP 403).
+
+### Affected Areas
+
+`docs/00-project/OPEN-QUESTIONS.md`, `README.md`, `update_project_map.py`, `update_research_map.py`, and the gap entries of the `06-security` and `08-development` protocols.
+
+### Reversal Conditions
+
+The owner may reverse any of these at any time. `Q-014` should be reconsidered if a required capability proves impractical in Python.
+
+### Related Research
+
+`R09` for context on `Q-014`.
+
+### Related Questions
+
+`Q-010`–`Q-019`.
+
+### Related Decisions
+
+`DEC-004`, `DEC-012`, `DEC-041`, `DEC-043`, `DEC-048`.
+
+---
+
+## DEC-058 — First Implementation Tranche: Repository Audit Tool
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Under the same delegation, `tools/verify_docs.py` and `tests/test_verify_docs.py` are added: a read-only, standard-library audit implementing part of `DEVELOPMENT-MAP.md` §118, §122 and §159. It checks decision and question numbering, decision status values, section coverage tables against declared Parent sections, file references, registered `R-XXXX` and `REQ-` identifiers in protocol documents, and credential patterns. It uses the §123 levels, without resolving AWM-C7.
+
+The command is `python3 tools/verify_docs.py .`; tests run with `python3 -m unittest discover -s tests`.
+
+### Rationale
+
+`AGENT-SECURITY-BOUNDARY.md` ASB-C4 records that autonomy requires defined validation commands. This is the smallest code that provides one, and it has no dependencies or network use.
+
+### Alternatives Considered
+
+Beginning with a scientific capability: rejected because no validation command existed.
+
+### Consequences
+
+Classification: MEDIUM risk, C1 impact; approved under `DEC-057`. First result: 0 blocking findings and 38 warnings, nearly all references to planned or superseded documents named outside the protocols. The tool does not check section-level citations into other documents or the truth of any statement.
+
+### Affected Areas
+
+`tools/`, `tests/`, `docs/08-development/AGENT-WORK-MODEL.md`, `docs/08-development/TEST-AND-VERIFICATION-POLICY.md`.
+
+### Reversal Conditions
+
+The tool can be removed without affecting any other artifact.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+`Q-014`.
+
+### Related Decisions
+
+`DEC-041`, `DEC-042`, `DEC-048`, `DEC-057`.

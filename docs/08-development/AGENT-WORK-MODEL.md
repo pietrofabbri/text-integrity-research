@@ -20,7 +20,7 @@ It does not add a requirement beyond its sources and does not set any numeric va
 
 It does not supersede `P00-project-governance.md`. Under `P00` §2, a lower-level artifact may not silently redefine a higher-level one.
 
-**State of the repository (verified 2026-11-09):** it contains no implementation. The only code is two documentation-generating scripts at the root (`update_project_map.py`, `update_research_map.py`), with no build manifest or test suite. Rules about tests, builds and dependencies are therefore recorded here for use once implementation begins. Until then, documentation batches apply them only as far as they are applicable (§8).
+**State of the repository (verified 2026-11-09):** it contains no implementation. At that date the only code was two documentation-generating scripts, later retired by `DEC-057`. `DEC-058` adds one audit tool with tests. No capability is implemented. Rules about tests, builds and dependencies are therefore recorded here for use once implementation begins. Until then, documentation batches apply them only as far as they are applicable (§8).
 
 ---
 
@@ -128,7 +128,7 @@ At the end of every substantial batch the agent performs a repository-wide consi
 
 The right-hand column is an **INFERENCE** from §1.
 
-**Automated audit (§122):** the project "should eventually" provide a command for these checks. It does not exist (verified 2026-11-09), so the checks are performed by the agent directly. Result vocabulary is recorded at AWM-C7. A WARNING may be reported without stopping a batch; a BLOCKING issue prevents completion (§123).
+**Automated audit (§122):** the project "should eventually" provide a command for these checks. `tools/verify_docs.py` (`DEC-058`) implements part of it; the remaining checks are performed by the agent directly. Result vocabulary is recorded at AWM-C7. A WARNING may be reported without stopping a batch; a BLOCKING issue prevents completion (§123).
 
 ---
 
@@ -191,12 +191,12 @@ No research finding on AI-assisted software development was located in `docs/00-
 |---|---|---|
 | AWM-G1 | No mapping between `LOW–CRITICAL` and `C0–C4` (AWM-C2) | Governance decision |
 | AWM-G2 | Corrected by `DEC-048`: `SECURITY-MAP.md` §75 allows autonomy at LOW or approved MEDIUM. Remaining gap: how a MEDIUM batch is approved (`AGENT-SECURITY-BOUNDARY.md` ASB-G3) and how §75 relates to `P00` §12 | `P00` / this document |
-| AWM-G3 | The audit command of §122 does not exist | Implementation tranche |
+| AWM-G3 | Partly addressed by `tools/verify_docs.py` (`DEC-058`); §116, §117, §119–121 are not automated | Implementation tranche |
 | AWM-G4 | "Resource budget" in `P00` §7, §10: no definition of unit or convention for a tranche was found. Other uses in the corpus concern storage and runtime (`DATA-MODEL.md` §7) | `P00` |
 | AWM-G5 | "Substantial batch" (§115), "significant change" (§16) and "major capability" (§22) have no stated criterion | This document, by decision |
 | AWM-G6 | Status of cloud session containers with respect to §6 | Owner decision before implementation |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** AWM-G1, AWM-G4 and AWM-G6 are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 

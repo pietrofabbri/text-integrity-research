@@ -83,7 +83,7 @@ This document formalizes how third-party and generated artifacts are treated, an
 | SCS-G4 | Hash algorithm and allowed model formats are not selected | Implementation tranche |
 | SCS-G5 | What makes a dependency "high-risk" (§19) has no stated criterion beyond "security-sensitive dependency" (§21) | `SECURITY-MAP.md`, by decision |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** the branching part of SCS-G2 (protection and SCS-G3 stay open) are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 

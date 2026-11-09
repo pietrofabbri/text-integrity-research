@@ -406,9 +406,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Option (b): the scales stay as two separate dimensions. `LOW–CRITICAL` measures risk; `C0–C4` measures breadth of impact. Every classified change carries both, and the stricter treatment applies. No mapping is defined. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -443,9 +447,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Options (a) and (c): approval of a tranche covers the MEDIUM batches inside it. A CRITICAL change needs an owner statement naming that specific change; a general delegation does not count. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -480,9 +488,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Not applicable to documentation tranches. An implementation tranche states in its definition any limit on storage or paid external services, or states `none`. No unit or value is set here. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -517,9 +529,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Option (a): the session container counts as the local environment for execution. It is not offline, so the `OFFLINE` profile must disable network access itself. Approved commands: git without history rewriting, the project's validation commands, and installation of already authorized dependencies. The two `update_*_map.py` scripts are excluded. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -554,9 +570,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Python. Runtime dependencies are added only with a recorded reason (`DEVELOPMENT-MAP.md` §78). Tests start on the standard library `unittest`; `ruff` and `mypy` are development-only checks. This is an engineering judgment, based on the ecosystem around the models named in `R09`, and no comparative evaluation was carried out. The version is set by the first manifest. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -591,9 +611,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Option (a): both scripts are retired and removed from the working tree. They remain recoverable from Git history. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -628,9 +652,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Option (a): a short description with a pointer to `START-HERE.md`. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -665,9 +693,13 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+Option (b): the agent performs the review and reports it; HIGH and CRITICAL findings and every security exception require owner sign-off. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED
 
 
 ---
@@ -701,6 +733,10 @@ YES, for implementation; NO, for documentation tranches.
 ### Owner
 
 Human
+
+### Partial Resolution
+
+Decided by `DEC-057`, on the owner's delegation: documentation may be pushed directly to `main`; code goes through branches; history is never rewritten. Still open: protection of `main` (a repository setting this agent's session cannot change, so it needs the owner) and the location of a second copy.
 
 ### Status
 
@@ -739,6 +775,10 @@ YES, for implementation; NO, for documentation tranches.
 
 Human
 
+### Resolution
+
+`OFFLINE` is the default mode, the most restrictive §14 allows. Individual user text is treated as `UNKNOWN` under `DATA-MAP.md` §35: never sent externally without an explicit opt-in for that run. The network-mode vocabulary stays unreconciled under `DEC-012`. Decided 2026-11-09 by `DEC-057`, on the owner's delegation.
+
 ### Status
 
-OPEN
+RESOLVED

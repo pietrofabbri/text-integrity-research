@@ -109,7 +109,7 @@ Credentials are never committed. They must not be embedded in source code, commi
 | TDB-G4 | The "secure local mechanism" (§37) and "appropriate metadata level" (§10) are undefined | Implementation tranche |
 | TDB-G5 | No mechanism yet separates private from public data (§55) | `07-data` |
 
-No value has been supplied for any of these.
+No value has been supplied for any of these. **Update 2026-11-09:** TDB-G1 and TDB-G2 (`TDB-C1` stays open) are decided by `DEC-057`; see `OPEN-QUESTIONS.md`.
 
 ---
 
