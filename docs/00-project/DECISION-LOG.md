@@ -3834,3 +3834,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-009`, `DEC-012`, `DEC-051`.
+
+
+---
+
+## DEC-053 — Execute Tranche 2 of the 07-Data Roadmap: Draft DATA-GOVERNANCE-AND-LICENSING.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-051` boundaries and delegated instruction to proceed (2026-11-09), `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md` is drafted and made active as Tranche 2 of `DATA-MAP.md` §126, formalizing §34–40, §100, §105–106, §110–111, §115, §118–121 and §124–125. It adds no requirement or numeric value beyond its sources and records DGL-C1 to DGL-C3 and DGL-G1 to DGL-G4, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-051`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+No legal conclusion is drawn; `Q-007` remains open, and its evidence is reproduced with its caveats.
+
+### Affected Areas
+
+`docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md`, `docs/07-data/DATA-MAP.md` (§126, §127), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+`R-0016`, `R-0020`, `R-0049`, `R-0088`, `R-0099` as recorded in `Q-007`.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-012`, `DEC-051`.

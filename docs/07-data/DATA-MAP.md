@@ -1740,7 +1740,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Language and label metadata must stay consistent with `05-validation` and `LANGUAGE-ARCHITECTURE.md`.
 
 
-## Tranche 2 — `DATA-GOVERNANCE-AND-LICENSING.md` (Approved, not executed)
+## Tranche 2 — `DATA-GOVERNANCE-AND-LICENSING.md` (Executed 2026-11-09, `DEC-053`)
 
 - **Objective / allowed scope:** Formalize privacy classes, transfer eligibility, personal data, licensing, data security boundary, data cards, citations and acquisition. Sources in this map: §34–40, §100, §105–106, §110–111, §115, §118–121, §124–125.
 - **Expected deliverable:** `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md`, plus its `DECISION-LOG.md` entry and §127 update.
@@ -1791,3 +1791,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 
 # 127. Data Architecture Tranche Log
 - **Tranche 1 (Executed 2026-11-09):** `docs/07-data/DATA-IDENTITY-AND-METADATA.md` (`DEC-052`). Records DIM-C1 to DIM-C3 and DIM-G1 to DIM-G4.
+- **Tranche 2 (Executed 2026-11-09):** `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md` (`DEC-053`). Records DGL-C1 to DGL-C3 and DGL-G1 to DGL-G4.
