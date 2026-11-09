@@ -3676,3 +3676,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-012`, `DEC-034`, `DEC-043`, `DEC-046`.
+
+
+---
+
+## DEC-050 — Execute Tranche 4 of the 06-Security Roadmap: Draft RESILIENCE-AND-SECURITY-ASSURANCE.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-046` boundaries and delegated instruction to proceed (2026-11-09), `docs/06-security/RESILIENCE-AND-SECURITY-ASSURANCE.md` is drafted and made active as Tranche 4 of `SECURITY-MAP.md` §92, formalizing §34–35, §63–72 and §79–91. It adds no requirement or numeric value beyond its sources and records RSA-C1 to RSA-C3 and RSA-G1 to RSA-G5, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-046`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+This closes the four-tranche roadmap of `SECURITY-MAP.md` §92 and propagates the `06-security` portions of `DCQ-006` and `DCQ-007`. Both entries stay `IN_PROGRESS` for their other deferred portions, including `10-certification`.
+
+### Affected Areas
+
+`docs/06-security/RESILIENCE-AND-SECURITY-ASSURANCE.md`, `docs/06-security/SECURITY-MAP.md` (§92, §93), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+`R-0015`, `R-0022`, `R-0040`, `R-0086`, `KB-011`, `R-0065`–`R-0069`.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-009`, `DEC-012`, `DEC-046`.

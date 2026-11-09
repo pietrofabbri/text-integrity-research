@@ -382,6 +382,9 @@ concrete "per-language capability-state defaults" this item's `Required
 Updates` called for. The lower-priority R02/R03 internal-naming update
 (translation-based evasion) remains not performed.
 
+**Update 2026-11-09:** the `06-security` portion of DCQ-006 is addressed in `RESILIENCE-AND-SECURITY-ASSURANCE.md` §8 (`DEC-050`). The entry stays `IN_PROGRESS` for its remaining deferred portions, including `10-certification`.
+
+
 ---
 
 ## DCQ-007 — Propagate Two Scientific-Integrity Gaps Found by the Q001 Audit
@@ -460,6 +463,9 @@ deferred, matching DCQ-006's rationale — those areas are still in
 structural-definition phase in substance. This entry stays `IN_PROGRESS`
 rather than moving to `VERIFIED`/`CLOSED` until the deferred portions are
 addressed or explicitly re-scoped.
+
+**Update 2026-11-09:** the `06-security` portion of DCQ-007 is addressed in `RESILIENCE-AND-SECURITY-ASSURANCE.md` §8 (`DEC-050`). The entry stays `IN_PROGRESS` for its remaining deferred portions, including `10-certification`.
+
 
 ---
 

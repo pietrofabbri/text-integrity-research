@@ -1344,7 +1344,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Must align with `ENGINEERING-STANDARDS.md` (ENG-C3, ENG-C4) and `DATA-MAP.md`. §52 must respect the plugin scoping of `DEC-034`.
 
 
-## Tranche 4 — `RESILIENCE-AND-SECURITY-ASSURANCE.md` (Approved, not executed)
+## Tranche 4 — `RESILIENCE-AND-SECURITY-ASSURANCE.md` (Executed 2026-11-09, `DEC-050`)
 
 - **Objective / allowed scope:** Formalize logging, error handling, resource exhaustion, failure isolation, recovery, security testing, vulnerability management, status and exceptions, security documentation, relation to certification and to research, quality gates, incident response, lifecycle. Sources in this map: §34–35, §63–72, §79–91.
 - **Expected deliverable:** `docs/06-security/RESILIENCE-AND-SECURITY-ASSURANCE.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1361,3 +1361,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Tranche 1 (Executed 2026-11-09):** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md` (`DEC-047`). Records TDB-C1 to TDB-C4 and TDB-G1 to TDB-G5.
 - **Tranche 2 (Executed 2026-11-09):** `docs/06-security/AGENT-SECURITY-BOUNDARY.md` (`DEC-048`). Records ASB-C1 to ASB-C5 and ASB-G1 to ASB-G4.
 - **Tranche 3 (Executed 2026-11-09):** `docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (`DEC-049`). Records SCS-C1 to SCS-C4 and SCS-G1 to SCS-G5.
+- **Tranche 4 (Executed 2026-11-09):** `docs/06-security/RESILIENCE-AND-SECURITY-ASSURANCE.md` (`DEC-050`). Records RSA-C1 to RSA-C3 and RSA-G1 to RSA-G5.
