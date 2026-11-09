@@ -3372,3 +3372,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-005`, `DEC-012`, `DEC-040`, `DEC-041`.
+
+
+---
+
+## DEC-044 — Execute Tranche 4 of the 08-Development Roadmap: Draft CAPABILITY-EVOLUTION-POLICY.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-040` boundaries and instruction to proceed with all remaining tranches (2026-11-09), `docs/08-development/CAPABILITY-EVOLUTION-POLICY.md` is drafted and made active as Tranche 4 of `DEVELOPMENT-MAP.md` §202, formalizing §25–35 and §83–103. It adds no requirement or numeric value beyond its sources and records CEP-C1 to CEP-C5 and CEP-G1 to CEP-G4, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-040`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+Capability work must meet both the development rules and the gates of `CAPABILITY-ARCHITECTURE.md`. The lifecycle vocabulary stays unreconciled; this document writes in its Parent's vocabulary without claiming authority for it.
+
+### Affected Areas
+
+`docs/08-development/CAPABILITY-EVOLUTION-POLICY.md`, `docs/08-development/DEVELOPMENT-MAP.md` (§202, §203), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+No new finding. KB-008, KB-010 and `R09` §10.3–10.4 as recorded in `CAPABILITY-ARCHITECTURE.md` §10.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-003`, `DEC-009`, `DEC-012`, `DEC-029`, `DEC-030`, `DEC-035`, `DEC-040`, `DEC-041`.
