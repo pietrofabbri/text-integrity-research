@@ -178,7 +178,7 @@ Recorded 2026-11-09. These are facts about the current way of working, not requi
 - **Owner's instruction (2026-11-09):** the owner works only through the GitHub web interface and does not run terminal commands. The agent performs git operations itself.
 - **Access:** a cloud session authorized for this repository can clone and push directly. This replaces the bundle workflow of the 2026-11-08 handoff.
 - **Volatility:** session containers are temporary, so work must be pushed. `DEC-010` applies.
-- **Git practice (PROPOSAL, derived from `P00` §8 and the 2026-10-05 incident recorded in the project's status notes):** no force pushes or rewriting of published history by the agent. `main` currently has no branch protection (verified 2026-11-09).
+- **Git practice (PROPOSAL, derived from `P00` §8 and the 2026-10-05 incident recorded in the project's status notes):** no force pushes or rewriting of published history by the agent. The owner enabled protection of `main` against force push and deletion on 2026-11-09 (verified).
 - **Relation to §6 of the map:** whether cloud session containers count as "local" for the purposes of `DEVELOPMENT-MAP.md` §6 is not established. It becomes relevant when tests first run; see AWM-G6.
 
 ---

@@ -78,7 +78,7 @@ This document formalizes how third-party and generated artifacts are treated, an
 | ID | Gap | Would normally belong in |
 |---|---|---|
 | SCS-G1 | Permissions are absent from the capability record (SCS-C3) | `CAPABILITY-ARCHITECTURE.md`, by decision |
-| SCS-G2 | No branching model. Current practice is direct push to `main`, which has no branch protection (verified 2026-11-09) | Owner decision before implementation |
+| SCS-G2 | No branching model. Current practice is direct push to `main`. Update: `DEC-057` set the model, and the owner enabled protection of `main` on 2026-11-09 (verified) | Owner decision before implementation |
 | SCS-G3 | The backup location is not defined; GitHub is the only remote copy known from the repository | Owner decision |
 | SCS-G4 | Hash algorithm and allowed model formats are not selected | Implementation tranche |
 | SCS-G5 | What makes a dependency "high-risk" (§19) has no stated criterion beyond "security-sensitive dependency" (§21) | `SECURITY-MAP.md`, by decision |

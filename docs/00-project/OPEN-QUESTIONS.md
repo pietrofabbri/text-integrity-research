@@ -736,7 +736,7 @@ Human
 
 ### Partial Resolution
 
-Decided by `DEC-057`, on the owner's delegation: documentation may be pushed directly to `main`; code goes through branches; history is never rewritten. Still open: protection of `main` (a repository setting this agent's session cannot change, so it needs the owner) and the location of a second copy.
+Decided by `DEC-057`, on the owner's delegation: documentation may be pushed directly to `main`; code goes through branches; history is never rewritten. The owner enabled protection of `main` on 2026-11-09 (force pushes and deletion blocked, including for administrators; verified through the GitHub API). Still open: the location of a second copy.
 
 ### Status
 
