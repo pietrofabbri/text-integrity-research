@@ -2306,7 +2306,7 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 - **Known constraint:** Must align with `05-validation` (DEC-036–DEC-039) without restating its thresholds.
 
 
-## Tranche 3 — `ENGINEERING-STANDARDS.md` (Approved, not executed)
+## Tranche 3 — `ENGINEERING-STANDARDS.md` (Executed 2026-11-09, `DEC-043`)
 
 - **Objective / allowed scope:** Formalize code quality, error handling, result status, builds, dependency management, commit discipline, rollback, release candidate, generated files, repository cleanliness. Sources in this map: §67–82, §104–109, §126–132.
 - **Expected deliverable:** `docs/08-development/ENGINEERING-STANDARDS.md`, plus its `DECISION-LOG.md` entry and §203 update.
@@ -2341,3 +2341,4 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 
 - **Tranche 1 (Executed 2026-11-09):** `docs/08-development/AGENT-WORK-MODEL.md` (`DEC-041`). Records AWM-C1 to AWM-C8 and AWM-G1 to AWM-G6.
 - **Tranche 2 (Executed 2026-11-09):** `docs/08-development/TEST-AND-VERIFICATION-POLICY.md` (`DEC-042`). Records TVP-C1 to TVP-C3 and TVP-G1 to TVP-G5.
+- **Tranche 3 (Executed 2026-11-09):** `docs/08-development/ENGINEERING-STANDARDS.md` (`DEC-043`). Records ENG-C1 to ENG-C4, risk ENG-R1 and gaps ENG-G1 to ENG-G5.

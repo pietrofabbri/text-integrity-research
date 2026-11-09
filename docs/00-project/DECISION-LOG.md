@@ -3323,3 +3323,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-005`, `DEC-012`, `DEC-036`–`DEC-039`, `DEC-040`, `DEC-041`.
+
+
+---
+
+## DEC-043 — Execute Tranche 3 of the 08-Development Roadmap: Draft ENGINEERING-STANDARDS.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-040` boundaries and instruction to proceed with all remaining tranches (2026-11-09), `docs/08-development/ENGINEERING-STANDARDS.md` is drafted and made active as Tranche 3 of `DEVELOPMENT-MAP.md` §202, formalizing §67–82, §104–109 and §126–132. It adds no requirement or numeric value beyond its sources and records ENG-C1 to ENG-C4, risk ENG-R1 and gaps ENG-G1 to ENG-G5, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-040`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+Implementation needs a language and tooling decision (ENG-G1). The two root generator scripts would overwrite newer documents if run and must not be run until the owner decides their disposition (ENG-R1, ENG-G4).
+
+### Affected Areas
+
+`docs/08-development/ENGINEERING-STANDARDS.md`, `docs/08-development/DEVELOPMENT-MAP.md` (§202, §203), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-005`, `DEC-012`, `DEC-040`, `DEC-041`.
