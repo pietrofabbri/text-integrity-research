@@ -4229,3 +4229,52 @@ None applicable; recorded as a condition not met for `VALIDATED`.
 ### Related Decisions
 
 `DEC-015`, `DEC-057`, `DEC-058`, `DEC-059`.
+
+
+---
+
+## DEC-061 — Second Capability: Lexical Minimality Measurement (Experimental)
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's delegation ("prendi le decisioni che ti sembrano più sensate e procedi", 2026-11-09), `CAP-VALIDATE-MINIMALITY-LEXICAL` is specified in `docs/05-validation/MINIMALITY-MEASUREMENT-CAPABILITY.md` and implemented in `src/text_integrity/measure_minimality.py`, with status `EXPERIMENTAL`. It reports measurements separately, with no combined score and no `PASS` or `FAIL`. Token metrics use the declared `whitespace-v1` tokenizer and are `not measurable` for Japanese and Chinese.
+
+### Rationale
+
+`FIDELITY-VALIDATION-PROTOCOL.md` §8.2 requires these measurements and most are deterministic. The ratio definitions are the agent's, since no document defines them, and are stated in the specification.
+
+### Alternatives Considered
+
+A combined minimality score: rejected by `FIDELITY-VALIDATION-PROTOCOL.md` §8.1 and `FID-037`. A whitespace fallback for Japanese and Chinese: rejected by `LANGUAGE-ARCHITECTURE.md` (no silent fallback).
+
+### Consequences
+
+MEDIUM risk, C2 impact, approved under `DEC-057`. All 41 unit tests pass, and `character_edit_distance` agrees with a reference implementation on 500 random cases. Gaps are listed in the specification, including the structured diff that `FIDELITY-VALIDATION-PROTOCOL.md` §2 attributes to its §8.
+
+### Affected Areas
+
+`src/`, `tests/`, `docs/05-validation/MINIMALITY-MEASUREMENT-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal; selection of a linguistic tokenizer.
+
+### Related Research
+
+None applicable; recorded as a condition not met for `VALIDATED`.
+
+### Related Questions
+
+`Q-005`.
+
+### Related Decisions
+
+`DEC-057`, `DEC-059`, `DEC-060`.
