@@ -3421,3 +3421,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-003`, `DEC-009`, `DEC-012`, `DEC-029`, `DEC-030`, `DEC-035`, `DEC-040`, `DEC-041`.
+
+
+---
+
+## DEC-045 — Execute Tranche 5 of the 08-Development Roadmap: Draft DOCUMENTATION-AND-MAINTENANCE-POLICY.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-040` boundaries and instruction to proceed with all remaining tranches (2026-11-09), `docs/08-development/DOCUMENTATION-AND-MAINTENANCE-POLICY.md` is drafted and made active as Tranche 5 of `DEVELOPMENT-MAP.md` §202, formalizing §36–45, §110–114, §133–158 and §174–186. It adds no requirement or numeric value beyond its sources and records DMP-C1 to DMP-C4 and DMP-G1 to DMP-G5, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-040`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+This closes the five-tranche roadmap of `DEVELOPMENT-MAP.md` §202. `08-development` is complete as a definition-phase exit; no implementation exists. Lifecycle reconciliation stays deferred under `DEC-012` until `06-security`, `07-data`, `09-operations` and `10-certification` also leave the definition phase.
+
+### Affected Areas
+
+`docs/08-development/DOCUMENTATION-AND-MAINTENANCE-POLICY.md`, `docs/08-development/DEVELOPMENT-MAP.md` (§202, §203), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-006`, `DEC-010`, `DEC-012`, `DEC-040`, `DEC-041`.

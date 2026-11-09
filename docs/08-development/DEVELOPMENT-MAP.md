@@ -2326,7 +2326,7 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 - **Known constraint:** §27 is a further lifecycle enumeration; reconciliation stays deferred per `DEC-012`.
 
 
-## Tranche 5 — `DOCUMENTATION-AND-MAINTENANCE-POLICY.md` (Approved, not executed)
+## Tranche 5 — `DOCUMENTATION-AND-MAINTENANCE-POLICY.md` (Executed 2026-11-09, `DEC-045`)
 
 - **Objective / allowed scope:** Formalize impact analysis, documentation synchronization, debt registers, onboarding and context preservation, change propagation, maintenance, reproducibility and archives. Sources in this map: §36–45, §110–114, §133–158, §174–186.
 - **Expected deliverable:** `docs/08-development/DOCUMENTATION-AND-MAINTENANCE-POLICY.md`, plus its `DECISION-LOG.md` entry and §203 update.
@@ -2343,3 +2343,4 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 - **Tranche 2 (Executed 2026-11-09):** `docs/08-development/TEST-AND-VERIFICATION-POLICY.md` (`DEC-042`). Records TVP-C1 to TVP-C3 and TVP-G1 to TVP-G5.
 - **Tranche 3 (Executed 2026-11-09):** `docs/08-development/ENGINEERING-STANDARDS.md` (`DEC-043`). Records ENG-C1 to ENG-C4, risk ENG-R1 and gaps ENG-G1 to ENG-G5.
 - **Tranche 4 (Executed 2026-11-09):** `docs/08-development/CAPABILITY-EVOLUTION-POLICY.md` (`DEC-044`). Records CEP-C1 to CEP-C5 and CEP-G1 to CEP-G4.
+- **Tranche 5 (Executed 2026-11-09):** `docs/08-development/DOCUMENTATION-AND-MAINTENANCE-POLICY.md` (`DEC-045`). Records DMP-C1 to DMP-C4 and DMP-G1 to DMP-G5.
