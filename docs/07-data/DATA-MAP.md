@@ -1764,7 +1764,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** The 30 GB constraint is approximate (`KB-007`); no finer allocation may be invented.
 
 
-## Tranche 4 — `DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md` (Approved, not executed)
+## Tranche 4 — `DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md` (Executed 2026-11-09, `DEC-055`)
 
 - **Objective / allowed scope:** Formalize ingestion, duplicates, contamination, leakage, splits, balance, label quality, controls, translation data, activation gates and quality gates. Sources in this map: §50–66, §83–86, §88–89, §112–113, §116–117.
 - **Expected deliverable:** `docs/07-data/DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md`, plus its `DECISION-LOG.md` entry and §127 update.
@@ -1793,3 +1793,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Tranche 1 (Executed 2026-11-09):** `docs/07-data/DATA-IDENTITY-AND-METADATA.md` (`DEC-052`). Records DIM-C1 to DIM-C3 and DIM-G1 to DIM-G4.
 - **Tranche 2 (Executed 2026-11-09):** `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md` (`DEC-053`). Records DGL-C1 to DGL-C3 and DGL-G1 to DGL-G4.
 - **Tranche 3 (Executed 2026-11-09):** `docs/07-data/DATA-STORAGE-AND-AVAILABILITY.md` (`DEC-054`). Records DSA-C1 to DSA-C3 and DSA-G1 to DSA-G4.
+- **Tranche 4 (Executed 2026-11-09):** `docs/07-data/DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md` (`DEC-055`). Records DQI-C1 to DQI-C3 and DQI-G1 to DQI-G4.
