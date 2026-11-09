@@ -2296,7 +2296,7 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 - **Known constraint:** Must record, not resolve, the four unreconciled human-approval lists (§14, §20, `SECURITY-MAP.md` §19/§77; `CLAUDE-CONSOLIDATION-REPORT.md` SECOND PASS §4S/§12S).
 
 
-## Tranche 2 — `TEST-AND-VERIFICATION-POLICY.md` (Approved, not executed)
+## Tranche 2 — `TEST-AND-VERIFICATION-POLICY.md` (Executed 2026-11-09, `DEC-042`)
 
 - **Objective / allowed scope:** Formalize test categories, determinism, offline suite, benchmark integrity, scientific holdout, verification profiles, failure policy, Development Quality Gate. Sources in this map: §46–66, §159–169, §187.
 - **Expected deliverable:** `docs/08-development/TEST-AND-VERIFICATION-POLICY.md`, plus its `DECISION-LOG.md` entry and §203 update.
@@ -2340,3 +2340,4 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 # 203. Development Architecture Tranche Log
 
 - **Tranche 1 (Executed 2026-11-09):** `docs/08-development/AGENT-WORK-MODEL.md` (`DEC-041`). Records AWM-C1 to AWM-C8 and AWM-G1 to AWM-G6.
+- **Tranche 2 (Executed 2026-11-09):** `docs/08-development/TEST-AND-VERIFICATION-POLICY.md` (`DEC-042`). Records TVP-C1 to TVP-C3 and TVP-G1 to TVP-G5.

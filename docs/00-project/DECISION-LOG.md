@@ -3274,3 +3274,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-001`, `DEC-004`, `DEC-005`, `DEC-006`, `DEC-010`, `DEC-012`, `DEC-036`, `DEC-040`.
+
+
+---
+
+## DEC-042 — Execute Tranche 2 of the 08-Development Roadmap: Draft TEST-AND-VERIFICATION-POLICY.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-040` boundaries and instruction to proceed with all remaining tranches (2026-11-09), `docs/08-development/TEST-AND-VERIFICATION-POLICY.md` is drafted and made active as Tranche 2 of `DEVELOPMENT-MAP.md` §202, formalizing §46–66, §159–169 and §187. It adds no requirement or numeric value beyond its sources and records TVP-C1 to TVP-C3 and TVP-G1 to TVP-G5, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-040`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+Test rules apply from the first implementation batch. Tolerances and blocking checks (TVP-G1, TVP-G2) must be set per capability before they are relied on.
+
+### Affected Areas
+
+`docs/08-development/TEST-AND-VERIFICATION-POLICY.md`, `docs/08-development/DEVELOPMENT-MAP.md` (§202, §203), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+`R-0087`, `R-0088`, `R-0089` (as recorded in `R07` §80.2).
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-005`, `DEC-012`, `DEC-036`–`DEC-039`, `DEC-040`, `DEC-041`.
