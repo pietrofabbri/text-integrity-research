@@ -1320,7 +1320,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** §14 network modes are unreconciled with `OPERATIONS-MAP.md` §136: remain deferred per `DEC-012`.
 
 
-## Tranche 2 — `AGENT-SECURITY-BOUNDARY.md` (Approved, not executed)
+## Tranche 2 — `AGENT-SECURITY-BOUNDARY.md` (Executed 2026-11-09, `DEC-048`)
 
 - **Objective / allowed scope:** Formalize the security perimeter of AI-assisted development: development environment, agent operating boundary, prompt injection defense, review of AI-generated code, security gates for batches. Sources in this map: §15–24, §48–50, §73–78.
 - **Expected deliverable:** `docs/06-security/AGENT-SECURITY-BOUNDARY.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1359,3 +1359,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 
 # 93. Security Architecture Tranche Log
 - **Tranche 1 (Executed 2026-11-09):** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md` (`DEC-047`). Records TDB-C1 to TDB-C4 and TDB-G1 to TDB-G5.
+- **Tranche 2 (Executed 2026-11-09):** `docs/06-security/AGENT-SECURITY-BOUNDARY.md` (`DEC-048`). Records ASB-C1 to ASB-C5 and ASB-G1 to ASB-G4.

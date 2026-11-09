@@ -148,7 +148,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 47 recorded (`DEC-001`–`DEC-047`; `DEC-046` sets the `06-security` tranche roadmap; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
+- **Decisions**: 48 recorded (`DEC-001`–`DEC-048`; `DEC-046` sets the `06-security` tranche roadmap; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)

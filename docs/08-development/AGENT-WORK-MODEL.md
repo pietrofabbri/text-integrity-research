@@ -35,7 +35,7 @@ Per `NO-INVENTION-RULES.md` (Ambiguous Information), `DOCUMENT-AUTHORITY-MATRIX.
 | AWM-C3 | Examples within the `LOW–CRITICAL` scale | `DEVELOPMENT-MAP.md` §18–19; `SECURITY-MAP.md` §21 | "Data pipeline change" is MEDIUM in `DEVELOPMENT-MAP.md` §18; "data-processing change" is HIGH in `SECURITY-MAP.md` §21. Whether these name the same thing is not established. "Scientific methodology change" is HIGH in `SECURITY-MAP.md` §21 and absent from `DEVELOPMENT-MAP.md` §17–20. |
 | AWM-C4 | Stop conditions | `DEVELOPMENT-MAP.md` §12; `P00` §7 | Two lists that overlap partially. |
 | AWM-C5 | Tranche content and completion | `DEVELOPMENT-MAP.md` §196, §198; `P00` §10, §11 | `P00` §10 also requires authorized changes, Definition of Done, resource budget and stop conditions. `DEVELOPMENT-MAP.md` §196 also requires a verification profile and expected risk. |
-| AWM-C6 | Extent of autonomy | `DEVELOPMENT-MAP.md` §10, §18, §19; `P00` §12; `SECURITY-MAP.md` §77 | §10 grants batch autonomy explicitly for LOW-risk batches. `P00` §12 normally allows C0–C2 within a tranche. §18 does not say whether MEDIUM changes need approval. §19 requires HIGH changes to be "clearly reported and isolated"; `SECURITY-MAP.md` §77 triggers human review at HIGH. |
+| AWM-C6 | Extent of autonomy | `DEVELOPMENT-MAP.md` §10, §18, §19; `P00` §12; `SECURITY-MAP.md` §77 | §10 grants batch autonomy explicitly for LOW-risk batches. `P00` §12 normally allows C0–C2 within a tranche. §18 does not say whether MEDIUM changes need approval. §19 requires HIGH changes to be "clearly reported and isolated"; `SECURITY-MAP.md` §77 triggers human review at HIGH. **Corrected by `DEC-048`:** `SECURITY-MAP.md` §75 permits autonomous batches only at LOW or approved MEDIUM, which this entry originally missed. |
 | AWM-C7 | Audit result vocabulary | `DEVELOPMENT-MAP.md` §122, §123 | `PASS/WARN/FAIL` against the "suggested" `PASS/WARNING/BLOCKING`, in adjacent sections. |
 | AWM-C8 | Evidence labels | `DEVELOPMENT-MAP.md` §23; `NO-INVENTION-RULES.md` | Five labels (`KNOWN, SUPPORTED, PLAUSIBLE, EXPERIMENTAL, UNKNOWN`) against seven evidence classes. Whether they classify the same thing is not established. |
 
@@ -190,7 +190,7 @@ No research finding on AI-assisted software development was located in `docs/00-
 | ID | Gap | Would normally belong in |
 |---|---|---|
 | AWM-G1 | No mapping between `LOW–CRITICAL` and `C0–C4` (AWM-C2) | Governance decision |
-| AWM-G2 | Whether MEDIUM and HIGH batches may run autonomously (AWM-C6) | `P00` / this document |
+| AWM-G2 | Corrected by `DEC-048`: `SECURITY-MAP.md` §75 allows autonomy at LOW or approved MEDIUM. Remaining gap: how a MEDIUM batch is approved (`AGENT-SECURITY-BOUNDARY.md` ASB-G3) and how §75 relates to `P00` §12 | `P00` / this document |
 | AWM-G3 | The audit command of §122 does not exist | Implementation tranche |
 | AWM-G4 | "Resource budget" in `P00` §7, §10: no definition of unit or convention for a tranche was found. Other uses in the corpus concern storage and runtime (`DATA-MODEL.md` §7) | `P00` |
 | AWM-G5 | "Substantial batch" (§115), "significant change" (§16) and "major capability" (§22) have no stated criterion | This document, by decision |

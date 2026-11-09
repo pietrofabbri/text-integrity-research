@@ -3578,3 +3578,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-001`, `DEC-002`, `DEC-012`, `DEC-046`.
+
+
+---
+
+## DEC-048 — Execute Tranche 2 of the 06-Security Roadmap: Draft AGENT-SECURITY-BOUNDARY.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-046` boundaries and delegated instruction to proceed (2026-11-09), `docs/06-security/AGENT-SECURITY-BOUNDARY.md` is drafted and made active as Tranche 2 of `SECURITY-MAP.md` §92, formalizing §15–24, §48–50 and §73–78. It adds no requirement or numeric value beyond its sources and records ASB-C1 to ASB-C5 and ASB-G1 to ASB-G4, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-046`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+Autonomous code batches are not yet permitted, since no tests or validation commands exist. **Correction, per the project's verify-fourth discipline:** `AGENT-WORK-MODEL.md` AWM-C6 and AWM-G2 said no source settled autonomy for MEDIUM and HIGH batches; `SECURITY-MAP.md` §75 does, allowing LOW or approved MEDIUM only. Both entries are corrected.
+
+### Affected Areas
+
+`docs/06-security/AGENT-SECURITY-BOUNDARY.md`, `docs/06-security/SECURITY-MAP.md` (§92, §93), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-001`, `DEC-004`, `DEC-005`, `DEC-012`, `DEC-041`, `DEC-046`.
