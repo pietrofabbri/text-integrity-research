@@ -87,8 +87,8 @@ These are research findings, not requirements (`DEC-009`). No decision to expose
 | Finding | Source | Status of the evidence | Security relevance |
 |---|---|---|---|
 | A public watermark-detection API may enable oracle-style removal or spoofing, and so be an attack surface in itself | `R-0040`; `R02` §37.2; `R03` §43.4 | Registry marks all specific figures UNVERIFIED (single paper, author-reported). The qualitative trade-off is the better-supported claim | Any future decision to expose such an API must assess this. `R03` §43.4 names rate limiting and access control as the absent protections, and links watermark stealing (`R-0015`) |
-| Translation-based evasion is a separate attack class from paraphrasing | `KB-011`; `R-0065`, `R-0066`, `R-0068`, `R-0069` (`R-0067` is INCONCLUSIVE) | Multiple sources, per `KB-011` | Threat assumptions for watermark and detector capabilities must not assume paraphrasing is the only evasion route |
-| Detector bias against non-native writers, and prevalence dependence of false positives | `R-0022`, `R-0086`; `REQ-AID-004`, `REQ-STAT-004` | Handled in `STATISTICAL-VALIDATION-METHODOLOGY.md` | Per `DCQ-007`, these must not be silently absent where false-positive rates are discussed. A false accusation arising from a detector result is a harm that security review does not by itself address |
+| Translation-based evasion is a separate attack class from paraphrasing | `KB-011`; `R-0065`, `R-0066`, `R-0068`, `R-0069` (`R-0067` is INCONCLUSIVE) | Multiple sources, per `KB-011` | **INFERENCE:** threat assumptions for watermark and detector capabilities should not treat paraphrasing as the only evasion route |
+| Detector bias against non-native writers, and prevalence dependence of false positives | `R-0022`, `R-0086`; `REQ-AID-004`, `REQ-STAT-004` | Handled in `STATISTICAL-VALIDATION-METHODOLOGY.md` | Per `DCQ-007`, these must not be silently absent where false-positive rates are discussed. |
 
 No control, threshold or rate limit is defined here. Those would require a decision about exposure first (RSA-G4).
 
