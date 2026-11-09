@@ -3529,3 +3529,52 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-004`, `DEC-012`, `DEC-034`, `DEC-040`, `DEC-041`.
+
+
+---
+
+## DEC-047 — Execute Tranche 1 of the 06-Security Roadmap: Draft TRUST-AND-DATA-BOUNDARIES.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-046` boundaries and delegated instruction to proceed (2026-11-09), `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md` is drafted and made active as Tranche 1 of `SECURITY-MAP.md` §92, formalizing §2–14, §36–47 and §54–56. It adds no requirement or numeric value beyond its sources and records TDB-C1 to TDB-C4 and TDB-G1 to TDB-G5, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-046`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+`06-security` leaves its single-MAP phase. The document states requirements, not guarantees, since nothing is implemented.
+
+### Affected Areas
+
+`docs/06-security/TRUST-AND-DATA-BOUNDARIES.md`, `docs/06-security/SECURITY-MAP.md` (§92, §93), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+None specific to this tranche.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-001`, `DEC-002`, `DEC-012`, `DEC-046`.

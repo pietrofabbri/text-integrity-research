@@ -1308,7 +1308,7 @@ would change."
 **Status: ACCEPTED by `DEC-046` (2026-11-09), on the owner's delegated approval recorded there.**
 Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 
-## Tranche 1 — `TRUST-AND-DATA-BOUNDARIES.md` (Approved, not executed)
+## Tranche 1 — `TRUST-AND-DATA-BOUNDARIES.md` (Executed 2026-11-09, `DEC-047`)
 
 - **Objective / allowed scope:** Formalize trust zones, input and instruction isolation, original text protection, external communication and detectors, network modes, credentials, cloud data policy, offline guarantee, filesystem and path boundaries, safe defaults, data minimization, research data separation. Sources in this map: §2–14, §36–47, §54–56.
 - **Expected deliverable:** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1358,5 +1358,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 ---
 
 # 93. Security Architecture Tranche Log
-
-No tranche executed yet.
+- **Tranche 1 (Executed 2026-11-09):** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md` (`DEC-047`). Records TDB-C1 to TDB-C4 and TDB-G1 to TDB-G5.
