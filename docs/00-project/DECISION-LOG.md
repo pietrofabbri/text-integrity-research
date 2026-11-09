@@ -4483,3 +4483,52 @@ None new. `ACCEPTANCE-CRITERIA-OPTIONS.md` lists the decisions awaiting the owne
 ### Related Decisions
 
 `DEC-004`, `DEC-012`, `DEC-015`, `DEC-057`, `DEC-062`, `DEC-064`.
+
+
+---
+
+## DEC-066 — Numeric Integrity 0.4.0: Currency Symbols After Numbers and Abbreviated Months
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction ("correggi", 2026-11-09), following the agent-written cases in `TRIAL-GIT-HISTORY.md` §10: a currency symbol after a number is part of the number's identity, `EUR`, `USD`, `GBP` and `JPY` count as their symbols, and abbreviated month names are read as dates when a number follows.
+
+### Rationale
+
+`500 €` changed to `500 $` passed, in the form usual in Italian and French. A change of month in `15 mar. 2024` also passed. Both were unearned `PASS` results (`FID-008`, `FID-009`).
+
+### Alternatives Considered
+
+Reading abbreviations without a following number: rejected, because they collide with ordinary words. Correcting the remaining false alarms in the same change: left open, because they do not hide changes.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `tests/test_validate_numeric.py`, `docs/05-validation/`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-057`, `DEC-062`, `DEC-064`, `DEC-065`.

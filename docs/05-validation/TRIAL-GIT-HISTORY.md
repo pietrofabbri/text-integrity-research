@@ -107,3 +107,11 @@ No failure was raised that the owner's list does not explain.
 **Word-level comparison by the agent, not by a capability:** it found 21 differing regions, covering all 19 listed changes, and three the list does not mention: `nutzen zunehmend` to `setzen immer häufiger ... ein`, `nahm` to `stieg`, and `solcher` to `dieser`. As in §7, an owner's list can be incomplete, which is relevant to `ACCEPTANCE-CRITERIA-OPTIONS.md` D3. None of the three raised a failure.
 
 The text contains no dates and no text without spaces, so this trial does not exercise those parts of 0.3.0. Using this pair for later fixes would make it development data (`ACCEPTANCE-CRITERIA-OPTIONS.md` D5).
+
+# 10. Addendum: Agent-Written Cases on Dates and Numbers (2026-11-09)
+
+The agent wrote 50 short cases in Italian, French, Japanese and Chinese, with its own expected outcome for each, plus four on currency. The author knows the code, so this is a software check, not independent evidence, and it supports no rate. Twelve of the 50 differed from expectation.
+
+- **Changes missed:** `500 €` to `500 $` gave `PASS`, because a currency symbol after a number was not read (a defect since the first version), and `15 mar. 2024` to `15 apr. 2024` gave `PASS`. Both are fixed in 0.4.0 (`DEC-066`).
+- **False alarms left open:** `14:30` to `14.30`, `15 marzo` to `15/03`, a two-digit year (`'24`), a month name without its accent (`aout`, `fevrier`) and Japanese era years. `€ 1.200,00` to `1.200,00 €` is fixed by the same change.
+- **Expected by design:** four cases gave `partially measured` because they depend on a declared convention; the agent's expectation of `PASS` was wrong.

@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.3.0 |
+| `version` | 0.4.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -52,6 +52,8 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Dates (0.3.0):** dates are read as whole items and compared as dates, in support of `FID-009`; their digits are not also counted as numbers. Forms read: `YYYY-MM-DD` and `D/M/YYYY` with `-`, `/` or `.` as separator; full month names of the 11 languages written with spaces (`15 marzo 2024`, `March 15, 2024`, `5 de mayo de 2021`, `15. März 2024`, with or without day or year); `2024年3月15日` and its shorter forms in Japanese and Chinese. The same date in another form is class `equivalent` in `comparison.dates` and does not fail. A changed, removed or added date, including a dropped month or year, fails.
 
+**Abbreviated months (0.4.0):** the abbreviations in `MONTH_ABBREVIATIONS` are read only when a number follows (`15 mar. 2024`, `Mar 2024`, English `Mar 5`), because alone they collide with ordinary words.
+
 **Date convention (a declared simplification):** an all-digit date that is valid both as day-first and month-first is read day-first, except in English, where both readings are kept because both are in use. A pairing that depends on this cannot give more than `partially measured`.
 
 # 4. Outcomes
@@ -63,7 +65,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `PASS` | All numbers paired, in order, without relying on the convention |
 | `unsupported`, `not measurable` | Unknown language, or input above `max_chars` |
 
-`equivalent` values (`0.50` and `0.5`) do not fail, and remain visible. Rounding fails unless the experiment sets `permit_rounding`. Percent and currency symbol form part of a number's identity. `constraint_type` has no default (`FID-041`). Inputs are unaltered (`DEC-059`). Risk: MEDIUM, C2. Review under `AGENT-SECURITY-BOUNDARY.md` §7: none of the listed behaviors.
+`equivalent` values (`0.50` and `0.5`) do not fail, and remain visible. Rounding fails unless the experiment sets `permit_rounding`. Percent and currency symbol form part of a number's identity. Since 0.4.0 the symbol may stand before or after the number, and `EUR`, `USD`, `GBP` and `JPY` count as the same currency as their symbols; currency words (`euro`) are not read. `constraint_type` has no default (`FID-041`). Inputs are unaltered (`DEC-059`). Risk: MEDIUM, C2. Review under `AGENT-SECURITY-BOUNDARY.md` §7: none of the listed behaviors.
 
 # 5. Known Limitations
 
@@ -71,7 +73,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
 - Conversions are exact and metric only: `5 km` and `3.1 miles` are reported as changed. Single-letter units can be misread, as in `Room 5 B`. Temperature scales and currencies are never converted.
 - Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.
-- Abbreviated month names (`Jan`, `gen.`), inflected forms not listed in `MONTHS` (Russian `в марте`, for example) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
+- Abbreviated month names with no number after them (`15 mar.`), inflected forms not listed in `MONTHS` (Russian `в марте`, for example) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
 - A number after an English month name is read as a day, so `In May 30 people came` gives a date. Date order is checked among dates only, not against the surrounding numbers.
 - Ranges, comparisons, magnitudes in words (`3 million`) and expressions (`FID-008`) are not interpreted.
 - A plain space is not treated as digit grouping, because it could separate two numbers.

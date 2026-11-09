@@ -236,5 +236,46 @@ class TextsWithoutSpaces(unittest.TestCase):
         self.assertEqual(values("v2 and H2O"), [])
 
 
+class CurrencyAfterNumber(unittest.TestCase):
+    def outcome(self, a, b, language="it"):
+        return run(a, b, language=language)["outcome"]
+
+    def test_changed_symbol_fails(self):
+        self.assertEqual(self.outcome("Costa 500 €", "Costa 500 $"), "FAIL")
+        self.assertEqual(self.outcome("Costa 1.200,50 €", "Costa 1.200,50 £"), "FAIL")
+        self.assertEqual(self.outcome("Coûte 500\u00a0€", "Coûte 500\u00a0$", "fr"), "FAIL")
+        self.assertEqual(self.outcome("Costa 500 EUR", "Costa 500 USD"), "FAIL")
+
+    def test_same_currency_in_another_position_passes(self):
+        self.assertEqual(self.outcome("€ 1.200,00", "1.200,00 €"), "PASS")
+        self.assertEqual(self.outcome("500 EUR", "500 €"), "PASS")
+        self.assertEqual(self.outcome("500 €", "500\u00a0€"), "PASS")
+
+    def test_changed_amount_fails(self):
+        self.assertEqual(self.outcome("Costa 500 €", "Costa 600 €"), "FAIL")
+
+    def test_next_number_is_not_taken(self):
+        self.assertEqual(values("5 € e 300 persone", "it"), [Decimal(5), Decimal(300)])
+
+
+class AbbreviatedMonths(unittest.TestCase):
+    def outcome(self, a, b, language="it"):
+        return run(a, b, language=language)["outcome"]
+
+    def test_changed_month_fails(self):
+        self.assertEqual(self.outcome("il 15 mar. 2024", "il 15 apr. 2024"), "FAIL")
+        self.assertEqual(self.outcome("On Mar 5, 2024", "On Apr 5, 2024", "en"), "FAIL")
+        self.assertEqual(self.outcome("am 15. Okt. 2024", "am 15. Nov. 2024", "de"), "FAIL")
+
+    def test_same_date_passes(self):
+        self.assertEqual(self.outcome("il 15 mar. 2024", "il 15 marzo 2024"), "PASS")
+        self.assertEqual(self.outcome("Sept. 2024", "September 2024", "en"), "PASS")
+
+    def test_read_only_before_a_number(self):
+        self.assertEqual(v.find_dates("il 15 mar e il 16 set", "it"), [])
+        self.assertEqual(v.find_dates("Dec is here", "en"), [])
+        self.assertEqual(v.find_dates("the mar 5", "en"), [])
+
+
 if __name__ == "__main__":
     unittest.main()

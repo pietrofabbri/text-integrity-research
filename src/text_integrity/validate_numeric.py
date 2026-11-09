@@ -18,12 +18,12 @@ from functools import cache
 from typing import Any
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.3.0"
+CAPABILITY_VERSION = "0.4.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
 TARGET_LANGUAGES = DECIMAL_POINT | DECIMAL_COMMA
-NOT_MEASURED = ("numbers_as_words", "unit_words", "times_and_durations", "relative_dates", "abbreviated_month_names", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
+NOT_MEASURED = ("numbers_as_words", "unit_words", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
 SPACE_GROUP = "  "
 
 # Letters that make a following digit part of a word (v2, H2O). Scripts written
@@ -35,6 +35,7 @@ _NUMBER = re.compile(
     rf"(?P<sign>(?<!{_LETTER_OR_DIGIT})(?<![)])[-−])?"
     rf"(?<!{_LETTER_OR_DIGIT})(?P<body>\d+(?:[.,  ]\d+)*)"
     r"(?P<percent>[   ]?[%％])?"
+    r"(?P<currency_after>[ \u00a0\u202f]?[$€£¥])?"
 )
 
 
@@ -74,6 +75,21 @@ MONTHS: dict[str, tuple[str, ...]] = {
     "pl": ("styczeń|stycznia", "luty|lutego", "marzec|marca", "kwiecień|kwietnia", "maj|maja", "czerwiec|czerwca", "lipiec|lipca", "sierpień|sierpnia", "wrzesień|września", "październik|października", "listopad|listopada", "grudzień|grudnia"),
     "ru": ("январь|января", "февраль|февраля", "март|марта", "апрель|апреля", "май|мая", "июнь|июня", "июль|июля", "август|августа", "сентябрь|сентября", "октябрь|октября", "ноябрь|ноября", "декабрь|декабря"),
 }
+# Abbreviations are read only before a number; "" means no abbreviation is read.
+MONTH_ABBREVIATIONS: dict[str, tuple[str, ...]] = {
+    "en": ("jan", "feb", "mar", "apr", "", "jun", "jul", "aug", "sep|sept", "oct", "nov", "dec"),
+    "it": ("gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"),
+    "es": ("ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep|sept", "oct", "nov", "dic"),
+    "fr": ("janv|jan", "févr|fév", "", "avr", "", "", "juil", "", "sept", "oct", "nov", "déc"),
+    "de": ("jan", "feb", "mär", "apr", "", "jun", "jul", "aug", "sep|sept", "okt", "nov", "dez"),
+    "pt": ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"),
+    "nl": ("jan", "feb", "mrt", "apr", "", "jun", "jul", "aug", "sep|sept", "okt", "nov", "dec"),
+    "id": ("jan", "feb", "mar", "apr", "", "jun", "jul", "agu|ags", "sep", "okt", "nov", "des"),
+    "tr": ("oca", "şub", "mar", "nis", "may", "haz", "tem", "ağu", "eyl", "eki", "kas", "ara"),
+    "pl": ("sty", "lut", "mar", "kwi", "", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"),
+    "ru": ("янв", "фев", "мар", "апр", "", "июн", "июл", "авг", "сен|сент", "окт", "ноя", "дек"),
+}
+ISO_CURRENCY_SYMBOL = {"EUR": "€", "USD": "$", "GBP": "£", "JPY": "¥"}
 _START = rf"(?<!{_LETTER_OR_DIGIT})(?<![.,/\-])"
 _END = rf"(?!{_LETTER_OR_DIGIT})(?![-/.]\d)"
 _DAY_MARK = r"(?:\.|er|º|°|st|nd|rd|th)?"
@@ -95,8 +111,11 @@ def _month_patterns(language: str) -> tuple[dict[str, int], tuple[re.Pattern[str
     """Return the month index and the name-based date patterns, most specific first."""
     if language not in MONTHS:
         return {}, ()
-    index = {_month_key(form): number for number, forms in enumerate(MONTHS[language], 1) for form in forms.split("|")}
-    forms = sorted((form for forms in MONTHS[language] for form in forms.split("|")), key=len, reverse=True)
+    def alternatives(months: tuple[str, ...]) -> list[str]:
+        return sorted((form for forms in months for form in forms.split("|") if form), key=len, reverse=True)
+
+    index = {_month_key(form): number for months in (MONTHS[language], MONTH_ABBREVIATIONS[language]) for number, forms in enumerate(months, 1) for form in forms.split("|") if form}
+    forms = alternatives(MONTHS[language])
     # English month names are capitalized; this keeps the verb "may" and "to march" out.
     flags = 0 if language == "en" else re.IGNORECASE
     names = "|".join(re.escape(form.capitalize() if language == "en" else form) for form in forms)
@@ -105,6 +124,12 @@ def _month_patterns(language: str) -> tuple[dict[str, int], tuple[re.Pattern[str
     if language == "en":
         patterns.append(re.compile(rf"{_START}{name}\s+(?P<day>\d{{1,2}})(?:st|nd|rd|th)?(?!{_LETTER_OR_DIGIT})(?:,?\s+(?P<year>\d{{4}}){_END})?", flags))
     patterns.append(re.compile(rf"{_START}{name}{_YEAR_AFTER_MONTH}", flags))
+    short = "|".join(re.escape(form.capitalize() if language == "en" else form) for form in alternatives(MONTH_ABBREVIATIONS[language]))
+    abbreviated = rf"(?P<name>{short})(?:\.|(?!{_LETTER_OR_DIGIT}))"
+    patterns.append(re.compile(rf"{_START}(?P<day>\d{{1,2}}){_DAY_MARK}\s+(?:(?:of|de)\s+)?{abbreviated}{_YEAR_AFTER_MONTH}", flags))
+    if language == "en":
+        patterns.append(re.compile(rf"{_START}{abbreviated}\s+(?P<day>\d{{1,2}})(?:st|nd|rd|th)?(?!{_LETTER_OR_DIGIT})(?:,?\s+(?P<year>\d{{4}}){_END})?", flags))
+    patterns.append(re.compile(rf"{_START}{abbreviated}{_YEAR_AFTER_MONTH}", flags))
     return index, tuple(patterns)
 
 
@@ -227,7 +252,7 @@ def extract(text: str, language: str) -> list[Number]:
         line_start = text.rfind("\n", 0, match.start()) + 1
         if (
             not text[line_start:match.start()].strip()
-            and not match["currency"] and not match["sign"] and not match["percent"]
+            and not match["currency"] and not match["currency_after"] and not match["sign"] and not match["percent"]
             and len(match["body"]) <= 3 and match["body"].isdigit()
             and _LIST_MARKER_AFTER.match(text, match.end())
         ):
@@ -237,9 +262,13 @@ def extract(text: str, language: str) -> list[Number]:
             value = -value
         before, after = text[max(0, match.start() - 2):match.start()], text[match.end():match.end() + 2]
         identifier_like = bool(_LETTER_HYPHEN.search(before) or _HYPHEN_LETTER.match(after))
-        unit_match = None if match["percent"] else _UNIT.match(text, match.end())
+        unit_match = None if match["percent"] or match["currency_after"] else _UNIT.match(text, match.end())
         unit = unit_match.group(1) if unit_match else ""
-        numbers.append(Number(match.group(0).strip(), value, decimals, bool(match["percent"]), (match["currency"] or "").strip(), relies, identifier_like, unit))
+        raw = match.group(0).strip()
+        currency = (match["currency"] or match["currency_after"] or "").strip()
+        if unit in ISO_CURRENCY_SYMBOL and not currency:  # 500 EUR and 500 € are one currency
+            raw, currency, unit = f"{raw} {unit}", ISO_CURRENCY_SYMBOL[unit], ""
+        numbers.append(Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit))
     return numbers
 
 
