@@ -3725,3 +3725,63 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-009`, `DEC-012`, `DEC-046`.
+
+
+---
+
+## DEC-051 — Propose Exit from Structural-Definition Phase for 07-Data: Five-Tranche Roadmap
+
+### Date
+
+2026-11-09
+
+### Status
+
+PROPOSED
+
+### Decision
+
+Proposed for owner approval; no tranche is executed by this entry.
+
+1. `docs/07-data/` would exit its single-MAP phase through five sub-documents, defined in `DATA-MAP.md` §126 with the fields of `AGENT-WORK-MODEL.md` §11:
+   - `DATA-IDENTITY-AND-METADATA.md` (Tranche 1): §2–33, §73–78, §80–82;
+   - `DATA-GOVERNANCE-AND-LICENSING.md` (Tranche 2): §34–40, §100, §105–106, §110–111, §115, §118–121, §124–125;
+   - `DATA-STORAGE-AND-AVAILABILITY.md` (Tranche 3): §41–49, §79, §91–93, §101–104, §114;
+   - `DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md` (Tranche 4): §50–66, §83–86, §88–89, §112–113, §116–117;
+   - `DATA-LIFECYCLE-AND-CHANGE.md` (Tranche 5): §67–72, §87, §90, §94–99, §107–109, §122–123;
+2. Every section §2–§125 is assigned to exactly one tranche. `DATA-MAP.md` stays the entry point and is not rewritten.
+3. Each tranche, when executed, is its own `DECISION-LOG.md` entry and is logged in §127.
+
+Separately, the owner decisions identified by `DEC-041`–`DEC-050` are registered as `Q-010`–`Q-019` in `OPEN-QUESTIONS.md`, as `DEVELOPMENT-MAP.md` §40 and `NO-INVENTION-RULES.md` (Missing Information) require.
+
+### Rationale
+
+`07-data` is next in the project roadmap of 2026-10-06 (a judgment, not a rule) and is cross-cutting (`PROJECT-MAP.md` §16). The map contains zero `R-XXXX`, `FID-`, `TRN-` or `REQ-` citations (verified by direct search, 2026-11-09). The grouping is a thematic judgment by the drafting agent.
+
+### Alternatives Considered
+
+Leaving the owner decisions only in the gap tables of the sub-documents: rejected, because those are not the register §40 designates.
+
+### Consequences
+
+If accepted, `07-data` leaves the single-MAP phase on execution of Tranche 1. Until then nothing normative changes.
+
+### Affected Areas
+
+`docs/07-data/DATA-MAP.md` (§126, §127), `docs/00-project/OPEN-QUESTIONS.md`, `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection or redefinition of the boundaries.
+
+### Related Research
+
+None cited yet; evidence mapping is part of each tranche.
+
+### Related Questions
+
+`Q-007`, `Q-010`–`Q-019`.
+
+### Related Decisions
+
+`DEC-004`, `DEC-012`, `DEC-040`, `DEC-046`.

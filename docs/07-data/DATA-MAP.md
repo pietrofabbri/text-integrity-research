@@ -1720,3 +1720,75 @@ TRACEABLE DATA
 
 A dataset that cannot be identified, reproduced, licensed, validated or
 properly interpreted must not silently become foundational to the system.
+
+---
+
+# 126. Candidate Sub-Documents for Data Architecture
+
+**Status: PROPOSED by `DEC-051` (2026-11-09); awaiting owner approval.**
+Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
+
+## Tranche 1 — `DATA-IDENTITY-AND-METADATA.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize data categories, identifiers, versions, checksums, provenance, preprocessing, metadata, Unicode and canonicalization, and manifests. Sources in this map: §2–33, §73–78, §80–82.
+- **Expected deliverable:** `docs/07-data/DATA-IDENTITY-AND-METADATA.md`, plus its `DECISION-LOG.md` entry and §127 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values, licenses or provenance (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7.
+- **Resource budget:** not specified by any project document (`Q-012`).
+- **Known constraint:** Language and label metadata must stay consistent with `05-validation` and `LANGUAGE-ARCHITECTURE.md`.
+
+
+## Tranche 2 — `DATA-GOVERNANCE-AND-LICENSING.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize privacy classes, transfer eligibility, personal data, licensing, data security boundary, data cards, citations and acquisition. Sources in this map: §34–40, §100, §105–106, §110–111, §115, §118–121, §124–125.
+- **Expected deliverable:** `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md`, plus its `DECISION-LOG.md` entry and §127 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values, licenses or provenance (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7.
+- **Resource budget:** not specified by any project document (`Q-012`).
+- **Known constraint:** Must record `Q-007` (legal distribution of datasets) and `Q-019` without answering them; no legal conclusion may be drawn.
+
+
+## Tranche 3 — `DATA-STORAGE-AND-AVAILABILITY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize GitHub usage, large artifacts, the storage budget, caching, downloads, access layers, offline availability, backup and integrity monitoring. Sources in this map: §41–49, §79, §91–93, §101–104, §114.
+- **Expected deliverable:** `docs/07-data/DATA-STORAGE-AND-AVAILABILITY.md`, plus its `DECISION-LOG.md` entry and §127 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values, licenses or provenance (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7.
+- **Resource budget:** not specified by any project document (`Q-012`).
+- **Known constraint:** The 30 GB constraint is approximate (`KB-007`); no finer allocation may be invented.
+
+
+## Tranche 4 — `DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize ingestion, duplicates, contamination, leakage, splits, balance, label quality, controls, translation data, activation gates and quality gates. Sources in this map: §50–66, §83–86, §88–89, §112–113, §116–117.
+- **Expected deliverable:** `docs/07-data/DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md`, plus its `DECISION-LOG.md` entry and §127 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values, licenses or provenance (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7.
+- **Resource budget:** not specified by any project document (`Q-012`).
+- **Known constraint:** Must align with `TEST-AND-VERIFICATION-POLICY.md` §6 and `R08`; §117 is one of the four release checklists (`ENGINEERING-STANDARDS.md` ENG-C1).
+
+
+## Tranche 5 — `DATA-LIFECYCLE-AND-CHANGE.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize experiment artifacts, retention, retirement, deletion, migration, change impact, reproducibility, registry, dependency graph, replacement and automatic maintenance. Sources in this map: §67–72, §87, §90, §94–99, §107–109, §122–123.
+- **Expected deliverable:** `docs/07-data/DATA-LIFECYCLE-AND-CHANGE.md`, plus its `DECISION-LOG.md` entry and §127 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values, licenses or provenance (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7.
+- **Resource budget:** not specified by any project document (`Q-012`).
+- **Known constraint:** Deletion rules must respect `P00-project-governance.md` I-003.
+
+---
+
+# 127. Data Architecture Tranche Log
+
+No tranche executed yet.

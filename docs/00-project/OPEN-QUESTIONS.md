@@ -373,3 +373,372 @@ so a later reviewer can see exactly what evidence has since changed; (c)
 this project's own experience in this session (KB-008 revised within 24
 hours by R05) suggests re-certification triggers may need to fire more
 often, at least early on, than a mature/stable field would require.
+
+---
+
+## Q-010 — How do the LOW–CRITICAL and C0–C4 change scales relate?
+
+### Question
+
+How do the LOW–CRITICAL and C0–C4 change scales relate?
+
+### Why It Matters
+
+Every significant change must be classified, and the two scales set different approval effects.
+
+### Relevant Areas
+
+01-governance, 06-security, 08-development
+
+### Current Evidence
+
+No mapping exists. `AGENT-WORK-MODEL.md` AWM-C2, AWM-G1. Meanwhile both labels are recorded and the stricter treatment applies.
+
+### Possible Answers
+
+(a) define a mapping; (b) keep both as separate dimensions; (c) retire one. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-011 — How is approval given and recorded for MEDIUM batches and CRITICAL changes?
+
+### Question
+
+How is approval given and recorded for MEDIUM batches and CRITICAL changes?
+
+### Why It Matters
+
+`SECURITY-MAP.md` §75 requires an approved MEDIUM and §24 explicit approval, without saying what counts.
+
+### Relevant Areas
+
+01-governance, 06-security, 08-development
+
+### Current Evidence
+
+`AGENT-SECURITY-BOUNDARY.md` ASB-G3, ASB-G4. `DEC-046` records one delegated approval of tranche boundaries.
+
+### Possible Answers
+
+(a) approval at tranche level covers MEDIUM batches inside it; (b) per batch; (c) a stricter explicit form for CRITICAL. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-012 — What is a tranche's resource budget?
+
+### Question
+
+What is a tranche's resource budget?
+
+### Why It Matters
+
+`P00-project-governance.md` §7 and §10 require one; no unit or convention exists.
+
+### Relevant Areas
+
+01-governance, 08-development
+
+### Current Evidence
+
+`AGENT-WORK-MODEL.md` AWM-G4.
+
+### Possible Answers
+
+(a) define a unit; (b) declare not applicable to documentation tranches; (c) amend `P00`. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-013 — Do cloud sessions count as local development, and which commands are approved?
+
+### Question
+
+Do cloud sessions count as local development, and which commands are approved?
+
+### Why It Matters
+
+`DEVELOPMENT-MAP.md` §6 and `SECURITY-MAP.md` §17 assume local execution and approved local commands, while the owner now works only through GitHub and cloud sessions.
+
+### Relevant Areas
+
+06-security, 08-development
+
+### Current Evidence
+
+`AGENT-WORK-MODEL.md` §12, AWM-G6; `AGENT-SECURITY-BOUNDARY.md` ASB-C5, ASB-G2.
+
+### Possible Answers
+
+(a) treat the session container as the local environment; (b) require a separate local environment for tests. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-014 — Which implementation language and tooling will the project use?
+
+### Question
+
+Which implementation language and tooling will the project use?
+
+### Why It Matters
+
+Phase 2 cannot begin without it.
+
+### Relevant Areas
+
+04-architecture, 08-development
+
+### Current Evidence
+
+No project document selects one. `ENGINEERING-STANDARDS.md` ENG-G1.
+
+### Possible Answers
+
+Not yet evaluated. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-015 — What happens to `update_project_map.py` and `update_research_map.py`?
+
+### Question
+
+What happens to `update_project_map.py` and `update_research_map.py`?
+
+### Why It Matters
+
+If run, each overwrites a maintained document with an older, shorter text.
+
+### Relevant Areas
+
+00-project, 02-research, 08-development
+
+### Current Evidence
+
+`ENGINEERING-STANDARDS.md` ENG-R1, ENG-G4. Must not be run meanwhile.
+
+### Possible Answers
+
+(a) retire them; (b) correct them; (c) keep them with a warning. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-016 — What should the empty README contain?
+
+### Question
+
+What should the empty README contain?
+
+### Why It Matters
+
+`DEVELOPMENT-MAP.md` §134 lists it first, and the repository is public.
+
+### Relevant Areas
+
+00-project, 08-development
+
+### Current Evidence
+
+`DOCUMENTATION-AND-MAINTENANCE-POLICY.md` DMP-G3.
+
+### Possible Answers
+
+(a) a short pointer to `START-HERE.md`; (b) a full project description. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-017 — Who performs security reviews and grants security exceptions?
+
+### Question
+
+Who performs security reviews and grants security exceptions?
+
+### Why It Matters
+
+`SECURITY-MAP.md` §72 and §73 require them without naming who.
+
+### Relevant Areas
+
+06-security
+
+### Current Evidence
+
+`AGENT-SECURITY-BOUNDARY.md` ASB-G1; `RESILIENCE-AND-SECURITY-ASSURANCE.md` RSA-G3.
+
+### Possible Answers
+
+(a) the owner; (b) an agent review with owner sign-off for HIGH and CRITICAL. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-018 — What are the branching model and backup location?
+
+### Question
+
+What are the branching model and backup location?
+
+### Why It Matters
+
+`main` has no protection, and §59–60 of `SECURITY-MAP.md` leave both open.
+
+### Relevant Areas
+
+06-security, 08-development
+
+### Current Evidence
+
+`SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` SCS-G2, SCS-G3.
+
+### Possible Answers
+
+(a) protect `main` against force push and deletion, with branches for code; (b) current direct push; a second copy for backup is undecided. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN
+
+
+---
+
+## Q-019 — What is the default network mode, and may individual user text be sent externally?
+
+### Question
+
+What is the default network mode, and may individual user text be sent externally?
+
+### Why It Matters
+
+`SECURITY-MAP.md` §14 does not choose a default, and transfer eligibility is declared only for datasets.
+
+### Relevant Areas
+
+06-security, 07-data, 09-operations
+
+### Current Evidence
+
+`TRUST-AND-DATA-BOUNDARIES.md` TDB-G1, TDB-G2.
+
+### Possible Answers
+
+(a) `OFFLINE` default, opt-in per text; (b) `LOCAL_ONLY` default; to be settled with the `DEC-012` reconciliation. These are options, not recommendations or decisions.
+
+### Blocking
+
+YES, for implementation; NO, for documentation tranches.
+
+### Owner
+
+Human
+
+### Status
+
+OPEN

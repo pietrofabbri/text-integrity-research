@@ -148,7 +148,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 50 recorded (`DEC-001`–`DEC-050`; `DEC-046` sets the `06-security` tranche roadmap; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
+- **Decisions**: 50 accepted plus `DEC-051` PROPOSED (`07-data` tranche roadmap, awaiting owner approval) (`DEC-001`–`DEC-051`; `DEC-046` sets the `06-security` tranche roadmap; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -241,7 +241,7 @@ one being silently "fixed" — see
   track unrelated research-finding-propagation work; the actual matching
   item is `DCQ-004` ("Introduce External Evidence Boundary," still
   `PENDING`), now noted there without being marked resolved.
-- **Open questions**: 9 (`Q-001`–`Q-009`) in `OPEN-QUESTIONS.md`; `Q-002` is
+- **Open questions**: 19 (`Q-001`–`Q-019`; `Q-010`–`Q-019`, added 2026-11-09, are owner decisions needed before implementation) in `OPEN-QUESTIONS.md`; `Q-002` is
   `RESOLVED` (per DEC-022 and DEC-024 in Tranche 4); `Q-008` is `PARTIALLY RESOLVED`
   (storage budget resolved by R09/DEC-013, quality/robustness tracked in
   KB-013/KB-014); 7 remain `Status: OPEN`.
@@ -419,7 +419,7 @@ what's deliberately deferred (and why) lives in:
 
 - `docs/00-project/DOCUMENTATION-CHANGE-QUEUE.md` — DCQ items `PENDING`
   (research propagation waiting on 04-10 to leave definition phase).
-- `docs/00-project/OPEN-QUESTIONS.md` — all 9 questions, `Status: OPEN`.
+- `docs/00-project/OPEN-QUESTIONS.md` — all 19 questions; see each entry's `Status`.
 - `docs/99-backlog/CLAUDE-CONSOLIDATION-REPORT.md` §12S/§13S — audit
   findings classified REVIEW REQUIRED or HUMAN DECISION REQUIRED, with
   their disposition recorded in `DECISION-LOG.md` DEC-012 where a
