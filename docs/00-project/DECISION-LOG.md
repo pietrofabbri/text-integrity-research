@@ -3785,3 +3785,52 @@ None cited yet; evidence mapping is part of each tranche.
 ### Related Decisions
 
 `DEC-004`, `DEC-012`, `DEC-040`, `DEC-046`.
+
+
+---
+
+## DEC-052 — Execute Tranche 1 of the 07-Data Roadmap: Draft DATA-IDENTITY-AND-METADATA.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-051` boundaries and delegated instruction to proceed (2026-11-09), `docs/07-data/DATA-IDENTITY-AND-METADATA.md` is drafted and made active as Tranche 1 of `DATA-MAP.md` §126, formalizing §2–33, §73–78 and §80–82. It adds no requirement or numeric value beyond its sources and records DIM-C1 to DIM-C3 and DIM-G1 to DIM-G4, without resolving them.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-051`.
+
+### Alternatives Considered
+
+Choosing a value or a single vocabulary wherever sources are silent or diverge: rejected per `NO-INVENTION-RULES.md` and `DEC-012`.
+
+### Consequences
+
+`07-data` leaves its single-MAP phase. Unicode behaviors must be specified before data ingestion (DIM-G2).
+
+### Affected Areas
+
+`docs/07-data/DATA-IDENTITY-AND-METADATA.md`, `docs/07-data/DATA-MAP.md` (§126, §127), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` affecting its recorded items.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-009`, `DEC-012`, `DEC-051`.

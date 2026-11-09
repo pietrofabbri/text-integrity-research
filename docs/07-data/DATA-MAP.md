@@ -1728,7 +1728,7 @@ properly interpreted must not silently become foundational to the system.
 **Status: ACCEPTED by `DEC-051` (2026-11-09), on the owner's delegated approval recorded there.**
 Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 
-## Tranche 1 — `DATA-IDENTITY-AND-METADATA.md` (Approved, not executed)
+## Tranche 1 — `DATA-IDENTITY-AND-METADATA.md` (Executed 2026-11-09, `DEC-052`)
 
 - **Objective / allowed scope:** Formalize data categories, identifiers, versions, checksums, provenance, preprocessing, metadata, Unicode and canonicalization, and manifests. Sources in this map: §2–33, §73–78, §80–82.
 - **Expected deliverable:** `docs/07-data/DATA-IDENTITY-AND-METADATA.md`, plus its `DECISION-LOG.md` entry and §127 update.
@@ -1790,5 +1790,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 ---
 
 # 127. Data Architecture Tranche Log
-
-No tranche executed yet.
+- **Tranche 1 (Executed 2026-11-09):** `docs/07-data/DATA-IDENTITY-AND-METADATA.md` (`DEC-052`). Records DIM-C1 to DIM-C3 and DIM-G1 to DIM-G4.
