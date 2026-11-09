@@ -366,7 +366,7 @@ one being silently "fixed" — see
   phase.
 - **08-development**: no longer single-MAP-document as of 2026-11-09 (`DEC-041`); all five tranches of `DEVELOPMENT-MAP.md` §202 are executed (`DEC-041`–`DEC-045`): `AGENT-WORK-MODEL.md`, `TEST-AND-VERIFICATION-POLICY.md`, `ENGINEERING-STANDARDS.md`, `CAPABILITY-EVOLUTION-POLICY.md`, `DOCUMENTATION-AND-MAINTENANCE-POLICY.md`. No implementation exists.
 - **06-security**: no longer single-MAP-document as of 2026-11-09 (`DEC-047`); all four tranches of `SECURITY-MAP.md` §92 are executed (`DEC-047`–`DEC-050`). These are requirements, not implemented controls.
-- **07-data**: no longer single-MAP-document as of 2026-11-09 (`DEC-052`); tranche roadmap in `DATA-MAP.md` §126.
+- **07-data**: no longer single-MAP-document as of 2026-11-09 (`DEC-052`); all five tranches of `DATA-MAP.md` §126 are executed (`DEC-052`–`DEC-056`). No dataset has been acquired under them.
 - **09-operations and 10-certification**: still single-MAP-document,
   structural-definition phase — now the project's largest remaining
   documentation gap, following the completion of the `05-validation` roadmap.
