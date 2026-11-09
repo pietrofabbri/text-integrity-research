@@ -59,7 +59,7 @@ Non-string input raises an error. An unknown language returns `unsupported`; inp
 
 - Attached punctuation counts: `word` and `word,` are different tokens, inflating token metrics.
 - Token counts are not comparable across languages. Agglutinative languages such as Turkish pack more into a whitespace token (`LANGUAGE-ARCHITECTURE.md` §6).
-- Token alignment takes time proportional to the product of the changed regions, so very long, heavily changed texts are slow. `max_chars` has no default value (`RESILIENCE-AND-SECURITY-ASSURANCE.md` RSA-G1).
+- Token alignment takes time proportional to the product of the changed regions, so very long, heavily changed texts are slow. The slowest real case observed took about 9 seconds (`TRIAL-GIT-HISTORY.md`). `max_chars` has no default value (`RESILIENCE-AND-SECURITY-ASSURANCE.md` RSA-G1).
 - When several minimal alignments exist, the split between insertions, deletions and substitutions depends on a fixed tie-break. The total distance does not.
 - The structural rate weights all elements equally. This is a convention without scientific basis.
 

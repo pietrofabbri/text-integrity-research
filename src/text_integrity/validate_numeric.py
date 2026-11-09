@@ -32,6 +32,10 @@ _NUMBER = re.compile(
 )
 
 
+_LETTER_HYPHEN = re.compile(r"[^\W\d_]-$")
+_HYPHEN_LETTER = re.compile(r"-[^\W\d_]")
+
+
 @dataclass(frozen=True)
 class Number:
     raw: str
@@ -40,6 +44,7 @@ class Number:
     percent: bool
     currency: str
     relies_on_convention: bool
+    identifier_like: bool = False
 
     def kind(self) -> tuple[Decimal | None, bool, str]:
         return (self.value, self.percent, self.currency)
@@ -86,7 +91,9 @@ def extract(text: str, language: str) -> list[Number]:
         value, decimals, relies = _parse(match["body"], decimal)
         if value is not None and match["sign"]:
             value = -value
-        numbers.append(Number(match.group(0).strip(), value, decimals, bool(match["percent"]), (match["currency"] or "").strip(), relies))
+        before, after = text[max(0, match.start() - 2):match.start()], text[match.end():match.end() + 2]
+        identifier_like = bool(_LETTER_HYPHEN.search(before) or _HYPHEN_LETTER.match(after))
+        numbers.append(Number(match.group(0).strip(), value, decimals, bool(match["percent"]), (match["currency"] or "").strip(), relies, identifier_like))
     return numbers
 
 
@@ -138,6 +145,7 @@ def compare(first: list[Number], second: list[Number]) -> dict[str, Any]:
         ]
     out["removed"] = [n.raw for i, n in enumerate(first) if i not in used]
     out["added"] = [second[j].raw for j in sorted(free)]
+    out["identifier_like_changes"] = sum(n.identifier_like for i, n in enumerate(first) if i not in used) + sum(second[j].identifier_like for j in free)
     targets = [used[i] for i in sorted(used)]
     out["pairs_in_order"] = targets == sorted(targets)
     return out

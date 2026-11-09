@@ -4327,3 +4327,52 @@ None new.
 ### Related Decisions
 
 `DEC-015`, `DEC-057`, `DEC-059`, `DEC-060`.
+
+
+---
+
+## DEC-063 — Trial of the Experimental Capabilities on Git History
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's delegation ("prendi le decisioni che ti sembrano più sensate e procedi", 2026-11-09), the three `EXPERIMENTAL` capabilities are exercised on the repository's own revision history, using `tools/trial_on_history.py`. The results are recorded in `docs/05-validation/TRIAL-GIT-HISTORY.md`. `validate_numeric.py` now reports `identifier_like_changes` without changing any outcome.
+
+### Rationale
+
+No capability had been run on real text, and the project's history is the only real revision data that raises no licensing or privacy issue. Adding further capabilities first would have extended untested work.
+
+### Alternatives Considered
+
+Waiting for owner-supplied texts: the owner again delegated, and this needs no external data.
+
+### Consequences
+
+No lifecycle status changes. The trial is not a benchmark and supports no accuracy claim. It is a test of the software, not a scientific validation.
+
+### Affected Areas
+
+`tools/trial_on_history.py`, `src/text_integrity/validate_numeric.py`, `tests/test_validate_numeric.py`, `docs/05-validation/TRIAL-GIT-HISTORY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-057`, `DEC-060`, `DEC-061`, `DEC-062`.

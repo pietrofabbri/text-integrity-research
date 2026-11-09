@@ -114,6 +114,15 @@ class Validate(unittest.TestCase):
         with self.assertRaises(TypeError):
             run(1, "1")
 
+    def test_identifier_like_changes_still_fail_but_are_counted(self):
+        result = run("see DEC-041", "see DEC-042")
+        self.assertEqual(result["outcome"], "FAIL")
+        self.assertEqual(result["comparison"]["identifier_like_changes"], 2)
+
+    def test_hyphenated_quantity_is_not_hidden(self):
+        result = run("a 10-year study", "a 20-year study")
+        self.assertEqual(result["outcome"], "FAIL")
+
     def test_json_serializable(self):
         json.dumps(run("1.5", "1.50"))
 

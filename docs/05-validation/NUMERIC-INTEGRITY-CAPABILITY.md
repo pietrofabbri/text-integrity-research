@@ -42,6 +42,8 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Ambiguity:** a form with one separator followed by three digits (`1.000`, `1,000`) has opposite meanings under the two conventions. The number is read by the language's convention and flagged. If a pairing depends on such a reading, the outcome can be at best `partially measured`.
 
+**Identifier-like numbers:** numbers joined to letters by a hyphen (`DEC-058`, `10-year`) count normally, since a real quantity may look the same, and changes to them are also reported in `identifier_like_changes`.
+
 **Not numbers:** digits directly after a letter (`v2`, `H2O`). Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
 
 # 4. Outcomes
