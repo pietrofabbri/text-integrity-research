@@ -13,7 +13,7 @@
 
 # 1. Purpose & Scope
 
-This document formalizes where data lives, how the storage budget is managed, and what happens when resources are absent. It sets no percentage or alert threshold: `DATA-MAP.md` §44 and §46 defer those. No storage is in use by data today.
+This document formalizes where data lives, how the storage budget is managed, and what happens when resources are absent. It sets no percentage or alert threshold: `DATA-MAP.md` §44 and §46 defer those. The repository holds no datasets (verified 2026-11-09); storage outside it is not known from the repository.
 
 ---
 
