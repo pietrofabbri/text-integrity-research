@@ -68,3 +68,18 @@ The owner supplied one original and one reworded Italian text of about 1,650 cha
 4. Titles without Markdown syntax are read as paragraph text, merged with adjacent lines, so the paragraph count does not match what a reader sees. Plain-text input is the likely common case.
 
 **Follow-up (`DEC-064`):** weaknesses 1, 3 and 4 are addressed, in versions 0.2.0 of the capabilities. `513 kg` changed to `513 g` now fails. Weakness 2 is out of scope. The fixes are checked by unit tests modelled on these cases; the original pair was not re-run, because it was not stored.
+
+# 7. Addendum: One Owner-Supplied English Pair, Run Blind (2026-11-09)
+
+The owner supplied one original and one edited English text of about 1,770 characters, and gave the list of changes only after the capabilities had been run. The texts are not stored in the repository. This is one case and supports no rate.
+
+| Owner's change | Capability result |
+|---|---|
+| `30%` changed to `35%` | Detected by numeric integrity (`FAIL`) |
+| Fourth item of the second list deleted | Detected by structural validation (`FAIL`, in both formats) |
+| Word substitutions without structural or numeric effect | Correctly raised no failure; counted by minimality |
+| `significantly` removed, which weakens a claim | Not detected, as expected: no capability assesses meaning |
+
+No failure was raised that the owner's list does not explain. A separate word-level comparison made by the agent found 13 differences, including two the owner's list did not mention (`produces` to `generates`, `investing in` to `developing`); neither raised a failure.
+
+The result shows the two deterministic checks working on one blind case. It does not show how they perform in general, and the undetected weakening confirms that a `PASS` is not evidence of fidelity.
