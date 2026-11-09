@@ -1776,7 +1776,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Must align with `TEST-AND-VERIFICATION-POLICY.md` §6 and `R08`; §117 is one of the four release checklists (`ENGINEERING-STANDARDS.md` ENG-C1).
 
 
-## Tranche 5 — `DATA-LIFECYCLE-AND-CHANGE.md` (Approved, not executed)
+## Tranche 5 — `DATA-LIFECYCLE-AND-CHANGE.md` (Executed 2026-11-09, `DEC-056`)
 
 - **Objective / allowed scope:** Formalize experiment artifacts, retention, retirement, deletion, migration, change impact, reproducibility, registry, dependency graph, replacement and automatic maintenance. Sources in this map: §67–72, §87, §90, §94–99, §107–109, §122–123.
 - **Expected deliverable:** `docs/07-data/DATA-LIFECYCLE-AND-CHANGE.md`, plus its `DECISION-LOG.md` entry and §127 update.
@@ -1794,3 +1794,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Tranche 2 (Executed 2026-11-09):** `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md` (`DEC-053`). Records DGL-C1 to DGL-C3 and DGL-G1 to DGL-G4.
 - **Tranche 3 (Executed 2026-11-09):** `docs/07-data/DATA-STORAGE-AND-AVAILABILITY.md` (`DEC-054`). Records DSA-C1 to DSA-C3 and DSA-G1 to DSA-G4.
 - **Tranche 4 (Executed 2026-11-09):** `docs/07-data/DATA-QUALITY-AND-EXPERIMENT-INTEGRITY.md` (`DEC-055`). Records DQI-C1 to DQI-C3 and DQI-G1 to DQI-G4.
+- **Tranche 5 (Executed 2026-11-09):** `docs/07-data/DATA-LIFECYCLE-AND-CHANGE.md` (`DEC-056`). Records DLC-C1 to DLC-C4 and DLC-G1 to DLC-G3.
