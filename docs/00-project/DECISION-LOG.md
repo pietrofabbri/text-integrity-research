@@ -3482,11 +3482,11 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 
 ### Status
 
-PROPOSED
+ACCEPTED
 
 ### Decision
 
-Proposed for owner approval; no tranche is executed by this entry. `DEVELOPMENT-MAP.md` §197 and `DEC-004` assign approval of tranche boundaries to the owner, so this entry becomes ACCEPTED only on explicit confirmation of the boundaries below.
+Asked directly to approve the boundaries below (`DEVELOPMENT-MAP.md` §197, `DEC-004`), the owner answered "vai con quello che ti sembra più sensato" (2026-11-09). The agent treated this as delegated approval of these boundaries and recorded it here so the basis stays visible. No tranche is executed by this entry.
 
 1. `docs/06-security/` would exit its single-MAP phase through four sub-documents, defined in `SECURITY-MAP.md` §92 with the fields of `AGENT-WORK-MODEL.md` §11:
    - `TRUST-AND-DATA-BOUNDARIES.md` (Tranche 1): §2–14, §36–47, §54–56;

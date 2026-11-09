@@ -1305,10 +1305,10 @@ would change."
 
 # 92. Candidate Sub-Documents for Security Architecture
 
-**Status: PROPOSED by `DEC-046` (2026-11-09); awaiting owner approval.**
+**Status: ACCEPTED by `DEC-046` (2026-11-09), on the owner's delegated approval recorded there.**
 Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 
-## Tranche 1 — `TRUST-AND-DATA-BOUNDARIES.md` (Proposed)
+## Tranche 1 — `TRUST-AND-DATA-BOUNDARIES.md` (Approved, not executed)
 
 - **Objective / allowed scope:** Formalize trust zones, input and instruction isolation, original text protection, external communication and detectors, network modes, credentials, cloud data policy, offline guarantee, filesystem and path boundaries, safe defaults, data minimization, research data separation. Sources in this map: §2–14, §36–47, §54–56.
 - **Expected deliverable:** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1320,7 +1320,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** §14 network modes are unreconciled with `OPERATIONS-MAP.md` §136: remain deferred per `DEC-012`.
 
 
-## Tranche 2 — `AGENT-SECURITY-BOUNDARY.md` (Proposed)
+## Tranche 2 — `AGENT-SECURITY-BOUNDARY.md` (Approved, not executed)
 
 - **Objective / allowed scope:** Formalize the security perimeter of AI-assisted development: development environment, agent operating boundary, prompt injection defense, review of AI-generated code, security gates for batches. Sources in this map: §15–24, §48–50, §73–78.
 - **Expected deliverable:** `docs/06-security/AGENT-SECURITY-BOUNDARY.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1332,7 +1332,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Must align with `AGENT-WORK-MODEL.md`. The human-authority lists (AWM-C1) and the two change scales (AWM-C2, AWM-C3) stay recorded, not resolved.
 
 
-## Tranche 3 — `SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (Proposed)
+## Tranche 3 — `SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (Approved, not executed)
 
 - **Objective / allowed scope:** Formalize dependency, supply-chain, dataset, model, archive and temporary-file security; dynamic code; plugin security; capability permissions; repository, git and branch safety; backup, integrity hashes and reproducible environment. Sources in this map: §25–33, §51–53, §57–62.
 - **Expected deliverable:** `docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md`, plus its `DECISION-LOG.md` entry and §93 update.
@@ -1344,7 +1344,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Must align with `ENGINEERING-STANDARDS.md` (ENG-C3, ENG-C4) and `DATA-MAP.md`. §52 must respect the plugin scoping of `DEC-034`.
 
 
-## Tranche 4 — `RESILIENCE-AND-SECURITY-ASSURANCE.md` (Proposed)
+## Tranche 4 — `RESILIENCE-AND-SECURITY-ASSURANCE.md` (Approved, not executed)
 
 - **Objective / allowed scope:** Formalize logging, error handling, resource exhaustion, failure isolation, recovery, security testing, vulnerability management, status and exceptions, security documentation, relation to certification and to research, quality gates, incident response, lifecycle. Sources in this map: §34–35, §63–72, §79–91.
 - **Expected deliverable:** `docs/06-security/RESILIENCE-AND-SECURITY-ASSURANCE.md`, plus its `DECISION-LOG.md` entry and §93 update.
