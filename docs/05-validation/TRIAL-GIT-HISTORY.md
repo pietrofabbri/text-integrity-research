@@ -27,7 +27,7 @@ No real text had yet been passed through these capabilities. This trial uses the
 | Reworded text, structural | 70 of 70 `PASS` |
 | Reworded text, numeric | 70 of 70 `PASS` |
 | Deleted heading | 70 of 70 `FAIL`, naming `headings` |
-| Heading count against the simple count | 69 equal, 1 higher (setext heading) |
+| Heading count against the simple count | 69 equal, 1 higher (`SPECIFICATION-MAP.md`) |
 | Slowest minimality measurement | about 9 seconds |
 | History, structural | 183 `FAIL`, 10 `PASS` |
 | History, numeric | 186 `FAIL`, 7 `PASS` |
@@ -45,7 +45,8 @@ No real text had yet been passed through these capabilities. This trial uses the
 1. **Identifiers counted as numbers.** Most small numeric differences were project identifiers and paths (`DEC-058`, `00-project`). Excluding them would also hide real quantities (`10-year` to `20-year`), so they still count, and the result now reports `identifier_like_changes` separately.
 2. **Numeric order check, found by unit tests before this trial:** a permitted rounding was wrongly reported as a change of order. Fixed.
 3. **Minimality is slow on long texts with changes spread throughout.** Recorded as a limitation; no limit value is set.
-4. **Dates count as separate numbers.** Already listed as a limitation; it is frequent in real text.
+4. **Text that happens to be Markdown syntax.** In `SPECIFICATION-MAP.md`, three lines consisting of a lone `=` under a word are read as headings. That is what Markdown syntax says, but not what the author meant. Structural results follow the syntax.
+5. **Dates count as separate numbers.** Already listed as a limitation; it is frequent in real text.
 
 # 5. What Is Still Needed
 
