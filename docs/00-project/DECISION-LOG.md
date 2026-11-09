@@ -3470,3 +3470,62 @@ None new. Vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-006`, `DEC-010`, `DEC-012`, `DEC-040`, `DEC-041`.
+
+
+---
+
+## DEC-046 — Propose Exit from Structural-Definition Phase for 06-Security: Four-Tranche Roadmap
+
+### Date
+
+2026-11-09
+
+### Status
+
+PROPOSED
+
+### Decision
+
+Proposed for owner approval; no tranche is executed by this entry. `DEVELOPMENT-MAP.md` §197 and `DEC-004` assign approval of tranche boundaries to the owner, so this entry becomes ACCEPTED only on explicit confirmation of the boundaries below.
+
+1. `docs/06-security/` would exit its single-MAP phase through four sub-documents, defined in `SECURITY-MAP.md` §92 with the fields of `AGENT-WORK-MODEL.md` §11:
+   - `TRUST-AND-DATA-BOUNDARIES.md` (Tranche 1): §2–14, §36–47, §54–56;
+   - `AGENT-SECURITY-BOUNDARY.md` (Tranche 2): §15–24, §48–50, §73–78;
+   - `SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (Tranche 3): §25–33, §51–53, §57–62;
+   - `RESILIENCE-AND-SECURITY-ASSURANCE.md` (Tranche 4): §34–35, §63–72, §79–91;
+2. Every section §2–§91 is assigned to exactly one tranche. `SECURITY-MAP.md` stays the entry point and is not rewritten.
+3. Each tranche, when executed, is its own `DECISION-LOG.md` entry and is logged in §93.
+4. The tranches formalize existing boundaries. They do not change any security boundary; a change would require human approval (`P00-project-governance.md` §3, §5) and is a stop condition.
+
+### Rationale
+
+The owner asked the agent to take the most sensible next step (2026-11-09). `06-security` is ranked next in the project roadmap of 2026-10-06 (a cost/benefit judgment, not a rule), is cross-cutting (`PROJECT-MAP.md` §16), and needs none of the owner decisions pending before implementation. The map contains zero `R-XXXX`, `FID-`, `TRN-` or `REQ-` citations (verified by direct search, 2026-11-09). The grouping is a thematic judgment by the drafting agent.
+
+### Alternatives Considered
+
+- Asking the owner first for the pending pre-implementation decisions (`AGENT-WORK-MODEL.md` §13): not needed yet, since they bind code, not documentation.
+- One sub-document per block of the map's numbering: rejected because related topics are scattered (for example agent security in §15–24, §48–50 and §73–78).
+
+### Consequences
+
+If accepted, `06-security` leaves the single-MAP phase on execution of Tranche 1. Until then nothing normative changes.
+
+### Affected Areas
+
+`docs/06-security/SECURITY-MAP.md` (§92, §93), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection or redefinition of the boundaries; a tranche that cannot be completed within its boundary.
+
+### Related Research
+
+None cited yet; evidence mapping is part of each tranche.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-004`, `DEC-012`, `DEC-034`, `DEC-040`, `DEC-041`.

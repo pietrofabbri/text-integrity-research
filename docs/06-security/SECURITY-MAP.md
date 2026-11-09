@@ -1300,3 +1300,63 @@ The goal is:
 "allow automation to operate freely inside a clearly defined,
 automatically verified security perimeter, and stop only when that perimeter
 would change."
+
+---
+
+# 92. Candidate Sub-Documents for Security Architecture
+
+**Status: PROPOSED by `DEC-046` (2026-11-09); awaiting owner approval.**
+Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
+
+## Tranche 1 — `TRUST-AND-DATA-BOUNDARIES.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize trust zones, input and instruction isolation, original text protection, external communication and detectors, network modes, credentials, cloud data policy, offline guarantee, filesystem and path boundaries, safe defaults, data minimization, research data separation. Sources in this map: §2–14, §36–47, §54–56.
+- **Expected deliverable:** `docs/06-security/TRUST-AND-DATA-BOUNDARIES.md`, plus its `DECISION-LOG.md` entry and §93 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values or security guarantees (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7, and any need to change a security boundary.
+- **Resource budget:** not specified by any project document (`AGENT-WORK-MODEL.md` AWM-G4).
+- **Known constraint:** §14 network modes are unreconciled with `OPERATIONS-MAP.md` §136: remain deferred per `DEC-012`.
+
+
+## Tranche 2 — `AGENT-SECURITY-BOUNDARY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize the security perimeter of AI-assisted development: development environment, agent operating boundary, prompt injection defense, review of AI-generated code, security gates for batches. Sources in this map: §15–24, §48–50, §73–78.
+- **Expected deliverable:** `docs/06-security/AGENT-SECURITY-BOUNDARY.md`, plus its `DECISION-LOG.md` entry and §93 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values or security guarantees (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7, and any need to change a security boundary.
+- **Resource budget:** not specified by any project document (`AGENT-WORK-MODEL.md` AWM-G4).
+- **Known constraint:** Must align with `AGENT-WORK-MODEL.md`. The human-authority lists (AWM-C1) and the two change scales (AWM-C2, AWM-C3) stay recorded, not resolved.
+
+
+## Tranche 3 — `SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize dependency, supply-chain, dataset, model, archive and temporary-file security; dynamic code; plugin security; capability permissions; repository, git and branch safety; backup, integrity hashes and reproducible environment. Sources in this map: §25–33, §51–53, §57–62.
+- **Expected deliverable:** `docs/06-security/SUPPLY-CHAIN-AND-ARTIFACT-SECURITY.md`, plus its `DECISION-LOG.md` entry and §93 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values or security guarantees (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7, and any need to change a security boundary.
+- **Resource budget:** not specified by any project document (`AGENT-WORK-MODEL.md` AWM-G4).
+- **Known constraint:** Must align with `ENGINEERING-STANDARDS.md` (ENG-C3, ENG-C4) and `DATA-MAP.md`. §52 must respect the plugin scoping of `DEC-034`.
+
+
+## Tranche 4 — `RESILIENCE-AND-SECURITY-ASSURANCE.md` (Proposed)
+
+- **Objective / allowed scope:** Formalize logging, error handling, resource exhaustion, failure isolation, recovery, security testing, vulnerability management, status and exceptions, security documentation, relation to certification and to research, quality gates, incident response, lifecycle. Sources in this map: §34–35, §63–72, §79–91.
+- **Expected deliverable:** `docs/06-security/RESILIENCE-AND-SECURITY-ASSURANCE.md`, plus its `DECISION-LOG.md` entry and §93 update.
+- **Completion criteria / Definition of Done:** `DEVELOPMENT-MAP.md` §198 and `P00-project-governance.md` §11; every assigned section covered or recorded as a gap; no invented values or security guarantees (`NO-INVENTION-RULES.md`).
+- **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository.
+- **Expected risk:** MEDIUM (judgment).
+- **Stop conditions:** `DEVELOPMENT-MAP.md` §12 and `P00` §7, and any need to change a security boundary.
+- **Resource budget:** not specified by any project document (`AGENT-WORK-MODEL.md` AWM-G4).
+- **Known constraint:** Carries the 06-security portions of `DCQ-006`, deliberately deferred until this area left its definition phase. §71 and §89 may be further status vocabularies under `DEC-012`.
+
+---
+
+# 93. Security Architecture Tranche Log
+
+No tranche executed yet.
