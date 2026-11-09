@@ -4376,3 +4376,57 @@ None new.
 ### Related Decisions
 
 `DEC-057`, `DEC-060`, `DEC-061`, `DEC-062`.
+
+
+---
+
+## DEC-064 — Capability Versions 0.2.0 and Continuous Verification
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction ("vai con tutto e oltre", 2026-11-09), following the first owner-supplied text pair (`TRIAL-GIT-HISTORY.md` §6):
+
+1. **Numeric integrity:** reads a closed list of unit symbols; different known units fail unless they are an exact metric conversion, which implements that part of `VALIDATION-MAP.md` §16; list markers are not compared.
+2. **Structural validation:** adds a `plaintext` format, with a declared heuristic for title-like lines.
+3. **Minimality:** adds `changed_sentence_ratio`, with the declared `punctuation-v1` splitter.
+4. **Continuous verification:** `.github/workflows/verify.yml` runs the audit and unit tests on every push to `main`. It receives no project secret and reads only this public repository. It runs on GitHub's service and uses two GitHub-published actions; this is a development-only external service, with no runtime effect (`DEC-001`).
+
+### Rationale
+
+The owner's text showed that a kilogram-to-gram change passed, which is a serious error, and that plain text was misread. The workflow gives the owner, who works only in the browser, a visible result for every push.
+
+### Alternatives Considered
+
+Treating any word after a number as a unit: rejected, since rewording a noun would fail. Parsing unit words: deferred, because it needs a per-language lexicon.
+
+### Consequences
+
+MEDIUM risk, C2 impact; the workflow touches development infrastructure only. Status stays `EXPERIMENTAL`. All 85 unit tests pass. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/`, `tests/`, `.github/workflows/verify.yml`, `docs/05-validation/`, `docs/08-development/TEST-AND-VERIFICATION-POLICY.md`.
+
+### Reversal Conditions
+
+Owner reversal; removal of the workflow has no other effect.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-001`, `DEC-057`, `DEC-060`–`DEC-063`.

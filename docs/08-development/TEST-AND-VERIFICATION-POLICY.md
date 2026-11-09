@@ -80,7 +80,7 @@ Experiments depending on mutable external services record that exact historical 
 
 # 7. Verification Profiles (§159–166)
 
-The project should eventually provide a single command performing most checks (§159): tests, linting, type checks, security checks, documentation checks, data manifest checks and dependency checks. `tools/verify_docs.py` (`DEC-058`) covers documentation checks only (TVP-G3).
+The project should eventually provide a single command performing most checks (§159): tests, linting, type checks, security checks, documentation checks, data manifest checks and dependency checks. `tools/verify_docs.py` (`DEC-058`) covers documentation checks only (TVP-G3). `.github/workflows/verify.yml` (`DEC-064`) runs it and the unit tests on every push.
 
 | Profile (§160) | Content | Section |
 |---|---|---|

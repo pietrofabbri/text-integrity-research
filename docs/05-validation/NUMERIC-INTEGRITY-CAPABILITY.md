@@ -14,7 +14,7 @@
 
 # 1. Purpose
 
-Compare the numbers written with digits in an original and a candidate text, and classify each as `exact`, `equivalent`, `rounding` or changed (`removed` / `added`), as `VALIDATION-MAP.md` §16 requires.
+Compare the numbers written with digits in an original and a candidate text, and classify each as `exact`, `equivalent`, `rounding` or changed (`removed` / `added`), as `VALIDATION-MAP.md` §16 requires, and recognize exact conversions between metric units.
 
 **A `PASS` covers digit-written numbers only.** It is a deterministic extraction result under declared conditions (`FIDELITY-VALIDATION-PROTOCOL.md` §5), not a finding that facts were preserved.
 
@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.1.0 |
+| `version` | 0.2.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -46,12 +46,16 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Not numbers:** digits directly after a letter (`v2`, `H2O`). Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
 
+**Units (0.2.0):** a closed list of symbols directly after a number (`kg`, `g`, `km`, `m`, `l`, `kWh`, `GB`, `°C`, `EUR` and others, in `UNITS` in the code). Unit words (`chilogrammi`) are not read. Two different known units fail unless they are an exact metric conversion (`1,5 km` and `1500 m`, class `unit_conversion`). If only one side has a known unit, the pair is listed in `unit_uncertain` and the outcome is at best `partially measured`.
+
+**List markers (0.2.0):** a number of up to three digits at the start of a line, followed by `.` or `)` and a space, is treated as a list marker and not compared.
+
 # 4. Outcomes
 
 | Outcome | When |
 |---|---|
 | `FAIL` (severity `CRITICAL`, per `FID-046`) | Any number removed or added, or a rounding not permitted |
-| `partially measured` | No change found, but a pairing depends on the convention, or matched numbers changed order |
+| `partially measured` | No change found, but a pairing depends on the convention, matched numbers changed order, or a unit is known on one side only |
 | `PASS` | All numbers paired, in order, without relying on the convention |
 | `unsupported`, `not measurable` | Unknown language, or input above `max_chars` |
 
@@ -61,7 +65,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 - **Numbers written as words are not read** (`three`, `三百`). Changing `three` to `four` is not detected, and a text with no digits returns `PASS`. The result always lists this in `not_measured`.
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
-- Units are not parsed, so `unit conversion` from §16 is not implemented: `5 km` and `3.1 miles` are reported as changed.
+- Conversions are exact and metric only: `5 km` and `3.1 miles` are reported as changed. Single-letter units can be misread, as in `Room 5 B`. Temperature scales and currencies are never converted.
 - Dates and times are treated as separate numbers, without temporal meaning (`FID-009`).
 - Ranges, comparisons, magnitudes in words (`3 million`) and expressions (`FID-008`) are not interpreted.
 - A plain space is not treated as digit grouping, because it could separate two numbers.

@@ -1,4 +1,4 @@
-# Capability Specification: Structural Validation of Markdown
+# Capability Specification: Structural Validation of Markdown and Plain Text
 
 **Status:** ACTIVE (specification). The capability it specifies is `EXPERIMENTAL`.
 **Version:** 0.1
@@ -24,11 +24,11 @@ Report whether a candidate text keeps the document structure of an original text
 | `id` | `CAP-VALIDATE-STRUCTURAL-MARKDOWN` |
 | `name` | Structural validation of Markdown |
 | `category` | `VALIDATE-STRUCTURAL` |
-| `version` | 0.1.0 |
+| `version` | 0.2.0 |
 | `status` | `EXPERIMENTAL` (has not passed the Activation Gate of `CAPABILITY-ARCHITECTURE.md` §7) |
 | `languages` | `EXPERIMENTAL` for the 13 target languages of `DATA-MAP.md` §22; `unsupported` for any other. The rules read Markdown syntax, not language content; tests run on English, Japanese, Chinese, Russian and Turkish only |
 | `dependencies` | None |
-| `input_requirements` | Two strings, a language code, a declared constraint type, input format `markdown` |
+| `input_requirements` | Two strings, a language code, a declared constraint type, input format `markdown` or `plaintext` |
 | `output_schema` | `VALIDATION-ARCHITECTURE.md` §8, with raw observations |
 | `validation_requirements` | Not yet defined; needed before `VALIDATED` (see §7) |
 | `scientific_sources` | None. No `R-XXXX` addresses structural comparison, so the Activation Gate condition on sources is not met |
@@ -63,6 +63,8 @@ Inputs are never altered (`DEC-059`). Only line-break style is treated as equiva
 
 **Observation only:** the count of Unicode format characters (category `Cf`, such as zero-width characters) in each text. A difference does not cause `FAIL`, but stays visible (`FID-024`).
 
+**Plain text (`plaintext`, 0.2.0):** blank-line blocks (`paragraphs`), non-list `lines`, `lists`, `title_like_lines` and `block_order`. A title-like line has letters and no final punctuation. This is a declared heuristic: it misses titles ending in punctuation and counts unpunctuated lines that are not titles. The other elements are reported as not measured.
+
 # 5. Constraints and Failure Behavior
 
 Read-only; no network, file or subprocess use. Invalid arguments raise an error. Unsupported format or language, or input above `max_chars`, returns a missing-evidence state and never `PASS` (`FID-043`). Whether the dimension is hard or soft is declared by the caller.
@@ -76,7 +78,7 @@ Classification under `AGENT-WORK-MODEL.md` §5: MEDIUM risk, C2 impact. `AGENT-S
 - Indented code blocks are read as paragraphs; indented continuation lines inside a list end the list.
 - HTML blocks are not recognized, nor are reference-style links.
 - Table cell text is not compared, only shape. Section-level boundary crossing (`TRN-023`) is not detected beyond `block_order`.
-- Plain text, HTML and other formats are `unsupported`, although `FID-016` requires comparison to account for the format of the input.
+- HTML and other formats are `unsupported`, although `FID-016` requires comparison to account for the format of the input.
 
 # 7. Evidence and Open Items
 

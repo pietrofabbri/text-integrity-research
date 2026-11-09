@@ -130,6 +130,26 @@ class Validate(unittest.TestCase):
         self.assertIn("homoglyphs", result["not_measured"])
         json.dumps(result)
 
+    def test_plaintext_keeps_lines_separate(self):
+        text = "Il titolo\nUn testo.\nAltro titolo\n\n* uno\n* due\n\nFine."
+        result = run(text, text, input_format="plaintext")
+        observed = result["observations"]["original"]
+        self.assertEqual(result["outcome"], "PASS")
+        self.assertEqual((observed["paragraphs"], observed["lines"], observed["title_like_lines"]), (3, 4, 2))
+        self.assertEqual(len(observed["lists"]), 1)
+        self.assertIn("headings", result["not_measured"])
+
+    def test_plaintext_removed_title_fails(self):
+        result = run("Titolo\nTesto.", "Testo.", input_format="plaintext")
+        self.assertIn("title_like_lines", result["differences"])
+
+    def test_plaintext_reworded_passes(self):
+        self.assertEqual(run("Titolo\nUna frase.", "Titolo\nAltra frase.", input_format="plaintext")["outcome"], "PASS")
+
+    def test_plaintext_permitted_element_names(self):
+        with self.assertRaises(ValueError):
+            run("a", "a", input_format="plaintext", permitted=frozenset({"headings"}))
+
     def test_inputs_not_normalized(self):
         # composed and decomposed forms of the same letter stay distinct in code
         self.assertEqual(run("`é`", "`é`")["outcome"], "FAIL")

@@ -69,7 +69,7 @@ class Measure(unittest.TestCase):
 
     def test_unmeasured_are_explicit(self):
         metrics = m.measure("a", "b", language="en")["metrics"]
-        self.assertEqual(metrics["changed_sentence_ratio"]["state"], "not measurable")
+        self.assertEqual(metrics["changed_sentence_ratio"]["state"], "measured")
         self.assertEqual(metrics["semantic_deviation"]["state"], "not measurable")
 
     def test_japanese_tokens_not_measurable_but_characters_are(self):
@@ -93,6 +93,17 @@ class Measure(unittest.TestCase):
     def test_unsupported_language_and_limit(self):
         self.assertEqual(m.measure("a", "a", language="xx")["outcome"], "unsupported")
         self.assertEqual(m.measure("abc", "abc", language="en", max_chars=1)["outcome"], "not measurable")
+
+    def test_sentence_ratio(self):
+        metric = m.measure("Uno due. Tre quattro. Cinque.", "Uno due. Tre altro. Cinque.", language="it")["metrics"]["changed_sentence_ratio"]
+        self.assertAlmostEqual(metric["value"], 1 / 3)
+
+    def test_cjk_sentences(self):
+        self.assertEqual(len(m.split_sentences("本文です。次です！")), 2)
+
+    def test_plaintext_structural_rate(self):
+        metric = m.measure("Titolo\nTesto.", "Testo.", language="it", input_format="plaintext")["metrics"]["structural_change_rate"]
+        self.assertIn("title_like_lines", metric["changed_elements"])
 
     def test_type_error(self):
         with self.assertRaises(TypeError):

@@ -16,16 +16,22 @@ from dataclasses import asdict, dataclass, field
 from typing import Any
 
 CAPABILITY_ID = "CAP-VALIDATE-STRUCTURAL-MARKDOWN"
-CAPABILITY_VERSION = "0.1.0"
+CAPABILITY_VERSION = "0.2.0"
 FAMILY = "VALIDATE-STRUCTURAL"
 TARGET_LANGUAGES = frozenset({"en", "es", "de", "ja", "fr", "pt", "ru", "it", "nl", "pl", "tr", "zh", "id"})
-SUPPORTED_FORMATS = frozenset({"markdown"})
+SUPPORTED_FORMATS = frozenset({"markdown", "plaintext"})
 
 MEASURED = (
     "paragraphs", "headings", "lists", "tables", "block_quotes", "code_blocks",
     "inline_code", "links", "footnotes", "block_formulas", "block_order",
 )
 NOT_MEASURED = ("inline_quotations", "inline_formulas", "emphasis", "whitespace", "punctuation", "capitalization", "homoglyphs")
+
+MEASURED_PLAINTEXT = ("paragraphs", "lines", "title_like_lines", "lists", "block_order")
+NOT_MEASURED_PLAINTEXT = (
+    "headings", "tables", "block_quotes", "code_blocks", "inline_code", "links", "footnotes", "block_formulas",
+) + NOT_MEASURED
+_SENTENCE_END = ".!?:;…,。！？、"
 
 _LINE_BREAK = re.compile(r"\r\n|\n|\r")
 _FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
@@ -60,6 +66,8 @@ class Profile:
     block_formulas: list[str] = field(default_factory=list)
     block_order: list[str] = field(default_factory=list)
     format_characters: int = 0
+    lines: int = 0
+    title_like_lines: int = 0
 
 
 def _columns(row: str) -> int:
@@ -176,6 +184,47 @@ def _paragraph(p: Profile, lines: list[str], i: int) -> int:
     return i
 
 
+def profile_plaintext(text: str) -> Profile:
+    """Scan text without markup: blank-line blocks, lines, list markers, title-like lines.
+
+    A title-like line is a line with letters and no final punctuation: a
+    declared heuristic, not a detection of real titles.
+    """
+    p = Profile(format_characters=sum(unicodedata.category(c) == "Cf" for c in text))
+    in_block = False
+    current_list: list[list[Any]] = []
+
+    def close_list() -> None:
+        nonlocal current_list
+        if current_list:
+            p.lists.append(current_list)
+            p.block_order.append("list")
+            current_list = []
+
+    for line in _LINE_BREAK.split(text):
+        stripped = line.strip()
+        if not stripped:
+            close_list()
+            in_block = False
+            continue
+        if not in_block:
+            p.paragraphs += 1
+            in_block = True
+        item = _LIST_ITEM.match(line)
+        if item:
+            current_list.append([len(item.group(1)) // 2, item.group(2)[0].isdigit()])
+            continue
+        close_list()
+        p.lines += 1
+        if stripped[-1] not in _SENTENCE_END and any(c.isalpha() for c in stripped):
+            p.title_like_lines += 1
+            p.block_order.append("title_like")
+        else:
+            p.block_order.append("line")
+    close_list()
+    return p
+
+
 def _missing(state: str, reason: str, language: str, constraint_type: str) -> dict[str, Any]:
     return {
         "family": FAMILY, "capability_id": CAPABILITY_ID, "capability_version": CAPABILITY_VERSION,
@@ -204,7 +253,8 @@ def validate(
         raise TypeError("original and candidate must be str")
     if constraint_type not in {"HARD", "SOFT"}:
         raise ValueError("constraint_type must be HARD or SOFT")
-    unknown = set(permitted) - set(MEASURED)
+    measured = MEASURED_PLAINTEXT if input_format == "plaintext" else MEASURED
+    unknown = set(permitted) - set(measured)
     if unknown:
         raise ValueError(f"unknown structural elements: {sorted(unknown)}")
     if input_format not in SUPPORTED_FORMATS:
@@ -214,9 +264,10 @@ def validate(
     if max_chars is not None and max(len(original), len(candidate)) > max_chars:
         return _missing("not measurable", "input exceeds max_chars", language, constraint_type)
 
-    before, after = profile_markdown(original), profile_markdown(candidate)
+    profile = profile_plaintext if input_format == "plaintext" else profile_markdown
+    before, after = profile(original), profile(candidate)
     first, second = asdict(before), asdict(after)
-    differences = [e for e in MEASURED if first[e] != second[e]]
+    differences = [e for e in measured if first[e] != second[e]]
     blocking = [e for e in differences if e not in permitted]
     return {
         "family": FAMILY, "capability_id": CAPABILITY_ID, "capability_version": CAPABILITY_VERSION,
@@ -224,6 +275,6 @@ def validate(
         "constraint_type": constraint_type, "confidence": None, "evidence_basis": [],
         "language": language, "input_format": input_format,
         "differences": blocking, "permitted_differences": [e for e in differences if e in permitted],
-        "measured": list(MEASURED), "not_measured": list(NOT_MEASURED),
+        "measured": list(measured), "not_measured": list(NOT_MEASURED_PLAINTEXT if input_format == "plaintext" else NOT_MEASURED),
         "observations": {"original": first, "candidate": second},
     }

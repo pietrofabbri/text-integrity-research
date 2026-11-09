@@ -23,7 +23,7 @@ Report how much a candidate text differs from its original, as separate measurem
 | `id` | `CAP-VALIDATE-MINIMALITY-LEXICAL` |
 | `name` | Lexical minimality measurement |
 | `category` | `VALIDATE-MINIMALITY` |
-| `version` | 0.1.0 |
+| `version` | 0.2.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | Character metrics: 13 target languages. Token metrics: the 11 written with spaces between words; `not measurable` for Japanese and Chinese, which have no registered tokenizer |
 | `dependencies` | `CAP-VALIDATE-STRUCTURAL-MARKDOWN` for `structural_change_rate`; no external dependency |
@@ -45,11 +45,13 @@ Definitions of the ratios are this capability's own, because no project document
 | `changed_token_ratio` | Token edit distance ÷ original tokens; may exceed 1 | same |
 | `inserted_token_ratio`, `deleted_token_ratio` | Insertions or deletions ÷ original tokens | same |
 | `lexical_substitution_rate` | Substitutions ÷ original tokens | same |
-| `structural_change_rate` | Differing elements ÷ the 11 elements compared by the structural capability, with the elements listed | measured for Markdown |
-| `changed_sentence_ratio` | No sentence segmenter is selected | `not measurable` |
+| `structural_change_rate` | Differing elements ÷ the elements compared by the structural capability, of the input format, with the elements listed | measured for Markdown and plain text |
+| `changed_sentence_ratio` | Original sentences without an exact match in the candidate ÷ original sentences (`punctuation-v1`) | measured |
 | `semantic_deviation` | No semantic validator exists | `not measurable` |
 
 **Tokenizer `whitespace-v1`:** splits on whitespace, case-sensitive, punctuation stays attached to words. It is a declared simplification, not a linguistic tokenizer.
+
+**Splitter `punctuation-v1`:** splits after `.`, `!`, `?` or `…` followed by whitespace, and after `。`, `！`, `？`. It is a declared simplification: abbreviations split too, and any small edit marks the whole sentence as changed.
 
 # 4. Failure Behavior
 

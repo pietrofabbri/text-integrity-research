@@ -123,6 +123,42 @@ class Validate(unittest.TestCase):
         result = run("a 10-year study", "a 20-year study")
         self.assertEqual(result["outcome"], "FAIL")
 
+    def test_different_units_fail(self):
+        result = run("circa 513 kg di rifiuti", "circa 513 g di rifiuti", language="it")
+        self.assertEqual(result["outcome"], "FAIL")
+
+    def test_same_unit_passes(self):
+        self.assertEqual(run("513 kg", "513kg")["outcome"], "PASS")
+
+    def test_unit_conversion_is_recognised(self):
+        result = run("1,5 km", "1500 m", language="it")
+        self.assertEqual(len(result["comparison"]["unit_conversion"]), 1)
+        self.assertEqual(result["comparison"]["removed"], [])
+
+    def test_wrong_conversion_fails(self):
+        self.assertEqual(run("1 km", "100 m")["outcome"], "FAIL")
+
+    def test_different_dimensions_fail(self):
+        self.assertEqual(run("1000 g", "1 km")["outcome"], "FAIL")
+
+    def test_unit_lost_is_uncertain_not_pass(self):
+        result = run("513 kg", "513 chilogrammi", language="it")
+        self.assertEqual(result["outcome"], "partially measured")
+        self.assertEqual(len(result["comparison"]["unit_uncertain"]), 1)
+
+    def test_unit_needs_a_boundary(self):
+        self.assertEqual(v.extract("5 metri", "it")[0].unit, "")
+        self.assertEqual(v.extract("5 gatti", "it")[0].unit, "")
+
+    def test_list_markers_are_not_numbers(self):
+        self.assertEqual(values("1. Primo\n2) Secondo\n", "it"), [])
+
+    def test_year_at_line_start_is_a_number(self):
+        self.assertEqual(values("2022. Nel corso", "it"), [Decimal(2022)])
+
+    def test_renumbering_does_not_fail(self):
+        self.assertEqual(run("1. uno\n2. due\n", "1. uno\n3. due\n")["outcome"], "PASS")
+
     def test_json_serializable(self):
         json.dumps(run("1.5", "1.50"))
 

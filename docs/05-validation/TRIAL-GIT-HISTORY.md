@@ -66,3 +66,5 @@ The owner supplied one original and one reworded Italian text of about 1,650 cha
 2. A meaning reversal (`non riciclate` to `riciclate`) passes both checks, as expected: these capabilities do not assess meaning.
 3. Ordered-list markers (`1.` to `5.`) are counted as numbers in the text.
 4. Titles without Markdown syntax are read as paragraph text, merged with adjacent lines, so the paragraph count does not match what a reader sees. Plain-text input is the likely common case.
+
+**Follow-up (`DEC-064`):** weaknesses 1, 3 and 4 are addressed, in versions 0.2.0 of the capabilities. `513 kg` changed to `513 g` now fails. Weakness 2 is out of scope. The fixes are checked by unit tests modelled on these cases; the original pair was not re-run, because it was not stored.

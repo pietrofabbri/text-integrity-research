@@ -7,14 +7,18 @@ TRN-007). Inputs are never normalized (DEC-059).
 """
 from __future__ import annotations
 
+import re
+from collections import Counter
 from typing import Any
 
 from text_integrity import validate_structural as structural
 
 CAPABILITY_ID = "CAP-VALIDATE-MINIMALITY-LEXICAL"
-CAPABILITY_VERSION = "0.1.0"
+CAPABILITY_VERSION = "0.2.0"
 FAMILY = "VALIDATE-MINIMALITY"
 TOKENIZER = "whitespace-v1"
+SENTENCE_SPLITTER = "punctuation-v1"
+_SENTENCE = re.compile(r"(?<=[.!?…])\s+|(?<=[。！？])")
 WHITESPACE_DELIMITED = frozenset({"en", "es", "de", "fr", "pt", "ru", "it", "nl", "pl", "tr", "id"})
 NOT_SEGMENTED_BY_SPACES = frozenset({"ja", "zh"})
 TARGET_LANGUAGES = WHITESPACE_DELIMITED | NOT_SEGMENTED_BY_SPACES
@@ -103,12 +107,25 @@ def _token_metrics(original: str, candidate: str, language: str) -> dict[str, di
     return metrics
 
 
+def split_sentences(text: str) -> list[str]:
+    """Split on final punctuation. A declared simplification: abbreviations split too."""
+    return [part.strip() for part in _SENTENCE.split(text) if part.strip()]
+
+
+def _sentence_metric(original: str, candidate: str) -> dict[str, Any]:
+    first = split_sentences(original)
+    if not first:
+        return _state("not applicable", "original has no sentences")
+    unchanged = sum((Counter(first) & Counter(split_sentences(candidate))).values())
+    return {"state": "measured", "value": (len(first) - unchanged) / len(first), "splitter": SENTENCE_SPLITTER}
+
+
 def _structural_metric(original: str, candidate: str, language: str, input_format: str) -> dict[str, Any]:
     result = structural.validate(original, candidate, language=language, constraint_type="SOFT", input_format=input_format)
     if result["outcome"] not in {"PASS", "FAIL"}:
         return _state(str(result["outcome"]), str(result.get("reason", "")))
     changed = len(result["differences"])
-    return {"state": "measured", "value": changed / len(structural.MEASURED), "changed_elements": result["differences"]}
+    return {"state": "measured", "value": changed / len(result["measured"]), "changed_elements": result["differences"]}
 
 
 def measure(original: str, candidate: str, *, language: str, input_format: str = "markdown", max_chars: int | None = None) -> dict[str, Any]:
@@ -127,7 +144,7 @@ def measure(original: str, candidate: str, *, language: str, input_format: str =
     metrics: dict[str, dict[str, Any]] = {
         "character_edit_distance": _value(character_edit_distance(original, candidate)),
         **_token_metrics(original, candidate, language),
-        "changed_sentence_ratio": _state("not measurable", "no sentence segmenter selected"),
+        "changed_sentence_ratio": _sentence_metric(original, candidate),
         "structural_change_rate": _structural_metric(original, candidate, language, input_format),
         "semantic_deviation": _state("not measurable", "requires a semantic validator; none exists"),
     }
