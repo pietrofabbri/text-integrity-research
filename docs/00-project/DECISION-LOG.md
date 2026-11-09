@@ -4278,3 +4278,52 @@ None applicable; recorded as a condition not met for `VALIDATED`.
 ### Related Decisions
 
 `DEC-057`, `DEC-059`, `DEC-060`.
+
+
+---
+
+## DEC-062 — Third Capability: Numeric Integrity of Digit-Written Numbers (Experimental)
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's delegation ("prendi le decisioni che ti sembrano più sensate e procedi", 2026-11-09), `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` is specified in `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md` and implemented in `src/text_integrity/validate_numeric.py`, with status `EXPERIMENTAL`. It covers digit-written numbers, reading decimals by a per-language convention that is declared in the specification. A pairing that depends on an ambiguous form is at best `partially measured`.
+
+### Rationale
+
+`DEC-015` keeps this tier unblocked by `KB-013`, and `FIDELITY-VALIDATION-PROTOCOL.md` §4.1 requires it. The per-language convention is the agent's engineering simplification, because no project document specifies number formats.
+
+### Alternatives Considered
+
+Treating ambiguous forms as equivalent without signalling it: rejected, because a wrong reading would produce an unearned `PASS`.
+
+### Consequences
+
+MEDIUM risk, C2 impact, approved under `DEC-057`. All 66 unit tests pass. Unit conversion, required by `VALIDATION-MAP.md` §16, is not implemented; such cases are reported as changed. No experiment has been run.
+
+### Affected Areas
+
+`src/`, `tests/`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal; a locale-aware number resource justified under `DEVELOPMENT-MAP.md` §78.
+
+### Related Research
+
+`R-0041`, `R-0079`, for the failure mode only.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-015`, `DEC-057`, `DEC-059`, `DEC-060`.
