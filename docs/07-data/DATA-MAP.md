@@ -1752,7 +1752,7 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 - **Known constraint:** Must record `Q-007` (legal distribution of datasets) and `Q-019` without answering them; no legal conclusion may be drawn.
 
 
-## Tranche 3 — `DATA-STORAGE-AND-AVAILABILITY.md` (Approved, not executed)
+## Tranche 3 — `DATA-STORAGE-AND-AVAILABILITY.md` (Executed 2026-11-09, `DEC-054`)
 
 - **Objective / allowed scope:** Formalize GitHub usage, large artifacts, the storage budget, caching, downloads, access layers, offline availability, backup and integrity monitoring. Sources in this map: §41–49, §79, §91–93, §101–104, §114.
 - **Expected deliverable:** `docs/07-data/DATA-STORAGE-AND-AVAILABILITY.md`, plus its `DECISION-LOG.md` entry and §127 update.
@@ -1792,3 +1792,4 @@ Follows the precedent of `docs/08-development/DEVELOPMENT-MAP.md` §202.
 # 127. Data Architecture Tranche Log
 - **Tranche 1 (Executed 2026-11-09):** `docs/07-data/DATA-IDENTITY-AND-METADATA.md` (`DEC-052`). Records DIM-C1 to DIM-C3 and DIM-G1 to DIM-G4.
 - **Tranche 2 (Executed 2026-11-09):** `docs/07-data/DATA-GOVERNANCE-AND-LICENSING.md` (`DEC-053`). Records DGL-C1 to DGL-C3 and DGL-G1 to DGL-G4.
+- **Tranche 3 (Executed 2026-11-09):** `docs/07-data/DATA-STORAGE-AND-AVAILABILITY.md` (`DEC-054`). Records DSA-C1 to DSA-C3 and DSA-G1 to DSA-G4.
