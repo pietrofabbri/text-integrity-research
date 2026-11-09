@@ -23,7 +23,7 @@ Report how much a candidate text differs from its original, as separate measurem
 | `id` | `CAP-VALIDATE-MINIMALITY-LEXICAL` |
 | `name` | Lexical minimality measurement |
 | `category` | `VALIDATE-MINIMALITY` |
-| `version` | 0.2.0 |
+| `version` | 0.3.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | Character metrics: 13 target languages. Token metrics: the 11 written with spaces between words; `not measurable` for Japanese and Chinese, which have no registered tokenizer |
 | `dependencies` | `CAP-VALIDATE-STRUCTURAL-MARKDOWN` for `structural_change_rate`; no external dependency |
@@ -61,7 +61,7 @@ Non-string input raises an error. An unknown language returns `unsupported`; inp
 
 - Attached punctuation counts: `word` and `word,` are different tokens, inflating token metrics.
 - Token counts are not comparable across languages. Agglutinative languages such as Turkish pack more into a whitespace token (`LANGUAGE-ARCHITECTURE.md` §6).
-- Token alignment takes time proportional to the product of the changed regions, so very long, heavily changed texts are slow. The slowest real case observed took about 9 seconds (`TRIAL-GIT-HISTORY.md`). `max_chars` has no default value (`RESILIENCE-AND-SECURITY-ASSURANCE.md` RSA-G1).
+- Since 0.3.0 token alignment is banded and exact, with results identical to the full table, tie-breaks included (checked by unit tests). Time grows with text length times the number of changes, so long texts with few changes are fast. Very long, heavily rewritten texts stay slow, about 8 seconds on a synthetic 5,000-token text with 1,641 token edits; this is one machine and not a benchmark. `max_chars` has no default value (`RESILIENCE-AND-SECURITY-ASSURANCE.md` RSA-G1).
 - When several minimal alignments exist, the split between insertions, deletions and substitutions depends on a fixed tie-break. The total distance does not.
 - The structural rate weights all elements equally. This is a convention without scientific basis.
 

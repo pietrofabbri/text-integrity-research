@@ -4430,3 +4430,56 @@ None new.
 ### Related Decisions
 
 `DEC-001`, `DEC-057`, `DEC-060`–`DEC-063`.
+
+
+---
+
+## DEC-065 — Capability Versions 0.3.0 and Acceptance-Criteria Options for the Owner
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction (2026-11-09, choosing items 2 and 3 of the proposed next steps):
+
+1. **Numeric integrity 0.3.0:** dates are read and compared as whole items in the 13 target languages, using declared patterns and month-name lists; digits after kana or CJK ideographs are now read as numbers, which fixes a defect.
+2. **Minimality 0.3.0:** token alignment is banded and exact; measured values do not change.
+3. **`ACCEPTANCE-CRITERIA-OPTIONS.md`:** sets out the decisions reserved to the owner. It selects nothing and fixes no threshold.
+
+### Rationale
+
+`FID-009` and `FIDELITY-VALIDATION-PROTOCOL.md` §4.1 require temporal preservation, and a month-name change passed unnoticed. The day-first reading is the agent's engineering simplification, flagged in each result that depends on it. The Japanese and Chinese defect produced an unearned `PASS`.
+
+### Alternatives Considered
+
+Reading abbreviated months and two-digit years: deferred, because they collide with ordinary words and with ratios. Dropping the exact alignment for a heuristic: rejected, because it would change measured values.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. Dates that previously passed digit by digit can now fail, as when only the month is dropped. A date in another form no longer fails. Status stays `EXPERIMENTAL`. All 97 unit tests pass; they are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `src/text_integrity/measure_minimality.py`, `tests/`, `docs/05-validation/`.
+
+### Reversal Conditions
+
+Owner reversal; a locale resource justified under `DEVELOPMENT-MAP.md` §78 would replace the month lists.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. `ACCEPTANCE-CRITERIA-OPTIONS.md` lists the decisions awaiting the owner.
+
+### Related Decisions
+
+`DEC-004`, `DEC-012`, `DEC-015`, `DEC-057`, `DEC-062`, `DEC-064`.

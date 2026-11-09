@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.2.0 |
+| `version` | 0.3.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -44,18 +44,22 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Identifier-like numbers:** numbers joined to letters by a hyphen (`DEC-058`, `10-year`) count normally, since a real quantity may look the same, and changes to them are also reported in `identifier_like_changes`.
 
-**Not numbers:** digits directly after a letter (`v2`, `H2O`). Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
+**Not numbers:** digits directly after a letter of a script written with spaces (`v2`, `H2O`). Since 0.3.0, digits after kana or CJK ideographs are numbers: Japanese and Chinese have no space before them, and earlier versions silently read almost none of them. Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
 
 **Units (0.2.0):** a closed list of symbols directly after a number (`kg`, `g`, `km`, `m`, `l`, `kWh`, `GB`, `°C`, `EUR` and others, in `UNITS` in the code). Unit words (`chilogrammi`) are not read. Two different known units fail unless they are an exact metric conversion (`1,5 km` and `1500 m`, class `unit_conversion`). If only one side has a known unit, the pair is listed in `unit_uncertain` and the outcome is at best `partially measured`.
 
 **List markers (0.2.0):** a number of up to three digits at the start of a line, followed by `.` or `)` and a space, is treated as a list marker and not compared.
+
+**Dates (0.3.0):** dates are read as whole items and compared as dates, in support of `FID-009`; their digits are not also counted as numbers. Forms read: `YYYY-MM-DD` and `D/M/YYYY` with `-`, `/` or `.` as separator; full month names of the 11 languages written with spaces (`15 marzo 2024`, `March 15, 2024`, `5 de mayo de 2021`, `15. März 2024`, with or without day or year); `2024年3月15日` and its shorter forms in Japanese and Chinese. The same date in another form is class `equivalent` in `comparison.dates` and does not fail. A changed, removed or added date, including a dropped month or year, fails.
+
+**Date convention (a declared simplification):** an all-digit date that is valid both as day-first and month-first is read day-first, except in English, where both readings are kept because both are in use. A pairing that depends on this cannot give more than `partially measured`.
 
 # 4. Outcomes
 
 | Outcome | When |
 |---|---|
 | `FAIL` (severity `CRITICAL`, per `FID-046`) | Any number removed or added, or a rounding not permitted |
-| `partially measured` | No change found, but a pairing depends on the convention, matched numbers changed order, or a unit is known on one side only |
+| `partially measured` | No change found, but a pairing depends on the convention, matched numbers changed order, or a unit is known on one side only; the same for dates |
 | `PASS` | All numbers paired, in order, without relying on the convention |
 | `unsupported`, `not measurable` | Unknown language, or input above `max_chars` |
 
@@ -66,7 +70,9 @@ Compare the numbers written with digits in an original and a candidate text, and
 - **Numbers written as words are not read** (`three`, `三百`). Changing `three` to `four` is not detected, and a text with no digits returns `PASS`. The result always lists this in `not_measured`.
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
 - Conversions are exact and metric only: `5 km` and `3.1 miles` are reported as changed. Single-letter units can be misread, as in `Room 5 B`. Temperature scales and currencies are never converted.
-- Dates and times are treated as separate numbers, without temporal meaning (`FID-009`).
+- Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.
+- Abbreviated month names (`Jan`, `gen.`), inflected forms not listed in `MONTHS` (Russian `в марте`, for example) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
+- A number after an English month name is read as a day, so `In May 30 people came` gives a date. Date order is checked among dates only, not against the surrounding numbers.
 - Ranges, comparisons, magnitudes in words (`3 million`) and expressions (`FID-008`) are not interpreted.
 - A plain space is not treated as digit grouping, because it could separate two numbers.
 - Pairing is greedy and deterministic, and may differ from a human's pairing when many similar numbers occur.

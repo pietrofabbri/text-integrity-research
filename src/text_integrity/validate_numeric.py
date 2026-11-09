@@ -3,8 +3,8 @@
 Specification: docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md
 Status: EXPERIMENTAL. Compares numbers written with digits, classifying each
 pair as exact, equivalent, rounding or changed (VALIDATION-MAP.md §16).
-It does not read numbers written as words, units, dates or what a number
-refers to. Inputs are never normalized (DEC-059).
+Dates are read as whole items (0.3.0). It does not read numbers written as
+words, unit words, times, relative dates or what a number refers to. Inputs are never normalized (DEC-059).
 """
 from __future__ import annotations
 
@@ -12,22 +12,28 @@ import re
 import unicodedata
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import date
 from decimal import ROUND_HALF_UP, Decimal
+from functools import cache
 from typing import Any
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.2.0"
+CAPABILITY_VERSION = "0.3.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
 TARGET_LANGUAGES = DECIMAL_POINT | DECIMAL_COMMA
-NOT_MEASURED = ("numbers_as_words", "unit_words", "date_and_time_meaning", "what_each_number_refers_to", "ranges_and_comparisons")
+NOT_MEASURED = ("numbers_as_words", "unit_words", "times_and_durations", "relative_dates", "abbreviated_month_names", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
 SPACE_GROUP = "  "
 
+# Letters that make a following digit part of a word (v2, H2O). Scripts written
+# without spaces (kana, CJK ideographs) are excluded: digits sit directly after them.
+_CJK = "\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uff66-\uff9f"
+_LETTER_OR_DIGIT = rf"[^\W_{_CJK}]"
 _NUMBER = re.compile(
     r"(?P<currency>[$€£¥]\s?)?"
-    r"(?P<sign>(?<![^\W_])(?<![)])[-−])?"
-    r"(?<![^\W_])(?P<body>\d+(?:[.,  ]\d+)*)"
+    rf"(?P<sign>(?<!{_LETTER_OR_DIGIT})(?<![)])[-−])?"
+    rf"(?<!{_LETTER_OR_DIGIT})(?P<body>\d+(?:[.,  ]\d+)*)"
     r"(?P<percent>[   ]?[%％])?"
 )
 
@@ -48,10 +54,111 @@ UNITS: dict[str, tuple[str, Decimal]] = {
     "km/h": ("speed_kmh", Decimal(1)), "mph": ("speed_mph", Decimal(1)),
     "EUR": ("eur", Decimal(1)), "USD": ("usd", Decimal(1)), "GBP": ("gbp", Decimal(1)), "JPY": ("jpy", Decimal(1)),
 }
-_UNIT = re.compile(r"[ \u00a0\u202f]?(" + "|".join(sorted(map(re.escape, UNITS), key=len, reverse=True)) + r")(?![^\W_])")
+_UNIT = re.compile(r"[ \u00a0\u202f]?(" + "|".join(sorted(map(re.escape, UNITS), key=len, reverse=True)) + r")" + rf"(?!{_LETTER_OR_DIGIT})")
 _LIST_MARKER_AFTER = re.compile(r"[.)]\s")
 _LETTER_HYPHEN = re.compile(r"[^\W\d_]-$")
 _HYPHEN_LETTER = re.compile(r"-[^\W\d_]")
+
+
+# Month names per language (lower case; "|" separates accepted forms of one month).
+MONTHS: dict[str, tuple[str, ...]] = {
+    "en": ("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"),
+    "it": ("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"),
+    "es": ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre|setiembre", "octubre", "noviembre", "diciembre"),
+    "fr": ("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"),
+    "de": ("januar|jänner", "februar", "märz", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "dezember"),
+    "pt": ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"),
+    "nl": ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"),
+    "id": ("januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember"),
+    "tr": ("ocak", "şubat", "mart", "nisan", "mayıs", "haziran", "temmuz", "ağustos", "eylül", "ekim", "kasım", "aralık"),
+    "pl": ("styczeń|stycznia", "luty|lutego", "marzec|marca", "kwiecień|kwietnia", "maj|maja", "czerwiec|czerwca", "lipiec|lipca", "sierpień|sierpnia", "wrzesień|września", "październik|października", "listopad|listopada", "grudzień|grudnia"),
+    "ru": ("январь|января", "февраль|февраля", "март|марта", "апрель|апреля", "май|мая", "июнь|июня", "июль|июля", "август|августа", "сентябрь|сентября", "октябрь|октября", "ноябрь|ноября", "декабрь|декабря"),
+}
+_START = rf"(?<!{_LETTER_OR_DIGIT})(?<![.,/\-])"
+_END = rf"(?!{_LETTER_OR_DIGIT})(?![-/.]\d)"
+_DAY_MARK = r"(?:\.|er|º|°|st|nd|rd|th)?"
+_YEAR_AFTER_MONTH = rf"[\s,]+(?:del?\s+)?(?P<year>\d{{4}}){_END}"
+_YMD = re.compile(rf"{_START}(?P<year>\d{{4}})(?P<sep>[-/.])(?P<month>\d{{1,2}})(?P=sep)(?P<day>\d{{1,2}}){_END}")
+_XYY = re.compile(rf"{_START}(?P<first>\d{{1,2}})(?P<sep>[-/.])(?P<second>\d{{1,2}})(?P=sep)(?P<year>\d{{4}}){_END}")
+_CJK_DATES = (
+    re.compile(r"(?<!\d)(?P<year>\d{4})年(?P<month>\d{1,2})月(?:(?P<day>\d{1,2})[日号])?"),
+    re.compile(r"(?<!\d)(?P<month>\d{1,2})月(?P<day>\d{1,2})[日号]"),
+)
+
+
+def _month_key(name: str) -> str:
+    return name.casefold().replace("ı", "i")
+
+
+@cache
+def _month_patterns(language: str) -> tuple[dict[str, int], tuple[re.Pattern[str], ...]]:
+    """Return the month index and the name-based date patterns, most specific first."""
+    if language not in MONTHS:
+        return {}, ()
+    index = {_month_key(form): number for number, forms in enumerate(MONTHS[language], 1) for form in forms.split("|")}
+    forms = sorted((form for forms in MONTHS[language] for form in forms.split("|")), key=len, reverse=True)
+    # English month names are capitalized; this keeps the verb "may" and "to march" out.
+    flags = 0 if language == "en" else re.IGNORECASE
+    names = "|".join(re.escape(form.capitalize() if language == "en" else form) for form in forms)
+    name = rf"(?P<name>{names})(?!{_LETTER_OR_DIGIT})"
+    patterns = [re.compile(rf"{_START}(?P<day>\d{{1,2}}){_DAY_MARK}\s+(?:(?:of|de)\s+)?{name}(?:{_YEAR_AFTER_MONTH})?", flags)]
+    if language == "en":
+        patterns.append(re.compile(rf"{_START}{name}\s+(?P<day>\d{{1,2}})(?:st|nd|rd|th)?(?!{_LETTER_OR_DIGIT})(?:,?\s+(?P<year>\d{{4}}){_END})?", flags))
+    patterns.append(re.compile(rf"{_START}{name}{_YEAR_AFTER_MONTH}", flags))
+    return index, tuple(patterns)
+
+
+@dataclass(frozen=True)
+class DateMention:
+    raw: str
+    readings: frozenset[tuple[int | None, int, int | None]]  # (year, month, day)
+    relies_on_convention: bool = False
+
+
+def _valid_date(year: int | None, month: int, day: int | None) -> bool:
+    try:
+        date(2000 if year is None else year, month, 1 if day is None else day)
+    except ValueError:
+        return False
+    return True
+
+
+def _numeric_date(raw: str, first: int, second: int, year: int, language: str) -> DateMention | None:
+    """Read d/m/y or m/d/y. English keeps both readings; other languages read day first."""
+    day_first, month_first = (year, second, first), (year, first, second)
+    valid = [reading for reading in (day_first, month_first) if _valid_date(*reading)]
+    if not valid:
+        return None
+    if len(valid) == 1 or first == second:
+        return DateMention(raw, frozenset(valid[:1]))
+    return DateMention(raw, frozenset(valid if language == "en" else [day_first]), True)
+
+
+def _mention_from(match: re.Match[str], language: str, month_index: dict[str, int]) -> DateMention | None:
+    groups = match.groupdict()
+    year = int(_ascii_digits(groups["year"])) if groups.get("year") else None
+    if groups.get("first"):
+        return None if year is None else _numeric_date(match.group(0), int(_ascii_digits(groups["first"])), int(_ascii_digits(groups["second"])), year, language)
+    month = month_index.get(_month_key(groups["name"])) if groups.get("name") else int(_ascii_digits(groups["month"]))
+    day = int(_ascii_digits(groups["day"])) if groups.get("day") else None
+    if month is None or not _valid_date(year, month, day):
+        return None
+    return DateMention(match.group(0), frozenset({(year, month, day)}))
+
+
+def find_dates(text: str, language: str) -> list[tuple[int, int, DateMention]]:
+    """Return non-overlapping dates as (start, end, mention), in textual order."""
+    month_index, named = _month_patterns(language)
+    patterns: tuple[re.Pattern[str], ...] = (_YMD, _XYY, *(_CJK_DATES if language in {"ja", "zh"} else ()), *named)
+    found: list[tuple[int, int, DateMention]] = []
+    for pattern in patterns:
+        for match in pattern.finditer(text):
+            if any(match.start() < end and start < match.end() for start, end, _ in found):
+                continue
+            mention = _mention_from(match, language, month_index)
+            if mention is not None:
+                found.append((match.start(), match.end(), mention))
+    return sorted(found, key=lambda item: item[0])
 
 
 @dataclass(frozen=True)
@@ -110,10 +217,13 @@ def _parse(body: str, decimal: str) -> tuple[Decimal | None, int, bool]:
 
 
 def extract(text: str, language: str) -> list[Number]:
-    """Extract digit-written numbers in textual order."""
+    """Extract digit-written numbers in textual order, leaving out those inside dates."""
     decimal = "." if language in DECIMAL_POINT else ","
+    date_spans = [(start, end) for start, end, _ in find_dates(text, language)]
     numbers = []
     for match in _NUMBER.finditer(text):
+        if any(match.start() < end and start < match.end() for start, end in date_spans):
+            continue
         line_start = text.rfind("\n", 0, match.start()) + 1
         if (
             not text[line_start:match.start()].strip()
@@ -167,7 +277,7 @@ def _same_text(source: Number, target: Number) -> bool:
     return source.raw == target.raw and _units_compatible(source, target)
 
 
-def _pair(first: list[Number], second: list[Number], free: set[int], used: dict[int, int], test: Callable[[Number, Number], bool]) -> list[tuple[int, int]]:
+def _pair[T: (Number, DateMention)](first: list[T], second: list[T], free: set[int], used: dict[int, int], test: Callable[[T, T], bool]) -> list[tuple[int, int]]:
     """Pair each unmatched source number with the first free target passing test."""
     found = []
     for i, source in enumerate(first):
@@ -210,6 +320,25 @@ def compare(first: list[Number], second: list[Number]) -> dict[str, Any]:
     return out
 
 
+def compare_dates(first: list[DateMention], second: list[DateMention]) -> dict[str, Any]:
+    """Pair dates: same text first, then same date in another form; the rest changed."""
+    free = set(range(len(second)))
+    used: dict[int, int] = {}
+    exact = _pair(first, second, free, used, lambda a, b: a.raw == b.raw)
+    equivalent = _pair(first, second, free, used, lambda a, b: bool(a.readings & b.readings))
+    targets = [used[i] for i in sorted(used)]
+    return {
+        "exact": [first[i].raw for i, _ in exact],
+        "equivalent": [
+            {"original": first[i].raw, "candidate": second[j].raw, "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention}
+            for i, j in equivalent
+        ],
+        "removed": [d.raw for i, d in enumerate(first) if i not in used],
+        "added": [second[j].raw for j in sorted(free)],
+        "in_order": targets == sorted(targets),
+    }
+
+
 def _base(language: str, constraint_type: str) -> dict[str, Any]:
     return {
         "family": FAMILY, "capability_id": CAPABILITY_ID, "capability_version": CAPABILITY_VERSION,
@@ -239,10 +368,15 @@ def validate(
         return base | {"outcome": "not measurable", "reason": "input exceeds max_chars"}
     first, second = extract(original, language), extract(candidate, language)
     comparison = compare(first, second)
-    changed = bool(comparison["removed"] or comparison["added"])
+    first_dates = [mention for _, _, mention in find_dates(original, language)]
+    second_dates = [mention for _, _, mention in find_dates(candidate, language)]
+    dates = compare_dates(first_dates, second_dates)
+    dates_in_order = bool(dates.pop("in_order"))
+    comparison["dates"] = dates
+    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"])
     rounding_fails = bool(comparison["rounding"]) and not permit_rounding
-    convention = any(e["relies_on_language_convention"] for e in comparison["equivalent"] + comparison["unit_conversion"] + comparison["rounding"])
-    order_kept = bool(comparison.pop("pairs_in_order"))
+    convention = any(e["relies_on_language_convention"] for e in comparison["equivalent"] + comparison["unit_conversion"] + comparison["rounding"] + dates["equivalent"])
+    order_kept = bool(comparison.pop("pairs_in_order")) and dates_in_order
     if changed or rounding_fails:
         outcome, severity = "FAIL", "CRITICAL"
     else:
@@ -251,5 +385,5 @@ def validate(
         "outcome": outcome, "severity": severity, "comparison": comparison,
         "order_preserved": order_kept, "relies_on_language_convention": convention,
         "decimal_convention": "point" if language in DECIMAL_POINT else "comma",
-        "counts": {"original": len(first), "candidate": len(second)},
+        "counts": {"original": len(first), "candidate": len(second), "original_dates": len(first_dates), "candidate_dates": len(second_dates)},
     }

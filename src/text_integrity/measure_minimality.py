@@ -14,7 +14,7 @@ from typing import Any
 from text_integrity import validate_structural as structural
 
 CAPABILITY_ID = "CAP-VALIDATE-MINIMALITY-LEXICAL"
-CAPABILITY_VERSION = "0.2.0"
+CAPABILITY_VERSION = "0.3.0"
 FAMILY = "VALIDATE-MINIMALITY"
 TOKENIZER = "whitespace-v1"
 SENTENCE_SPLITTER = "punctuation-v1"
@@ -62,23 +62,52 @@ def token_operations(first: list[str], second: list[str]) -> dict[str, int]:
     end = 0
     while end < min(len(first), len(second)) - start and first[-1 - end] == second[-1 - end]:
         end += 1
-    a = first[start: len(first) - end]
-    b = second[start: len(second) - end]
-    row = [(j, j, 0, 0) for j in range(len(b) + 1)]  # cost, insertions, deletions, substitutions
+    ids: dict[str, int] = {}
+    a = [ids.setdefault(token, len(ids)) for token in first[start: len(first) - end]]
+    b = [ids.setdefault(token, len(ids)) for token in second[start: len(second) - end]]
+    # Exact banded alignment: widen until the distance fits inside the band. A cell
+    # with cost <= band never depends on a cell outside it, so results (tie-breaks
+    # included) equal the full table's.
+    longest = max(len(a), len(b))
+    band = max(abs(len(a) - len(b)), 32)
+    while True:
+        packed, bits = _aligned(a, b, band)
+        cost = packed >> (2 * bits)
+        if cost <= band or band >= longest:
+            break
+        band *= 2
+    mask = (1 << bits) - 1
+    insertions, deletions = (packed >> bits) & mask, packed & mask
+    return {"distance": cost, "insertions": insertions, "deletions": deletions, "substitutions": cost - insertions - deletions}
+
+
+def _aligned(a: list[int], b: list[int], band: int) -> tuple[int, int]:
+    """Edit table restricted to |i - j| <= band. Cells pack cost, insertions, deletions."""
+    bits = max(len(a), len(b)).bit_length() + 1
+    cost_shift = 2 * bits
+    one_substitution, one_deletion, one_insertion = 1 << cost_shift, (1 << cost_shift) | 1, (1 << cost_shift) | (1 << bits)
+    unreachable = (len(a) + len(b) + 2) << cost_shift
+    row = [unreachable] * (len(b) + 1)
+    for j in range(min(len(b), band) + 1):
+        row[j] = j * one_insertion
     for i, token in enumerate(a, 1):
-        new = [(i, 0, i, 0)]
-        for j, other in enumerate(b, 1):
-            diagonal = row[j - 1]
-            if token == other:
-                new.append(diagonal)
-                continue
-            substitute = (diagonal[0] + 1, diagonal[1], diagonal[2], diagonal[3] + 1)
-            delete = (row[j][0] + 1, row[j][1], row[j][2] + 1, row[j][3])
-            insert = (new[j - 1][0] + 1, new[j - 1][1] + 1, new[j - 1][2], new[j - 1][3])
-            new.append(min((substitute, delete, insert), key=lambda c: c[0]))
-        row = new
-    cost, insertions, deletions, substitutions = row[-1]
-    return {"distance": cost, "insertions": insertions, "deletions": deletions, "substitutions": substitutions}
+        low, high = max(1, i - band), min(len(b), i + band)
+        diagonal = row[low - 1]
+        row[low - 1] = i * one_deletion if low == 1 else unreachable
+        left = row[low - 1]
+        for j in range(low, high + 1):
+            up = row[j]
+            if token == b[j - 1]:
+                current = diagonal
+            else:  # ties prefer substitution, then deletion
+                current = diagonal + one_substitution
+                if (up + one_deletion) >> cost_shift < current >> cost_shift:
+                    current = up + one_deletion
+                if (left + one_insertion) >> cost_shift < current >> cost_shift:
+                    current = left + one_insertion
+            row[j] = current
+            diagonal, left = up, current
+    return row[-1], bits
 
 
 def _state(state: str, reason: str) -> dict[str, str]:

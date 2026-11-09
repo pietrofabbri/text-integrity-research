@@ -83,3 +83,9 @@ The owner supplied one original and one edited English text of about 1,770 chara
 No failure was raised that the owner's list does not explain. A separate word-level comparison made by the agent found 13 differences, including two the owner's list did not mention (`produces` to `generates`, `investing in` to `developing`); neither raised a failure.
 
 The result shows the two deterministic checks working on one blind case. It does not show how they perform in general, and the undetected weakening confirms that a `PASS` is not evidence of fidelity.
+
+# 8. Addendum: Follow-Up on Dates, Speed and Languages Without Spaces (2026-11-09)
+
+Under `DEC-065`, versions 0.3.0 address weaknesses 3 and 5 of §4: dates are compared as whole items, and token alignment is banded. On synthetic tokens, a 5,000-token text with 50 substitutions went from about 14 s to about 0.2 s, and a 20,000-token text with 200 from about 256 s to about 4 s. These are single runs on one machine.
+
+The same work found a defect that neither owner-supplied pair could have shown: digits directly after kana or CJK ideographs were not read, so `共有300人` yielded no number and `45.5%` was read as `5%`. A changed number in such a text gave `PASS`. It is fixed and covered by unit tests. Earlier results for Japanese and Chinese should be disregarded; the trials on owner-supplied texts were in Italian and English and are not affected by this defect. No trial of 0.3.0 on real texts has been run.

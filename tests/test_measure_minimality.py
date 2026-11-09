@@ -110,5 +110,43 @@ class Measure(unittest.TestCase):
             m.measure(None, "a", language="en")
 
 
+def full_table_operations(a, b):
+    """Unbanded reference with the documented tie-break."""
+    row = [(j, j, 0, 0) for j in range(len(b) + 1)]
+    for i, x in enumerate(a, 1):
+        new = [(i, 0, i, 0)]
+        for j, y in enumerate(b, 1):
+            d = row[j - 1]
+            if x == y:
+                new.append(d)
+                continue
+            options = ((d[0] + 1, d[1], d[2], d[3] + 1), (row[j][0] + 1, row[j][1], row[j][2] + 1, row[j][3]), (new[j - 1][0] + 1, new[j - 1][1] + 1, new[j - 1][2], new[j - 1][3]))
+            new.append(min(options, key=lambda c: c[0]))
+        row = new
+    return dict(zip(("distance", "insertions", "deletions", "substitutions"), row[-1], strict=True))
+
+
+class BandedAlignment(unittest.TestCase):
+    def test_equals_full_table_including_tie_breaks(self):
+        rng = random.Random(4321)
+        for _ in range(400):
+            a = [rng.choice("abcd") for _ in range(rng.randint(0, 90))]
+            b = list(a)
+            for _ in range(rng.randint(0, 70)):
+                position = rng.randint(0, len(b))
+                action = rng.random()
+                if action < 0.4 and b:
+                    b[min(position, len(b) - 1)] = rng.choice("abcde")
+                elif action < 0.7 and b:
+                    del b[min(position, len(b) - 1)]
+                else:
+                    b.insert(position, rng.choice("abcde"))
+            self.assertEqual(m.token_operations(a, b), full_table_operations(a, b))
+
+    def test_distance_larger_than_first_band(self):
+        a, b = ["x"] * 200, ["y"] * 150
+        self.assertEqual(m.token_operations(a, b), full_table_operations(a, b))
+
+
 if __name__ == "__main__":
     unittest.main()

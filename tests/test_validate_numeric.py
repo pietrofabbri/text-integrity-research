@@ -170,5 +170,71 @@ class Validate(unittest.TestCase):
         self.assertEqual(run(text, text)["outcome"], "PASS")
 
 
+class Dates(unittest.TestCase):
+    def outcome(self, a, b, language):
+        return run(a, b, language=language)["outcome"]
+
+    def test_month_name_change_fails(self):
+        for language, a, b in (
+            ("it", "Il 15 marzo 2024", "Il 15 aprile 2024"),
+            ("en", "On March 15, 2024", "On April 15, 2024"),
+            ("de", "Am 15. März 2024", "Am 15. April 2024"),
+            ("ru", "1 марта 2024 года", "1 апреля 2024 года"),
+            ("es", "el 5 de mayo de 2021", "el 5 de junio de 2021"),
+            ("tr", "15 Ocak 2024", "15 Şubat 2024"),
+        ):
+            self.assertEqual(self.outcome(a, b, language), "FAIL", language)
+
+    def test_same_date_in_another_form_passes_and_stays_visible(self):
+        for language, a, b in (
+            ("it", "Il 15/03/2024", "Il 15 marzo 2024"),
+            ("en", "On March 15, 2024", "On 15 March 2024"),
+            ("de", "am 15. März 2024", "am 15.03.2024"),
+            ("es", "el 5 de mayo de 2021", "el 05/05/2021"),
+            ("zh", "2024年3月15日", "2024-03-15"),
+        ):
+            result = run(a, b, language=language)
+            self.assertEqual(result["outcome"], "PASS", language)
+            self.assertEqual(len(result["comparison"]["dates"]["equivalent"]), 1, language)
+
+    def test_day_month_swap(self):
+        self.assertEqual(self.outcome("Il 03/05/2024", "Il 05/03/2024", "it"), "FAIL")
+        result = run("On 03/05/2024", "On 05/03/2024", language="en")
+        self.assertEqual(result["outcome"], "partially measured")
+        self.assertTrue(result["relies_on_language_convention"])
+
+    def test_dropping_month_or_year_fails(self):
+        self.assertEqual(self.outcome("Nel marzo 2024", "Nel 2024", "it"), "FAIL")
+        self.assertEqual(self.outcome("Il 15 marzo 2024", "Il 15 marzo", "it"), "FAIL")
+
+    def test_date_parts_are_not_numbers(self):
+        result = run("Il 15/03/2024 e 513 kg", "Il 15/03/2024 e 513 kg", language="it")
+        self.assertEqual(result["counts"]["original"], 1)
+        self.assertEqual(result["counts"]["original_dates"], 1)
+
+    def test_not_dates(self):
+        self.assertEqual(v.find_dates("You may 5 and march 3", "en"), [])
+        self.assertEqual(v.find_dates("31/02/2024", "it"), [])
+        self.assertEqual(v.find_dates("v1.2.2024", "it"), [])
+        self.assertEqual(v.find_dates("1.2.3", "it"), [])
+
+    def test_reordered_dates_are_only_partially_measured(self):
+        a, b = "Dal 1 marzo 2024 al 2 aprile 2024", "Al 2 aprile 2024 dal 1 marzo 2024"
+        self.assertEqual(self.outcome(a, b, "it"), "partially measured")
+
+
+class TextsWithoutSpaces(unittest.TestCase):
+    def test_digits_after_cjk_are_numbers(self):
+        self.assertEqual(values("共有300人，增加到45.5%。", "zh"), [Decimal(300), Decimal("45.5")])
+        self.assertEqual(values("人口は300人です", "ja"), [Decimal(300)])
+
+    def test_change_after_cjk_fails(self):
+        self.assertEqual(run("共有300人", "共有310人", language="zh")["outcome"], "FAIL")
+        self.assertEqual(run("人口は300人です", "人口は301人です", language="ja")["outcome"], "FAIL")
+
+    def test_latin_letter_still_blocks(self):
+        self.assertEqual(values("v2 and H2O"), [])
+
+
 if __name__ == "__main__":
     unittest.main()
