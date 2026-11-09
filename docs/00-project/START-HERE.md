@@ -148,7 +148,7 @@ one being silently "fixed" — see
   domains, R01–R09 — R09 (Local Deployment Feasibility Research) was
   confirmed 2026-09-12 (`DECISION-LOG.md` DEC-013); each domain document
   has a populated "Literature Findings" section.
-- **Decisions**: 40 recorded (`DEC-001`–`DEC-040`; `DEC-040`, 2026-11-09, approves the `08-development` tranche roadmap, none executed yet) in `DECISION-LOG.md`.
+- **Decisions**: 41 recorded (`DEC-001`–`DEC-041`; `DEC-040`, 2026-11-09, approves the five-tranche `08-development` roadmap in `DEVELOPMENT-MAP.md` §202, and `DEC-041` executes Tranche 1, `AGENT-WORK-MODEL.md`) in `DECISION-LOG.md`.
   `DEC-016` (2026-09-12) partially executes DCQ-006/007/008 into
   `03-scientific-specification` per the owner's explicit instruction,
   while continuing to defer their 04-10 portions. `DEC-017` (same day)
@@ -364,7 +364,8 @@ one being silently "fixed" — see
   `CAPABILITY-ARCHITECTURE.md` §6, among others) remains deferred per `DEC-012`
   until 06-security through 10-certification also leave structural-definition
   phase.
-- **06-security through 10-certification**: still single-MAP-document,
+- **08-development**: no longer single-MAP-document as of 2026-11-09 (`DEC-041`); Tranches 2–5 of `DEVELOPMENT-MAP.md` §202 remain.
+- **06-security, 07-data, 09-operations and 10-certification**: still single-MAP-document,
   structural-definition phase — now the project's largest remaining
   documentation gap, following the completion of the `05-validation` roadmap.
 - **Repository**: public on GitHub at
@@ -385,12 +386,10 @@ one being silently "fixed" — see
   `CAPABILITY-ARCHITECTURE.md`) and the DEC-036 batch
   (`STATISTICAL-VALIDATION-METHODOLOGY.md`, register-consolidation commit
   `3d63607`) are confirmed on `origin/main` at commit `f8f7a35`. The
-  DEC-037–DEC-039 batch (`DECISION-LOG.md`, `VALIDATION-MAP.md`,
-  `START-HERE.md`, `FIDELITY-VALIDATION-PROTOCOL.md`,
-  `DETECTOR-VALIDATION-PROTOCOL.md`, `VALIDATION-GATES.md`) was prepared
-  directly against a fresh clone of `origin/main` rather than via the
-  owner's local working copy — check `git log`/`git status` rather than
-  assuming sync before building on it further.
+  DEC-037–DEC-039 batch reached `origin/main` on 2026-11-09 (commit
+  `a088b94`). Since 2026-11-09 work is pushed directly from cloud sessions
+  (`AGENT-WORK-MODEL.md` §12); the owner's local working copy may lag, so
+  check `git log` rather than assuming sync.
 
 ---
 

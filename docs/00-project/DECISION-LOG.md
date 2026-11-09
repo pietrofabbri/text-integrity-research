@@ -3214,3 +3214,63 @@ None new. Lifecycle vocabulary reconciliation remains deferred per `DEC-012`.
 ### Related Decisions
 
 `DEC-012`, `DEC-036`.
+
+
+---
+
+## DEC-041 — Execute Tranche 1 of the 08-Development Roadmap: Draft AGENT-WORK-MODEL.md
+
+### Date
+
+2026-11-09
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's approval of the `DEC-040` boundaries and instruction to proceed (2026-11-09), `docs/08-development/AGENT-WORK-MODEL.md` is drafted and made active as Tranche 1 of `DEVELOPMENT-MAP.md` §202, formalizing §2–24, §115–125, §170–173 and §188–201. `docs/08-development/` leaves its single-MAP phase.
+
+The document adds no requirement or numeric value beyond its sources. It records eight contradictions or vocabulary mismatches (AWM-C1 to AWM-C8) and six gaps (AWM-G1 to AWM-G6). Pending reconciliation, approval and stop lists stay separate per `DEC-012` and are read cumulatively, an inference labelled as such in the document.
+
+**New findings recorded, not resolved:** `P00-project-governance.md` §3 and §5 are two further human-authority lists, not counted by `CLAUDE-CONSOLIDATION-REPORT.md` SECOND PASS §4S, which counts four. The change scales `LOW–CRITICAL` and `C0–C4` have no mapping.
+
+**Corrections to `DEC-040` and its §202 text, recorded per the project's "verify fourth" discipline:**
+
+1. §202 Tranche 5 described `KB-004` and `KB-005` as TRIAGED, relying on the roadmap of 2026-10-06. Direct verification shows both INCORPORATED (`KNOWLEDGE-BACKLOG.md`, notes of 2026-10-01). §202 is corrected.
+2. §202 defined tranches with the fields of `DEVELOPMENT-MAP.md` §196 only. `P00-project-governance.md` §10 also requires authorized changes, Definition of Done, resource budget and stop conditions. §202 now states how these apply to every tranche.
+
+### Rationale
+
+`DEVELOPMENT-MAP.md` §197 and `DEC-004` place approval at the tranche boundary, given in `DEC-040`. Tranche 1 comes first because the later tranches are executed under the rules it formalizes.
+
+### Alternatives Considered
+
+- Merging the six human-authority lists into one: rejected; `DEC-012` keeps them separate and only cross-referenced.
+- Proposing a mapping between the two change scales: rejected; no source supports one and it would be invented.
+- Editing `P00-project-governance.md` or `SECURITY-MAP.md` to add cross-references: not done; both are outside this tranche's boundary (`DEVELOPMENT-MAP.md` §199).
+
+### Consequences
+
+Later tranches use the document's tranche fields. Gaps AWM-G1, G2, G4 and G6 need owner decisions before implementation begins, not before Tranches 2–5.
+
+### Affected Areas
+
+`docs/08-development/AGENT-WORK-MODEL.md`, `docs/08-development/DEVELOPMENT-MAP.md` (§202, §203), `docs/00-project/START-HERE.md`.
+
+### Reversal Conditions
+
+Owner rejection of the document, or a later reconciliation under `DEC-012` that changes the lists it reads cumulatively.
+
+### Related Research
+
+None applicable. No research finding on AI-assisted development was located in `RESEARCH-REGISTRY.md`.
+
+### Related Questions
+
+None new. Vocabulary reconciliation remains deferred per `DEC-012`.
+
+### Related Decisions
+
+`DEC-001`, `DEC-004`, `DEC-005`, `DEC-006`, `DEC-010`, `DEC-012`, `DEC-036`, `DEC-040`.

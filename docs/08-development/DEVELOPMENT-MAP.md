@@ -2284,7 +2284,9 @@ development agent to silently redefine the project itself.
 **Status: ACCEPTED by `DEC-040` (2026-11-09); boundaries approved by the owner per §197.**
 Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 
-## Tranche 1 — `AGENT-WORK-MODEL.md` (Approved, not executed)
+**Fields required by `P00-project-governance.md` §10, for every tranche below (added by `DEC-041`):** authorized changes are the listed scope and the update of `DECISION-LOG.md`, this map and `START-HERE.md`; Definition of Done is the completion criteria below plus `P00` §11; stop conditions are §12 and `P00` §7; resource budget is not specified by any project document (`AGENT-WORK-MODEL.md` AWM-G4).
+
+## Tranche 1 — `AGENT-WORK-MODEL.md` (Executed 2026-11-09, `DEC-041`)
 
 - **Objective / allowed scope:** Formalize the AI-assisted work model: batches, stop conditions, change classes, decision boundaries, development phases, consistency reviews, audit trail, batch final states, tranche rules. Sources in this map: §2–24, §115–125, §170–173, §188–201.
 - **Expected deliverable:** `docs/08-development/AGENT-WORK-MODEL.md`, plus its `DECISION-LOG.md` entry and §203 update.
@@ -2331,10 +2333,10 @@ Follows the precedent of `docs/05-validation/VALIDATION-MAP.md` §76.
 - **Completion criteria:** §198; every assigned section covered or explicitly recorded as a gap; no invented values (`NO-INVENTION-RULES.md`).
 - **Verification profile:** documentation only: section coverage check and resolution of every cited ID against the repository. The code-oriented profiles of §160 do not yet apply.
 - **Expected risk:** LOW–MEDIUM (judgment); §17–20 do not enumerate new normative documents.
-- **Known constraint:** Touches `KB-004` and `KB-005` (both CRITICAL, TRIAGED per the project roadmap): check them at execution.
+- **Known constraint:** Touches `KB-004` and `KB-005` (both CRITICAL and INCORPORATED; corrected by `DEC-041`): must stay consistent with their incorporation notes.
 
 ---
 
 # 203. Development Architecture Tranche Log
 
-No tranche executed yet.
+- **Tranche 1 (Executed 2026-11-09):** `docs/08-development/AGENT-WORK-MODEL.md` (`DEC-041`). Records AWM-C1 to AWM-C8 and AWM-G1 to AWM-G6.
