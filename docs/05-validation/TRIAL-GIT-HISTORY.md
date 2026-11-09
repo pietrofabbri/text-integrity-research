@@ -89,3 +89,21 @@ The result shows the two deterministic checks working on one blind case. It does
 Under `DEC-065`, versions 0.3.0 address weaknesses 3 and 5 of §4: dates are compared as whole items, and token alignment is banded. On synthetic tokens, a 5,000-token text with 50 substitutions went from about 14 s to about 0.2 s, and a 20,000-token text with 200 from about 256 s to about 4 s. These are single runs on one machine.
 
 The same work found a defect that neither owner-supplied pair could have shown: digits directly after kana or CJK ideographs were not read, so `共有300人` yielded no number and `45.5%` was read as `5%`. A changed number in such a text gave `PASS`. It is fixed and covered by unit tests. Earlier results for Japanese and Chinese should be disregarded; the trials on owner-supplied texts were in Italian and English and are not affected by this defect. No trial of 0.3.0 on real texts has been run.
+
+# 9. Addendum: One Owner-Supplied German Pair, Run Blind on 0.3.0 (2026-11-09)
+
+The owner supplied one original and one edited German text of about 1,970 characters, and gave a list of 19 changes only after the capabilities had been run. The texts are not stored in the repository. This is one case and supports no rate.
+
+| Owner's change | Capability result |
+|---|---|
+| `68 %` changed to `86 %` (item 6, a deliberate alteration) | Detected by numeric integrity (`FAIL`); `2023` paired as unchanged |
+| Fourth item of the second list deleted (item 17) | Detected by structural validation (`FAIL`, in both formats, on `lists` only) |
+| The other 17 word substitutions | Raised no failure; counted by minimality (19.5% changed tokens, 74% changed sentences, character edit distance 290) |
+
+No failure was raised that the owner's list does not explain.
+
+**Not detected, as expected, since no capability assesses meaning:** `langfristig` to `kurzfristig` (a reversal), `sensible` to `personenbezogene` and `weiter` to `grundlegend` (the agent's reading of these as meaning changes, made before the owner's list was seen). The structural result reports that the list changed; it does not say that a topic was lost, which the owner's note identifies as the effect of item 17.
+
+**Word-level comparison by the agent, not by a capability:** it found 21 differing regions, covering all 19 listed changes, and three the list does not mention: `nutzen zunehmend` to `setzen immer häufiger ... ein`, `nahm` to `stieg`, and `solcher` to `dieser`. As in §7, an owner's list can be incomplete, which is relevant to `ACCEPTANCE-CRITERIA-OPTIONS.md` D3. None of the three raised a failure.
+
+The text contains no dates and no text without spaces, so this trial does not exercise those parts of 0.3.0. Using this pair for later fixes would make it development data (`ACCEPTANCE-CRITERIA-OPTIONS.md` D5).
