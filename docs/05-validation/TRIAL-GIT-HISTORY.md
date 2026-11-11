@@ -115,3 +115,21 @@ The agent wrote 50 short cases in Italian, French, Japanese and Chinese, with it
 - **Changes missed:** `500 €` to `500 $` gave `PASS`, because a currency symbol after a number was not read (a defect since the first version), and `15 mar. 2024` to `15 apr. 2024` gave `PASS`. Both are fixed in 0.4.0 (`DEC-066`).
 - **False alarms left open:** `14:30` to `14.30`, `15 marzo` to `15/03`, a two-digit year (`'24`), a month name without its accent (`aout`, `fevrier`) and Japanese era years. `€ 1.200,00` to `1.200,00 €` is fixed by the same change.
 - **Expected by design:** four cases gave `partially measured` because they depend on a declared convention; the agent's expectation of `PASS` was wrong.
+
+# 11. Addendum: One Owner-Supplied French Pair, Run Blind on 0.4.0 (2026-11-11)
+
+The owner supplied one original and one edited French text of about 2,390 characters, and gave a list of 31 changes only after the capabilities had been run. The texts are not stored in the repository. This is one case and supports no rate.
+
+| Owner's change | Capability result |
+|---|---|
+| All 31 listed changes, all wording | Numeric integrity `PASS` (`2022`, `75 %`, `80 %`, `2050` paired, in order); structural validation `PASS` in both formats; minimality 30.6% changed tokens, 79% changed sentences, character edit distance 556 |
+| `pourrait atteindre 80 %` to `pourrait dépasser 80 %` (item 9, which the owner marks as changing the quantitative meaning) | Not detected: the number is unchanged and the verb that qualifies it is not read |
+| `près de 75 %` to `environ 75 %` (item 8) | Not detected, for the same reason |
+
+No failure was raised, and the owner's list contains no change of a digit-written number or of structure, so no failure was expected from these two capabilities.
+
+**What the trial shows:** a quantity can change while its digits stay the same. Words that qualify a number (`atteindre`, `dépasser`, `près de`, `environ`) are outside the scope of numeric integrity as specified (`NUMERIC-INTEGRITY-CAPABILITY.md` §5, "ranges and comparisons"). A numeric `PASS` says that the digits were kept, not what is claimed about them.
+
+**Word-level comparison by the agent, not by a capability:** it found 52 differing regions, covering all 31 listed changes, and at least 13 that the list does not mention, among them `ce qui accentuerait` to `entraînant` (a conditional becomes an indicative participle), `sont exposés aux fortes températures` to `subissent les épisodes de chaleur`, `fondées sur la nature` to `inspirées de la nature` (the first is an established term), `vit` to `réside` and `épisodes` to `événements`. This is the third blind pair whose owner's list is incomplete (§7, §9), which bears on `ACCEPTANCE-CRITERIA-OPTIONS.md` D3.
+
+The text contains no dates or currency amounts, so 0.3.0 and 0.4.0 date and currency reading is still untried on real text.
