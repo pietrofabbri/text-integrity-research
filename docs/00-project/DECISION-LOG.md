@@ -4532,3 +4532,55 @@ None new.
 ### Related Decisions
 
 `DEC-057`, `DEC-062`, `DEC-064`, `DEC-065`.
+
+
+---
+
+## DEC-067 — Numeric Integrity 0.5.0: Positional Pairing and Currency Codes Before Numbers
+
+### Date
+
+2026-11-15
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Following the owner's test kit (`TRIAL-GIT-HISTORY.md` §12) and the standing instruction to correct defects ("correggi", 2026-11-09):
+
+1. Numbers and dates are paired by an order-preserving alignment instead of greedy pairing. Substituted items are listed in a new `changed` field; items moved elsewhere are paired and lower the outcome to `partially measured`.
+2. `EUR`, `USD`, `GBP` and `JPY` before a number are read as currencies.
+
+### Rationale
+
+A control with no changed data failed because of `EUR 350`, and two changed dates were reported at the wrong position. The outcome was right in the second case, but the report would mislead a reviewer.
+
+### Alternatives Considered
+
+Keeping greedy pairing and adding a proximity tie-break: rejected, because it does not handle runs of several similar items.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. Outcomes change only where pairing was wrong or currency codes stood before numbers. Pairing time grows with the product of the changed regions. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `tests/test_validate_numeric.py`, `docs/05-validation/`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new. Whether removing a year from a date is an error is left to the owner (`ACCEPTANCE-CRITERIA-OPTIONS.md` D2).
+
+### Related Decisions
+
+`DEC-057`, `DEC-062`, `DEC-065`, `DEC-066`.

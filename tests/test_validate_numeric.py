@@ -277,5 +277,44 @@ class AbbreviatedMonths(unittest.TestCase):
         self.assertEqual(v.find_dates("the mar 5", "en"), [])
 
 
+class CurrencyCodeBeforeNumber(unittest.TestCase):
+    def test_same_currency(self):
+        for a, b in (("EUR 350", "350 €"), ("EUR 1.200,00", "€ 1.200,00"), ("USD 5", "$5")):
+            self.assertEqual(run(a, b, language="it")["outcome"], "PASS", (a, b))
+
+    def test_changed_currency(self):
+        self.assertEqual(run("EUR 350", "USD 350", language="it")["outcome"], "FAIL")
+        self.assertEqual(run("EUR 350", "350 $", language="it")["outcome"], "FAIL")
+
+    def test_code_inside_a_word_is_not_a_currency(self):
+        self.assertEqual(v.extract("XEUR 350", "it")[0].currency, "")
+
+
+class PositionalPairing(unittest.TestCase):
+    """A changed item is paired with the one in its position, not with an identical one elsewhere."""
+
+    def test_changed_date_next_to_rewritten_date(self):
+        a = "il 15 marzo 2024 e poi il 2024-03-15"
+        b = "il 16 marzo 2024 e poi il 15 marzo 2024"
+        dates = run(a, b, language="it")["comparison"]["dates"]
+        self.assertEqual(dates["changed"], [{"original": "15 marzo 2024", "candidate": "16 marzo 2024"}])
+        self.assertEqual([(e["original"], e["candidate"]) for e in dates["equivalent"]], [("2024-03-15", "15 marzo 2024")])
+
+    def test_changed_number_is_reported_as_a_pair(self):
+        result = run("1, 2, 3, 4", "1, 2, 5, 4")
+        self.assertEqual(result["comparison"]["changed"], [{"original": "3", "candidate": "5"}])
+
+    def test_swapped_identical_dates_keep_order(self):
+        a, b = "On March 5, 2024 and on 5 March 2024", "On 5 March 2024 and on March 5, 2024"
+        result = run(a, b)
+        self.assertEqual(result["outcome"], "PASS")
+        self.assertTrue(result["order_preserved"])
+
+    def test_moved_number_is_paired_and_flagged(self):
+        result = run("10 then 20 then 30", "30 then 10 then 20")
+        self.assertEqual(result["outcome"], "partially measured")
+        self.assertFalse(result["order_preserved"])
+
+
 if __name__ == "__main__":
     unittest.main()

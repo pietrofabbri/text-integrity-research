@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.4.0 |
+| `version` | 0.5.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -56,6 +56,8 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Date convention (a declared simplification):** an all-digit date that is valid both as day-first and month-first is read day-first, except in English, where both readings are kept because both are in use. A pairing that depends on this cannot give more than `partially measured`.
 
+**Pairing (0.5.0):** numbers, and separately dates, are paired by an order-preserving alignment. A pair costs its class (exact, then equivalent, unit conversion, rounding); an unpaired or substituted item costs more than any pair. A changed item is therefore paired with the item in the same position, and reported in `changed` as original and candidate, instead of being paired with an identical item elsewhere. Items left over that equal an item elsewhere are paired as moved, and the outcome is then at best `partially measured`. Runs of identical items at both ends are paired directly; the rest takes time proportional to the product of the two lengths, about 3 seconds for 1,400 numbers against 1,400 (one machine, not a benchmark).
+
 # 4. Outcomes
 
 | Outcome | When |
@@ -65,7 +67,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `PASS` | All numbers paired, in order, without relying on the convention |
 | `unsupported`, `not measurable` | Unknown language, or input above `max_chars` |
 
-`equivalent` values (`0.50` and `0.5`) do not fail, and remain visible. Rounding fails unless the experiment sets `permit_rounding`. Percent and currency symbol form part of a number's identity. Since 0.4.0 the symbol may stand before or after the number, and `EUR`, `USD`, `GBP` and `JPY` count as the same currency as their symbols; currency words (`euro`) are not read. `constraint_type` has no default (`FID-041`). Inputs are unaltered (`DEC-059`). Risk: MEDIUM, C2. Review under `AGENT-SECURITY-BOUNDARY.md` §7: none of the listed behaviors.
+`equivalent` values (`0.50` and `0.5`) do not fail, and remain visible. Rounding fails unless the experiment sets `permit_rounding`. Percent and currency symbol form part of a number's identity. Since 0.4.0 the symbol may stand before or after the number, and `EUR`, `USD`, `GBP` and `JPY` count as the same currency as their symbols, before the number too since 0.5.0; currency words (`euro`) are not read. `constraint_type` has no default (`FID-041`). Inputs are unaltered (`DEC-059`). Risk: MEDIUM, C2. Review under `AGENT-SECURITY-BOUNDARY.md` §7: none of the listed behaviors.
 
 # 5. Known Limitations
 
@@ -77,7 +79,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 - A number after an English month name is read as a day, so `In May 30 people came` gives a date. Date order is checked among dates only, not against the surrounding numbers.
 - Ranges, comparisons, magnitudes in words (`3 million`) and expressions (`FID-008`) are not interpreted.
 - A plain space is not treated as digit grouping, because it could separate two numbers.
-- Pairing is greedy and deterministic, and may differ from a human's pairing when many similar numbers occur.
+- Pairing is deterministic and favours position. When the same value occurs several times and items are both changed and moved, it may still differ from a human's pairing.
 
 # 6. Open Items
 

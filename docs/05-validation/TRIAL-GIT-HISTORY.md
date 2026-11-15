@@ -133,3 +133,24 @@ No failure was raised, and the owner's list contains no change of a digit-writte
 **Word-level comparison by the agent, not by a capability:** it found 52 differing regions, covering all 31 listed changes, and at least 13 that the list does not mention, among them `ce qui accentuerait` to `entraînant` (a conditional becomes an indicative participle), `sont exposés aux fortes températures` to `subissent les épisodes de chaleur`, `fondées sur la nature` to `inspirées de la nature` (the first is an established term), `vit` to `réside` and `épisodes` to `événements`. This is the third blind pair whose owner's list is incomplete (§7, §9), which bears on `ACCEPTANCE-CRITERIA-OPTIONS.md` D3.
 
 The text contains no dates or currency amounts, so 0.3.0 and 0.4.0 date and currency reading is still untried on real text.
+
+# 12. Addendum: Owner's Test Kit, First 13 Cases, Run Blind on 0.4.0 (2026-11-15)
+
+The agent wrote a kit of 39 case specifications, with its expected outcome for each declared before any text was seen. The owner filled in 13 (A01–A06, B01–B05, I01, I02) in Italian, French, English, German and Spanish, and gave the list of changes after the results. The texts are not stored in the repository. These cases were then used to fix the code, so they are development data from now on (`ACCEPTANCE-CRITERIA-OPTIONS.md` D5). This supports no rate.
+
+**Alterations of data (owner's type `DATO`):** 14 listed, 14 detected with `FAIL`. They include changed days, months and years, a changed end of a date range, a changed time (read as two numbers), changed amounts, `$` to `€`, a rounding, `4,8` to `4,3 milioni` and a changed deadline.
+
+**Changes of form (`FORMA`):**
+
+- Correctly treated as equal: rewritten dates (`2024-03-15` to `15 marzo 2024`, `15.03.2024` to `15. März 2024`, `2024-06-30` to `30 giugno 2024`), currency symbol moved (`780 €` to `€ 780`), `2.450,00 EUR`, both metric conversions, `Sept.` to `September`.
+- **False alarms, one defect:** a currency code before the number (`EUR 350`) was not read as a currency, so `EUR 2.450,00` to `€ 2.450,00` (A01) and `350 €` to `EUR 350` and `EUR 1.200,00` to `€ 1.200,00` (B01) failed. Control B01 therefore failed with no data changed. Fixed in 0.5.0 (`DEC-067`).
+- `partially measured` by design: `1er mars` to `01/03/2024` (B03) and `1,200 USD` (B04), whose reading depends on a convention.
+- **Classification for the owner:** removing the year from a date (`lunedì 4 marzo 2024` to `lunedì 4 marzo`, A02; `1. Okt. 2023` to `1. Okt.`, A05) was listed as `FORMA` and failed. The agent's reading is that information is lost; whether this counts as an error is the owner's decision (`ACCEPTANCE-CRITERIA-OPTIONS.md` D2). The code is unchanged.
+
+**Reported wrongly although the outcome was right:** in A01 and A05 a date was changed next to another date rewritten with the same value. Greedy pairing matched the rewritten date with the original changed one and reported the wrong date as changed. In B04, two identical dates swapped in position lowered the outcome through the order check. Both are fixed in 0.5.0 by positional pairing.
+
+**Agent's predictions:** correct for 10 of 13 cases; wrong for A01 and B01 (the currency defect) and B04.
+
+**Owner's list compared with the texts:** the list mentions one change not present in the texts (A03, `1er mars 2024` to `01/03/2024`), gives one in reverse (B01, `progetto` to `programma`), and omits three: `Le` to `Les` (A03 and B03, apparently typo corrections), `EUR 1.200,00` to `€ 1.200,00` (B01) and `programma` to `progetto` in the body of B05. This is the fourth blind trial with an incomplete list.
+
+**After the fixes (0.5.0):** all 13 cases give the expected outcome, except that the two removed years still fail, pending the owner's decision. Re-running cases used for the fix is not evidence.

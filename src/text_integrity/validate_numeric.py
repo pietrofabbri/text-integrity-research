@@ -18,7 +18,7 @@ from functools import cache
 from typing import Any
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.4.0"
+CAPABILITY_VERSION = "0.5.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
@@ -31,7 +31,7 @@ SPACE_GROUP = "  "
 _CJK = "\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uff66-\uff9f"
 _LETTER_OR_DIGIT = rf"[^\W_{_CJK}]"
 _NUMBER = re.compile(
-    r"(?P<currency>[$€£¥]\s?)?"
+    r"(?P<currency>[$€£¥][ \u00a0\u202f]?|(?<![^\W_])(?:EUR|USD|GBP|JPY)[ \u00a0\u202f])?"
     rf"(?P<sign>(?<!{_LETTER_OR_DIGIT})(?<![)])[-−])?"
     rf"(?<!{_LETTER_OR_DIGIT})(?P<body>\d+(?:[.,  ]\d+)*)"
     r"(?P<percent>[   ]?[%％])?"
@@ -266,6 +266,7 @@ def extract(text: str, language: str) -> list[Number]:
         unit = unit_match.group(1) if unit_match else ""
         raw = match.group(0).strip()
         currency = (match["currency"] or match["currency_after"] or "").strip()
+        currency = ISO_CURRENCY_SYMBOL.get(currency, currency)  # EUR 350 and € 350 are one currency
         if unit in ISO_CURRENCY_SYMBOL and not currency:  # 500 EUR and 500 € are one currency
             raw, currency, unit = f"{raw} {unit}", ISO_CURRENCY_SYMBOL[unit], ""
         numbers.append(Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit))
@@ -306,65 +307,116 @@ def _same_text(source: Number, target: Number) -> bool:
     return source.raw == target.raw and _units_compatible(source, target)
 
 
-def _pair[T: (Number, DateMention)](first: list[T], second: list[T], free: set[int], used: dict[int, int], test: Callable[[T, T], bool]) -> list[tuple[int, int]]:
-    """Pair each unmatched source number with the first free target passing test."""
-    found = []
-    for i, source in enumerate(first):
-        if i in used:
-            continue
-        for j in sorted(free):
-            if test(source, second[j]):
-                free.remove(j)
-                used[i] = j
-                found.append((i, j))
-                break
-    return found
+_GAP = 100  # cost of an unpaired item; any pairing class costs less (its rank)
+
+
+def _align[T: (Number, DateMention)](first: list[T], second: list[T], tests: list[Callable[[T, T], bool]]) -> tuple[dict[int, tuple[int, int]], list[tuple[int, int]]]:
+    """Order-preserving alignment (0.5.0). Returns pairs {i: (j, class rank)} and substitutions.
+
+    A pair costs its class rank, a substitution or an unpaired item costs _GAP, so
+    a changed item is paired with the item in the same position rather than with
+    an identical item elsewhere. Ties prefer pairing, then substitution, then deletion.
+    """
+    def rank(i: int, j: int) -> int | None:
+        return next((r for r, test in enumerate(tests) if test(first[i], second[j])), None)
+
+    start = 0
+    while start < min(len(first), len(second)) and rank(start, start) == 0:
+        start += 1
+    end = 0
+    while end < min(len(first), len(second)) - start and rank(len(first) - 1 - end, len(second) - 1 - end) == 0:
+        end += 1
+    if start or end:  # identical runs at both ends are paired directly; only the middle is aligned
+        inner_first, inner_second = first[start:len(first) - end], second[start:len(second) - end]
+        inner_pairs, inner_substitutions = _align(inner_first, inner_second, tests) if inner_first or inner_second else ({}, [])
+        joined = {k: (k, 0) for k in range(start)}
+        joined |= {start + i: (start + j, r) for i, (j, r) in inner_pairs.items()}
+        joined |= {len(first) - 1 - k: (len(second) - 1 - k, 0) for k in range(end)}
+        return joined, [(start + i, start + j) for i, j in inner_substitutions]
+    n, m = len(first), len(second)
+    cost = [[0] * (m + 1) for _ in range(n + 1)]
+    move = [[""] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        cost[i][0], move[i][0] = i * _GAP, "d"
+    for j in range(1, m + 1):
+        cost[0][j], move[0][j] = j * _GAP, "i"
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            r = rank(i - 1, j - 1)
+            options = [] if r is None else [(cost[i - 1][j - 1] + r, "p")]
+            options += [(cost[i - 1][j - 1] + _GAP, "s"), (cost[i - 1][j] + _GAP, "d"), (cost[i][j - 1] + _GAP, "i")]
+            cost[i][j], move[i][j] = min(options, key=lambda option: option[0])
+    pairs: dict[int, tuple[int, int]] = {}
+    substitutions: list[tuple[int, int]] = []
+    i, j = n, m
+    while i or j:
+        step = move[i][j]
+        if step == "p":
+            pairs[i - 1] = (j - 1, rank(i - 1, j - 1) or 0)
+        elif step == "s":
+            substitutions.append((i - 1, j - 1))
+        i, j = (i - 1, j - 1) if step in "ps" else (i - 1, j) if step == "d" else (i, j - 1)
+    return pairs, substitutions[::-1]
+
+
+def _match[T: (Number, DateMention)](first: list[T], second: list[T], tests: list[Callable[[T, T], bool]]) -> tuple[dict[int, tuple[int, int]], list[tuple[int, int]], bool]:
+    """Align, then pair leftovers that moved. Returns pairs, substitutions left, and order kept."""
+    pairs, substitutions = _align(first, second, tests)
+    taken = {j for j, _ in pairs.values()}
+    left_first = [i for i in range(len(first)) if i not in pairs]
+    left_second = [j for j in range(len(second)) if j not in taken]
+    moved = False
+    for r, test in enumerate(tests):  # moved items: same value, another position
+        for i in left_first:
+            if i in pairs:
+                continue
+            j = next((j for j in left_second if j not in taken and test(first[i], second[j])), None)
+            if j is not None:
+                pairs[i] = (j, r)
+                taken.add(j)
+                moved = True
+    remaining = [(i, j) for i, j in substitutions if i not in pairs and j not in taken]
+    return pairs, remaining, not moved
+
+
+def _equal_entry(first: list[Any], second: list[Any], i: int, j: int) -> dict[str, Any]:
+    return {"original": first[i].raw, "candidate": second[j].raw, "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention}
 
 
 def compare(first: list[Number], second: list[Number]) -> dict[str, Any]:
-    """Pair numbers: exact first, then equivalent, then rounding; the rest changed."""
-    free = set(range(len(second)))
-    used: dict[int, int] = {}
-    paired = _pair(first, second, free, used, _same_text_and_unit) + _pair(first, second, free, used, _same_text)
-    out: dict[str, Any] = {"exact": [first[i].raw for i, _ in paired]}
-    for label, test in (("equivalent", _same_kind), ("unit_conversion", _is_conversion), ("rounding", _is_rounding)):
-        out[label] = [
-            {
-                "original": first[i].raw,
-                "candidate": second[j].raw,
-                "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention,
-            }
-            for i, j in _pair(first, second, free, used, test)
-        ]
+    """Pair numbers by class (exact, equivalent, unit conversion, rounding); the rest changed."""
+    labels = ("exact", "exact", "equivalent", "unit_conversion", "rounding")
+    pairs, substitutions, in_order = _match(first, second, [_same_text_and_unit, _same_text, _same_kind, _is_conversion, _is_rounding])
+    used = {i: j for i, (j, _) in pairs.items()}
+    out: dict[str, Any] = {label: [] for label in labels}
+    for i in sorted(pairs):
+        j, r = pairs[i]
+        out[labels[r]].append(first[i].raw if labels[r] == "exact" else _equal_entry(first, second, i, j))
+    free = [j for j in range(len(second)) if j not in used.values()]
     out["removed"] = [n.raw for i, n in enumerate(first) if i not in used]
-    out["added"] = [second[j].raw for j in sorted(free)]
+    out["added"] = [second[j].raw for j in free]
+    out["changed"] = [{"original": first[i].raw, "candidate": second[j].raw} for i, j in substitutions]
     out["identifier_like_changes"] = sum(n.identifier_like for i, n in enumerate(first) if i not in used) + sum(second[j].identifier_like for j in free)
     out["unit_uncertain"] = [
         {"original": f"{first[i].raw} {first[i].unit}".strip(), "candidate": f"{second[j].raw} {second[j].unit}".strip()}
         for i, j in sorted(used.items())
         if first[i].unit != second[j].unit and not (first[i].unit and second[j].unit)
     ]
-    targets = [used[i] for i in sorted(used)]
-    out["pairs_in_order"] = targets == sorted(targets)
+    out["pairs_in_order"] = in_order
     return out
 
 
 def compare_dates(first: list[DateMention], second: list[DateMention]) -> dict[str, Any]:
-    """Pair dates: same text first, then same date in another form; the rest changed."""
-    free = set(range(len(second)))
-    used: dict[int, int] = {}
-    exact = _pair(first, second, free, used, lambda a, b: a.raw == b.raw)
-    equivalent = _pair(first, second, free, used, lambda a, b: bool(a.readings & b.readings))
-    targets = [used[i] for i in sorted(used)]
+    """Pair dates: same text, then same date in another form; the rest changed."""
+    pairs, substitutions, in_order = _match(first, second, [lambda a, b: a.raw == b.raw, lambda a, b: bool(a.readings & b.readings)])
+    taken = {j for j, _ in pairs.values()}
     return {
-        "exact": [first[i].raw for i, _ in exact],
-        "equivalent": [
-            {"original": first[i].raw, "candidate": second[j].raw, "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention}
-            for i, j in equivalent
-        ],
-        "removed": [d.raw for i, d in enumerate(first) if i not in used],
-        "added": [second[j].raw for j in sorted(free)],
-        "in_order": targets == sorted(targets),
+        "exact": [first[i].raw for i in sorted(pairs) if pairs[i][1] == 0],
+        "equivalent": [_equal_entry(first, second, i, pairs[i][0]) for i in sorted(pairs) if pairs[i][1] == 1],
+        "removed": [d.raw for i, d in enumerate(first) if i not in pairs],
+        "added": [second[j].raw for j in range(len(second)) if j not in taken],
+        "changed": [{"original": first[i].raw, "candidate": second[j].raw} for i, j in substitutions],
+        "in_order": in_order,
     }
 
 
