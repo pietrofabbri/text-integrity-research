@@ -447,3 +447,29 @@ class InflectedMonths(unittest.TestCase):
         self.assertEqual(run("w marcu 2024 roku", "w kwietniu 2024 roku", language="pl")["outcome"], "FAIL")
         self.assertEqual(run("w marcu 2024", "marzec 2024", language="pl")["outcome"], "PASS")
 
+
+class Qualifiers(unittest.TestCase):
+    def outcome(self, a, b, language="it"):
+        return run(a, b, language=language)["outcome"]
+
+    def test_change_of_class_fails(self):
+        for a, b in (("circa 420", "oltre 420"), ("almeno 18", "fino a 18"), ("quasi 85", "più di 85"), ("meno di 12 mila", "più di 12 mila"), ("non più di 30", "almeno 30")):
+            self.assertEqual(self.outcome(a, b), "FAIL", (a, b))
+        self.assertEqual(self.outcome("at least 5 days", "up to 5 days", "en"), "FAIL")
+
+    def test_change_within_class_passes(self):
+        self.assertEqual(self.outcome("fino a 650 giorni", "meno di 650 giorni"), "PASS")
+        self.assertEqual(self.outcome("près de 75 %", "environ 75 %", "fr"), "PASS")
+
+    def test_qualifier_on_one_side_is_partial(self):
+        result = run("circa 420 persone", "420 persone", language="it")
+        self.assertEqual(result["outcome"], "partially measured")
+        self.assertEqual(result["comparison"]["qualifier_uncertain"], [{"original": "circa 420", "candidate": "420"}])
+
+    def test_qualifier_must_stand_before_the_number(self):
+        self.assertEqual(v.extract("il circa e 420", "it")[0].qualifier, "")
+        self.assertEqual(v.extract("persone oltre 420", "it")[0].qualifier, "lower")
+
+    def test_verbs_are_not_read(self):
+        self.assertEqual(self.outcome("pourrait atteindre 80 %", "pourrait dépasser 80 %", "fr"), "PASS")
+        self.assertIn("verbs_qualifying_a_number", run("1", "1")["not_measured"])

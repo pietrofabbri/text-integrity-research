@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.9.0 |
+| `version` | 0.10.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -49,6 +49,8 @@ Compare the numbers written with digits in an original and a candidate text, and
 **Not numbers:** digits inside a code. Since 0.3.0, digits after kana or CJK ideographs are numbers: Japanese and Chinese have no space before them, and earlier versions silently read almost none of them. Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
 
 **Number words (0.6.0):** single number words are read from closed lists per language in `src/text_integrity/number_words.py` (11 languages; Japanese and Chinese have none). A number word and the same value in digits are `equivalent` (`tre` and `3`). A multiplier word right after a number joins it (`4,8 milioni` = 4,800,000; `120 mila`). Declared simplifications: compound words (`ventitré`, `twenty-three`) are not read; words for "one" are left out, because they double as articles or pronouns; inflected forms are listed only for Russian and Polish multipliers and a few others; words with another meaning (Italian `sei`, French `neuf`, Turkish `yüz`) are read as numbers wherever they occur.
+
+**Qualifiers (0.10.0):** a phrase directly before a number that bounds or approximates it is read from closed lists for seven languages (`src/text_integrity/number_qualifiers.py`) and assigned one of three classes: about (`circa`, `about`), the number or more (`almeno`, `oltre`, `più di`, `at least`) and the number or less (`fino a`, `meno di`, `quasi`, `up to`). For paired numbers, a change of class fails and is listed in `qualifier_changed`; a qualifier on one side only gives at best `partially measured` and is listed in `qualifier_uncertain`; a change within a class is not reported. Strict and non-strict bounds share a class, so `fino a` and `meno di` are not distinguished. Verbs that qualify a number (`atteindre`, `dépasser`) are not read. The rule is the agent's, on the owner's delegation (`DEC-076`).
 
 **Percent words (0.8.0):** `per cento`, `percent`, `pour cent`, `Prozent`, `por ciento`, `por cento`, `procent`, `процент`, `persen` and their listed forms, directly after a number, mark it as a percentage, so `25 pour cent` and `25 %` are `equivalent`. The words are not also read as number words. Turkish, where `yüzde` precedes the number, Japanese and Chinese are not covered.
 
@@ -82,6 +84,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 # 5. Known Limitations
 
 - **Compound number words and Japanese or Chinese numerals are not read** (`twenty-three`, `三百`). Changing `twenty-three` to `twenty-four` is not detected. The result lists this in `not_measured`. Single number words are read since 0.6.0.
+- Qualifiers outside the seven listed languages, and verbs or clauses that qualify a number, are not read.
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
 - Unit words are read in seven languages only. Single-letter units can be misread, as in `Room 5 B`. Currencies are never converted. US and UK gallons, inches and other units outside the list are not read.
 - Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.

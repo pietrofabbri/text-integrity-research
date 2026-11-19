@@ -1,6 +1,6 @@
 # Acceptance Criteria: Options for the Owner
 
-**Status:** PROPOSAL. Nothing here is decided; every choice below is reserved to the owner (`DEC-057`).
+**Status:** DECIDED in part (`DEC-075`, 2026-11-19), on the owner's delegation. D1–D6 are decided as recorded in §5; D7 is decided as "no threshold" (descriptive form). The rest of this document is kept as the record of the options.
 **Version:** 0.1
 **Document type:** Decision support
 **Parent:** `docs/05-validation/VALIDATION-GATES.md` §3–4; `VALIDATION-MAP.md` §44–45, §55
@@ -103,3 +103,19 @@ These counts are **per language**. The unit is the independent document; several
 # 4. Proposed Order
 
 Proposal only: settle D1 and D2, then D3–D5, and build the checklist of D6; decide D7 last but before any held-out text is run. Each answer should be recorded as a numbered decision, with thresholds in the form required by `VALIDATION-MAP.md` §45.
+
+# 5. Decisions (`DEC-075`, 2026-11-19)
+
+The owner delegated these decisions ("fai la cosa che ti sembra più sensata"). The agent took its own proposals where it had made them, and adjusted D3 to the experience of the test kit.
+
+| Decision | Choice |
+|---|---|
+| D1 | **A.** Claims are made for numeric integrity and structural validation as detectors of changes. Minimality stays a measurement, checked by unit tests. |
+| D2 | A miss and a false alarm are both errors, reported separately. `partially measured` is a third class, reported separately (**option b**). A change outside a capability's scope is excluded from its error count and reported. Removing part of a date is an alteration (`DEC-068`). |
+| D3 | Text pairs generated from written prompts, each with the generator's list of changes, reconciled with an automatic word- or character-level comparison before results are scored; disagreements are resolved by the owner. Synthetic changes injected by a script may add volume. Two independent annotators are deferred, for lack of people per language. |
+| D4 | All 13 languages are reported separately. Texts are kept outside the repository; only their SHA-256, the lists of changes and the results are recorded (**option B**). Generated, fictional texts raise no licensing question; real texts need `Q-007`. |
+| D5 | Cases sent to the agent are development data. The held-out set is the owner's reserve series (R01–R15, `09-serie-di-riserva.md`, kept by the owner) and any later reserve; it is run only on a frozen, tagged code version, after this table is fixed, and not used to change the code. |
+| D6 | **A** as a precondition (the unit tests modelled on every kit case form the checklist), then **C**: results are descriptive. |
+| D7 | **No threshold is set.** Miss and false-alarm rates are published per language with 95% intervals computed per document, and no rate is compared to a pass mark. Under `VALIDATION-MAP.md` §44 a threshold needs a justification the project does not have. |
+
+**Consequence:** with no threshold, no capability can be declared `VALIDATED` (`VALIDATION-MAP.md` §55); descriptive results can support at most `CONDITIONALLY_VALIDATED`, and that vocabulary question is itself still deferred (`DEC-012`, `VALIDATION-GATES.md` §2). Fifteen reserve cases give no useful rate per language (§3, D7 table): they can only show whether the frozen version behaves as on the development cases.

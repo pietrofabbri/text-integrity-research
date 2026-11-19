@@ -4935,3 +4935,101 @@ None new.
 ### Related Decisions
 
 `DEC-065`, `DEC-066`.
+
+
+---
+
+## DEC-075 — Acceptance-Criteria Procedure, Without a Threshold
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's delegation ("fai la cosa che ti sembra più sensata", 2026-11-19, on the open acceptance criteria), decisions D1–D7 of `ACCEPTANCE-CRITERIA-OPTIONS.md` are fixed as recorded in its §5. In short: claims cover numeric integrity and structure as change detectors; misses, false alarms and `partially measured` are reported separately; ground truth comes from generated pairs whose lists are reconciled with an automatic comparison; texts stay outside the repository; the owner's reserve series is the held-out set, run only on a frozen version; results are descriptive, and **no threshold is set**.
+
+### Rationale
+
+`DEC-057` excluded scientific acceptance criteria from earlier delegation; this delegation names them. The agent did not set a threshold, because `NO-INVENTION-RULES.md` and `VALIDATION-MAP.md` §44 forbid a threshold without justification, and none exists. The ground-truth procedure follows the test kit: lists written by hand were incomplete in all four early blind trials, while generated lists checked against a comparison were complete or nearly so.
+
+### Alternatives Considered
+
+The other options listed for each decision in `ACCEPTANCE-CRITERIA-OPTIONS.md`.
+
+### Consequences
+
+No capability can reach `VALIDATED`; descriptive results can support at most `CONDITIONALLY_VALIDATED`, whose vocabulary remains deferred (`DEC-012`). A threshold can be added later by the owner with a justification and a version (`VALIDATION-MAP.md` §45).
+
+### Affected Areas
+
+`docs/05-validation/ACCEPTANCE-CRITERIA-OPTIONS.md`.
+
+### Reversal Conditions
+
+Owner reversal of any part.
+
+### Related Research
+
+`R07` §80 for the statistical context.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-004`, `DEC-012`, `DEC-057`, `DEC-065`, `DEC-068`.
+
+
+---
+
+## DEC-076 — Numeric Integrity 0.10.0: Qualifiers of a Number
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's delegation (same message as `DEC-075`, on reading words that qualify a number), phrases before a number such as `circa`, `almeno`, `fino a` are read in seven languages and grouped in three classes (about; the number or more; the number or less). A change of class fails; a qualifier on one side only lowers the outcome to `partially measured`; a change within a class is not reported.
+
+### Rationale
+
+Group G showed that every claim of a text could be reversed while all digits stayed the same (`TRIAL-GIT-HISTORY.md` §17). Grouping by class detects reversals without reporting synonyms, and needs no numeric threshold. This changes what "number preserved" means, which is why `DEC-004` required the owner; the owner delegated the choice.
+
+### Alternatives Considered
+
+Comparing qualifier words literally: rejected, because every synonym would fail. Distinguishing strict from non-strict bounds: rejected for now, because `fino a` is used for both.
+
+### Consequences
+
+MEDIUM risk, C2 impact. Verbs that qualify a number are not read. The phrase lists are the agent's and are not checked by native speakers. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `src/text_integrity/number_qualifiers.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-004`, `DEC-062`, `DEC-069`, `DEC-075`.

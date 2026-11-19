@@ -9,6 +9,7 @@ times, relative dates or what a number refers to. Inputs are never normalized (D
 """
 from __future__ import annotations
 
+import dataclasses
 import re
 import unicodedata
 from collections.abc import Callable
@@ -18,15 +19,15 @@ from decimal import ROUND_HALF_UP, Decimal
 from functools import cache
 from typing import Any
 
-from text_integrity import number_words, unit_words
+from text_integrity import number_qualifiers, number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.9.0"
+CAPABILITY_VERSION = "0.10.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
 TARGET_LANGUAGES = DECIMAL_POINT | DECIMAL_COMMA
-NOT_MEASURED = ("compound_number_words", "number_words_in_ja_zh", "unit_words_outside_seven_languages", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
+NOT_MEASURED = ("qualifiers_outside_seven_languages", "verbs_qualifying_a_number", "compound_number_words", "number_words_in_ja_zh", "unit_words_outside_seven_languages", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
 SPACE_GROUP = "  "
 
 # Letters that make a following digit part of a word (v2, H2O). Scripts written
@@ -243,6 +244,8 @@ class Number:
     identifier_like: bool = False
     unit: str = ""
     unit_text: str = ""
+    qualifier: str = ""  # class from number_qualifiers (0.10.0)
+    qualifier_text: str = ""
 
     def kind(self) -> tuple[Decimal | None, bool, str]:
         return (self.value, self.percent, self.currency)
@@ -312,6 +315,27 @@ def _word_pattern(language: str) -> re.Pattern[str] | None:
         return None
     alternatives = "|".join(map(re.escape, sorted(words, key=len, reverse=True)))
     return re.compile(rf"(?<![\w-])(?:{alternatives})(?![\w-])", re.IGNORECASE)
+
+
+@cache
+def _qualifier_pattern(language: str) -> re.Pattern[str] | None:
+    phrases = number_qualifiers.qualifiers(language)
+    if not phrases:
+        return None
+    alternatives = "|".join(re.escape(p).replace("\\ ", "[ \u00a0]") for p in sorted(phrases, key=len, reverse=True))
+    return re.compile(rf"(?:^|(?<=[\s(«\"']))({alternatives})[ \u00a0]+$", re.IGNORECASE)
+
+
+def _with_qualifier(number: Number, text: str, start: int, language: str) -> Number:
+    pattern = _qualifier_pattern(language)
+    if pattern is None:
+        return number
+    match = pattern.search(text, max(0, start - 40), start)
+    if not match:
+        return number
+    phrase = match.group(1)
+    cls = number_qualifiers.qualifiers(language)[" ".join(phrase.split()).lower()]
+    return dataclasses.replace(number, qualifier=cls, qualifier_text=phrase)
 
 
 def _word_numbers(text: str, language: str, taken: list[tuple[int, int]]) -> list[tuple[int, int, Number]]:
@@ -388,7 +412,7 @@ def extract(text: str, language: str) -> list[Number]:
             raw = text[match.start():percent_word.end()].strip()
         items.append((match.start(), match.end(), Number(raw, value, decimals, percent, currency, relies, identifier_like, unit, unit_text)))
     items = sorted(items + _word_numbers(text, language, taken + word_spans), key=lambda item: item[0])
-    return [number for _, _, number in _merge_multipliers(items, text, language)]
+    return [_with_qualifier(number, text, start, language) for start, _, number in _merge_multipliers(items, text, language)]
 
 
 def _units_compatible(source: Number, target: Number) -> bool:
@@ -539,6 +563,17 @@ def compare(first: list[Number], second: list[Number]) -> dict[str, Any]:
         for i, j in sorted(used.items())
         if first[i].unit != second[j].unit and not (first[i].unit and second[j].unit)
     ]
+    def described(item: Number) -> str:
+        return f"{item.qualifier_text} {_label(item)}" if item.qualifier_text else _label(item)
+
+    out["qualifier_changed"] = [
+        {"original": described(first[i]), "candidate": described(second[j])}
+        for i, j in sorted(used.items()) if first[i].qualifier and second[j].qualifier and first[i].qualifier != second[j].qualifier
+    ]
+    out["qualifier_uncertain"] = [
+        {"original": described(first[i]), "candidate": described(second[j])}
+        for i, j in sorted(used.items()) if bool(first[i].qualifier) != bool(second[j].qualifier)
+    ]
     out["pairs_in_order"] = in_order
     return out
 
@@ -614,7 +649,7 @@ def validate(
     codes = compare_codes([raw for _, _, raw in find_codes(original)], [raw for _, _, raw in find_codes(candidate)])
     codes_in_order = bool(codes.pop("in_order"))
     comparison["codes"] = codes
-    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"] or codes["removed"] or codes["added"])
+    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"] or codes["removed"] or codes["added"] or comparison["qualifier_changed"])
     rounding_fails = bool(comparison["rounding"]) and not permit_rounding
     convention = any(e["relies_on_language_convention"] for e in comparison["equivalent"] + comparison["unit_conversion"] + comparison["rounding"] + dates["equivalent"])
     order_kept = bool(comparison.pop("pairs_in_order")) and dates_in_order and codes_in_order
@@ -622,7 +657,7 @@ def validate(
         outcome, severity = "FAIL", "CRITICAL"
     else:
         approximate = bool(comparison["approximate_conversion"])
-        outcome, severity = ("partially measured" if convention or approximate or not order_kept or comparison["unit_uncertain"] else "PASS"), None
+        outcome, severity = ("partially measured" if convention or approximate or not order_kept or comparison["unit_uncertain"] or comparison["qualifier_uncertain"] else "PASS"), None
     return base | {
         "outcome": outcome, "severity": severity, "comparison": comparison,
         "order_preserved": order_kept, "relies_on_language_convention": convention,
