@@ -54,7 +54,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Unit words (0.7.0):** directly after a number, unit words from closed lists for English, Italian, French, German, Spanish, Portuguese and Dutch (`src/text_integrity/unit_words.py`) are read as the matching symbol: `3 kilometres` is `3 km`, and `5 chilogrammi` to `5 grammi` fails. Reports show the unit as written. Words with another common meaning are left out (English `pound`, Italian `gradi` alone).
 
-**Units outside the metric system (0.7.0):** miles (only as a word), feet, yards, pounds (`lb`), ounces, `mph` and `°F` are converted by their exact definitions. An exact match is a `unit_conversion`. A match after rounding to the digits shown by the rounder side (`5 miles` and `8 km`, `70 °F` and `21 °C`) is an `approximate_conversion`: it does not fail, and the outcome is at best `partially measured`. **This tolerance rule is the agent's choice under `DEC-070`, awaiting the owner's confirmation (`DEC-004`).**
+**Units outside the metric system (0.7.0):** miles (only as a word), feet, yards, pounds (`lb`), ounces, `mph` and `°F` are converted by their exact definitions. An exact match is a `unit_conversion`. A match after rounding to the digits shown by the rounder side (`5 miles` and `8 km`, `70 °F` and `21 °C`) is an `approximate_conversion`: it does not fail, and the outcome is at best `partially measured`. **This tolerance rule was proposed in `DEC-070` and confirmed by the owner in `DEC-071`.**
 
 **List markers (0.2.0):** a number of up to three digits at the start of a line, followed by `.` or `)` and a space, is treated as a list marker and not compared.
 

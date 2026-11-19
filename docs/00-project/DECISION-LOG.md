@@ -4739,3 +4739,52 @@ None new.
 ### Related Decisions
 
 `DEC-004`, `DEC-057`, `DEC-062`, `DEC-069`.
+
+
+---
+
+## DEC-071 — Owner Confirms the Tolerance Rule for Approximate Conversions
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner confirmed point 3 of `DEC-070` ("si", 2026-11-19): a conversion between units that matches after rounding to the digits shown by the rounder side is an `approximate_conversion`, which does not fail and gives at best `partially measured`.
+
+### Rationale
+
+`DEC-004` requires the owner's confirmation for new scientific choices; `DEC-070` recorded this rule as pending.
+
+### Alternatives Considered
+
+A full `PASS` or a `FAIL` for such pairs, both put to the owner and not chosen.
+
+### Consequences
+
+No code change. The rule is no longer provisional.
+
+### Affected Areas
+
+`docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-004`, `DEC-070`.
