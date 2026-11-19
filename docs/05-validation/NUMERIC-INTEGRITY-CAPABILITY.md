@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.5.0 |
+| `version` | 0.6.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -44,7 +44,11 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Identifier-like numbers:** numbers joined to letters by a hyphen (`DEC-058`, `10-year`) count normally, since a real quantity may look the same, and changes to them are also reported in `identifier_like_changes`.
 
-**Not numbers:** digits directly after a letter of a script written with spaces (`v2`, `H2O`). Since 0.3.0, digits after kana or CJK ideographs are numbers: Japanese and Chinese have no space before them, and earlier versions silently read almost none of them. Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
+**Codes (0.6.0):** a token where a letter of a script written with spaces stands directly before a digit (`v2.3`, `H2O`, `A4`, `CO2`) is a code. Codes are compared literally, as whole items, in `comparison.codes`; a changed, removed or added code fails. Unit symbols such as `m2` are not codes, and digits inside a code are not also read as numbers. Before 0.6.0, `v2.3` to `v3.3` was not detected.
+
+**Not numbers:** digits inside a code. Since 0.3.0, digits after kana or CJK ideographs are numbers: Japanese and Chinese have no space before them, and earlier versions silently read almost none of them. Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
+
+**Number words (0.6.0):** single number words are read from closed lists per language in `src/text_integrity/number_words.py` (11 languages; Japanese and Chinese have none). A number word and the same value in digits are `equivalent` (`tre` and `3`). A multiplier word right after a number joins it (`4,8 milioni` = 4,800,000; `120 mila`). Declared simplifications: compound words (`ventitré`, `twenty-three`) are not read; words for "one" are left out, because they double as articles or pronouns; inflected forms are listed only for Russian and Polish multipliers and a few others; words with another meaning (Italian `sei`, French `neuf`, Turkish `yüz`) are read as numbers wherever they occur.
 
 **Units (0.2.0):** a closed list of symbols directly after a number (`kg`, `g`, `km`, `m`, `l`, `kWh`, `GB`, `°C`, `EUR` and others, in `UNITS` in the code). Unit words (`chilogrammi`) are not read. Two different known units fail unless they are an exact metric conversion (`1,5 km` and `1500 m`, class `unit_conversion`). If only one side has a known unit, the pair is listed in `unit_uncertain` and the outcome is at best `partially measured`.
 
@@ -71,7 +75,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 # 5. Known Limitations
 
-- **Numbers written as words are not read** (`three`, `三百`). Changing `three` to `four` is not detected, and a text with no digits returns `PASS`. The result always lists this in `not_measured`.
+- **Compound number words and Japanese or Chinese numerals are not read** (`twenty-three`, `三百`). Changing `twenty-three` to `twenty-four` is not detected. The result lists this in `not_measured`. Single number words are read since 0.6.0.
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
 - Conversions are exact and metric only: `5 km` and `3.1 miles` are reported as changed. Single-letter units can be misread, as in `Room 5 B`. Temperature scales and currencies are never converted.
 - Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.

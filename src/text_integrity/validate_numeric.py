@@ -3,8 +3,9 @@
 Specification: docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md
 Status: EXPERIMENTAL. Compares numbers written with digits, classifying each
 pair as exact, equivalent, rounding or changed (VALIDATION-MAP.md §16).
-Dates are read as whole items (0.3.0). It does not read numbers written as
-words, unit words, times, relative dates or what a number refers to. Inputs are never normalized (DEC-059).
+Dates are read as whole items (0.3.0); single number words and codes such
+as v2.3 are read (0.6.0). It does not read compound number words, unit words,
+times, relative dates or what a number refers to. Inputs are never normalized (DEC-059).
 """
 from __future__ import annotations
 
@@ -17,13 +18,15 @@ from decimal import ROUND_HALF_UP, Decimal
 from functools import cache
 from typing import Any
 
+from text_integrity import number_words
+
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.5.0"
+CAPABILITY_VERSION = "0.6.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
 TARGET_LANGUAGES = DECIMAL_POINT | DECIMAL_COMMA
-NOT_MEASURED = ("numbers_as_words", "unit_words", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
+NOT_MEASURED = ("compound_number_words", "number_words_in_ja_zh", "unit_words", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
 SPACE_GROUP = "  "
 
 # Letters that make a following digit part of a word (v2, H2O). Scripts written
@@ -241,13 +244,69 @@ def _parse(body: str, decimal: str) -> tuple[Decimal | None, int, bool]:
     return Decimal(number), 0, ambiguous
 
 
+# A code: letters and digits joined, with a letter directly before a digit
+# (v2.3, H2O, A4, CO2). Compared literally, as one item (0.6.0).
+_CODE_TOKEN = re.compile(rf"(?:[^\W{_CJK}]|[.\-/])+")
+_LETTER_THEN_DIGIT = re.compile(rf"[^\W\d_{_CJK}]\d")
+
+
+def find_codes(text: str) -> list[tuple[int, int, str]]:
+    """Return codes as (start, end, text), in textual order. Unit symbols such as m2 are not codes."""
+    found = []
+    for match in _CODE_TOKEN.finditer(text):
+        token = match.group(0)
+        lead, trail = len(token) - len(token.lstrip(".-/")), len(token) - len(token.rstrip(".-/"))
+        core = token[lead:len(token) - trail]
+        if core and _LETTER_THEN_DIGIT.search(core) and core not in UNITS:
+            found.append((match.start() + lead, match.end() - trail, core))
+    return found
+
+
+@cache
+def _word_pattern(language: str) -> re.Pattern[str] | None:
+    words = number_words.lexicon(language)
+    if not words:
+        return None
+    alternatives = "|".join(map(re.escape, sorted(words, key=len, reverse=True)))
+    return re.compile(rf"(?<![\w-])(?:{alternatives})(?![\w-])", re.IGNORECASE)
+
+
+def _word_numbers(text: str, language: str, taken: list[tuple[int, int]]) -> list[tuple[int, int, Number]]:
+    pattern = _word_pattern(language)
+    if pattern is None:
+        return []
+    words = number_words.lexicon(language)
+    found = []
+    for match in pattern.finditer(text):
+        if any(match.start() < end and start < match.end() for start, end in taken):
+            continue
+        value = words[match.group(0).lower()]
+        found.append((match.start(), match.end(), Number(match.group(0), value, 0, False, "", False)))
+    return found
+
+
+def _merge_multipliers(items: list[tuple[int, int, Number]], text: str, language: str) -> list[tuple[int, int, Number]]:
+    """Join a number and the multiplier word after it: 4,8 milioni = 4800000."""
+    multipliers = number_words.MULTIPLIERS.get(language, {})
+    merged: list[tuple[int, int, Number]] = []
+    for start, end, number in items:
+        if merged and number.raw.lower() in multipliers and number.value is not None:
+            first_start, first_end, first = merged[-1]
+            if first.value is not None and not first.unit and not text[first_end:start].strip() and "\n" not in text[first_end:start]:
+                raw = text[first_start:end]
+                merged[-1] = (first_start, end, Number(raw, first.value * number.value, 0, first.percent, first.currency, first.relies_on_convention, first.identifier_like))
+                continue
+        merged.append((start, end, number))
+    return merged
+
+
 def extract(text: str, language: str) -> list[Number]:
-    """Extract digit-written numbers in textual order, leaving out those inside dates."""
+    """Extract numbers in textual order: digits and number words, leaving out dates and codes."""
     decimal = "." if language in DECIMAL_POINT else ","
-    date_spans = [(start, end) for start, end, _ in find_dates(text, language)]
-    numbers = []
+    taken = [(start, end) for start, end, _ in find_dates(text, language)] + [(start, end) for start, end, _ in find_codes(text)]
+    items: list[tuple[int, int, Number]] = []
     for match in _NUMBER.finditer(text):
-        if any(match.start() < end and start < match.end() for start, end in date_spans):
+        if any(match.start() < end and start < match.end() for start, end in taken):
             continue
         line_start = text.rfind("\n", 0, match.start()) + 1
         if (
@@ -269,8 +328,9 @@ def extract(text: str, language: str) -> list[Number]:
         currency = ISO_CURRENCY_SYMBOL.get(currency, currency)  # EUR 350 and € 350 are one currency
         if unit in ISO_CURRENCY_SYMBOL and not currency:  # 500 EUR and 500 € are one currency
             raw, currency, unit = f"{raw} {unit}", ISO_CURRENCY_SYMBOL[unit], ""
-        numbers.append(Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit))
-    return numbers
+        items.append((match.start(), match.end(), Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit)))
+    items = sorted(items + _word_numbers(text, language, taken), key=lambda item: item[0])
+    return [number for _, _, number in _merge_multipliers(items, text, language)]
 
 
 def _units_compatible(source: Number, target: Number) -> bool:
@@ -310,7 +370,7 @@ def _same_text(source: Number, target: Number) -> bool:
 _GAP = 100  # cost of an unpaired item; any pairing class costs less (its rank)
 
 
-def _align[T: (Number, DateMention)](first: list[T], second: list[T], tests: list[Callable[[T, T], bool]]) -> tuple[dict[int, tuple[int, int]], list[tuple[int, int]]]:
+def _align[T: (Number, DateMention, "Code")](first: list[T], second: list[T], tests: list[Callable[[T, T], bool]]) -> tuple[dict[int, tuple[int, int]], list[tuple[int, int]]]:
     """Order-preserving alignment (0.5.0). Returns pairs {i: (j, class rank)} and substitutions.
 
     A pair costs its class rank, a substitution or an unpaired item costs _GAP, so
@@ -359,7 +419,7 @@ def _align[T: (Number, DateMention)](first: list[T], second: list[T], tests: lis
     return pairs, substitutions[::-1]
 
 
-def _match[T: (Number, DateMention)](first: list[T], second: list[T], tests: list[Callable[[T, T], bool]]) -> tuple[dict[int, tuple[int, int]], list[tuple[int, int]], bool]:
+def _match[T: (Number, DateMention, "Code")](first: list[T], second: list[T], tests: list[Callable[[T, T], bool]]) -> tuple[dict[int, tuple[int, int]], list[tuple[int, int]], bool]:
     """Align, then pair leftovers that moved. Returns pairs, substitutions left, and order kept."""
     pairs, substitutions = _align(first, second, tests)
     taken = {j for j, _ in pairs.values()}
@@ -379,6 +439,11 @@ def _match[T: (Number, DateMention)](first: list[T], second: list[T], tests: lis
     return pairs, remaining, not moved
 
 
+def _label(item: Any) -> str:
+    unit = getattr(item, "unit", "")
+    return f"{item.raw} {unit}" if unit else str(item.raw)
+
+
 def _equal_entry(first: list[Any], second: list[Any], i: int, j: int) -> dict[str, Any]:
     return {"original": first[i].raw, "candidate": second[j].raw, "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention}
 
@@ -393,9 +458,9 @@ def compare(first: list[Number], second: list[Number]) -> dict[str, Any]:
         j, r = pairs[i]
         out[labels[r]].append(first[i].raw if labels[r] == "exact" else _equal_entry(first, second, i, j))
     free = [j for j in range(len(second)) if j not in used.values()]
-    out["removed"] = [n.raw for i, n in enumerate(first) if i not in used]
-    out["added"] = [second[j].raw for j in free]
-    out["changed"] = [{"original": first[i].raw, "candidate": second[j].raw} for i, j in substitutions]
+    out["removed"] = [_label(n) for i, n in enumerate(first) if i not in used]
+    out["added"] = [_label(second[j]) for j in free]
+    out["changed"] = [{"original": _label(first[i]), "candidate": _label(second[j])} for i, j in substitutions]
     out["identifier_like_changes"] = sum(n.identifier_like for i, n in enumerate(first) if i not in used) + sum(second[j].identifier_like for j in free)
     out["unit_uncertain"] = [
         {"original": f"{first[i].raw} {first[i].unit}".strip(), "candidate": f"{second[j].raw} {second[j].unit}".strip()}
@@ -414,6 +479,26 @@ def compare_dates(first: list[DateMention], second: list[DateMention]) -> dict[s
         "exact": [first[i].raw for i in sorted(pairs) if pairs[i][1] == 0],
         "equivalent": [_equal_entry(first, second, i, pairs[i][0]) for i in sorted(pairs) if pairs[i][1] == 1],
         "removed": [d.raw for i, d in enumerate(first) if i not in pairs],
+        "added": [second[j].raw for j in range(len(second)) if j not in taken],
+        "changed": [{"original": first[i].raw, "candidate": second[j].raw} for i, j in substitutions],
+        "in_order": in_order,
+    }
+
+
+@dataclass(frozen=True)
+class Code:
+    raw: str
+    relies_on_convention: bool = False
+
+
+def compare_codes(first_raw: list[str], second_raw: list[str]) -> dict[str, Any]:
+    """Pair codes by identical text only; the rest changed."""
+    first, second = [Code(raw) for raw in first_raw], [Code(raw) for raw in second_raw]
+    pairs, substitutions, in_order = _match(first, second, [lambda a, b: a.raw == b.raw])
+    taken = {j for j, _ in pairs.values()}
+    return {
+        "exact": [first[i].raw for i in sorted(pairs)],
+        "removed": [c.raw for i, c in enumerate(first) if i not in pairs],
         "added": [second[j].raw for j in range(len(second)) if j not in taken],
         "changed": [{"original": first[i].raw, "candidate": second[j].raw} for i, j in substitutions],
         "in_order": in_order,
@@ -454,10 +539,13 @@ def validate(
     dates = compare_dates(first_dates, second_dates)
     dates_in_order = bool(dates.pop("in_order"))
     comparison["dates"] = dates
-    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"])
+    codes = compare_codes([raw for _, _, raw in find_codes(original)], [raw for _, _, raw in find_codes(candidate)])
+    codes_in_order = bool(codes.pop("in_order"))
+    comparison["codes"] = codes
+    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"] or codes["removed"] or codes["added"])
     rounding_fails = bool(comparison["rounding"]) and not permit_rounding
     convention = any(e["relies_on_language_convention"] for e in comparison["equivalent"] + comparison["unit_conversion"] + comparison["rounding"] + dates["equivalent"])
-    order_kept = bool(comparison.pop("pairs_in_order")) and dates_in_order
+    order_kept = bool(comparison.pop("pairs_in_order")) and dates_in_order and codes_in_order
     if changed or rounding_fails:
         outcome, severity = "FAIL", "CRITICAL"
     else:
@@ -466,5 +554,5 @@ def validate(
         "outcome": outcome, "severity": severity, "comparison": comparison,
         "order_preserved": order_kept, "relies_on_language_convention": convention,
         "decimal_convention": "point" if language in DECIMAL_POINT else "comma",
-        "counts": {"original": len(first), "candidate": len(second), "original_dates": len(first_dates), "candidate_dates": len(second_dates)},
+        "counts": {"original": len(first), "candidate": len(second), "original_dates": len(first_dates), "candidate_dates": len(second_dates), "original_codes": len(codes["exact"]) + len(codes["removed"]), "candidate_codes": len(codes["exact"]) + len(codes["added"])},
     }

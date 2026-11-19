@@ -99,10 +99,10 @@ class Validate(unittest.TestCase):
         self.assertEqual(result["outcome"], "partially measured")
         self.assertFalse(result["order_preserved"])
 
-    def test_no_numbers_passes_but_declares_limits(self):
-        result = run("three men", "four men")
+    def test_compound_number_words_pass_but_limit_is_declared(self):
+        result = run("twenty-three men", "twenty-four men")
         self.assertEqual(result["outcome"], "PASS")
-        self.assertIn("numbers_as_words", result["not_measured"])
+        self.assertIn("compound_number_words", result["not_measured"])
 
     def test_missing_evidence_states(self):
         self.assertEqual(run("1", "1", language="xx")["outcome"], "unsupported")
@@ -318,3 +318,64 @@ class PositionalPairing(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NumberWords(unittest.TestCase):
+    def outcome(self, a, b, language="it"):
+        return run(a, b, language=language)["outcome"]
+
+    def test_changed_word_fails(self):
+        self.assertEqual(self.outcome("tre archivisti", "quattro archivisti"), "FAIL")
+        self.assertEqual(self.outcome("la metà del materiale", "un terzo del materiale"), "FAIL")
+        self.assertEqual(self.outcome("three men", "four men", "en"), "FAIL")
+        self.assertEqual(self.outcome("drei Tage", "vier Tage", "de"), "FAIL")
+
+    def test_word_and_digits_are_equivalent(self):
+        result = run("tre archivisti", "3 archivisti", language="it")
+        self.assertEqual(result["outcome"], "PASS")
+        self.assertEqual(result["comparison"]["equivalent"][0]["original"], "tre")
+
+    def test_capitalized_word(self):
+        self.assertEqual(self.outcome("Dodici persone", "Tredici persone"), "FAIL")
+
+    def test_words_for_one_are_not_read(self):
+        self.assertEqual(values("un libro e una casa", "it"), [])
+        self.assertEqual(values("the one I saw", "en"), [])
+
+    def test_multiplier_joins_the_number(self):
+        self.assertEqual(values("4,8 milioni di euro", "it"), [Decimal(4800000)])
+        self.assertEqual(values("tre milioni", "it"), [Decimal(3000000)])
+        self.assertEqual(self.outcome("4,8 milioni", "4.800.000"), "PASS")
+        self.assertEqual(self.outcome("120 mila euro", "120.000 euro"), "partially measured")
+        self.assertEqual(self.outcome("4,8 milioni", "4,8 miliardi"), "FAIL")
+
+    def test_word_inside_another_word_is_not_read(self):
+        self.assertEqual(values("dieciottesimo e treno", "it"), [])
+        self.assertEqual(values("dix-sept", "fr"), [Decimal(17)])
+
+    def test_no_words_in_japanese(self):
+        self.assertEqual(values("三人", "ja"), [])
+
+
+class Codes(unittest.TestCase):
+    def test_changed_code_fails(self):
+        result = run("release v2.3 ready", "release v3.3 ready", language="it")
+        self.assertEqual(result["outcome"], "FAIL")
+        self.assertEqual(result["comparison"]["codes"]["changed"], [{"original": "v2.3", "candidate": "v3.3"}])
+
+    def test_codes_are_not_numbers(self):
+        self.assertEqual(values("v2.3, H2O, formato A4", "it"), [])
+        self.assertEqual([c for _, _, c in v.find_codes("v2.3, H2O, formato A4.")], ["v2.3", "H2O", "A4"])
+
+    def test_unit_symbols_and_hyphen_codes_are_not_codes(self):
+        self.assertEqual(v.find_codes("80 m2 e DPR-445 e 3D"), [])
+
+    def test_cjk_is_not_a_code(self):
+        self.assertEqual(v.find_codes("第3章"), [])
+        self.assertEqual(run("第3章", "第4章", language="zh")["outcome"], "FAIL")
+
+
+class ReportedLabels(unittest.TestCase):
+    def test_changed_unit_is_shown(self):
+        result = run("peso di 500 kg", "peso di 500 g", language="it")
+        self.assertEqual(result["comparison"]["changed"], [{"original": "500 kg", "candidate": "500 g"}])

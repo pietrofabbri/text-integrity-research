@@ -4633,3 +4633,56 @@ None new.
 ### Related Decisions
 
 `DEC-057`, `DEC-065`, `DEC-067`.
+
+
+---
+
+## DEC-069 — Numeric Integrity 0.6.0: Number Words and Codes
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction ("1 ok, 2 ok", 2026-11-19), after group C of the test kit (`TRIAL-GIT-HISTORY.md` §13):
+
+1. Codes, tokens with a letter directly before a digit (`v2.3`, `H2O`, `A4`), are compared literally as whole items.
+2. Single number words are read from closed lists for 11 languages, with multiplier words joined to the number before them.
+3. Reported numbers carry their unit (`500 kg` → `500 g`, where earlier only `500` → `500` was shown).
+
+### Rationale
+
+`v2.3` to `v3.3`, `tre` to `quattro` and `la metà` to `un terzo` passed unnoticed, and a text whose only changes were number words returned `PASS`. In group D the report hid the unit that had changed.
+
+### Alternatives Considered
+
+A full parser of compound number words: deferred, because it needs grammar per language. Reading words for "one": rejected, because they double as articles.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. Texts where a number word is replaced by digits, or the reverse, now give `equivalent` instead of an unread change. A word with another meaning that is added or removed now fails. The word lists are the agent's and are not checked by a native speaker for every language. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `src/text_integrity/number_words.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal; a locale resource justified under `DEVELOPMENT-MAP.md` §78 would replace the word lists.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-057`, `DEC-062`, `DEC-067`, `DEC-068`.
