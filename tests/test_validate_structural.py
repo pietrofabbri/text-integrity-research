@@ -167,3 +167,31 @@ class Validate(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ContentOrder(unittest.TestCase):
+    def run_md(self, a, b, fmt="markdown"):
+        return v.validate(a, b, language="it", constraint_type="HARD", input_format=fmt)
+
+    def test_swapped_list_items_fail(self):
+        result = self.run_md("- uno\n- due\n- tre\n", "- uno\n- tre\n- due\n")
+        self.assertEqual(result["outcome"], "FAIL")
+        self.assertEqual(result["differences"], ["content_order"])
+
+    def test_swapped_numbered_items_fail(self):
+        result = self.run_md("1. alfa\n2. beta\n", "1. beta\n2. alfa\n")
+        self.assertEqual(result["differences"], ["content_order"])
+
+    def test_swapped_sections_fail(self):
+        a = "## A\n\nTesto a.\n\n## B\n\nTesto b.\n"
+        b = "## B\n\nTesto b.\n\n## A\n\nTesto a.\n"
+        self.assertEqual(self.run_md(a, b)["differences"], ["content_order"])
+
+    def test_words_changed_in_place_pass(self):
+        a = "# Titolo\n\n- prima voce\n- seconda voce\n"
+        b = "# Intestazione\n\n- primo punto\n- seconda voce\n"
+        self.assertEqual(self.run_md(a, b)["outcome"], "PASS")
+
+    def test_plaintext_swapped_lines_fail(self):
+        self.assertEqual(self.run_md("Riga uno.\nRiga due.\n", "Riga due.\nRiga uno.\n", "plaintext")["differences"], ["content_order"])
+

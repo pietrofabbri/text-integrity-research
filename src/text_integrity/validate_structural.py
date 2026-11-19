@@ -12,22 +12,23 @@ from __future__ import annotations
 import hashlib
 import re
 import unicodedata
+from collections import Counter
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
 CAPABILITY_ID = "CAP-VALIDATE-STRUCTURAL-MARKDOWN"
-CAPABILITY_VERSION = "0.2.0"
+CAPABILITY_VERSION = "0.3.0"
 FAMILY = "VALIDATE-STRUCTURAL"
 TARGET_LANGUAGES = frozenset({"en", "es", "de", "ja", "fr", "pt", "ru", "it", "nl", "pl", "tr", "zh", "id"})
 SUPPORTED_FORMATS = frozenset({"markdown", "plaintext"})
 
 MEASURED = (
     "paragraphs", "headings", "lists", "tables", "block_quotes", "code_blocks",
-    "inline_code", "links", "footnotes", "block_formulas", "block_order",
+    "inline_code", "links", "footnotes", "block_formulas", "block_order", "content_order",
 )
 NOT_MEASURED = ("inline_quotations", "inline_formulas", "emphasis", "whitespace", "punctuation", "capitalization", "homoglyphs")
 
-MEASURED_PLAINTEXT = ("paragraphs", "lines", "title_like_lines", "lists", "block_order")
+MEASURED_PLAINTEXT = ("paragraphs", "lines", "title_like_lines", "lists", "block_order", "content_order")
 NOT_MEASURED_PLAINTEXT = (
     "headings", "tables", "block_quotes", "code_blocks", "inline_code", "links", "footnotes", "block_formulas",
 ) + NOT_MEASURED
@@ -68,6 +69,7 @@ class Profile:
     format_characters: int = 0
     lines: int = 0
     title_like_lines: int = 0
+    unit_digests: list[str] = field(default_factory=list)  # one per heading, list item, paragraph, table row, line (0.3.0)
 
 
 def _columns(row: str) -> int:
@@ -117,6 +119,7 @@ def profile_markdown(text: str) -> Profile:
         item = _LIST_ITEM.match(line)
         if item:
             current_list.append([len(item.group(1)) // 2, item.group(2)[0].isdigit()])
+            p.unit_digests.append(_digest(line[item.end():]))
             _scan_inline(p, line)
             i += 1
             continue
@@ -136,6 +139,7 @@ def profile_markdown(text: str) -> Profile:
         elif heading := _ATX.match(line):
             p.headings.append(len(heading.group(1)))
             p.block_order.append("heading")
+            p.unit_digests.append(_digest(line[heading.end():].strip()))
             _scan_inline(p, line)
             i += 1
         elif _QUOTE.match(line):
@@ -144,12 +148,15 @@ def profile_markdown(text: str) -> Profile:
                 _scan_inline(p, lines[i])
                 i += 1
             p.block_quotes.append(i - start)
+            p.unit_digests.append(_digest("\n".join(lines[start:i])))
             p.block_order.append("quote")
         elif "|" in line and i + 1 < n and "-" in lines[i + 1] and _TABLE_RULE.match(lines[i + 1]):
             columns = _columns(line)
             start = i
             i += 2
+            p.unit_digests.append(_digest(line))
             while i < n and "|" in lines[i] and lines[i].strip():
+                p.unit_digests.append(_digest(lines[i]))
                 i += 1
             p.tables.append([i - start - 1, columns])
             p.block_order.append("table")
@@ -174,6 +181,7 @@ def _paragraph(p: Profile, lines: list[str], i: int) -> int:
             if setext:
                 p.headings.append(1 if setext.group(1)[0] == "=" else 2)
                 p.block_order.append("heading")
+                p.unit_digests.append(_digest("\n".join(lines[start:i])))
                 return i + 1
             if _ATX.match(lines[i]) or _FENCE.match(lines[i]) or _QUOTE.match(lines[i]) or _LIST_ITEM.match(lines[i]):
                 break
@@ -181,6 +189,7 @@ def _paragraph(p: Profile, lines: list[str], i: int) -> int:
         i += 1
     p.paragraphs += 1
     p.block_order.append("paragraph")
+    p.unit_digests.append(_digest("\n".join(lines[start:i])))
     return i
 
 
@@ -213,9 +222,11 @@ def profile_plaintext(text: str) -> Profile:
         item = _LIST_ITEM.match(line)
         if item:
             current_list.append([len(item.group(1)) // 2, item.group(2)[0].isdigit()])
+            p.unit_digests.append(_digest(line[item.end():]))
             continue
         close_list()
         p.lines += 1
+        p.unit_digests.append(_digest(stripped))
         if stripped[-1] not in _SENTENCE_END and any(c.isalpha() for c in stripped):
             p.title_like_lines += 1
             p.block_order.append("title_like")
@@ -223,6 +234,26 @@ def profile_plaintext(text: str) -> Profile:
             p.block_order.append("line")
     close_list()
     return p
+
+
+def content_moved(first: list[str], second: list[str]) -> bool:
+    """True if units present in both texts appear in a different order (0.3.0).
+
+    Units changed in place are ignored, so rewording a title is not a move;
+    only the relative order of identical units is compared.
+    """
+    common = Counter(first) & Counter(second)
+
+    def shared(sequence: list[str]) -> list[str]:
+        left = Counter(common)
+        kept = []
+        for unit in sequence:
+            if left[unit]:
+                left[unit] -= 1
+                kept.append(unit)
+        return kept
+
+    return shared(first) != shared(second)
 
 
 def _missing(state: str, reason: str, language: str, constraint_type: str) -> dict[str, Any]:
@@ -267,7 +298,8 @@ def validate(
     profile = profile_plaintext if input_format == "plaintext" else profile_markdown
     before, after = profile(original), profile(candidate)
     first, second = asdict(before), asdict(after)
-    differences = [e for e in measured if first[e] != second[e]]
+    moved = content_moved(before.unit_digests, after.unit_digests)
+    differences = [e for e in measured if (moved if e == "content_order" else first[e] != second[e])]
     blocking = [e for e in differences if e not in permitted]
     return {
         "family": FAMILY, "capability_id": CAPABILITY_ID, "capability_version": CAPABILITY_VERSION,
@@ -276,5 +308,5 @@ def validate(
         "language": language, "input_format": input_format,
         "differences": blocking, "permitted_differences": [e for e in differences if e in permitted],
         "measured": list(measured), "not_measured": list(NOT_MEASURED_PLAINTEXT if input_format == "plaintext" else NOT_MEASURED),
-        "observations": {"original": first, "candidate": second},
+        "observations": {"original": {k: v for k, v in first.items() if k != "unit_digests"}, "candidate": {k: v for k, v in second.items() if k != "unit_digests"}},
     }

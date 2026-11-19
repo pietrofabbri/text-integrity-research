@@ -24,7 +24,7 @@ Report whether a candidate text keeps the document structure of an original text
 | `id` | `CAP-VALIDATE-STRUCTURAL-MARKDOWN` |
 | `name` | Structural validation of Markdown |
 | `category` | `VALIDATE-STRUCTURAL` |
-| `version` | 0.2.0 |
+| `version` | 0.3.0 |
 | `status` | `EXPERIMENTAL` (has not passed the Activation Gate of `CAPABILITY-ARCHITECTURE.md` §7) |
 | `languages` | `EXPERIMENTAL` for the 13 target languages of `DATA-MAP.md` §22; `unsupported` for any other. The rules read Markdown syntax, not language content; tests run on English, Japanese, Chinese, Russian and Turkish only |
 | `dependencies` | None |
@@ -50,6 +50,7 @@ Inputs are never altered (`DEC-059`). Only line-break style is treated as equiva
 | `paragraphs` | Count |
 | `headings` | Ordered levels |
 | `lists` | Ordered items with depth and ordered/unordered kind |
+| `content_order` (0.3.0) | Whether units present in both texts (headings, list items without their marker, paragraphs, quotes, table rows; in plain text, lines and list items) appear in a different relative order. Units are compared by SHA-256 of their exact text; units changed in place are ignored, so rewording is not reported, but swapping two list items or two sections is |
 | `tables` | Rows and columns of each table |
 | `block_quotes` | Lines per block |
 | `code_blocks` | SHA-256 of exact content (`FID-034`) |
@@ -77,7 +78,7 @@ Classification under `AGENT-WORK-MODEL.md` §5: MEDIUM risk, C2 impact. `AGENT-S
 - A table immediately after a paragraph, with no blank line, is counted as part of the paragraph.
 - Indented code blocks are read as paragraphs; indented continuation lines inside a list end the list.
 - HTML blocks are not recognized, nor are reference-style links.
-- Table cell text is not compared, only shape. Section-level boundary crossing (`TRN-023`) is not detected beyond `block_order`.
+- Table cell text is not compared, only shape, except that the order of identical rows is checked by `content_order`. A unit both moved and reworded is not seen as moved. Section-level boundary crossing (`TRN-023`) is not detected beyond `block_order`.
 - HTML and other formats are `unsupported`, although `FID-016` requires comparison to account for the format of the input.
 
 # 7. Evidence and Open Items

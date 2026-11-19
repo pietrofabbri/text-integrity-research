@@ -4788,3 +4788,52 @@ None new.
 ### Related Decisions
 
 `DEC-004`, `DEC-070`.
+
+
+---
+
+## DEC-072 — Structural Validation 0.3.0: Order of Content
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+After group F of the test kit (`TRIAL-GIT-HISTORY.md` §16), structural validation adds the element `content_order`. Headings, list items, paragraphs, quotes and table rows (lines and list items in plain text) are fingerprinted by SHA-256 of their exact text; if the units present in both texts appear in a different relative order, the element differs. Units changed in place are ignored.
+
+### Rationale
+
+Swapping two sections or two list items passed, because only shape was compared. Comparing only the order of identical units detects moves without reporting every reworded title, so word-level controls such as F04 still pass. The agent proposed this to the owner on 2026-11-19 and applied it under the standing instruction to correct defects ("correggi", `DEC-066`); the owner did not answer the specific question.
+
+### Alternatives Considered
+
+Comparing the text of every heading and item: rejected, because any rewording would fail structure.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. One more element is measured, which changes the denominator of `structural_change_rate` in minimality. A unit both moved and reworded is not seen as moved. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_structural.py`, `tests/test_validate_structural.py`, `docs/05-validation/VALIDATE-STRUCTURAL-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-057`, `DEC-060`, `DEC-064`, `DEC-066`.
