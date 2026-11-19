@@ -21,7 +21,7 @@ from typing import Any
 from text_integrity import number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.7.0"
+CAPABILITY_VERSION = "0.8.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
@@ -72,6 +72,23 @@ def _unit_word_pattern(language: str) -> re.Pattern[str] | None:
         return None
     alternatives = "|".join(re.escape(w).replace("\\ ", "[ \u00a0]") for w in sorted(words, key=len, reverse=True))
     return re.compile(rf"[ \u00a0\u202f]?({alternatives})(?![\w-])", re.IGNORECASE)
+
+
+# Percent written as words after a number (0.8.0): 25 per cento, 25 pour cent
+PERCENT_WORDS: dict[str, tuple[str, ...]] = {
+    "it": ("per cento", "percento"), "en": ("per cent", "percent"), "fr": ("pour cent", "pour-cent"),
+    "de": ("Prozent",), "es": ("por ciento",), "pt": ("por cento",), "nl": ("procent",),
+    "ru": ("процентов", "процента", "процент"), "pl": ("procent", "procentów", "procenty"), "id": ("persen",),
+}
+
+
+@cache
+def _percent_word_pattern(language: str) -> re.Pattern[str] | None:
+    words = PERCENT_WORDS.get(language)
+    if not words:
+        return None
+    alternatives = "|".join(re.escape(w).replace("\\ ", "[ \u00a0]") for w in sorted(words, key=len, reverse=True))
+    return re.compile(rf"[ \u00a0\u202f]({alternatives})(?![\w-])", re.IGNORECASE)
 
 
 def _to_base(value: Decimal, unit: str) -> Decimal:
@@ -330,6 +347,7 @@ def extract(text: str, language: str) -> list[Number]:
     decimal = "." if language in DECIMAL_POINT else ","
     taken = [(start, end) for start, end, _ in find_dates(text, language)] + [(start, end) for start, end, _ in find_codes(text)]
     items: list[tuple[int, int, Number]] = []
+    word_spans: list[tuple[int, int]] = []
     for match in _NUMBER.finditer(text):
         if any(match.start() < end and start < match.end() for start, end in taken):
             continue
@@ -346,11 +364,16 @@ def extract(text: str, language: str) -> list[Number]:
             value = -value
         before, after = text[max(0, match.start() - 2):match.start()], text[match.end():match.end() + 2]
         identifier_like = bool(_LETTER_HYPHEN.search(before) or _HYPHEN_LETTER.match(after))
-        unit_match = None if match["percent"] or match["currency_after"] else _UNIT.match(text, match.end())
+        percent = bool(match["percent"])
+        percent_word = None if percent or match["currency_after"] else (_percent_word_pattern(language) or re.compile(r"(?!)")).match(text, match.end())
+        if percent_word:
+            percent = True
+            word_spans.append((match.end(), percent_word.end()))
+        unit_match = None if percent or match["currency_after"] else _UNIT.match(text, match.end())
         unit = unit_match.group(1) if unit_match else ""
         unit_text = unit
         word_pattern = _unit_word_pattern(language)
-        if not unit and word_pattern and not match["percent"] and not match["currency_after"]:
+        if not unit and word_pattern and not percent and not match["currency_after"]:
             word_match = word_pattern.match(text, match.end())
             if word_match:
                 unit_text = word_match.group(1)
@@ -359,9 +382,11 @@ def extract(text: str, language: str) -> list[Number]:
         currency = (match["currency"] or match["currency_after"] or "").strip()
         currency = ISO_CURRENCY_SYMBOL.get(currency, currency)  # EUR 350 and € 350 are one currency
         if unit in ISO_CURRENCY_SYMBOL and not currency:  # 500 EUR and 500 € are one currency
-            raw, currency, unit = f"{raw} {unit}", ISO_CURRENCY_SYMBOL[unit], ""
-        items.append((match.start(), match.end(), Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit, unit_text)))
-    items = sorted(items + _word_numbers(text, language, taken), key=lambda item: item[0])
+            raw, currency, unit, unit_text = f"{raw} {unit}", ISO_CURRENCY_SYMBOL[unit], "", ""
+        if percent_word:
+            raw = text[match.start():percent_word.end()].strip()
+        items.append((match.start(), match.end(), Number(raw, value, decimals, percent, currency, relies, identifier_like, unit, unit_text)))
+    items = sorted(items + _word_numbers(text, language, taken + word_spans), key=lambda item: item[0])
     return [number for _, _, number in _merge_multipliers(items, text, language)]
 
 

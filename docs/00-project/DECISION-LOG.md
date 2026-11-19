@@ -4837,3 +4837,52 @@ None new.
 ### Related Decisions
 
 `DEC-057`, `DEC-060`, `DEC-064`, `DEC-066`.
+
+
+---
+
+## DEC-073 — Numeric Integrity 0.8.0: Percent Words
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+After group I of the test kit (`TRIAL-GIT-HISTORY.md` §18), under the standing instruction to correct defects (`DEC-066`): percent words after a number mark it as a percentage, in ten languages, and are not read as number words. A currency code after a number is no longer shown twice in reports.
+
+### Rationale
+
+`25 pour cent` to `25 %` was a false alarm, made worse by `DEC-069`, which read `cent` as 100. The doubled label (`1.490 EUR EUR`) was a reporting defect introduced by `DEC-070`.
+
+### Alternatives Considered
+
+Removing `cent` from the French number words: rejected, because `cent euros` is a real number.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. No outcome changes except where percent words occur. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-066`, `DEC-069`, `DEC-070`.

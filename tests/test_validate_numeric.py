@@ -415,3 +415,25 @@ class ConversionsBetweenSystems(unittest.TestCase):
 
     def test_mi_alone_is_not_a_unit(self):
         self.assertEqual(v.extract("ne ho 5 mi pare", "it")[0].unit, "")
+
+
+class PercentWords(unittest.TestCase):
+    def test_percent_word_equals_sign(self):
+        for language, a, b in (("fr", "reculé de 25 pour cent", "reculé de 25 %"), ("it", "il 12 per cento", "il 12 %"), ("en", "a 5 percent rise", "a 5% rise"), ("de", "um 7 Prozent", "um 7 %")):
+            result = run(a, b, language=language)
+            self.assertEqual(result["outcome"], "PASS", (language, a, b))
+
+    def test_percent_word_is_not_a_number_word(self):
+        self.assertEqual(values("25 pour cent", "fr"), [Decimal(25)])
+        self.assertEqual(values("cent euros", "fr"), [Decimal(100)])
+
+    def test_changed_percent_fails(self):
+        self.assertEqual(run("il 12 per cento", "il 15 per cento", language="it")["outcome"], "FAIL")
+
+    def test_percent_and_plain_number_differ(self):
+        self.assertEqual(run("il 12 per cento", "il 12", language="it")["outcome"], "FAIL")
+
+    def test_currency_code_label_once(self):
+        result = run("1.490,00 €", "1.490 EUR", language="it")
+        self.assertEqual(result["comparison"]["equivalent"][0]["candidate"], "1.490 EUR")
+

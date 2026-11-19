@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.7.0 |
+| `version` | 0.8.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -49,6 +49,8 @@ Compare the numbers written with digits in an original and a candidate text, and
 **Not numbers:** digits inside a code. Since 0.3.0, digits after kana or CJK ideographs are numbers: Japanese and Chinese have no space before them, and earlier versions silently read almost none of them. Forms that fit no pattern (`1.2.3`) are kept literally and match only identically. Digits in any Unicode script are read by value.
 
 **Number words (0.6.0):** single number words are read from closed lists per language in `src/text_integrity/number_words.py` (11 languages; Japanese and Chinese have none). A number word and the same value in digits are `equivalent` (`tre` and `3`). A multiplier word right after a number joins it (`4,8 milioni` = 4,800,000; `120 mila`). Declared simplifications: compound words (`ventitré`, `twenty-three`) are not read; words for "one" are left out, because they double as articles or pronouns; inflected forms are listed only for Russian and Polish multipliers and a few others; words with another meaning (Italian `sei`, French `neuf`, Turkish `yüz`) are read as numbers wherever they occur.
+
+**Percent words (0.8.0):** `per cento`, `percent`, `pour cent`, `Prozent`, `por ciento`, `por cento`, `procent`, `процент`, `persen` and their listed forms, directly after a number, mark it as a percentage, so `25 pour cent` and `25 %` are `equivalent`. The words are not also read as number words. Turkish, where `yüzde` precedes the number, Japanese and Chinese are not covered.
 
 **Units (0.2.0):** a closed list of symbols directly after a number (`kg`, `g`, `km`, `m`, `l`, `kWh`, `GB`, `°C`, `EUR` and others, in `UNITS` in the code). Unit words (`chilogrammi`) are not read. Two different known units fail unless they are an exact metric conversion (`1,5 km` and `1500 m`, class `unit_conversion`). If only one side has a known unit, the pair is listed in `unit_uncertain` and the outcome is at best `partially measured`.
 
