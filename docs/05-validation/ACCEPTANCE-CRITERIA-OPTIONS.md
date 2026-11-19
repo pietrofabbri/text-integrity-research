@@ -42,6 +42,8 @@ The three capabilities need different kinds of claim. Minimality gives no `PASS`
 | Result `partially measured` | **a)** counted as a miss when a real change exists; **b)** a third class, reported separately; **c)** excluded, with the exclusion rate reported |
 | Change outside the capability's scope (a meaning reversal) | Excluded from its error count, and reported, since a `PASS` is not evidence of fidelity |
 
+**Decided (`DEC-068`):** removing the year, or another part, from a date is an alteration of data, not a change of form.
+
 `FID-046` classifies structured-tier changes as `CRITICAL`, which argues for treating a miss as more costly than a false alarm. How much more is a domain judgment. *Proposal: option b, because it hides nothing.*
 
 ## D3. Who establishes what really changed

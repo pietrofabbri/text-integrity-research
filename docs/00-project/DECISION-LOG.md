@@ -4584,3 +4584,52 @@ None new. Whether removing a year from a date is an error is left to the owner (
 ### Related Decisions
 
 `DEC-057`, `DEC-062`, `DEC-065`, `DEC-066`.
+
+
+---
+
+## DEC-068 — Removing Part of a Date Is an Alteration of Data
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+The owner answered the question left open in `TRIAL-GIT-HISTORY.md` §12, whether removing the year from a date is an error: "sì" (2026-11-19). Removing the year, or another part, from a date counts as an alteration of data, and the `FAIL` that numeric integrity gives for it is correct.
+
+### Rationale
+
+The owner's ruling. Information is lost, and a reader can no longer recover the original date.
+
+### Alternatives Considered
+
+Treating it as a change of form: rejected by the owner.
+
+### Consequences
+
+No code change. In the owner's lists such changes are counted as `DATO`, including the two cases of §12 listed as `FORMA`. First owner decision on `ACCEPTANCE-CRITERIA-OPTIONS.md` D2; the rest of D2 stays open.
+
+### Affected Areas
+
+`docs/05-validation/ACCEPTANCE-CRITERIA-OPTIONS.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-057`, `DEC-065`, `DEC-067`.
