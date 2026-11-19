@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.8.0 |
+| `version` | 0.9.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -85,7 +85,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
 - Unit words are read in seven languages only. Single-letter units can be misread, as in `Room 5 B`. Currencies are never converted. US and UK gallons, inches and other units outside the list are not read.
 - Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.
-- Abbreviated month names with no number after them (`15 mar.`), inflected forms not listed in `MONTHS` (Russian `в марте`, for example) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
+- Abbreviated month names with no number after them (`15 mar.`), inflected forms not listed in `MONTHS` (Russian and Polish have nominative, genitive and, since 0.9.0, prepositional or locative forms such as `в марте` and `w marcu`; other cases are not listed) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
 - A number after an English month name is read as a day, so `In May 30 people came` gives a date. Date order is checked among dates only, not against the surrounding numbers.
 - Ranges, comparisons, magnitudes in words (`3 million`) and expressions (`FID-008`) are not interpreted.
 - A plain space is not treated as digit grouping, because it could separate two numbers.

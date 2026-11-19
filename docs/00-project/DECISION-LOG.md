@@ -4886,3 +4886,52 @@ None new.
 ### Related Decisions
 
 `DEC-066`, `DEC-069`, `DEC-070`.
+
+
+---
+
+## DEC-074 — Numeric Integrity 0.9.0: Inflected Month Names in Russian and Polish
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+After group L of the test kit (`TRIAL-GIT-HISTORY.md` §19), under the standing instruction to correct defects (`DEC-066`): the Russian prepositional and Polish locative forms of the twelve month names (`в марте`, `w marcu`) are added to `MONTHS`.
+
+### Rationale
+
+`в марте` → `в апреле 2024 года` passed unnoticed. These forms are how a month is usually written after "in".
+
+### Alternatives Considered
+
+A morphological analyser: deferred, as for number words.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. Other grammatical cases are still not listed. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-065`, `DEC-066`.

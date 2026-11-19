@@ -437,3 +437,13 @@ class PercentWords(unittest.TestCase):
         result = run("1.490,00 €", "1.490 EUR", language="it")
         self.assertEqual(result["comparison"]["equivalent"][0]["candidate"], "1.490 EUR")
 
+
+class InflectedMonths(unittest.TestCase):
+    def test_russian_prepositional(self):
+        self.assertEqual(run("в марте 2024 года", "в апреле 2024 года", language="ru")["outcome"], "FAIL")
+        self.assertEqual(run("в марте 2024 года", "в марте 2024 года", language="ru")["outcome"], "PASS")
+
+    def test_polish_locative(self):
+        self.assertEqual(run("w marcu 2024 roku", "w kwietniu 2024 roku", language="pl")["outcome"], "FAIL")
+        self.assertEqual(run("w marcu 2024", "marzec 2024", language="pl")["outcome"], "PASS")
+

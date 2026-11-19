@@ -21,7 +21,7 @@ from typing import Any
 from text_integrity import number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.8.0"
+CAPABILITY_VERSION = "0.9.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
@@ -117,8 +117,9 @@ MONTHS: dict[str, tuple[str, ...]] = {
     "nl": ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"),
     "id": ("januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember"),
     "tr": ("ocak", "şubat", "mart", "nisan", "mayıs", "haziran", "temmuz", "ağustos", "eylül", "ekim", "kasım", "aralık"),
-    "pl": ("styczeń|stycznia", "luty|lutego", "marzec|marca", "kwiecień|kwietnia", "maj|maja", "czerwiec|czerwca", "lipiec|lipca", "sierpień|sierpnia", "wrzesień|września", "październik|października", "listopad|listopada", "grudzień|grudnia"),
-    "ru": ("январь|января", "февраль|февраля", "март|марта", "апрель|апреля", "май|мая", "июнь|июня", "июль|июля", "август|августа", "сентябрь|сентября", "октябрь|октября", "ноябрь|ноября", "декабрь|декабря"),
+    # Polish and Russian: nominative, genitive and (0.9.0) locative / prepositional forms
+    "pl": ("styczeń|stycznia|styczniu", "luty|lutego|lutym", "marzec|marca|marcu", "kwiecień|kwietnia|kwietniu", "maj|maja|maju", "czerwiec|czerwca|czerwcu", "lipiec|lipca|lipcu", "sierpień|sierpnia|sierpniu", "wrzesień|września|wrześniu", "październik|października|październiku", "listopad|listopada|listopadzie", "grudzień|grudnia|grudniu"),
+    "ru": ("январь|января|январе", "февраль|февраля|феврале", "март|марта|марте", "апрель|апреля|апреле", "май|мая|мае", "июнь|июня|июне", "июль|июля|июле", "август|августа|августе", "сентябрь|сентября|сентябре", "октябрь|октября|октябре", "ноябрь|ноября|ноябре", "декабрь|декабря|декабре"),
 }
 # Abbreviations are read only before a number; "" means no abbreviation is read.
 MONTH_ABBREVIATIONS: dict[str, tuple[str, ...]] = {
