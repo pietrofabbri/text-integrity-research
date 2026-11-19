@@ -5086,7 +5086,7 @@ None new.
 
 ---
 
-## DEC-078 — Evaluation Freeze `eval-2026-11-19`
+## DEC-078 — Evaluation Freeze `eval-2026-11-19` (Commit 83f4646)
 
 ### Date
 
@@ -5098,7 +5098,7 @@ ACCEPTED
 
 ### Decision
 
-On the owner's instruction ("procedi", 2026-11-19, answering whether to freeze a version), the commit carrying this decision is tagged `eval-2026-11-19`. It fixes numeric integrity 0.10.1, structural validation 0.3.0 and minimality 0.3.0 for the held-out run of `ACCEPTANCE-CRITERIA-OPTIONS.md` D5.
+On the owner's instruction ("procedi", 2026-11-19, answering whether to freeze a version), the frozen version is commit `83f46469a9cafca4ccbfb7f227d305e44dea4d0d`, the commit that first recorded this decision. It fixes numeric integrity 0.10.1, structural validation 0.3.0 and minimality 0.3.0 for the held-out run of `ACCEPTANCE-CRITERIA-OPTIONS.md` D5.
 
 ### Rationale
 
@@ -5112,9 +5112,11 @@ Freezing before the H02 fix: rejected, because a known false alarm on rewordings
 
 The reserve series is run on this tag exactly. Development may continue on `main`; any change after the tag is not part of the held-out result. If the held-out run reveals defects, they are recorded first and fixed afterwards, and the reserve cases become development data.
 
+**Identification:** the session could not create a Git tag (the proxy refused both `git push` of a tag and the GitHub API, HTTP 403). The commit identifier itself is immutable and is the authoritative identity; a branch `eval-2026-11-19` points to it for convenience, and the owner may create a tag of the same name on that commit from the GitHub web interface. A held-out run must check out `83f46469a9cafca4ccbfb7f227d305e44dea4d0d`, not the branch, since a branch can move.
+
 ### Affected Areas
 
-Git tag `eval-2026-11-19`; `docs/05-validation/ACCEPTANCE-CRITERIA-OPTIONS.md` D5.
+Commit `83f46469a9cafca4ccbfb7f227d305e44dea4d0d`, branch `eval-2026-11-19`; `docs/05-validation/ACCEPTANCE-CRITERIA-OPTIONS.md` D5.
 
 ### Reversal Conditions
 
