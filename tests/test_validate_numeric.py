@@ -142,12 +142,12 @@ class Validate(unittest.TestCase):
         self.assertEqual(run("1000 g", "1 km")["outcome"], "FAIL")
 
     def test_unit_lost_is_uncertain_not_pass(self):
-        result = run("513 kg", "513 chilogrammi", language="it")
+        result = run("513 kg", "513 quintali", language="it")
         self.assertEqual(result["outcome"], "partially measured")
         self.assertEqual(len(result["comparison"]["unit_uncertain"]), 1)
 
     def test_unit_needs_a_boundary(self):
-        self.assertEqual(v.extract("5 metri", "it")[0].unit, "")
+        self.assertEqual(v.extract("5 metropolitane", "it")[0].unit, "")
         self.assertEqual(v.extract("5 gatti", "it")[0].unit, "")
 
     def test_list_markers_are_not_numbers(self):
@@ -379,3 +379,39 @@ class ReportedLabels(unittest.TestCase):
     def test_changed_unit_is_shown(self):
         result = run("peso di 500 kg", "peso di 500 g", language="it")
         self.assertEqual(result["comparison"]["changed"], [{"original": "500 kg", "candidate": "500 g"}])
+
+
+class UnitWords(unittest.TestCase):
+    def test_changed_unit_word_fails(self):
+        self.assertEqual(run("a strip of 3 kilometres", "a strip of 3 metres")["outcome"], "FAIL")
+        self.assertEqual(run("pesa 5 chilogrammi", "pesa 5 grammi", language="it")["outcome"], "FAIL")
+
+    def test_word_and_symbol_are_the_same_unit(self):
+        self.assertEqual(run("3 kilometres", "3 km")["outcome"], "PASS")
+        self.assertEqual(run("a 20 gradi Celsius", "a 20 °C", language="it")["outcome"], "PASS")
+
+    def test_word_conversion_is_exact(self):
+        self.assertEqual(run("dura 90 minuti", "dura 1,5 ore", language="it")["outcome"], "PASS")
+
+    def test_changed_word_shown_as_written(self):
+        result = run("500 grams", "500 kilograms")
+        self.assertEqual(result["comparison"]["changed"], [{"original": "500 grams", "candidate": "500 kilograms"}])
+
+
+class ConversionsBetweenSystems(unittest.TestCase):
+    def test_exact_definitions(self):
+        self.assertEqual(run("at 50 °F", "at 10 °C")["outcome"], "PASS")
+        self.assertEqual(run("1 mile", "1.609344 km")["outcome"], "PASS")
+
+    def test_rounded_conversion_is_partial_and_visible(self):
+        for a, b in (("5 miles", "8 km"), ("70 °F", "21 °C"), ("60 mph", "97 km/h"), ("10 lb", "4.5 kg")):
+            result = run(a, b)
+            self.assertEqual(result["outcome"], "partially measured", (a, b))
+            self.assertEqual(len(result["comparison"]["approximate_conversion"]), 1, (a, b))
+
+    def test_wrong_conversion_fails(self):
+        self.assertEqual(run("5 miles", "9 km")["outcome"], "FAIL")
+        self.assertEqual(run("70 °F", "25 °C")["outcome"], "FAIL")
+
+    def test_mi_alone_is_not_a_unit(self):
+        self.assertEqual(v.extract("ne ho 5 mi pare", "it")[0].unit, "")

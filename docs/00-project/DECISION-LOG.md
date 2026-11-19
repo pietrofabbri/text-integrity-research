@@ -4686,3 +4686,56 @@ None new.
 ### Related Decisions
 
 `DEC-057`, `DEC-062`, `DEC-067`, `DEC-068`.
+
+
+---
+
+## DEC-070 — Numeric Integrity 0.7.0: Unit Words and Conversions Between Unit Systems
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction ("procedi", 2026-11-19), after group D of the test kit (`TRIAL-GIT-HISTORY.md` §14):
+
+1. Unit words after a number are read in seven languages, as their symbols.
+2. Miles, feet, yards, pounds, ounces, `mph` and `°F` are converted by their exact definitions.
+3. A conversion that matches only after rounding to the digits shown by the rounder side is a new class, `approximate_conversion`. It does not fail and lowers the outcome to `partially measured`.
+
+### Rationale
+
+`3 kilometres` to `3 metres` passed unnoticed, and correct conversions such as `5 miles` to `8 km` were false alarms. Point 3 needs a tolerance. The agent chose the rule already used for rounding, which introduces no numeric threshold, and kept such pairs visible rather than passing them. **Under `DEC-004` this is a scientific choice awaiting the owner's confirmation**; until then it stands as the agent's proposal, and is reversible.
+
+### Alternatives Considered
+
+A fixed relative tolerance such as 1%: rejected, because it would be an invented threshold. Letting approximate conversions pass: rejected, because a changed value could hide behind a coarse rounding.
+
+### Consequences
+
+MEDIUM risk, C2 impact, under `DEC-057`. Temperature conversions are now possible, which the specification earlier excluded. The word lists are the agent's and are not checked by a native speaker. Status stays `EXPERIMENTAL`. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `src/text_integrity/unit_words.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal, in particular of point 3.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-004`, `DEC-057`, `DEC-062`, `DEC-069`.

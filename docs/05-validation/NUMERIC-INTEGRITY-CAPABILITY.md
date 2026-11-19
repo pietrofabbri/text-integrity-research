@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.6.0 |
+| `version` | 0.7.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -52,6 +52,10 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Units (0.2.0):** a closed list of symbols directly after a number (`kg`, `g`, `km`, `m`, `l`, `kWh`, `GB`, `°C`, `EUR` and others, in `UNITS` in the code). Unit words (`chilogrammi`) are not read. Two different known units fail unless they are an exact metric conversion (`1,5 km` and `1500 m`, class `unit_conversion`). If only one side has a known unit, the pair is listed in `unit_uncertain` and the outcome is at best `partially measured`.
 
+**Unit words (0.7.0):** directly after a number, unit words from closed lists for English, Italian, French, German, Spanish, Portuguese and Dutch (`src/text_integrity/unit_words.py`) are read as the matching symbol: `3 kilometres` is `3 km`, and `5 chilogrammi` to `5 grammi` fails. Reports show the unit as written. Words with another common meaning are left out (English `pound`, Italian `gradi` alone).
+
+**Units outside the metric system (0.7.0):** miles (only as a word), feet, yards, pounds (`lb`), ounces, `mph` and `°F` are converted by their exact definitions. An exact match is a `unit_conversion`. A match after rounding to the digits shown by the rounder side (`5 miles` and `8 km`, `70 °F` and `21 °C`) is an `approximate_conversion`: it does not fail, and the outcome is at best `partially measured`. **This tolerance rule is the agent's choice under `DEC-070`, awaiting the owner's confirmation (`DEC-004`).**
+
 **List markers (0.2.0):** a number of up to three digits at the start of a line, followed by `.` or `)` and a space, is treated as a list marker and not compared.
 
 **Dates (0.3.0):** dates are read as whole items and compared as dates, in support of `FID-009`; their digits are not also counted as numbers. Forms read: `YYYY-MM-DD` and `D/M/YYYY` with `-`, `/` or `.` as separator; full month names of the 11 languages written with spaces (`15 marzo 2024`, `March 15, 2024`, `5 de mayo de 2021`, `15. März 2024`, with or without day or year); `2024年3月15日` and its shorter forms in Japanese and Chinese. The same date in another form is class `equivalent` in `comparison.dates` and does not fail. A changed, removed or added date, including a dropped month or year, fails.
@@ -77,7 +81,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 - **Compound number words and Japanese or Chinese numerals are not read** (`twenty-three`, `三百`). Changing `twenty-three` to `twenty-four` is not detected. The result lists this in `not_measured`. Single number words are read since 0.6.0.
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
-- Conversions are exact and metric only: `5 km` and `3.1 miles` are reported as changed. Single-letter units can be misread, as in `Room 5 B`. Temperature scales and currencies are never converted.
+- Unit words are read in seven languages only. Single-letter units can be misread, as in `Room 5 B`. Currencies are never converted. US and UK gallons, inches and other units outside the list are not read.
 - Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.
 - Abbreviated month names with no number after them (`15 mar.`), inflected forms not listed in `MONTHS` (Russian `в марте`, for example) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
 - A number after an English month name is read as a day, so `In May 30 people came` gives a date. Date order is checked among dates only, not against the surrounding numbers.

@@ -18,15 +18,15 @@ from decimal import ROUND_HALF_UP, Decimal
 from functools import cache
 from typing import Any
 
-from text_integrity import number_words
+from text_integrity import number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.6.0"
+CAPABILITY_VERSION = "0.7.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
 TARGET_LANGUAGES = DECIMAL_POINT | DECIMAL_COMMA
-NOT_MEASURED = ("compound_number_words", "number_words_in_ja_zh", "unit_words", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
+NOT_MEASURED = ("compound_number_words", "number_words_in_ja_zh", "unit_words_outside_seven_languages", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
 SPACE_GROUP = "  "
 
 # Letters that make a following digit part of a word (v2, H2O). Scripts written
@@ -54,11 +54,36 @@ UNITS: dict[str, tuple[str, Decimal]] = {
     "B": ("data", Decimal(1)), "kB": ("data", Decimal(1000)), "KB": ("data", Decimal(1000)), "MB": ("data", Decimal(1000000)), "GB": ("data", Decimal(1000000000)), "TB": ("data", Decimal(1000000000000)),
     "m²": ("area", Decimal(1)), "m2": ("area", Decimal(1)), "km²": ("area", Decimal(1000000)), "km2": ("area", Decimal(1000000)), "ha": ("area", Decimal(10000)),
     "m³": ("capacity", Decimal(1)), "m3": ("capacity", Decimal(1)),
-    "°C": ("celsius", Decimal(1)), "°F": ("fahrenheit", Decimal(1)),
-    "km/h": ("speed_kmh", Decimal(1)), "mph": ("speed_mph", Decimal(1)),
+    "°C": ("temperature", Decimal(1)), "°F": ("temperature", Decimal(1)),  # °F is converted by _to_base
+    "km/h": ("speed", Decimal(1)), "mph": ("speed", Decimal("1.609344")),
+    # Units outside the metric system, with their exact definitions (0.7.0)
+    "mi": ("length", Decimal("1609.344")), "ft": ("length", Decimal("0.3048")), "yd": ("length", Decimal("0.9144")),
+    "lb": ("mass", Decimal("453.59237")), "oz": ("mass", Decimal("28.349523125")),
     "EUR": ("eur", Decimal(1)), "USD": ("usd", Decimal(1)), "GBP": ("gbp", Decimal(1)), "JPY": ("jpy", Decimal(1)),
 }
-_UNIT = re.compile(r"[ \u00a0\u202f]?(" + "|".join(sorted(map(re.escape, UNITS), key=len, reverse=True)) + r")" + rf"(?!{_LETTER_OR_DIGIT})")
+WORD_ONLY_UNITS = frozenset({"mi"})  # read only from words such as "miles": "mi" is also a pronoun
+_UNIT = re.compile(r"[ \u00a0\u202f]?(" + "|".join(sorted(map(re.escape, set(UNITS) - WORD_ONLY_UNITS), key=len, reverse=True)) + r")" + rf"(?!{_LETTER_OR_DIGIT})")
+
+
+@cache
+def _unit_word_pattern(language: str) -> re.Pattern[str] | None:
+    words = unit_words.unit_words(language)
+    if not words:
+        return None
+    alternatives = "|".join(re.escape(w).replace("\\ ", "[ \u00a0]") for w in sorted(words, key=len, reverse=True))
+    return re.compile(rf"[ \u00a0\u202f]?({alternatives})(?![\w-])", re.IGNORECASE)
+
+
+def _to_base(value: Decimal, unit: str) -> Decimal:
+    if unit == "°F":
+        return (value - 32) * 5 / 9
+    return value * UNITS[unit][1]
+
+
+def _from_base(value: Decimal, unit: str) -> Decimal:
+    if unit == "°F":
+        return value * 9 / 5 + 32
+    return value / UNITS[unit][1]
 _LIST_MARKER_AFTER = re.compile(r"[.)]\s")
 _LETTER_HYPHEN = re.compile(r"[^\W\d_]-$")
 _HYPHEN_LETTER = re.compile(r"-[^\W\d_]")
@@ -199,6 +224,7 @@ class Number:
     relies_on_convention: bool
     identifier_like: bool = False
     unit: str = ""
+    unit_text: str = ""
 
     def kind(self) -> tuple[Decimal | None, bool, str]:
         return (self.value, self.percent, self.currency)
@@ -207,8 +233,7 @@ class Number:
         """Return dimension and value in that dimension's base, if a unit is known."""
         if self.value is None or self.unit not in UNITS:
             return None
-        dimension, size = UNITS[self.unit]
-        return dimension, self.value * size
+        return UNITS[self.unit][0], _to_base(self.value, self.unit)
 
 
 def _ascii_digits(text: str) -> str:
@@ -323,12 +348,19 @@ def extract(text: str, language: str) -> list[Number]:
         identifier_like = bool(_LETTER_HYPHEN.search(before) or _HYPHEN_LETTER.match(after))
         unit_match = None if match["percent"] or match["currency_after"] else _UNIT.match(text, match.end())
         unit = unit_match.group(1) if unit_match else ""
+        unit_text = unit
+        word_pattern = _unit_word_pattern(language)
+        if not unit and word_pattern and not match["percent"] and not match["currency_after"]:
+            word_match = word_pattern.match(text, match.end())
+            if word_match:
+                unit_text = word_match.group(1)
+                unit = unit_words.unit_words(language)[" ".join(unit_text.split()).lower()]
         raw = match.group(0).strip()
         currency = (match["currency"] or match["currency_after"] or "").strip()
         currency = ISO_CURRENCY_SYMBOL.get(currency, currency)  # EUR 350 and € 350 are one currency
         if unit in ISO_CURRENCY_SYMBOL and not currency:  # 500 EUR and 500 € are one currency
             raw, currency, unit = f"{raw} {unit}", ISO_CURRENCY_SYMBOL[unit], ""
-        items.append((match.start(), match.end(), Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit)))
+        items.append((match.start(), match.end(), Number(raw, value, decimals, bool(match["percent"]), currency, relies, identifier_like, unit, unit_text)))
     items = sorted(items + _word_numbers(text, language, taken), key=lambda item: item[0])
     return [number for _, _, number in _merge_multipliers(items, text, language)]
 
@@ -342,6 +374,20 @@ def _is_conversion(source: Number, target: Number) -> bool:
         return False
     first, second = source.base_value(), target.base_value()
     return first is not None and first == second and (source.percent, source.currency) == (target.percent, target.currency)
+
+
+def _is_approximate_conversion(source: Number, target: Number) -> bool:
+    """A conversion that matches once rounded to the digits the rounder side shows (0.7.0)."""
+    if not source.unit or not target.unit or source.unit == target.unit or source.value is None or target.value is None:
+        return False
+    if UNITS[source.unit][0] != UNITS[target.unit][0] or (source.percent, source.currency) != (target.percent, target.currency):
+        return False
+    for given, shown in ((source, target), (target, source)):
+        assert given.value is not None and shown.value is not None
+        converted = _from_base(_to_base(given.value, given.unit), shown.unit)
+        if converted.quantize(Decimal(1).scaleb(-shown.decimals), rounding=ROUND_HALF_UP) == shown.value:
+            return True
+    return False
 
 
 def _is_rounding(source: Number, target: Number) -> bool:
@@ -440,18 +486,18 @@ def _match[T: (Number, DateMention, "Code")](first: list[T], second: list[T], te
 
 
 def _label(item: Any) -> str:
-    unit = getattr(item, "unit", "")
+    unit = getattr(item, "unit_text", "") or getattr(item, "unit", "")
     return f"{item.raw} {unit}" if unit else str(item.raw)
 
 
 def _equal_entry(first: list[Any], second: list[Any], i: int, j: int) -> dict[str, Any]:
-    return {"original": first[i].raw, "candidate": second[j].raw, "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention}
+    return {"original": _label(first[i]), "candidate": _label(second[j]), "relies_on_language_convention": first[i].relies_on_convention or second[j].relies_on_convention}
 
 
 def compare(first: list[Number], second: list[Number]) -> dict[str, Any]:
     """Pair numbers by class (exact, equivalent, unit conversion, rounding); the rest changed."""
-    labels = ("exact", "exact", "equivalent", "unit_conversion", "rounding")
-    pairs, substitutions, in_order = _match(first, second, [_same_text_and_unit, _same_text, _same_kind, _is_conversion, _is_rounding])
+    labels = ("exact", "exact", "equivalent", "unit_conversion", "approximate_conversion", "rounding")
+    pairs, substitutions, in_order = _match(first, second, [_same_text_and_unit, _same_text, _same_kind, _is_conversion, _is_approximate_conversion, _is_rounding])
     used = {i: j for i, (j, _) in pairs.items()}
     out: dict[str, Any] = {label: [] for label in labels}
     for i in sorted(pairs):
@@ -549,7 +595,8 @@ def validate(
     if changed or rounding_fails:
         outcome, severity = "FAIL", "CRITICAL"
     else:
-        outcome, severity = ("partially measured" if convention or not order_kept or comparison["unit_uncertain"] else "PASS"), None
+        approximate = bool(comparison["approximate_conversion"])
+        outcome, severity = ("partially measured" if convention or approximate or not order_kept or comparison["unit_uncertain"] else "PASS"), None
     return base | {
         "outcome": outcome, "severity": severity, "comparison": comparison,
         "order_preserved": order_kept, "relies_on_language_convention": convention,
