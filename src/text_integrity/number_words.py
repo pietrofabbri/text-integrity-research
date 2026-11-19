@@ -12,7 +12,8 @@ A declared simplification, not a parser of number words:
   and are read as numbers wherever they occur;
 - inflected forms are listed only where noted.
 
-Each entry maps a lower-case word to its value. MULTIPLIERS may follow a number
+Words that name an exact count (`decade`, `dozen`, 0.10.1) are read as that
+number. Each entry maps a lower-case word to its value. MULTIPLIERS may follow a number
 and multiply it (`4,8 milioni`, `tre mila`).
 """
 from __future__ import annotations
@@ -47,13 +48,13 @@ _TENS_AND_UNITS: dict[str, tuple[str, ...]] = {
 _VALUES = (*range(2, 21), 30, 40, 50, 60, 70, 80, 90)
 
 _OTHER: dict[str, dict[str, Decimal]] = {
-    "it": {"cento": Decimal(100), "mille": Decimal(1000), "metà": Decimal("0.5")},
-    "en": {"hundred": Decimal(100), "half": Decimal("0.5")},
-    "fr": {"cent": Decimal(100), "mille": Decimal(1000), "moitié": Decimal("0.5")},
-    "de": {"hundert": Decimal(100), "hälfte": Decimal("0.5")},
-    "es": {"cien": Decimal(100), "ciento": Decimal(100), "mitad": Decimal("0.5")},
-    "pt": {"cem": Decimal(100), "cento": Decimal(100), "metade": Decimal("0.5")},
-    "nl": {"honderd": Decimal(100), "helft": Decimal("0.5")},
+    "it": {"cento": Decimal(100), "mille": Decimal(1000), "metà": Decimal("0.5"), "decennio": Decimal(10), "dozzina": Decimal(12)},
+    "en": {"hundred": Decimal(100), "half": Decimal("0.5"), "decade": Decimal(10), "dozen": Decimal(12)},
+    "fr": {"cent": Decimal(100), "mille": Decimal(1000), "moitié": Decimal("0.5"), "décennie": Decimal(10), "douzaine": Decimal(12)},
+    "de": {"hundert": Decimal(100), "hälfte": Decimal("0.5"), "jahrzehnt": Decimal(10), "dutzend": Decimal(12)},
+    "es": {"cien": Decimal(100), "ciento": Decimal(100), "mitad": Decimal("0.5"), "década": Decimal(10), "docena": Decimal(12)},
+    "pt": {"cem": Decimal(100), "cento": Decimal(100), "metade": Decimal("0.5"), "década": Decimal(10), "dúzia": Decimal(12)},
+    "nl": {"honderd": Decimal(100), "helft": Decimal("0.5"), "decennium": Decimal(10), "dozijn": Decimal(12)},
     "ru": {"сто": Decimal(100)},
     "pl": {"sto": Decimal(100)},
     "tr": {"yüz": Decimal(100), "yarım": Decimal("0.5")},

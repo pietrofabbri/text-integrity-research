@@ -473,3 +473,21 @@ class Qualifiers(unittest.TestCase):
     def test_verbs_are_not_read(self):
         self.assertEqual(self.outcome("pourrait atteindre 80 %", "pourrait dépasser 80 %", "fr"), "PASS")
         self.assertIn("verbs_qualifying_a_number", run("1", "1")["not_measured"])
+
+
+class NumberWordsWithHyphens(unittest.TestCase):
+    def test_word_before_hyphen_is_read(self):
+        self.assertEqual(values("at six-hour intervals", "en"), [Decimal(6)])
+        self.assertEqual(run("every six hours", "at six-hour intervals")["outcome"], "PASS")
+
+    def test_fold(self):
+        self.assertEqual(values("a twentyfold rise and a two-fold drop", "en"), [Decimal(20), Decimal(2)])
+
+    def test_compounds_still_not_read(self):
+        self.assertEqual(values("twenty-three men", "en"), [])
+        self.assertEqual(values("dix-sept", "fr"), [Decimal(17)])
+
+    def test_decade_equals_ten(self):
+        self.assertEqual(run("his first decade of fieldwork", "his initial ten-year campaign")["outcome"], "PASS")
+        self.assertEqual(values("a multi-decade record", "en"), [])
+

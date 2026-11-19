@@ -5033,3 +5033,101 @@ None new.
 ### Related Decisions
 
 `DEC-004`, `DEC-062`, `DEC-069`, `DEC-075`.
+
+
+---
+
+## DEC-077 — Numeric Integrity 0.10.1: Number Words Before Hyphens, -fold, Decade and Dozen
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+After H02 (`TRIAL-GIT-HISTORY.md` §21), under the standing instruction to correct defects (`DEC-066`): a number word followed by a hyphen and a non-number word is read (`six-hour`); English `-fold` is read; `decade` and `dozen` and their equivalents in seven languages are read as 10 and 12.
+
+### Rationale
+
+A heavy rewrite with no changed data failed three times because of these forms, and once more after the first fix.
+
+### Alternatives Considered
+
+Withdrawing number words altogether: rejected, because `tre` → `quattro` would again pass unnoticed (`DEC-069`).
+
+### Consequences
+
+MEDIUM risk, C2 impact. Compounds such as `twenty-three` are still not read. Every number word added can collide with a rewording that the lists do not cover; blind trials remain the only check. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `src/text_integrity/number_words.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-066`, `DEC-069`, `DEC-076`.
+
+
+---
+
+## DEC-078 — Evaluation Freeze `eval-2026-11-19`
+
+### Date
+
+2026-11-19
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction ("procedi", 2026-11-19, answering whether to freeze a version), the commit carrying this decision is tagged `eval-2026-11-19`. It fixes numeric integrity 0.10.1, structural validation 0.3.0 and minimality 0.3.0 for the held-out run of `ACCEPTANCE-CRITERIA-OPTIONS.md` D5.
+
+### Rationale
+
+`DEC-075` requires the reserve series to run only on a frozen, tagged version, so that the code cannot be adjusted to the held-out cases.
+
+### Alternatives Considered
+
+Freezing before the H02 fix: rejected, because a known false alarm on rewordings would then be measured again on the reserve series.
+
+### Consequences
+
+The reserve series is run on this tag exactly. Development may continue on `main`; any change after the tag is not part of the held-out result. If the held-out run reveals defects, they are recorded first and fixed afterwards, and the reserve cases become development data.
+
+### Affected Areas
+
+Git tag `eval-2026-11-19`; `docs/05-validation/ACCEPTANCE-CRITERIA-OPTIONS.md` D5.
+
+### Reversal Conditions
+
+Owner reversal; a new freeze with a new tag replaces this one for a later held-out run.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-075`, `DEC-077`.

@@ -22,7 +22,7 @@ from typing import Any
 from text_integrity import number_qualifiers, number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.10.0"
+CAPABILITY_VERSION = "0.10.1"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
@@ -314,7 +314,10 @@ def _word_pattern(language: str) -> re.Pattern[str] | None:
     if not words:
         return None
     alternatives = "|".join(map(re.escape, sorted(words, key=len, reverse=True)))
-    return re.compile(rf"(?<![\w-])(?:{alternatives})(?![\w-])", re.IGNORECASE)
+    # 0.10.1: a hyphen may follow (six-hour), unless another number word follows it,
+    # which makes a compound (twenty-three) that is not read; English -fold is read.
+    fold = "(?:-?fold)?" if language == "en" else ""
+    return re.compile(rf"(?<![\w-])(?P<word>{alternatives}){fold}(?!\w)(?!-(?:{alternatives})(?!\w))", re.IGNORECASE)
 
 
 @cache
@@ -347,7 +350,7 @@ def _word_numbers(text: str, language: str, taken: list[tuple[int, int]]) -> lis
     for match in pattern.finditer(text):
         if any(match.start() < end and start < match.end() for start, end in taken):
             continue
-        value = words[match.group(0).lower()]
+        value = words[match.group("word").lower()]
         found.append((match.start(), match.end(), Number(match.group(0), value, 0, False, "", False)))
     return found
 
