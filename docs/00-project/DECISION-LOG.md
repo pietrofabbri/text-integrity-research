@@ -5182,3 +5182,54 @@ None new.
 ### Related Decisions
 
 `DEC-066`, `DEC-076`, `DEC-078`.
+
+
+---
+
+## DEC-080 — Fourth Capability: Negation, Modality and Listed Opposites (Experimental)
+
+### Date
+
+2026-11-22
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+On the owner's instruction ("occupiamoci anche del senso", 2026-11-22), `CAP-VALIDATE-SEMANTIC-POLARITY` is specified in `docs/05-validation/POLARITY-MODALITY-CAPABILITY.md` and implemented in `src/text_integrity/validate_polarity.py`, status `EXPERIMENTAL`. It aligns sentences and compares negation markers, modal classes and a closed list of opposites; a change fails with severity `MAJOR`.
+
+### Rationale
+
+In every trial since group G, negations and modal verbs were the meaning changes that passed every capability (`FID-006`, `FID-007`). The runtime must work offline with no external service (`DEC-001`), and this session cannot install packages, so a language model or an entailment model is not an option here; a rule-based check is the available step. It is deliberately narrow: it does not claim to assess meaning.
+
+**Pending the owner's confirmation (`DEC-004`):** that a change of a listed marker fails rather than only being reported, and that its severity is `MAJOR`. The alignment parameter (similarity above 0.5) is an engineering choice, not a fidelity threshold.
+
+### Alternatives Considered
+
+An entailment model such as MiniCheck (`R-0109`, English only) or mDeBERTa-v3-xnli (`R-0111`, `EXPERIMENTAL` only): deferred, because it needs a model download that this session cannot make and evidence that `DEC-015` found missing for 12 languages. Reporting markers without an outcome, as minimality does: rejected, because the owner's lists classify these changes as alterations of meaning.
+
+### Consequences
+
+MEDIUM risk, C2 impact. The marker lists were written after the agent saw the meaning changes of the test kit and of reserve cases R01–R14; those cases are development data for this capability, and a new reserve is needed for any held-out measure of it. The capability is not part of the evaluation freeze (`DEC-078`). Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_polarity.py`, `tests/test_validate_polarity.py`, `docs/05-validation/POLARITY-MODALITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal; a validated entailment capability for a language would supersede this check there.
+
+### Related Research
+
+`R-0109`, `R-0111` for the alternatives only.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-001`, `DEC-004`, `DEC-015`, `DEC-075`, `DEC-076`, `DEC-078`.
