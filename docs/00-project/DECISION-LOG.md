@@ -5133,3 +5133,52 @@ None new.
 ### Related Decisions
 
 `DEC-075`, `DEC-077`.
+
+
+---
+
+## DEC-079 — Numeric Integrity 0.10.2: Comparative Qualifiers
+
+### Date
+
+2026-11-22
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+After H04 (`TRIAL-GIT-HISTORY.md` §23), under the standing instruction to correct defects (`DEC-066`), the qualifier lists of `DEC-076` gain comparative forms in all seven languages: `superiore a`/`inferiore a` with their articulated forms in Italian; `superior(es) a`/`inferior(es) a` in Spanish and Portuguese; `supérieur(e)(s) à`/`inférieur(e)(s) à`, `au-dessus de`, `en dessous de` in French; `oberhalb von`, `höher als`, `unterhalb von`, `niedriger als` in German; `greater than`, `higher than`, `lower than` in English; `boven`, `hoger dan`, `onder`, `lager dan` in Dutch.
+
+### Rationale
+
+`superiores a 1.500` → `inferiores a 1.500` passed unnoticed only because the Spanish list was incomplete; Italian had the same forms.
+
+### Alternatives Considered
+
+None; this completes lists already decided.
+
+### Consequences
+
+The change is on `main` only. The frozen commit of `DEC-078` keeps 0.10.1, so a held-out run measures it with the gap. Words such as Dutch `onder` and `boven` also occur in other senses before a number; as for other qualifiers, a false signal only fails if the class differs between the two texts. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/number_qualifiers.py`, `src/text_integrity/validate_numeric.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-066`, `DEC-076`, `DEC-078`.

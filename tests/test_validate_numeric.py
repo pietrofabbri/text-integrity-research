@@ -491,3 +491,17 @@ class NumberWordsWithHyphens(unittest.TestCase):
         self.assertEqual(run("his first decade of fieldwork", "his initial ten-year campaign")["outcome"], "PASS")
         self.assertEqual(values("a multi-decade record", "en"), [])
 
+
+class ComparativeQualifiers(unittest.TestCase):
+    def test_superior_inferior(self):
+        for language, a, b in (
+            ("es", "en cotas superiores a 1.500 metros", "en cotas inferiores a 1.500 metros"),
+            ("fr", "une valeur supérieure à 65 décibels", "une valeur inférieure à 65 décibels"),
+            ("pt", "valores superiores a 30", "valores inferiores a 30"),
+            ("it", "un valore superiore al 40 %", "un valore inferiore al 40 %"),
+            ("en", "greater than 5 units", "lower than 5 units"),
+        ):
+            self.assertEqual(run(a, b, language=language)["outcome"], "FAIL", (language, a, b))
+
+    def test_same_class_passes(self):
+        self.assertEqual(run("más de 30", "superior a 30", language="es")["outcome"], "PASS")

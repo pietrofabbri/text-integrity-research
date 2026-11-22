@@ -22,7 +22,7 @@ from typing import Any
 from text_integrity import number_qualifiers, number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.10.1"
+CAPABILITY_VERSION = "0.10.2"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
