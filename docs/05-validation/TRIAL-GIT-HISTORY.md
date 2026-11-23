@@ -339,3 +339,37 @@ Observations the agent can make from the outcomes alone, to be confirmed by the 
 - The R14 structural `FAIL` comes from the truncation: the cut last line reads as a title.
 
 After these outcomes were recorded, the agent used R01–R14 as development data for the new negation and modality check (`DEC-080`). On `main`, that check fails R04, R06, R07, R09 and R11 on listed markers (`non`, `può` → `deve`, `does not exceed` → `exceeds`, `may`/`can` → `must`, `podrán` → `deberán`, `antes` → `después`, and `máximo` inside a qualifier), reports R10 as `partially measured` because one heavily edited sentence could not be aligned, and passes the other eight with no false signal. Because the agent had seen these texts, this is not held-out evidence for that check.
+
+# 25. Reserve Series R01–R14: Scoring Against the Owner's List (2026-11-23)
+
+Scoring of the outcomes recorded in §24 against the owner's list, received after them, under `ACCEPTANCE-CRITERIA-OPTIONS.md` §5. The list matched the word-level comparison of every case, except the R14 ending lost to truncation, which is excluded. R15 is excluded: its list gives only "complete rewrite", and its edited text was never received. Version scored: commit `83f4646` (numeric integrity 0.10.1, structure 0.3.0). The negation and modality check of `DEC-080` is not part of the freeze and is not scored here.
+
+**Scope of the scored capabilities.** In scope: alterations of figures, dates, amounts and units, and changes of qualifier class in the seven languages with qualifier lists. Out of scope, and reported, not counted as errors (D2): names (1, R05), negation, modality and other changes of meaning (9), and qualifiers in Polish and Russian, which have no lists (2).
+
+**Per document** (the experimental unit; 95% exact two-sided intervals):
+
+| | Count | Rate | 95% interval |
+|---|---|---|---|
+| Documents with an in-scope alteration that failed | 11 of 11 | 100% | 71.5%–100% |
+| Documents with no in-scope alteration that failed (false alarms) | 1 of 3 (R02) | 33% | 0.8%–90.6% |
+| Documents reported `partially measured` | 0 of 14 | | |
+
+**Per change** (counts only; changes in one document are not independent):
+
+| Kind | Listed | Detected or correctly treated | Missed or false |
+|---|---|---|---|
+| Figures, dates, amounts | 24 | 24 detected | 0 |
+| Qualifier class, seven languages | 8 | 7 detected | 1 missed: `ten minste` → `ten hoogste` (R12), reported only as `qualifier_uncertain`, because Dutch lacked `ten hoogste` |
+| Changes of form | 22 | 18 recognised as equal or ignored | 4 false alarms, all in R02 |
+
+**Per language:** Italian 5 documents (R01–R05), English 2, one each for French, Spanish, German, Portuguese, Dutch, Polish and Russian. With one or two documents per language no per-language rate is meaningful; all ten documents outside Italian with in-scope alterations failed, and the only false alarm was Italian.
+
+**The four false alarms (R02)**, all of kinds listed as limitations:
+
+- `ventiquattro` → `24` and `45` → `quarantacinque`: compound number words are not read;
+- `dodici per cento` → `12%`: a percent word after a number word is not read, and `cento` is then read as 100;
+- `08:30` → `8.30`: times are not read.
+
+**Reading.** On 14 documents never seen when the code was frozen, every altered figure, date and amount was detected, and the one control that failed did so for reasons already listed as limitations. The sample is small: the intervals above are wide, and they describe this series, not text in general. In line with `DEC-075`, this supports no threshold and no change of status.
+
+The defects found are fixed afterwards on `main` (`DEC-081`); the reserve cases are now development data.
