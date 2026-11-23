@@ -5282,3 +5282,52 @@ None new.
 ### Related Decisions
 
 `DEC-066`, `DEC-075`, `DEC-076`, `DEC-078`, `DEC-079`.
+
+
+---
+
+## DEC-082 — Second Evaluation Freeze `eval-2026-11-23` (Commit f63593a)
+
+### Date
+
+2026-11-23
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+Before the owner generates a second reserve series (S01–S40) from a prompt the agent wrote on 2026-11-23, the frozen version is commit `f63593a0ebf546cd8a88ecd98f386ff38f4c6262`: numeric integrity 0.11.0, structure 0.3.0, minimality 0.3.0 and, for the first time, the negation and modality check 0.1.0 (`DEC-080`). A branch `eval-2026-11-23` points to it; the commit identifier is authoritative, as in `DEC-078`.
+
+### Rationale
+
+The first reserve series is now development data for every capability (`DEC-080`, `DEC-081`). A new held-out measure needs new texts, run on code fixed before the agent sees them.
+
+### Alternatives Considered
+
+Freezing when the series arrives: rejected, because the agent could then not prove that the code predates the texts.
+
+### Consequences
+
+The second series is run on this commit exactly, scored as in `TRIAL-GIT-HISTORY.md` §24–§25: outcomes recorded before the owner's list, then scored, then defects fixed on `main`. The outcome rule of the negation and modality check is frozen as proposed; if the owner changes it, the score is reported under both rules.
+
+### Affected Areas
+
+Commit `f63593a0ebf546cd8a88ecd98f386ff38f4c6262`, branch `eval-2026-11-23`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-075`, `DEC-078`, `DEC-080`, `DEC-081`.
