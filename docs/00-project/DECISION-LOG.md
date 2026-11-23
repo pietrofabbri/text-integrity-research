@@ -5233,3 +5233,52 @@ None new.
 ### Related Decisions
 
 `DEC-001`, `DEC-004`, `DEC-015`, `DEC-075`, `DEC-076`, `DEC-078`.
+
+
+---
+
+## DEC-081 — Numeric Integrity 0.11.0: Fixes After the Reserve Series
+
+### Date
+
+2026-11-23
+
+### Status
+
+ACCEPTED
+
+### Decision
+
+After the reserve series was scored (`TRIAL-GIT-HISTORY.md` §25), under the standing instruction to correct defects (`DEC-066`) and the rule of `DEC-078` (record first, fix afterwards): times are read and compared; two-part number words from 21 to 99 are read in five languages; a percent word after a number word makes it a percentage; qualifier lists are added for Polish and Russian, and `ten hoogste` and `op zijn minst` for Dutch.
+
+### Rationale
+
+These were the four false alarms of control R02 and the three missed qualifier reversals of R12–R14.
+
+### Alternatives Considered
+
+Leaving times as numbers: rejected, because owners' lists treat `08:30` → `8.30` as a change of form.
+
+### Consequences
+
+On `main` only; the frozen commit is unchanged, and its score stands. The reserve series is now development data for numeric integrity too, so a new reserve is needed for the next held-out measure. On the same texts, 0.11.0 passes or partially measures every control and fails every document with an in-scope alteration; this is not evidence, because these cases were used for the fixes. Unit tests are written by the same agent, and no accuracy is claimed.
+
+### Affected Areas
+
+`src/text_integrity/validate_numeric.py`, `src/text_integrity/number_words.py`, `src/text_integrity/number_qualifiers.py`, `tests/test_validate_numeric.py`, `docs/05-validation/NUMERIC-INTEGRITY-CAPABILITY.md`.
+
+### Reversal Conditions
+
+Owner reversal.
+
+### Related Research
+
+None applicable.
+
+### Related Questions
+
+None new.
+
+### Related Decisions
+
+`DEC-066`, `DEC-075`, `DEC-076`, `DEC-078`, `DEC-079`.

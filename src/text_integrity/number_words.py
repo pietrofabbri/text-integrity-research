@@ -2,8 +2,10 @@
 
 A declared simplification, not a parser of number words:
 
-- only single words are read (`venti`, `twenty`); compounds (`ventitré`,
-  `twenty-three`, `dreiundzwanzig`, Turkish `on bir`) are not;
+- single words are read (`venti`, `twenty`), and since 0.11.0 two-part numbers
+  from 21 to 99 in Italian, English, French, German and Spanish (`ventitré`,
+  `twenty-three`, `dreiundzwanzig`, `veinticuatro`); other compounds (`cento
+  venti`, `soixante et onze`, Turkish `on bir`) are not;
 - words for "one" are left out in every language, because they double as
   articles or pronouns (`un`, `one`, `ein`, `bir`);
 - Japanese and Chinese are left out, because their numeral characters also
@@ -77,9 +79,47 @@ MULTIPLIERS: dict[str, dict[str, Decimal]] = {
 }
 
 
+_UNITS_FOR_COMPOUNDS = {
+    "it": ("uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove"),
+    "en": ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine"),
+    "fr": ("", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf"),
+    "de": ("ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun"),
+}
+_SPANISH_TWENTIES = ("veintiuno", "veintidós", "veintitrés", "veinticuatro", "veinticinco", "veintiséis", "veintisiete", "veintiocho", "veintinueve")
+
+
+def _compounds(language: str) -> dict[str, Decimal]:
+    """Two-part numbers from 21 to 99 (0.11.0): ventiquattro, twenty-four, vingt-quatre, vierundzwanzig, veinticuatro."""
+    out: dict[str, Decimal] = {}
+    forms = _TENS_AND_UNITS.get(language)
+    units = _UNITS_FOR_COMPOUNDS.get(language)
+    if forms and units:
+        tens = {value: forms[i].split("|")[0] for i, value in enumerate(_VALUES) if value >= 20 and value % 10 == 0}
+        for ten_value, ten in tens.items():
+            if language == "fr" and ten_value in {70, 90}:
+                continue
+            if language == "fr" and ten_value == 80:
+                ten = "quatre-vingt"
+            for unit_value, unit in enumerate(units, 1):
+                if not unit:
+                    continue
+                if language == "it":
+                    stem = ten[:-1] if unit[0] in "uo" else ten
+                    out[stem + unit] = Decimal(ten_value + unit_value)
+                    if unit == "tre":
+                        out[stem + "tré"] = Decimal(ten_value + 3)
+                elif language in {"en", "fr"}:
+                    out[f"{ten}-{unit}"] = Decimal(ten_value + unit_value)
+                elif language == "de":
+                    out[f"{unit}und{ten}"] = Decimal(ten_value + unit_value)
+    if language == "es":
+        out.update({word: Decimal(21 + i) for i, word in enumerate(_SPANISH_TWENTIES)})
+    return out
+
+
 def lexicon(language: str) -> dict[str, Decimal]:
     """Return every number word of a language with its value, multipliers included."""
-    words: dict[str, Decimal] = {}
+    words: dict[str, Decimal] = dict(_compounds(language))
     for value, forms in zip(_VALUES, _TENS_AND_UNITS.get(language, ("",) * len(_VALUES)), strict=True):
         for form in forms.split("|"):
             if form:

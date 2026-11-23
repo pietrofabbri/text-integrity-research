@@ -100,9 +100,9 @@ class Validate(unittest.TestCase):
         self.assertFalse(result["order_preserved"])
 
     def test_compound_number_words_pass_but_limit_is_declared(self):
-        result = run("twenty-three men", "twenty-four men")
-        self.assertEqual(result["outcome"], "PASS")
-        self.assertIn("compound_number_words", result["not_measured"])
+        result = run("one hundred and twenty men", "one hundred and thirty men")
+        self.assertEqual(result["outcome"], "FAIL")  # twenty and thirty are read; hundred is matched
+        self.assertIn("compound_number_words_beyond_99_or_outside_five_languages", result["not_measured"])
 
     def test_missing_evidence_states(self):
         self.assertEqual(run("1", "1", language="xx")["outcome"], "unsupported")
@@ -484,7 +484,8 @@ class NumberWordsWithHyphens(unittest.TestCase):
         self.assertEqual(values("a twentyfold rise and a two-fold drop", "en"), [Decimal(20), Decimal(2)])
 
     def test_compounds_still_not_read(self):
-        self.assertEqual(values("twenty-three men", "en"), [])
+        self.assertEqual(values("twenty-three men", "en"), [Decimal(23)])
+        self.assertEqual(values("thirty-five-hour week", "en"), [Decimal(35)])
         self.assertEqual(values("dix-sept", "fr"), [Decimal(17)])
 
     def test_decade_equals_ten(self):
@@ -505,3 +506,36 @@ class ComparativeQualifiers(unittest.TestCase):
 
     def test_same_class_passes(self):
         self.assertEqual(run("más de 30", "superior a 30", language="es")["outcome"], "PASS")
+
+
+class ReserveFindings(unittest.TestCase):
+    """Defects found by the reserve series (TRIAL-GIT-HISTORY.md §25), fixed in 0.11.0."""
+
+    def test_r02_like_control_passes(self):
+        a = "fornitura di ventiquattro stazioni, ribasso pari al dodici per cento, entro 45 giorni, tra le ore 08:30 e le ore 13:00."
+        b = "fornitura di 24 stazioni, ribasso pari al 12%, entro quarantacinque giorni, tra le ore 8.30 e le ore 13:00."
+        self.assertEqual(run(a, b, language="it")["outcome"], "PASS")
+
+    def test_compounds(self):
+        self.assertEqual(values("ventiquattro e quarantacinque e ventitré e ventotto", "it"), [Decimal(24), Decimal(45), Decimal(23), Decimal(28)])
+        self.assertEqual(values("vierundzwanzig", "de"), [Decimal(24)])
+        self.assertEqual(values("vingt-quatre et quatre-vingt-deux", "fr"), [Decimal(24), Decimal(82)])
+        self.assertEqual(values("veinticuatro", "es"), [Decimal(24)])
+        self.assertEqual(run("ventiquattro stazioni", "venticinque stazioni", language="it")["outcome"], "FAIL")
+
+    def test_percent_after_word(self):
+        result = run("al dodici per cento", "al tredici per cento", language="it")
+        self.assertEqual(result["outcome"], "FAIL")
+        self.assertEqual(values("dodici per cento", "it"), [Decimal(12)])
+
+    def test_times(self):
+        self.assertEqual(run("alle 14:30", "alle 15:30", language="it")["outcome"], "FAIL")
+        self.assertEqual(run("alle 14:30", "alle 14.30", language="it")["outcome"], "PASS")
+        self.assertEqual(run("entre 22 h 30 et 5 h 15", "entre 22:30 et 05:15", language="fr")["outcome"], "PASS")
+        self.assertEqual(v.find_times("il valore è 14.30"), [])  # 14.30 without a time word is not a time
+
+    def test_qualifiers_nl_pl_ru(self):
+        self.assertEqual(run("ten minste 35%", "ten hoogste 35%", language="nl")["outcome"], "FAIL")
+        self.assertEqual(run("o co najmniej 85%", "o co najwyżej 85%", language="pl")["outcome"], "FAIL")
+        self.assertEqual(run("не менее чем на 15%", "не более чем на 15%", language="ru")["outcome"], "FAIL")
+

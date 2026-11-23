@@ -22,12 +22,12 @@ from typing import Any
 from text_integrity import number_qualifiers, number_words, unit_words
 
 CAPABILITY_ID = "CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC"
-CAPABILITY_VERSION = "0.10.2"
+CAPABILITY_VERSION = "0.11.0"
 FAMILY = "VALIDATE-FACTUAL-STRUCTURED"
 DECIMAL_POINT = frozenset({"en", "ja", "zh"})
 DECIMAL_COMMA = frozenset({"de", "es", "fr", "id", "it", "nl", "pl", "pt", "ru", "tr"})
 TARGET_LANGUAGES = DECIMAL_POINT | DECIMAL_COMMA
-NOT_MEASURED = ("qualifiers_outside_seven_languages", "verbs_qualifying_a_number", "compound_number_words", "number_words_in_ja_zh", "unit_words_outside_seven_languages", "times_and_durations", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
+NOT_MEASURED = ("qualifiers_outside_seven_languages", "verbs_qualifying_a_number", "compound_number_words_beyond_99_or_outside_five_languages", "number_words_in_ja_zh", "unit_words_outside_seven_languages", "durations", "times_without_a_time_word", "relative_dates", "abbreviated_months_not_followed_by_a_number", "two_digit_years", "what_each_number_refers_to", "ranges_and_comparisons")
 SPACE_GROUP = "  "
 
 # Letters that make a following digit part of a word (v2, H2O). Scripts written
@@ -218,6 +218,24 @@ def _mention_from(match: re.Match[str], language: str, month_index: dict[str, in
     return DateMention(match.group(0), frozenset({(year, month, day)}))
 
 
+# Times (0.11.0): 14:30, 14h30 and 14 h 30 always; 14.30 only after a word that
+# introduces a time, because 14.30 is otherwise a number.
+_TIME_WORDS = r"(?:ore|alle|dalle|entro le|at|from|until|à|de|vers|um|bis|ab|a las|de las|hasta las|às|das|até às|om|van|tot|o godz\.|godz\.|o|в|с|до)"
+_TIME_COLON = re.compile(r"(?<![\d.,:])(?P<h>[01]?\d|2[0-3]):(?P<m>[0-5]\d)(?![\d:])")
+_TIME_DOT = re.compile(rf"(?i)(?<!\w){_TIME_WORDS}\s+(?P<time>(?P<h>[01]?\d|2[0-3])\.(?P<m>[0-5]\d))(?![\d.,])")
+_TIME_H = re.compile(r"(?<![\d.,])(?P<time>(?P<h>[01]?\d|2[0-3])\s?h\s?(?P<m>[0-5]\d))(?![\d.,])")
+
+
+def find_times(text: str) -> list[tuple[int, int, str, tuple[int, int]]]:
+    """Return times as (start, end, text, (hour, minute)), in textual order."""
+    found = [(m.start(), m.end(), m.group(0), (int(m["h"]), int(m["m"]))) for m in _TIME_COLON.finditer(text)]
+    for m in (*_TIME_DOT.finditer(text), *_TIME_H.finditer(text)):
+        start, end = m.start("time"), m.end("time")
+        if not any(start < e and s < end for s, e, _, _ in found):
+            found.append((start, end, m.group("time"), (int(m["h"]), int(m["m"]))))
+    return sorted(found)
+
+
 def find_dates(text: str, language: str) -> list[tuple[int, int, DateMention]]:
     """Return non-overlapping dates as (start, end, mention), in textual order."""
     month_index, named = _month_patterns(language)
@@ -346,11 +364,18 @@ def _word_numbers(text: str, language: str, taken: list[tuple[int, int]]) -> lis
     if pattern is None:
         return []
     words = number_words.lexicon(language)
-    found = []
+    percent_pattern = _percent_word_pattern(language)
+    found: list[tuple[int, int, Number]] = []
+    skip_until = -1
     for match in pattern.finditer(text):
-        if any(match.start() < end and start < match.end() for start, end in taken):
+        if match.start() < skip_until or any(match.start() < end and start < match.end() for start, end in taken):
             continue
         value = words[match.group("word").lower()]
+        percent_word = percent_pattern.match(text, match.end()) if percent_pattern else None
+        if percent_word:  # 0.11.0: dodici per cento is a percentage, and cento is not read again
+            skip_until = percent_word.end()
+            found.append((match.start(), percent_word.end(), Number(text[match.start():percent_word.end()], value, 0, True, "", False)))
+            continue
         found.append((match.start(), match.end(), Number(match.group(0), value, 0, False, "", False)))
     return found
 
@@ -373,7 +398,7 @@ def _merge_multipliers(items: list[tuple[int, int, Number]], text: str, language
 def extract(text: str, language: str) -> list[Number]:
     """Extract numbers in textual order: digits and number words, leaving out dates and codes."""
     decimal = "." if language in DECIMAL_POINT else ","
-    taken = [(start, end) for start, end, _ in find_dates(text, language)] + [(start, end) for start, end, _ in find_codes(text)]
+    taken = [(start, end) for start, end, _ in find_dates(text, language)] + [(start, end) for start, end, _ in find_codes(text)] + [(start, end) for start, end, _, _ in find_times(text)]
     items: list[tuple[int, int, Number]] = []
     word_spans: list[tuple[int, int]] = []
     for match in _NUMBER.finditer(text):
@@ -615,6 +640,22 @@ def compare_codes(first_raw: list[str], second_raw: list[str]) -> dict[str, Any]
     }
 
 
+def compare_times(first_found: list[tuple[int, int, str, tuple[int, int]]], second_found: list[tuple[int, int, str, tuple[int, int]]]) -> dict[str, Any]:
+    """Pair times: same text, then same hour and minute; the rest changed."""
+    values = {raw: value for _, _, raw, value in first_found + second_found}
+    first, second = [Code(raw) for _, _, raw, _ in first_found], [Code(raw) for _, _, raw, _ in second_found]
+    pairs, substitutions, in_order = _match(first, second, [lambda a, b: a.raw == b.raw, lambda a, b: values[a.raw] == values[b.raw]])
+    taken = {j for j, _ in pairs.values()}
+    return {
+        "exact": [first[i].raw for i in sorted(pairs) if pairs[i][1] == 0],
+        "equivalent": [{"original": first[i].raw, "candidate": second[pairs[i][0]].raw} for i in sorted(pairs) if pairs[i][1] == 1],
+        "removed": [c.raw for i, c in enumerate(first) if i not in pairs],
+        "added": [second[j].raw for j in range(len(second)) if j not in taken],
+        "changed": [{"original": first[i].raw, "candidate": second[j].raw} for i, j in substitutions],
+        "in_order": in_order,
+    }
+
+
 def _base(language: str, constraint_type: str) -> dict[str, Any]:
     return {
         "family": FAMILY, "capability_id": CAPABILITY_ID, "capability_version": CAPABILITY_VERSION,
@@ -652,10 +693,13 @@ def validate(
     codes = compare_codes([raw for _, _, raw in find_codes(original)], [raw for _, _, raw in find_codes(candidate)])
     codes_in_order = bool(codes.pop("in_order"))
     comparison["codes"] = codes
-    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"] or codes["removed"] or codes["added"] or comparison["qualifier_changed"])
+    times = compare_times(find_times(original), find_times(candidate))
+    times_in_order = bool(times.pop("in_order"))
+    comparison["times"] = times
+    changed = bool(comparison["removed"] or comparison["added"] or dates["removed"] or dates["added"] or codes["removed"] or codes["added"] or times["removed"] or times["added"] or comparison["qualifier_changed"])
     rounding_fails = bool(comparison["rounding"]) and not permit_rounding
     convention = any(e["relies_on_language_convention"] for e in comparison["equivalent"] + comparison["unit_conversion"] + comparison["rounding"] + dates["equivalent"])
-    order_kept = bool(comparison.pop("pairs_in_order")) and dates_in_order and codes_in_order
+    order_kept = bool(comparison.pop("pairs_in_order")) and dates_in_order and codes_in_order and times_in_order
     if changed or rounding_fails:
         outcome, severity = "FAIL", "CRITICAL"
     else:

@@ -11,7 +11,8 @@ belongs to one class:
 A change of class fails; a change within a class (`fino a` and `meno di`) is
 not reported as a change; a qualifier present on one side only lowers the
 outcome. Strict and non-strict bounds share a class. Seven languages have
-lists: Italian, English, French, German, Spanish, Portuguese, Dutch.
+lists: Italian, English, French, German, Spanish, Portuguese, Dutch, and since
+0.11.0 Polish and Russian.
 """
 from __future__ import annotations
 
@@ -50,8 +51,19 @@ _PHRASES: dict[str, dict[str, str]] = {
     },
     "nl": {
         APPROX: "ongeveer|circa|zo'n|rond|ca.",
-        LOWER: "minstens|ten minste|meer dan|ruim|minimaal|boven|hoger dan",
-        UPPER: "tot|minder dan|hoogstens|bijna|maximaal|tot wel|onder|lager dan",
+        LOWER: "minstens|ten minste|meer dan|ruim|minimaal|boven|hoger dan|op zijn minst|op z'n minst",
+        UPPER: "tot|minder dan|hoogstens|bijna|maximaal|tot wel|onder|lager dan|ten hoogste|op zijn hoogst|op z'n hoogst",
+    },
+    # 0.11.0
+    "pl": {
+        APPROX: "około|ok.|mniej więcej|rzędu",
+        LOWER: "co najmniej|przynajmniej|ponad|powyżej|więcej niż|nie mniej niż|minimum",
+        UPPER: "co najwyżej|maksymalnie|poniżej|mniej niż|nie więcej niż|prawie|niemal|do",
+    },
+    "ru": {
+        APPROX: "около|примерно|приблизительно|порядка",
+        LOWER: "не менее|не менее чем|не менее чем на|более|более чем|более чем на|свыше|по меньшей мере|как минимум|больше",
+        UPPER: "не более|не более чем|не более чем на|менее|менее чем|менее чем на|максимум|почти|не больше|до",
     },
 }
 

@@ -25,7 +25,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 | `id` | `CAP-VALIDATE-FACTUAL-STRUCTURED-NUMERIC` |
 | `name` | Numeric integrity of digit-written numbers |
 | `category` | `VALIDATE-FACTUAL-STRUCTURED` |
-| `version` | 0.10.2 |
+| `version` | 0.11.0 |
 | `status` | `EXPERIMENTAL` |
 | `languages` | `EXPERIMENTAL` for the 13 target languages; `unsupported` otherwise |
 | `dependencies` | None |
@@ -50,7 +50,11 @@ Compare the numbers written with digits in an original and a candidate text, and
 
 **Number words (0.6.0):** single number words are read from closed lists per language in `src/text_integrity/number_words.py` (11 languages; Japanese and Chinese have none). A number word and the same value in digits are `equivalent` (`tre` and `3`). A multiplier word right after a number joins it (`4,8 milioni` = 4,800,000; `120 mila`). Since 0.10.1 a number word before a hyphen is read (`six-hour`), English `-fold` is read (`twentyfold` = 20), and words naming an exact count are read (`decade` 10, `dozen` 12, in seven languages). Declared simplifications: compound words (`ventitré`, `twenty-three`) are not read; words for "one" are left out, because they double as articles or pronouns; inflected forms are listed only for Russian and Polish multipliers and a few others; words with another meaning (Italian `sei`, French `neuf`, Turkish `yüz`) are read as numbers wherever they occur.
 
-**Qualifiers (0.10.0):** a phrase directly before a number that bounds or approximates it is read from closed lists for seven languages (`src/text_integrity/number_qualifiers.py`) and assigned one of three classes: about (`circa`, `about`), the number or more (`almeno`, `oltre`, `più di`, `at least`) and the number or less (`fino a`, `meno di`, `quasi`, `up to`). For paired numbers, a change of class fails and is listed in `qualifier_changed`; a qualifier on one side only gives at best `partially measured` and is listed in `qualifier_uncertain`; a change within a class is not reported. Strict and non-strict bounds share a class, so `fino a` and `meno di` are not distinguished. Verbs that qualify a number (`atteindre`, `dépasser`) are not read. The rule is the agent's, on the owner's delegation (`DEC-076`). Since 0.10.2 the lists include comparatives such as `superiore a`, `superiores a`, `supérieur à`, `oberhalb von`, `greater than` and their opposites (`DEC-079`).
+**Qualifiers (0.10.0):** a phrase directly before a number that bounds or approximates it is read from closed lists for nine languages (`src/text_integrity/number_qualifiers.py`; Polish and Russian since 0.11.0) and assigned one of three classes: about (`circa`, `about`), the number or more (`almeno`, `oltre`, `più di`, `at least`) and the number or less (`fino a`, `meno di`, `quasi`, `up to`). For paired numbers, a change of class fails and is listed in `qualifier_changed`; a qualifier on one side only gives at best `partially measured` and is listed in `qualifier_uncertain`; a change within a class is not reported. Strict and non-strict bounds share a class, so `fino a` and `meno di` are not distinguished. Verbs that qualify a number (`atteindre`, `dépasser`) are not read. The rule is the agent's, on the owner's delegation (`DEC-076`). Since 0.10.2 the lists include comparatives such as `superiore a`, `superiores a`, `supérieur à`, `oberhalb von`, `greater than` and their opposites (`DEC-079`).
+
+**Times (0.11.0):** `14:30`, `14h30` and `22 h 30` are read as times; `14.30` only after a word that introduces a time (`ore`, `alle`, `at`, `um`, `a las`, `om` and others), because otherwise it is a number. Times are compared by hour and minute in `comparison.times`, so `08:30` and `8.30` are equal; a changed time fails.
+
+**Two-part number words (0.11.0):** numbers from 21 to 99 written as one word or with a hyphen are read in Italian (`ventiquattro`, `ventitré`), English (`twenty-four`), French (`vingt-quatre`, `quatre-vingt-deux`), German (`vierundzwanzig`) and Spanish (`veinticuatro`). A percent word after a number word makes it a percentage (`dodici per cento`).
 
 **Percent words (0.8.0):** `per cento`, `percent`, `pour cent`, `Prozent`, `por ciento`, `por cento`, `procent`, `процент`, `persen` and their listed forms, directly after a number, mark it as a percentage, so `25 pour cent` and `25 %` are `equivalent`. The words are not also read as number words. Turkish, where `yüzde` precedes the number, Japanese and Chinese are not covered.
 
@@ -87,7 +91,7 @@ Compare the numbers written with digits in an original and a candidate text, and
 - Qualifiers outside the seven listed languages, and verbs or clauses that qualify a number, are not read.
 - **What a number refers to is not known.** Swapped values are only signalled by a change of order, and a legitimate reordering gives the same signal.
 - Unit words are read in seven languages only. Single-letter units can be misread, as in `Room 5 B`. Currencies are never converted. US and UK gallons, inches and other units outside the list are not read.
-- Times, durations and relative expressions (`14:30`, `three days later`, `last week`) are not read (`FID-009`); times are still treated as separate numbers.
+- Durations and relative expressions (`three days later`, `last week`) are not read (`FID-009`); times are read since 0.11.0.
 - Abbreviated month names with no number after them (`15 mar.`), inflected forms not listed in `MONTHS` (Russian and Polish have nominative, genitive and, since 0.9.0, prepositional or locative forms such as `в марте` and `w marcu`; other cases are not listed) and two-digit years are not read as dates. Their digits are compared as numbers, and a changed month name is then not detected.
 - A number after an English month name is read as a day, so `In May 30 people came` gives a date. Date order is checked among dates only, not against the surrounding numbers.
 - Ranges, comparisons, magnitudes in words (`3 million`) and expressions (`FID-008`) are not interpreted.
